@@ -1,0 +1,158 @@
+[game]
+hostname = "[RU][LRP+]\u041F\u0440\u043E\u0435\u043A\u0442\u0020\u0433\u0435\u043D\u0435\u0437\u0438\u0441"
+desc = "TEST"
+map_pool = "GenezisDefaultMapPool"
+maxplayers = 70
+soft_max_players = 60
+map_rotation = true
+role_timers = true
+peaceful_end = false
+lobbyduration = 180
+lobbyenabled = true
+fallbackpreset = "extended"
+secret_weight_prototype = "CorvaxSecretDefault"
+
+[worldgen]
+enabled = true
+
+[ic]
+flavor_text = true
+punctuation = false
+
+[ooc]
+enable_during_round = false
+
+[atmos]
+space_wind = true
+space_wind_max_velocity = 22.0
+
+[vote]
+restart_required_ratio = 0.85
+same_type_timeout = 300.0
+timerrestart = 30
+preset_enabled = false
+restart_enabled = false
+
+[discord]
+rich_main_icon_id = "corvax"
+
+[shuttle]
+grid_fill = true
+auto_call_time = 1800
+emergency = true
+emergency_early_launch_allowed = true
+arrivals = true
+arrivals_map = "/Maps/Misc/kosmoport.yml"
+preload_grids = true
+
+defaultpreset="secret"
+lobbyenabled = true
+cryo_sleep_rejoining = true
+lobbyduration=300
+contraband_examine = false
+
+[shuttle]
+arrivals = true
+arrivals_map = "/Maps/Misc/kosmoport.yml"
+#arrivals_map = "/Maps/Backmen/Etc/terminal.yml"
+#arrivals_map = "/Maps/Misc/terminal.yml"
+arrivals_returns = true
+auto_call_time = 150
+auto_call_extension_time = 70
+emergency_dock_time = 280
+emergency_authorize_time = 30
+emergency_early_launch_allowed = true
+arrivals_planet = false
+
+[salvage]
+expedition_cooldown = 300
+
+[ic]
+restricted_names = true
+flavor_text = true
+
+[ooc]
+show_ooc_patron_color = false
+
+[looc]
+enabled_crit = true
+
+[biomass]
+easy_mode = false
+
+[atmos]
+space_wind = false
+space_wind_max_velocity = 22.0
+#tickrate = 7
+monstermos_rip_tiles = true
+
+[physics]
+target_minimum_tickrate = 20
+timetosleep = 0.1
+angsleeptol = 0.01
+linsleeptol = 0.001
+
+[update]
+restart_delay = 120
+
+[worldgen]
+enabled = false
+
+[ahelp]
+admin_prefix = true
+admin_prefix_webhook = true
+
+[viewport]
+maximum_width = 26
+
+[rules]
+time = 30
+
+[afk]
+time = 9999999.0
+#time=1200.0
+
+[admin]
+announce_login = false
+announce_logout = false
+see_own_notes = true
+new_player_threshold = 600
+alert.min_players_sharing_connection = 2
+
+[adminlogs]
+server_name="main"
+
+[events]
+enabled=true
+
+[server]
+rules_file="RulesGenezis"
+
+[net]
+max_connections = 1024
+log_late_msg=false
+# Automatic port forwarding!
+# Disabled by default because you may not want to do this.
+# upnp = true
+sendbuffersize=2471071
+#receivebuffersize=1471071
+lidgren_log_warning = false
+lidgren_log_error = false
+
+[netres]
+limit = 2.0
+
+[game.panic_bunker]
+disable_with_admins = false
+enable_without_admins = false
+show_reason = true
+#Minimum age of the account (from server's PoV, so from first-seen date) in minutes.
+min_account_age = 1440
+#Minimal overall played time.
+#min_overall_hours = 10
+
+[queue]
+enabled=false
+
+[laying]
+crawlundertables=true

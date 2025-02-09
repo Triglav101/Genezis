@@ -1,0 +1,179 @@
+- type: entity
+  id: BasePart
+  parent: BaseItem
+  name: "body part"
+  abstract: true
+  components:
+  - type: Damageable
+    damageContainer: OrganicPart
+  - type: BodyPart
+  # start-backmen: surgery
+  - type: SurgeryTool
+    startSound:
+      path: /Audio/Medical/Surgery/organ1.ogg
+    endSound:
+      path: /Audio/Medical/Surgery/organ2.ogg
+  # end-backmen: surgery
+  - type: ContainerContainer
+    containers:
+      bodypart: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 100
+  - type: Tag
+    tags:
+      - Trash
+  # start-backmen: surgery
+  - type: Gibbable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Blunt
+        damage: 120
+      behaviors:
+      - !type:GibPartBehavior { }
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Slash
+        damage: 120
+      behaviors:
+      - !type:GibPartBehavior { }
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 200
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawnInContainer: true
+        spawn:
+          Ash:
+            min: 1
+            max: 1
+      - !type:BurnBodyBehavior { }
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MeatLaserImpact
+  # end-backmen: surgery
+
+- type: entity
+  id: BaseTorso
+  name: "torso"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Torso
+  # start-backmen: surgery
+    toolName: "a torso"
+    containerName: "torso_slot"
+  - type: ContainerContainer
+    containers:
+      torso_slot: !type:ContainerSlot {}
+  # end-backmen: surgery
+
+- type: entity
+  id: BaseHead
+  name: "head"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Head
+    toolName: "a head" # backmen: surgery
+    vital: true
+  - type: Input
+    context: "ghost"
+  - type: Tag
+    tags:
+      - Head
+
+- type: entity
+  id: BaseLeftArm
+  name: "left arm"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Left
+    toolName: "a left arm" # backmen: surgery
+
+- type: entity
+  id: BaseRightArm
+  name: "right arm"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Arm
+    symmetry: Right
+    toolName: "a right arm" # backmen: surgery
+
+- type: entity
+  id: BaseLeftHand
+  name: "left hand"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Left
+    toolName: "a left hand" # backmen: surgery
+
+- type: entity
+  id: BaseRightHand
+  name: "right hand"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Hand
+    symmetry: Right
+    toolName: "a right hand" # backmen: surgery
+
+- type: entity
+  id: BaseLeftLeg
+  name: "left leg"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Leg
+    symmetry: Left
+    toolName: "a left leg" # backmen: surgery
+  - type: MovementBodyPart
+
+- type: entity
+  id: BaseRightLeg
+  name: "right leg"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Leg
+    symmetry: Right
+    toolName: "a right leg" # backmen: surgery
+  - type: MovementBodyPart
+
+- type: entity
+  id: BaseLeftFoot
+  name: "left foot"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Foot
+    symmetry: Left
+    toolName: "a left foot" # backmen: surgery
+
+- type: entity
+  id: BaseRightFoot
+  name: "right foot"
+  parent: BasePart
+  abstract: true
+  components:
+  - type: BodyPart
+    partType: Foot
+    symmetry: Right
+    toolName: "a right foot" # backmen: surgery

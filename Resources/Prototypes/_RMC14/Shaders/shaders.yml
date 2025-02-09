@@ -1,0 +1,19 @@
+- type: shader
+  id: RMCShockWave
+  kind: source
+  path: "/Textures/_RMC14/Shaders/shock_wave.swsl"
+
+- type: shader
+  id: RMCXenoScreechShockWave
+  kind: source
+  path: "/Textures/_RMC14/Shaders/screech_shock_wave.swsl"
+
+- type: shader
+  id: RMCInvisible
+  kind: source
+  path: "/Textures/_RMC14/Shaders/invisible.swsl"
+
+- type: shader
+  id: RMCNightVision
+  kind: source
+  path: "/Textures/_RMC14/Shaders/night_vision.swsl"

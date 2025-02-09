@@ -1,0 +1,310 @@
+- type: Tag
+  id: PlasmaTank
+
+- type: Tag
+  id: CapBroadsword
+
+- type: Tag
+  id: SheetPlasma
+
+- type: Tag
+  id: LaserBolt
+
+- type: Tag
+  id: BulletBolt
+
+- type: Tag
+  id: KineticBolt
+
+- type: Tag
+  id: LoneOpsUplink
+
+- type: Tag
+  id: Mauler
+
+- type: Tag
+  id: LMauler
+
+- type: Tag
+  id: DurandCentralControlModule
+
+- type: Tag
+  id: DurandLLeg
+
+- type: Tag
+  id: DeathNettle
+
+- type: Tag
+  id: DeusAmbrosia
+
+- type: Tag
+  id: MeatSlime
+
+- type: Tag
+  id: SecDogWearable
+
+- type: Tag
+  id: ReactionCleanable
+
+- type: Tag
+  id: GrenadeDusterArta
+
+- type: Tag
+  id: MagazineGrenadeArta
+
+# READ-VEHICLES
+- type: Tag
+  id: JanicartKeys
+
+- type: Tag
+  id: VehicleKey
+######
+
+# ss220 shlepi
+- type: Tag
+  id: ElWyccoAxe
+
+- type: Tag
+  id: Meatwheat
+
+# ss220 detective-camera
+- type: Tag
+  id: DetectiveCamera
+
+- type: Tag
+  id: MindSlave
+
+# SS220-JianSword
+- type: Tag
+  id: JianSword
+
+- type: Tag
+  id: ThermalImplant
+
+# SS220 Hand/Foot Wraps begin
+- type: Tag
+  id: Handwraps
+
+- type: Tag
+  id: Footwraps
+# SS220 Hand/Foot Wraps end
+
+# SS220-Cards
+- type: Tag
+  id: GameCard
+
+# FractWarEbent
+- type: Tag
+  id: CartridgeIron_MG34
+
+- type: Tag
+  id: MagazineIron_MG34
+
+- type: Tag
+  id: BlasterPowerCell
+
+- type: Tag
+  id: MagazinePistolSubMachineGunUssp_PPSh
+
+# SS220-CentcomFashion
+
+- type: Tag
+  id: MinamotoNoYorimitsu
+
+# handmade gun buff
+- type: Tag
+  id: PowerCellHigh
+
+- type: Tag
+  id: WeaponFlareGun
+
+- type: Tag
+  id: PillPacket
+
+- type: Tag
+  id: IgnoreMelee
+
+- type: Tag
+  id: NoInjectable
+
+- type: Tag
+  id: CMCartridge10x20mm
+
+- type: Tag
+  id: CMCartridgePistol9mm
+
+- type: Tag
+  id: CMCartridgePistol9mmAP
+
+- type: Tag
+  id: RMCCartridgeRevolver44
+
+- type: Tag
+  id: RCMCartridgePistol9mmSquashHead
+
+- type: Tag
+  id: CMCartridgeRifle10x24mm
+
+- type: Tag
+  id: RMCCartridgePistol45ACP
+
+- type: Tag
+  id: CMMortarShell
+
+- type: Tag
+  id: CMBloodPack
+
+- type: Tag
+  id: CMGauze
+
+- type: Tag
+  id: CMOintment
+
+- type: Tag
+  id: CMFirstAidKit
+
+- type: Tag
+  id: CMSynthGraft
+
+- type: Tag
+  id: CMSurgicalLine
+
+- type: Tag
+  id: CMSurgicalCase
+
+- type: Tag
+  id: CMBurnKit
+
+- type: Tag
+  id: CMTraumaKit
+
+- type: Tag
+  id: Pouch
+
+- type: Tag
+  id: DurandLArm
+
+- type: Tag
+  id: ClarkeCentralControlModule
+
+- type: Tag
+  id: ClarkeRArm
+
+- type: Tag
+  id: DurandRArm
+
+- type: Tag
+  id: SpecialMech
+
+- type: Tag
+  id: IndustrialMech
+
+- type: Tag
+  id: CombatMech
+
+- type: Tag
+  id: LauncherCompatibleGrenade
+
+- type: Tag
+  id: CMAutoInjector
+
+- type: Tag
+  id: CMFlarePack
+
+- type: Tag
+  id: RMCSmartPistol
+
+- type: Tag
+  id: RMCSmartPistolHolster
+
+- type: Tag
+  id: RMCMK80
+
+- type: Tag
+  id: RMCRocketAmmo84mm
+
+- type: Tag
+  id: NoPaint
+
+# Mechs
+
+- type: Tag
+  id: Ripley
+
+- type: Tag
+  id: Clarke
+
+- type: Tag
+  id: Gygax
+
+- type: Tag
+  id: Durand
+
+- type: Tag
+  id: Phazon
+
+- type: Tag
+  id: GygaxArmor
+
+- type: Tag
+  id: GygaxCentralControlModule
+
+- type: Tag
+  id: GygaxPeripheralsControlModule
+
+- type: Tag
+  id: GygaxTargetingControlModule
+
+- type: Tag
+  id: GygaxHead
+
+- type: Tag
+  id: GygaxLArm
+
+- type: Tag
+  id: GygaxLLeg
+
+- type: Tag
+  id: GygaxRArm
+
+- type: Tag
+  id: GygaxRLeg
+
+- type: Tag
+  id: PhazonArmor
+
+- type: Tag
+  id: PhazonCentralControlModule
+
+- type: Tag
+  id: PhazonPeripheralsControlModule
+
+- type: Tag
+  id: PhazonTargetingControlModule
+
+- type: Tag
+  id: PhazonHead
+
+- type: Tag
+  id: PhazonLArm
+
+- type: Tag
+  id: PhazonLLeg
+
+- type: Tag
+  id: PhazonRArm
+
+- type: Tag
+  id: PhazonRLeg
+
+- type: Tag
+  id: MechAirTank
+
+- type: Tag
+  id: MechThruster
+
+- type: Tag
+  id: MechPhasicScanningModule
+
+- type: Tag
+  id: Nanopaste

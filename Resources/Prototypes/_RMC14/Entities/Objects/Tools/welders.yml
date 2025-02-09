@@ -1,0 +1,79 @@
+# Welding fuel amounts are multiplied by 2.5 from 13 until we make them work exactly the same
+- type: entity
+  parent: Welder
+  id: CMWelder
+  name: blowtorch
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/welder.rsi
+    layers:
+    - state: icon
+      map: ["enum.ToggleVisuals.Toggled"]
+    - state: welder_on
+      map: ["enum.ToggleVisuals.Layer"]
+      visible: false
+      shader: unshaded
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Tools/welder.rsi
+  - type: Welder
+    fuelConsumption: 0.06 # TODO RMC14 chang ethis when welders are fixed
+    fuelLitCost: 0
+  - type: ItemToggle
+    predictable: false
+    soundActivate:
+      path: /Audio/_RMC14/Handling/weldingtool_on.ogg
+    soundDeactivate:
+      path: /Audio/_RMC14/Handling/weldingtool_off.ogg
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleVisuals.Toggled:
+        enum.ToggleVisuals.Toggled:
+          True: { visible: false }
+          False: { visible: true }
+        enum.ToggleVisuals.Layer:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ToggleableLightVisuals
+    spriteLayer: on
+    inhandVisuals:
+      left:
+      - state: inhand-left-on
+        shader: unshaded
+      right:
+      - state: inhand-right-on
+        shader: unshaded
+  - type: SolutionContainerManager
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 100
+        maxVol: 100 # TODO RMC14 40 when welders are fixed
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_RMC14/Handling/weldingtool_pickup.ogg
+  - type: Blowtorch
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - Suitstorage
+
+- type: entity
+  parent: CMWelder # TODO doesn't need eye protection but can only weld vents
+  id: CMWelderSmall
+  name: ME3 hand welder
+  description: A compact, handheld welding torch used by the Marines for cutting and welding jobs on the field. Due to the small size and slow strength, its function is limited compared to a full-sized technician's blowtorch.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Tools/welder_hand.rsi
+  - type: Item
+    size: Small
+    sprite: _RMC14/Objects/Tools/welder_hand.rsi
+  - type: SolutionContainerManager
+    solutions:
+      Welder:
+        reagents:
+        - ReagentId: WeldingFuel
+          Quantity: 12.5
+        maxVol: 12.5 # TODO RMC14 5 when welders are fixed

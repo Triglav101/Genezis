@@ -1,0 +1,84 @@
+
+- type: startingGear
+  id: LavaMinerProfessionGear
+  equipment:
+    id: MinerPDA
+    shoes: ClothingShoesBootsSalvage #Ботинки
+    eyes: ClothingEyesGlassesCheapSunglasses    #Очки
+    gloves: ClothingHandsGlovesColorBlack #Перчатки
+    ears: ClothingHeadsetMining #Уши
+    pocket1: LavaPhoneInstrument
+
+# Back
+- type: loadout
+  id: MinerSatchel
+  equipment:
+    back: ClothingBackpackSatchelSalvage
+
+- type: loadout
+  id: MinerBackpackDuffel
+  equipment:
+    back: ClothingBackpackDuffelSalvage
+
+- type: loadout
+  id: MinerBackpack
+  equipment:
+    back: ClothingBackpackSalvage
+
+# Head
+- type: loadout
+  id: MinerHeadHatUshanka
+  equipment:
+    head: ClothingHeadHatUshanka
+
+- type: loadout
+  id: MinerHeadHatHardhatOrange
+  equipment:
+    head: ClothingHeadHatHardhatOrange
+
+- type: loadout
+  id: MinerHeadHatHardhatBlue
+  equipment:
+    head: ClothingHeadHatHardhatBlue
+
+- type: loadout
+  id: MinerHeadHatHardhatRed
+  equipment:
+    head: ClothingHeadHatHardhatRed
+
+- type: loadout
+  id: MinerHeadHatHardhatWhite
+  equipment:
+    head: ClothingHeadHatHardhatWhite
+
+- type: loadout
+  id: MinerHeadHatHardhatYellow
+  equipment:
+    head: ClothingHeadHatHardhatYellow
+
+- type: loadout
+  id: MinerHeadHatHardhatYellowDark
+  equipment:
+    head: ClothingHeadHatHardhatYellowDark
+
+# OuterClothing
+- type: loadout
+  id: MinerOuterWinterMiner
+  equipment:
+    outerClothing: ClothingOuterWinterMiner
+
+- type: loadout
+  id: MinerOuterCoatBomber
+  equipment:
+    outerClothing: ClothingOuterCoatBomber
+
+# Jumpsuit
+- type: loadout
+  id: MinerUniformJumpsuitSalvageSpecialist
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
+
+- type: loadout
+  id: MinerUniformJumpsuitAncient
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitAncient

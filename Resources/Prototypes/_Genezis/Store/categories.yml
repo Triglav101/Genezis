@@ -1,0 +1,6 @@
+#uplink categoires
+
+- type: storeCategory
+  id: UplinkMechs
+  name: store-category-mechs
+  priority: 8

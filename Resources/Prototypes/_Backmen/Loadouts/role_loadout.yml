@@ -1,0 +1,44 @@
+﻿- type: roleLoadout
+  id: JobBKCCCargo
+  groups:
+  - Werx #backmen
+  - Niz #backmen
+  - Socks #backmen
+  - BKCCCargoJumpsuit
+  - BKCCCargoNeck
+  - BKCCCargoBackpack
+  - Trinkets
+  - Medals #backmen
+  - Inventory # Corvax-Loadouts
+
+- type: roleLoadout
+  id: JobBrigmedic
+  groups:
+  - Werx #backmen
+  - Niz #backmen
+  - Socks #backmen
+  - ClothingUniformJumpsuitBrigmedic
+  - ClothingBackpackBrigmedic
+  - ClothingHeadHatBrigmedic
+  - ClothingOuterBrigmedic
+  - ClothingEarBrigmedic
+  - ClothingMaskBrigmedic
+  - Trinkets
+  - SurvivalMedical
+  - Medals #backmen
+  - Inventory # Corvax-Loadouts
+
+- type: roleLoadout
+  id: JobBlueShield
+  groups:
+  - Werx #backmen
+  - Niz #backmen
+  - Socks #backmen
+  - ClothingUniformJumpsuitBlueShield
+  - ClothingHeadHatBlueShield
+  - ClothingOuterBlueShield
+  - EyeBlueShield
+  - Trinkets
+  - Survival
+  - Medals #backmen
+  - Inventory # Corvax-Loadouts

@@ -1,0 +1,22 @@
+<Document>
+# Medical
+This is the department where people go to when they're hurt, it's up to the folks working here to fix them.
+
+В настоящее время медблок делится на два разных направления:
+
+## Медицинская помощь
+<Box>
+<GuideEntityEmbed Entity="Brutepack"/>
+<GuideEntityEmbed Entity="Bloodpack"/>
+<GuideEntityEmbed Entity="Ointment"/>
+<GuideEntityEmbed Entity="Gauze"/>
+<GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
+</Box>
+## Химическое производство
+<Box>
+<GuideEntityEmbed Entity="ChemDispenser"/>
+<GuideEntityEmbed Entity="LargeBeaker"/>
+<GuideEntityEmbed Entity="PillCanister"/>
+<GuideEntityEmbed Entity="ChemMaster"/>
+</Box>
+</Document>

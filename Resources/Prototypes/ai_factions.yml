@@ -1,0 +1,170 @@
+- type: npcFaction
+  id: Dragon
+  hostile:
+    - NanoTrasen
+    - Syndicate
+    - Xeno
+    - PetsNT
+    - Zombie
+    - Blob
+    - Flesh
+    - Revolutionary
+    - SuperZloy
+    - Spanish
+    - Britan
+    - SpecialForce
+    - CombineForce
+    - CentralCommand
+    - AllHostile
+
+- type: npcFaction
+  id: NanoTrasen
+  hostile:
+  - SimpleHostile
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Blob
+  - Flesh
+  - Revolutionary
+  - MalfunctioningRobot
+  - SuperZloy
+  - Britan
+  - SpecialForce
+  - CombineForce
+  - Dragon
+  - AllHostile
+
+- type: npcFaction
+  id: Mouse
+  hostile:
+    - PetsNT
+    - AllHostile
+
+- type: npcFaction
+  id: Passive
+
+- type: npcFaction
+  id: PetsNT
+  hostile:
+  - Mouse
+  - SimpleHostile
+  - Zombie
+  - Xeno
+  - Blob
+  - Flesh
+  - SuperZloy
+  - SpecialForce
+  - CombineForce
+  - AllHostile
+
+- type: npcFaction
+  id: SimpleHostile
+  hostile:
+  - NanoTrasen
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Zombie
+  - Blob
+  - Flesh
+  - Revolutionary
+  - SuperZloy
+  - Spanish
+  - Britan
+  - SpecialForce
+  - CombineForce
+  - CentralCommand
+  - AllHostile
+
+- type: npcFaction
+  id: SimpleNeutral
+
+- type: npcFaction
+  id: Syndicate
+  hostile:
+  - NanoTrasen
+  - SimpleHostile
+  - Xeno
+  - PetsNT
+  - Zombie
+  - Blob
+  - Flesh
+  - SuperZloy
+  - Spanish
+  - SpecialForce
+  - CombineForce
+  - CentralCommand
+  - Dragon
+  - AllHostile
+
+- type: npcFaction
+  id: Xeno
+  hostile:
+  - NanoTrasen
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Zombie
+  - Blob
+  - Flesh
+  - Revolutionary
+  - SuperZloy
+  - Spanish
+  - Britan
+  - SpecialForce
+  - CombineForce
+  - CentralCommand
+  - AllHostile
+
+- type: npcFaction
+  id: Zombie
+  hostile:
+  - NanoTrasen
+  - SimpleNeutral
+  - SimpleHostile
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Blob
+  - Flesh
+  - SuperZloy
+  - Revolutionary
+  - Spanish
+  - Britan
+  - SpecialForce
+  - CombineForce
+  - CentralCommand
+  - AllHostile
+
+- type: npcFaction
+  id: Revolutionary
+  hostile:
+  - NanoTrasen
+  - Zombie
+  - SimpleHostile
+  - Dragon
+  - MalfunctioningRobot
+  - Blob
+  - Flesh
+  - SuperZloy
+  - Spanish
+  - SpecialForce
+  - CombineForce
+  - CentralCommand
+  - AllHostile
+
+- type: npcFaction
+  id: AllHostile
+  hostile:
+  - NanoTrasen
+  - Dragon
+  - Mouse
+  - Passive
+  - PetsNT
+  - SimpleHostile
+  - SimpleNeutral
+  - Syndicate
+  - Xeno
+  - Zombie
+  - Revolutionary

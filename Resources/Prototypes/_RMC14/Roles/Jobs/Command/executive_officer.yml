@@ -1,0 +1,86 @@
+﻿- type: job
+  parent: CMJobBase
+  id: CMExecutiveOfficer
+  name: cm-job-name-executive-officer
+  description: cm-job-description-executive-officer
+  playTimeTracker: CMJobExecutiveOfficer
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: CMCommand
+    time: 36000 # 10 hours
+  ranks:
+    RMCRankCaptain: []
+  weight: 5
+  startingGear: CMGearExecutiveOfficer
+  icon: "CMJobIconExecutiveOfficer"
+  requireAdminNotify: true
+  joinNotifyCrew: true
+  supervisors: cm-job-supervisors-co
+  accessGroups:
+  - MarineMain
+  minimapIcon:
+    sprite: _RMC14/Interface/map_blips.rsi
+    state: xo
+  minimapBackground:
+   sprite: _RMC14/Interface/map_blips.rsi
+   state: background_command
+  roleWeight: 0.25
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Skills
+      skills:
+        RMCSkillCqc: 2
+        RMCSkillConstruction: 2
+        RMCSkillEndurance: 2
+        RMCSkillEngineer: 2
+        RMCSkillFirearms: 1
+        RMCSkillFireman: 2
+        RMCSkillIntel: 2
+        RMCSkillJtac: 4
+        RMCSkillLeadership: 3
+        RMCSkillMedical: 3
+        RMCSkillNavigations: 1
+        RMCSkillOverwatch: 1
+        RMCSkillPolice: 2
+        RMCSkillPowerLoader: 2
+        RMCSkillSurgery: 1
+        RMCSkillVehicles: 1
+    - type: MarineOrders
+    - type: CMVendorUser
+      points: 120
+    - type: RMCPointing
+    - type: JobPrefix
+      prefix: cm-job-prefix-executive-officer
+
+- type: startingGear
+  id: CMGearExecutiveOfficer
+  equipment:
+    jumpsuit: CMJumpsuitBO
+    shoes: RMCShoesLaceup
+    head: RMCHeadCapFlippable
+    outerClothing: RMCCoatService
+    id: CMIDCardExecutiveOfficer
+    ears: CMHeadsetSeniorCommand
+    pocket1: RMCPouchGeneralLarge
+    pocket2: RMCPouchGeneralLarge
+  storage:
+    pocket1:
+    - RMCRangefinder
+
+- type: entity
+  parent: CMSpawnPointJobBase
+  id: CMSpawnPointExecutiveOfficer
+  name: executive officer spawn point
+  components:
+  - type: SpawnPoint
+    job_id: CMExecutiveOfficer
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - state: executive_officer
+
+- type: playTimeTracker
+  id: CMJobExecutiveOfficer
+  isHumanoid: true

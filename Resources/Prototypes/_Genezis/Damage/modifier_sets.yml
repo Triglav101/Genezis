@@ -1,0 +1,157 @@
+- type: damageModifierSet
+  id: Silicon
+  coefficients:
+    Blunt: 1
+    Slash: 0.7
+    Piercing: 0.7
+    Heat: 0.5
+    Shock: 1.5
+
+- type: damageModifierSet
+  id: Shield
+  coefficients:
+    Blunt: 1.2
+    Slash: 1.2
+    Piercing: 1.2
+    Heat: 0.1
+    Shock: 0
+  flatReductions:
+    Blunt: 20
+    Slash: 20
+
+- type: damageModifierSet
+  id: Armor
+  coefficients:
+    Blunt: 1.2
+    Slash: 1.2
+    Piercing: 0.1
+    Heat: 1.2
+    Shock: 0
+  flatReductions:
+    Blunt: 20
+    Slash: 20
+
+- type: damageModifierSet
+  id: Kinetic
+  coefficients:
+    Blunt: 0.1
+    Slash: 1.2
+    Piercing: 1.2
+    Heat: 1.2
+    Shock: 1.2
+  flatReductions:
+    Blunt: 20
+    Slash: 20
+
+- type: damageModifierSet
+  id: Mixed
+  coefficients:
+    Blunt: 0.6
+    Slash: 0.6
+    Piercing: 0.6
+    Heat: 0.6
+    Shock: 0.6
+  flatReductions:
+    Blunt: 20
+    Slash: 20
+
+# IPC
+- type: damageModifierSet
+  id: Robotic
+  coefficients:
+    Blunt: 1.0
+    Slash: 0.4
+    Piercing: 0.5
+    Cold: 0.0
+    Heat: 0.5
+    Shock: 3.0
+    Poison: 0.0
+    Radiation: 0.0
+    Asphyxiation: 0.0
+    Bloodloss: 0.0
+    Cellular: 0.0
+  flatReductions:
+    Blunt: 5
+
+- type: damageModifierSet
+  id: HardLightBarrier
+  coefficients:
+    Heat: 0.8
+    Blunt: 0.8
+    Slash: 0.8
+    Piercing: 0.8
+    Cold: 0.8
+    Shock: 1.6
+
+# Mech armor
+- type: damageModifierSet
+  id: ThinArmor
+  coefficients:
+    Blunt: 0.8
+    Slash: 0.8
+    Piercing: 0.9
+    Shock: 1.2
+    Heat: 0.8
+  flatReductions:
+    Blunt: 3
+    Heat: 2
+
+- type: damageModifierSet
+  id: LightArmor
+  coefficients:
+    Blunt: 0.75
+    Slash: 0.75
+    Piercing: 0.7
+    Shock: 1.2
+    Heat: 0.7
+  flatReductions:
+    Blunt: 5
+    Heat: 5
+
+- type: damageModifierSet
+  id: MediumArmorNT
+  coefficients:
+    Blunt: 0.6
+    Slash: 0.6
+    Piercing: 0.65
+    Shock: 1.4
+    Heat: 0.7
+  flatReductions:
+    Blunt: 8
+    Heat: 10
+
+- type: damageModifierSet
+  id: HeavyArmorNT
+  coefficients:
+    Blunt: 0.5
+    Slash: 0.5
+    Piercing: 0.35
+    Shock: 1.8
+    Heat: 0.6
+  flatReductions:
+    Blunt: 15
+    Heat: 15
+
+- type: damageModifierSet
+  id: MediumArmorSyndi
+  coefficients:
+    Blunt: 0.6
+    Slash: 0.6
+    Piercing: 0.6
+    Shock: 1.4
+    Heat: 0.75
+  flatReductions:
+    Blunt: 8
+    Heat: 5
+
+- type: damageModifierSet
+  id: HeavyArmorSyndi
+  coefficients:
+    Blunt: 0.5
+    Slash: 0.5
+    Piercing: 0.4
+    Shock: 1.8
+    Heat: 0.7
+  flatReductions:
+    Blunt: 10
+    Heat: 7

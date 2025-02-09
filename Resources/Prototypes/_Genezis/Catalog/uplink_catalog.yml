@@ -1,0 +1,362 @@
+#Guns
+
+- type: listing
+  id: UplinkEcrossbow
+  name: uplink-ecrossbow-name
+  description: uplink-ecrossbow-desc
+  icon: { sprite: /Textures/SS220/Objects/Weapons/Guns/Crossbow/minicrossbow.rsi, state: icon }
+  productEntity: WeaponMiniEnergyCrossbow
+  cost:
+    Telecrystal: 10
+  categories:
+  - UplinkWeaponry
+  conditions:
+    - !type:StoreWhitelistCondition
+      blacklist:
+        tags:
+        - NukeOpsUplink
+        - LoneOpsUplink
+
+# Implants
+
+- type: listing
+  id: UplinkMindSlaveImplanter
+  name: uplink-mindslave-implanter-name
+  description: uplink-mindslave-implanter-desc
+  icon: { sprite: /Textures/SS220/Alerts/MindSlave.rsi, state: icon }
+  productEntity: MindSlaveImplanter
+  cost:
+    Telecrystal: 8
+  categories:
+    - UplinkImplants
+  conditions:
+    - !type:StoreWhitelistCondition
+      blacklist:
+        tags:
+          - NukeOpsUplink
+
+# JobItems
+
+- type: listing
+  id: UplinkMimeRelic
+  name: uplink-mime-relic-name
+  description: uplink-mime-relic-desc
+  icon: { sprite: SS220/Objects/Specific/SacredRelics/SacredRelicMime.rsi, state: icon }
+  productEntity: SacredRelicMime
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkJob
+  conditions:
+  - !type:BuyerJobCondition
+    whitelist:
+    - Mime
+  - !type:ListingLimitedStockCondition
+      stock: 1
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
+
+ # Pointless
+
+- type: listing
+  id: UplinkExpensiveLighter
+  name: uplink-expensive-lighter-name
+  description: uplink-expensive-lighter-desc
+  icon: { sprite: /Textures/SS220/Objects/Tools/lighters.rsi, state: zippo_syndi_icon_base }
+  productEntity: ExpensiveLighterSyndicate
+  cost:
+    Telecrystal: 1
+  categories:
+  - UplinkPointless
+
+- type: listing
+  id: UplinkBoxFolderSyndicate
+  name: папка синдиката
+  description: Папка, с долей вероятности содержащая информацию о вражеской корпорации. Проверим?
+  icon: { sprite: /Textures/SS220/Objects/Misc/bureaucracy.rsi, state: folder-syndicate }
+  productEntity: BoxFolderSyndicate
+  cost:
+    Telecrystal: 1
+  categories:
+  - UplinkPointless
+
+- type: listing
+  id: UplinkClothingniformJumpsuitSyndicateDiplomatistSyndicate
+  name: костюм дипломата
+  description: Костюм дипломата преступного синдиката, ничего необычного.
+  icon: { sprite: /Textures/SS220/Clothing/Uniforms/Jumpsuit/syndicate_diplomatist.rsi, state: icon }
+  productEntity: ClothingUniformJumpsuitSyndicateDiplomatist
+  cost:
+    Telecrystal: 2
+  categories:
+  - UplinkPointless
+
+  #Masks-Boxes
+
+- type: listing
+  id: UplinkCriminalDelivery
+  name: uplink-criminal-delivery-name
+  description: uplink-criminal-delivery-desc
+  icon: { sprite: /Textures/SS220/Objects/Storage/criminaldelivery.rsi, state: criminaldelivery }
+  productEntity: CriminalDeliveryBox
+  cost:
+    Telecrystal: 1
+  categories:
+  - UplinkPointless
+
+- type: listing
+  id: UplinkThermalGlasses
+  name: uplink-thermal-glasses-name
+  description: uplink-thermal-glasses-desc
+  icon: {sprite: Clothing/Eyes/Glasses/thermal.rsi, state: icon }
+  productEntity: ThermalVisorChameleon
+  cost:
+    Telecrystal: 4
+  categories:
+  - UplinkWearables
+
+- type: listing
+  id: ThermalVisorImplanter
+  name: uplink-thermal-visor-implanter-name
+  description: uplink-thermal-visor-implanter-desc
+  icon: {sprite: /Textures/SS220/Misc/ThermalEye.rsi, state: EyeON}
+  productEntity: ThermalVisorImplanter
+  cost:
+    Telecrystal: 6
+  categories:
+  - UplinkImplants
+
+# READD-VEHICLES
+- type: listing
+  id: UplinkSyndicateSegwayCrate
+  name: uplink-syndicate-segway-crate-name
+  description: uplink-syndicate-segway-crate-desc
+  icon: { sprite: /Textures/Objects/Vehicles/syndicatesegway.rsi, state: icon }
+  productEntity: CrateFunSyndicateSegway
+  cost:
+    Telecrystal: 5
+  categories:
+  - UplinkDeception
+  conditions:
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
+
+#- type: listing
+#  id: UplinkCQC
+#  name: ent-cqc-name
+#  description: ent-cqc-desc
+#  productEntity: cqc_lethal
+#  cost:
+#    Telecrystal: 4
+#  categories:
+#  - UplinkWeaponry
+
+- type: listing
+  id: UplinkExperimentalSyndicateTeleporter
+  name: uplink-experimental-syndicate-teleporter-name
+  description: uplink-experimental-syndicate-teleporter-desc
+  productEntity: ExperimentalSyndicateTeleporter
+  cost:
+    Telecrystal: 10
+  categories:
+    - UplinkDeception
+
+# Mechs
+
+- type: listing
+  id: UplinkDarkGygax
+  name: uplink-mech-teleporter-assault-name
+  description: uplink-mech-teleporter-assault-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: darkgygax }
+  productEntity: CrateCybersunDarkGygaxBundle
+  cost:
+    Telecrystal: 65
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkRover
+  name: uplink-mech-teleporter-medium-name
+  description: uplink-mech-teleporter-medium-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: rover }
+  productEntity: CrateCybersunRoverBundle
+  cost:
+    Telecrystal: 75
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMauler
+  name: uplink-mech-teleporter-heavy-name
+  description: uplink-mech-teleporter-heavy-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: mauler }
+  productEntity: CrateCybersunMaulerBundle
+  cost:
+    Telecrystal: 90
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+# Mechs equipment
+
+- type: listing
+  id: UplinkMechImmolationGun
+  name: uplink-mech-equipment-immolation-gun-name
+  description: uplink-mech-equipment-immolation-gun-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_laser }
+  productEntity: WeaponMechCombatImmolationGun
+  cost:
+    Telecrystal: 7
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechTeslaCannon
+  name: uplink-mech-equipment-tesla-cannon-name
+  description: uplink-mech-equipment-tesla-cannon-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_wholegen }
+  productEntity: WeaponMechCombatTeslaCannon
+  cost:
+    Telecrystal: 15
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechShotgun
+  name: uplink-mech-equipment-shotgun-name
+  description: uplink-mech-equipment-shotgun-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_scatter }
+  productEntity: WeaponMechCombatShotgun
+  cost:
+    Telecrystal: 7
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechShotgunIncendiary
+  name: uplink-mech-equipment-shotgun-incendiary-name
+  description: uplink-mech-equipment-shotgun-incendiary-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_carbine }
+  productEntity: WeaponMechCombatShotgunIncendiary
+  cost:
+    Telecrystal: 12
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechUltraRifle
+  name: uplink-mech-equipment-ultra-rifle-name
+  description: uplink-mech-equipment-ultra-rifle-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_uac2 }
+  productEntity: WeaponMechCombatUltraRifle
+  cost:
+    Telecrystal: 10
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechIon
+  name: uplink-mech-equipment-ion-name
+  description: uplink-mech-equipment-ion-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_ion }
+  productEntity: WeaponMechCombatIon
+  cost:
+    Telecrystal: 12
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechAMLG90
+  name: uplink-mech-equipment-amlg90-name
+  description: uplink-mech-equipment-amlg90-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha_equipment.rsi, state: mecha_amlg90 }
+  productEntity: WeaponMechCombatAMLG90
+  cost:
+    Telecrystal: 15
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechVindictor
+  name: uplink-mech-equipment-vindictor-name
+  description: uplink-mech-equipment-vindictor-desc
+  icon: { sprite: /Textures/_Sunrise/Objects/Specific/Mech/mecha_vindictor.rsi, state:  mecha_vindictor }
+  productEntity: WeaponMechCombatVindictor
+  cost:
+    Telecrystal: 30
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
+
+- type: listing
+  id: UplinkMechUVM31
+  name: uplink-mech-equipment-uvm31-name
+  description: uplink-mech-equipment-uvm31-desc
+  icon: { sprite: /Textures/_Sunrise/Objects/Specific/Mech/mecha_uvm31.rsi, state: mecha_uvm31 }
+  productEntity: WeaponMechCombatUVM31
+  cost:
+    Telecrystal: 20
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink

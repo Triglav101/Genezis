@@ -1,0 +1,349 @@
+- type: entity
+  id: BulletPlasmaShot
+  name: плазма
+  noSpawn: true
+  components:
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+    linearDamping: 0
+    angularDamping: 0
+  - type: TimedDespawn
+    lifetime: 10
+  - type: Projectile
+    damage:
+      types:
+        Heat: 2
+        Poison: 2
+  - type: IgniteOnCollide
+    fireStacks: 1.8
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/water_shot.rsi
+    layers:
+    - state: icon
+      map: ["enum.VaporVisualLayers.Base"]
+  - type: Ammo
+    muzzleFlash: null
+  - type: SolutionContainerManager
+    solutions:
+      vapor:
+        maxVol: 50
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.10,-0.30,0.10,0.15"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Vapor
+    active: true
+  - type: Appearance
+  - type: VaporVisuals
+
+
+- type: entity
+  id: FireThrowerBall1
+  name: реактивная смесь плазмы
+  parent: FoodInjectableBase
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
+    netsync: false
+    layers:
+    - state: blastwave
+  - type: DeleteOnTrigger
+  - type: DamageOnLand
+    damage:
+      types:
+        Blunt: 1
+  - type: Damageable
+    damageContainer: Biological
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          ParticlesFireNRF:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - Impassable
+        - HighImpassable
+        restitution: 0.3  # fite me
+        friction: 0.2
+      fire:
+        hard: false
+        density: 7
+        shape:
+          !type:PhysShapeAabb
+           bounds: "-0.4,-0.4,0.4,0.4"
+        layer:
+        - MidImpassable
+        mask:
+        - BlobImpassable
+        - MidImpassable
+  - type: PointLight
+    enabled: true
+    color: "#FF8080"
+    radius: 5.0
+    energy: 4.0
+  - type: Tag
+    tags:
+    - NoSpinOnThrow
+    - FireThrowerBall
+  - type: TimedDespawn
+    lifetime: 5
+  - type: ThrowingAngle
+    angle: 0
+  - type: IgniteOnCollide
+    fireStacks: 1
+    count: 100
+    fixtureId: fire
+  - type: IgnitionSource
+    temperature: 700
+    ignited: true
+
+# Снаряды для установок
+
+- type: entity
+  name: Лазерный болт
+  id: LaserBolt
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - Energy
+  - type: Sprite
+    color: "#ed0920"
+    sprite: Structures/Power/Generation/Singularity/emitter.rsi
+    layers:
+      - state: projectile
+        shader: unshaded
+        scale: "2, 2"
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Heat: 500
+  - type: Tag
+    tags:
+    - LaserBolt
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  name: Кинетический болт
+  id: KineticBolt
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - NonEnergy
+  - type: Sprite
+    sprite: Genezis/Structures/Shuttle/kineticshot.rsi
+    layers:
+      - state: xeno_toxic
+        shader: unshaded
+        scale: "2, 2"
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 500
+  - type: Tag
+    tags:
+    - KineticBolt
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  name: Пуля болт
+  id: BulletBolt
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - NonEnergy
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+      - state: grenade
+        shader: unshaded
+        scale: "2, 2"
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 500
+  - type: Tag
+    tags:
+    - BulletBolt
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  name: Лазерный болт маленький
+  id: LaserBoltSmall
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - Energy
+  - type: Sprite
+    color: "#ed0920"
+    sprite: Structures/Power/Generation/Singularity/emitter.rsi
+    layers:
+      - state: projectile
+        shader: unshaded
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Heat: 50
+  - type: Tag
+    tags:
+    - LaserBolt
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  name: Кинетический болт маленький
+  id: KineticBoltSmall
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - NonEnergy
+  - type: Sprite
+    sprite: Genezis/Structures/Shuttle/kineticshot.rsi
+    layers:
+      - state: xeno_toxic
+        shader: unshaded
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 50
+  - type: Tag
+    tags:
+    - KineticBolt
+  - type: TimedDespawn
+    lifetime: 30
+
+- type: entity
+  name: Пуля болт маленький
+  id: BulletBoltSmall
+  parent: BaseBullet
+  noSpawn: true
+  components:
+  - type: Reflective
+    reflective:
+      - NonEnergy
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+      - state: grenade
+        shader: unshaded
+        scale: "2, 2"
+  - type: Ammo
+    muzzleFlash: null
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 50
+  - type: Tag
+    tags:
+    - BulletBolt
+  - type: TimedDespawn
+    lifetime: 30

@@ -1,0 +1,13 @@
+- type: entity
+  id: BasePlanetGoal
+  abstract: true
+  components:
+    - type: StationGoal
+      goals:
+      - Singularity
+      - SolarPanels
+      - Artifacts
+      - Bank
+      - Zoo
+      - MiningOutpost
+      - Tesla

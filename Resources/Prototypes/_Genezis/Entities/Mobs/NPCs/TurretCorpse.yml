@@ -1,0 +1,108 @@
+- type: entity
+  id: MobTurretCorpse
+  parent: MobXeno
+  name: Плевальщик
+  description: Тело этого мертвеца подверглось мутации, оно распухло и нарастило желочные мешки.
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    sprite: Genezis/Mobs/Demons/TurretCorpse.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: abomination
+  - type: NpcFactionMember
+    factions:
+    - Flesh
+    - SimpleHostile
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - Flesh
+  - type: Physics
+    bodyType: KinematicController
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 0.4
+    baseSprintSpeed: 0.7
+  - type: Butcherable
+    spawned:
+    - id: FoodMeat
+      amount: 1
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: base
+        BaseUnshaded: unshaded
+      Dead:
+        Base: dead
+        BaseUnshaded: dead-unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      50: Dead
+  - type: HTN
+    rootTask:
+      task: SimpleRangedHostileCompound
+    blackboard:
+      NavClimb: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 0.75
+  - type: BasicEntityAmmoProvider
+    proto: BulletAcid
+    capacity: 1
+    count: 1
+  - type: Gun
+    fireRate: 0.75
+    useKey: false
+    selectedMode: FullAuto
+    availableModes:
+      - FullAuto
+    soundGunshot: /Audio/Weapons/Xeno/alien_spitacid.ogg
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.45
+        density: 235
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+
+#СПАВНЕР
+- type: entity
+  name: спавнер плевальщик
+  id: SpawnerMobTurretCorpse
+  parent: MarkerBase
+  components:
+  - type: ConditionalSpawner
+    prototypes:
+    - MobTurretCorpse
+
+- type: entity
+  name: периодический спавнер Плевальщик
+  id: SpawnerTimedMobTurretCorpse
+  parent: MarkerBase
+  components:
+    - type: Sprite
+      layers:
+        - state: blue
+        - sprite: Genezis/Mobs/Demons/TurretCorpse.rsi
+          state: abomination
+        - state: timed
+    - type: Timer
+    - type: TimedSpawner
+      prototypes:
+        - MobTurretCorpse
+      # round ~90m
+      # one spawner should only spawn ~5 mice for sanity reasons
+      # therefore 18m
+      # use 50% chance for randomness and balance with halved interval
+      chance: 0.5
+      intervalSeconds: 240
+      minimumEntitiesSpawned: 1
+      maximumEntitiesSpawned: 1

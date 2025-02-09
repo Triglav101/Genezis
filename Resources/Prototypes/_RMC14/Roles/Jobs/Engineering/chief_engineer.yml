@@ -1,0 +1,79 @@
+- type: job
+  parent: CMJobBase
+  id: CMChiefEngineer
+  name: cm-job-name-chief-engineer
+  description: cm-job-description-chief-engineer
+  playTimeTracker: CMJobChiefEngineer
+  requirements:
+  - !type:TotalJobsTimeRequirement
+    group: CMJobsEngineering
+    time: 72000 # 20 hours
+  ranks:
+    RMCRankFirstLT:
+    - !type:RoleTimeRequirement
+      role: CMJobChiefEngineer
+      time: 252000 # 70 hours
+    RMCRankSecondLT: []
+  weight: 5
+  startingGear: CMGearChiefEngineer
+  icon: "CMJobIconChiefEngineer"
+  requireAdminNotify: true
+  joinNotifyCrew: true
+  supervisors: cm-job-supervisors-aso
+  accessGroups:
+  - CMCE
+  minimapIcon:
+    sprite: _RMC14/Interface/map_blips.rsi
+    state: ce
+  minimapBackground:
+   sprite: _RMC14/Interface/map_blips.rsi
+   state: background_command
+  roleWeight: 0.25
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: Skills
+      skills:
+        RMCSkillConstruction: 3
+        RMCSkillEngineer: 3
+        RMCSkillFirearms: 1
+        RMCSkillFireman: 1
+        RMCSkillIntel: 1
+        RMCSkillJtac: 4
+        RMCSkillLeadership: 3
+        RMCSkillNavigations: 1
+        RMCSkillOverwatch: 1
+        RMCSkillPolice: 1
+        RMCSkillPowerLoader: 2
+    - type: MarineOrders
+    - type: RMCPointing
+    - type: JobPrefix
+      prefix: cm-job-prefix-chief-engineer
+
+- type: startingGear
+  id: CMGearChiefEngineer
+  equipment:
+    jumpsuit: CMJumpsuitChiefEngineer
+    shoes: CMBootsBlack
+    gloves: CMHandsInsulated
+    id: CMIDCardChiefEngineer
+    ears: CMHeadsetCE
+    belt: CMBeltUtilityFilled
+    pocket1: RMCPouchElectronics
+
+- type: entity
+  parent: CMSpawnPointJobBase
+  id: CMSpawnPointChiefEngineer
+  name: chief engineer spawn point
+  components:
+  - type: SpawnPoint
+    job_id: CMChiefEngineer
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - state: chief_engineer
+
+- type: playTimeTracker
+  id: CMJobChiefEngineer
+  isHumanoid: true

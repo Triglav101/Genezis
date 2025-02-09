@@ -1,0 +1,36 @@
+- type: entity
+  id: RandomVending
+  name: random vending machine spawner
+  suffix: Any
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+      - state: red
+      - sprite: Structures/Machines/VendingMachines/random.rsi
+        state: any
+  - type: RandomSpawner
+    prototypes:
+      - BackmenVendingMachineCigs
+      - BackmenVendingMachineCoffee
+      - BackmenVendingMachineCola
+      - BackmenVendingMachineColaRed
+      - BackmenVendingMachineColaBlack
+      - BackmenVendingMachineDiscount
+      - BackmenVendingMachineSnack
+      - BackmenVendingMachineSnackBlue
+      - BackmenVendingMachineSnackGreen
+      - BackmenVendingMachineSnackOrange
+      - BackmenVendingMachineSnackTeal
+      - BackmenVendingMachineSovietSoda
+      - BackmenVendingMachineChang
+      - BackmenVendingMachineDonut
+      - BackmenVendingMachineShamblersJuice
+      - BackmenVendingMachinePwrGame
+      - BackmenVendingMachineSoda
+      - BackmenVendingMachineDrGibb
+      - BackmenVendingMachineStarkist
+      - BackmenVendingMachineSpaceUp
+      - BackmenVendingLootBox
+      - PrizeCounter # Ataraxia
+    chance: 1

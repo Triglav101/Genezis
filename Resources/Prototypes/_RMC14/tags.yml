@@ -1,0 +1,44 @@
+- type: Tag
+  id: CMCartridgePistol.22mm
+
+- type: Tag
+  id: RMCCartridge7x45mm
+
+- type: Tag
+  id: RMCDropshipWeaponPoint
+
+- type: Tag
+  id: RMCDropshipUtilityPoint
+
+- type: Tag
+  id: WeaponSMGM63
+
+- type: Tag
+  id: RMCWeaponPistolM77
+
+- type: Tag
+  id: RMCWeaponRevolverM44
+
+- type: Tag
+  id: RMCGlass
+
+- type: Tag
+  id: Scabbard
+
+- type: Tag
+  id: RMCMacheteScabbard
+
+- type: Tag
+  id: RMCScalpel
+
+- type: Tag
+  id: RMCScrewdriver
+
+- type: Tag
+  id: ThrowingKnife
+
+- type: Tag
+  id: RMCCircuitboard
+
+- type: Tag
+  id: RMCEngineerKit

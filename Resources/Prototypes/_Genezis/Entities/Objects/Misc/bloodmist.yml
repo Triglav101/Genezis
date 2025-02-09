@@ -1,0 +1,29 @@
+﻿- type: entity
+  name: странный туман
+  id: bloodmist
+  parent: [ BaseKudzu, BaseShadow ]
+  components:
+    - type: Physics
+      canCollide: false
+    - type: Occluder
+    - type: Sprite
+      drawdepth: Effects
+      sprite: Effects/spookysmoke.rsi
+      layers:
+      - state: spookysmoke
+        color: "#793a80dd"
+        map: [base]
+    - type: Kudzu
+      growthTickChance: 01
+      spreadChance: 0.10
+    - type: Tag
+      tags:
+        - HideContextMenu
+        - SpookyFog
+    - type: OptionsVisualizer
+      visuals:
+        base:
+        - options: Default
+          data: { state: spookysmoke }
+        - options: ReducedMotion
+          data: { state: spookysmoke_static }
