@@ -7399,18 +7399,6 @@ entities:
       rot: 3.141592653589793 rad
       pos: -47.5,-25.5
       parent: 1
-- proto: CMDispenserChem
-  entities:
-  - uid: 6798
-    components:
-    - type: Transform
-      pos: 29.5,-4.5
-      parent: 1
-  - uid: 6799
-    components:
-    - type: Transform
-      pos: 26.5,-1.5
-      parent: 1
 - proto: CMDispenserSoda
   entities:
   - uid: 6797

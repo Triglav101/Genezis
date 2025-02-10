@@ -23,13 +23,13 @@ public sealed partial class CCVars
     ///     Whether the arrivals terminal should be on a planet map.
     /// </summary>
     public static readonly CVarDef<bool> ArrivalsPlanet =
-        CVarDef.Create("shuttle.arrivals_planet", true, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.arrivals_planet", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     Whether the arrivals shuttle is enabled.
     /// </summary>
     public static readonly CVarDef<bool> ArrivalsShuttles =
-        CVarDef.Create("shuttle.arrivals", true, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.arrivals", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     The map to use for the arrivals station.
@@ -115,7 +115,7 @@ public sealed partial class CCVars
     ///     Is the emergency shuttle allowed to be early launched.
     /// </summary>
     public static readonly CVarDef<bool> EmergencyEarlyLaunchAllowed =
-        CVarDef.Create("shuttle.emergency_early_launch_allowed", false, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.emergency_early_launch_allowed", true, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long the emergency shuttle remains docked with the station, in seconds.
@@ -171,7 +171,7 @@ public sealed partial class CCVars
     ///     Time in minutes after round start to auto-call the shuttle. Set to zero to disable.
     /// </summary>
     public static readonly CVarDef<int> EmergencyShuttleAutoCallTime =
-        CVarDef.Create("shuttle.auto_call_time", 90, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.auto_call_time", 9000, CVar.SERVERONLY);
 
     /// <summary>
     ///     Time in minutes after the round was extended (by recalling the shuttle) to call

@@ -1,39 +1,39 @@
 # command
-department-CMCommand = Command
-cm-department-Command-description = The Command Department is the brains of the UNS Almayer, leading and coordinating the squads and the other support staff of the ship to fight and win against the Aliens.
+department-CMCommand = Управление Триглава
+cm-department-Command-description = Управление Триглава - это мозг планетарных операций Триглава, который руководит и координирует действия отделов.
 
 # military police
-department-CMMilitaryPolice = Military Police
-cm-department-MilitaryPolice-description = Enforce Marine Law. Detain Criminals. Keep Shipside Personnel Safe.
+department-CMMilitaryPolice = Отдел контроля
+cm-department-MilitaryPolice-description = Отдел внутренней безопасности, ваша задача следить за исполнением приказов Триглава.
 
 # requisitions
-department-CMRequisitions = Requisitions
-cm-department-Requisitions-description = Dispense supplies to the marines.
+department-CMRequisitions = Отдел внешних операций
+cm-department-Requisitions-description = Военные операции очень затратны и вы как никто другой знаете об этом. Ваша главная задача добывать ресурсы для Триглава и снажбать другие отделы.
 
 # marines
-department-CMSquad = Marines
-cm-department-Marine-description = They form the main fighting body of the Almayer and are sent planetside to fight all kinds of dangers throughout the Neroid Sector.
+department-CMSquad = Отдел зачистки
+cm-department-Marine-description = Вооруженный до зубов отряд самоубийц,
 
 # engineering
-department-CMEngineering = Engineering
+department-CMEngineering = Стройбат
 cm-department-Engineering-description = Your job is to maintain the ship's engine and keep everything running.
 
 # medical
-department-CMMedbay = Medbay
+department-CMMedbay = Отдел вмешательств
 cm-department-Medical-description = Treat all patients that come into medbay. Transfer injured marines from the hanger to medbay.
 
 # auxiliary support
-department-CMAuxiliarySupport = Auxiliary Combat Support
+department-CMAuxiliarySupport = Отдел вторичной поддержик
 cm-department-AuxiliarySupport-description = The Auxiliary support personnel are tasked with supporting the marines either by providing support through firepower or other means.
 
 # other
-department-CMOther = Other
+department-CMOther = Отдел рекреации
 cm-department-Other-description = ""
 
 # survivor
-department-CMSurvivor = Survivor
-cm-department-Survivor-description = Survive whenever possible by yourself or with other survivors.
+department-CMSurvivor = Выжившие
+cm-department-Survivor-description = Выжившие после неудачной посадки или операции, выживайте по возможности в одиночку или с другими выжившими.
 
 # human
-department-CMHuman = Human
-cm-department-Human-description = All human roles.
+department-CMHuman = Люди
+cm-department-Human-description = Сюда входят все сотрудники Триглава.
