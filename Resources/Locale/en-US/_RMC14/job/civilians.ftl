@@ -1,14 +1,14 @@
 ﻿# Non Marine Personnel
-cm-job-name-correspondent = Correspondent
-cm-job-description-correspondent = You report on anything and everything that you deem fit to put within the pages of the news.
-cm-job-prefix-correspondent = PRESS
-CMJobCorrespondent = Correspondent
+cm-job-name-correspondent = Военный оператор
+cm-job-description-correspondent = Вы сообщаете обо всем, что происходит на военном объекте.
+cm-job-prefix-correspondent = ВО
+CMJobCorrespondent = Военный оператор
 
-cm-job-name-survivor = Survivor
-cm-job-description-survivor = You are a survivor of the attack on a corporate facility. You worked or lived in the colony/station, and managed to avoid the alien attacks... until now.
-CMJobSurvivor = Survivor
+cm-job-name-survivor = Выживший
+cm-job-description-survivor = Вы - выживший после неудачной операции/посадки, время пришло действовать ведь вы точно знаете, что Триглав где-то рядом. Они своих не бросают.
+CMJobSurvivor = Выживший
 
-cm-job-name-liaison = Corporate Liaison
-cm-job-description-liaison = Be the direct line of communication between the Almayer and We-Ya by sending faxes. Make sure the interests of the We-Ya are retained.
-cm-job-prefix-liaison = CL
-CMJobLiaison = Corporate Liaison
+cm-job-name-liaison = Смотритель Триглава
+cm-job-description-liaison = Следите за тем, чтобы интересы Триглава соблюдались.
+cm-job-prefix-liaison = СТ
+CMJobLiaison = Смотритель Триглава

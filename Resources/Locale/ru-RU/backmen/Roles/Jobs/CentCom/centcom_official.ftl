@@ -13,10 +13,12 @@ job-description-centcomsecofficer = Обычный сотрудник Служб
 JobCentralCommandSecOfficer = Приватного Офицера Сб
 job-name-centcomcargo = грузчик ЦК
 job-description-centcomcargo = Выполняйте товарные запросы сотрудников ЦК, оказывайте экстренную помощь станции продовольсвием, выполняйте заказы из вне списка товаров.
-department-CentCom = Триглав
+department-CentCom = Совет Триглав
 department-CentCom-description = Центральное Командование ведёт защиту активов НаноТрейзен следя за выполнением задач и решений вопросов на станциях НаноТрайзен. Зелёно-золотые тона наглядно показывают сотрудников Центрального Командования.
 job-supervisors-hoh = Главе Штаба Центрального Командывания
-job-supervisors-centcommembers = Выше стоящим сотрудникам Центарльного Командывания
-job-name-centcomadmiral = адмирал НТ
-job-description-centcomadmiral = Адмирал НТ, у которого не всегда есть время на ЦК, не то что станции.
+
+job-supervisors-centcommembers = Выше стоящему персоналу Триглава
+
+job-name-centcomadmiral = Легенда Триглава
+job-description-centcomadmiral = Один из тройки создателей Триглава, одно ваше присутствие ввергает в страх.
 job-supervisors-human = Старшему персоналу своего отдела

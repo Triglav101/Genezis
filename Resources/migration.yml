@@ -184,30 +184,6 @@ GeneratorUraniumMachineCircuitboard: PortableGeneratorSuperPacmanMachineCircuitb
 FoodTinBeansOpen: FoodTinBeans
 FoodTinMREOpen: FoodTinMRE
 
-# 2023-11-05
-WeaponRifleAk: WeaponAKMSRifle
-WeaponXrayCannon: WeaponEarthGovXRay
-WeaponLaserCarbine: WeaponEarthGovLaserRifle
-WeaponLaserCannon: WeaponEarthGovLaserSniper
-WeaponRifleLecter: WeaponRifleAR18
-WeaponSubMachineGunAtreides: WeaponSubMachineGunMP7
-WeaponPistolViper: WeaponPistolHIB88M4
-WeaponPistolMk58: WeaponPistolACP14
-WeaponSubMachineGunDrozd: WeaponSubMachineGunVectorSpecial
-WeaponShotgunEnforcer: WeaponShotgun39
-WeaponShotgunEnforcerRubber: WeaponShotgun39NonLethal
-WeaponSubMachineGunWt550: WeaponSubMachineGunP90
-MagazinePistolSubMachineGunTopMounted: MagazinePistolTopSubMachineGun
-WeaponShotgunKammerer: WeaponShotguntrenchgun4034
-WeaponSubMachineGunC20r: WeaponSubMachineGunMP7
-WeaponRevolverMateba: WeaponRevolverMatebaNew
-WeaponSniperMosin: WeaponSniperMosinNew
-WeaponShotgunBulldog: WeaponShotgunZauer
-
-# 2023-11-26
-WeaponSniperHristov: WeaponRifleSR127
-MagazineBoxAntiMateriel: MagazineAntiMaterielRifleSR
-
 # 2023-12-10
 SpawnPointSeniorResearcher: null
 SpawnPointSeniorOfficer: null
@@ -358,9 +334,6 @@ CrateBaseWeldable: CrateGenericSteel
 # 2024-09-03 Backmen
 WeaponTaser: WeaponDominatorNT
 
-# 2024-03-11
-WeaponLauncherRocket: WeaponLauncherRL5
-
 # 2024-03-05
 BookBotanicalTextbook: BookRandomStory
 BookEscalation: BookRandomStory
@@ -395,12 +368,6 @@ FoodChilly: FoodChillyPepper
 ImprovisedExplosive: FireBomb
 ImprovisedExplosiveEmpty: FireBombEmpty
 ImprovisedExplosiveFuel: FireBombFuel
-
-#2024-03-15
-ClothingBackpackDuffelSyndicateFilledShotgun: ClothingBackpackDuffelSyndicateFilledZauer
-ClothingBackpackDuffelSyndicateFilledSMG: ClothingBackpackDuffelSyndicateFilledMP7
-ClothingBackpackDuffelSyndicateFilledLMG: ClothingBackpackDuffelSyndicateFilledRPD
-ClothingBackpackDuffelSyndicateFilledGrenadeLauncher: ClothingBackpackDuffelSyndicateFilledGL79
 
 # 2024-03-16
 ClothingHeadHatHairflower: FoodPoppy
@@ -481,9 +448,6 @@ BoxMagazineCaselessRifleRubber: BoxMagazinePistolCaselessRifle
 BoxMagazineMagnumSubMachineGunRubber: BoxMagazineMagnumSubMachineGun
 WeaponPistolMk58Nonlethal: WeaponPistolMk58
 WeaponPistolN1984Nonlethal: WeaponPistolN1984
-WeaponSubMachineGunVectorRubber: WeaponSubMachineGunMP5 #Backmen-migration
-WeaponSubMachineGunDrozdRubber: WeaponSubMachineGunMP5 #Backmen-migration
-WeaponRifleLecterRubber: WeaponRifleFamas #Backmen-migration
 
 # 2024-04-26
 GlassBoxLaserBroken: GlassBoxBroken
@@ -1052,8 +1016,6 @@ GunSafeShotgunEnforcer: GunSafeShotgunShotgun39
 GunSafeShotgunKammerer: GunSafeShotgunTrenchgun
 GunSafeSubMachineGunWt550: GunSafeSubMachineGunMP5
 GunSafeLaserCarbine: GunSafeLaserCarbineUEG
-ShotGunCabinetFilled: ShotGunCabinetFilledBackmen
-ShotGunCabinetFilledOpen: ShotGunCabinetFilledOpenBackmen
 
 # 2024-10-05 - Corvax
 SheetPrinter: SheetPaper

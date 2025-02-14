@@ -356040,23 +356040,6 @@ entities:
       parent: 2
     - type: Physics
       canCollide: False
-- proto: WeaponEarthGovLaserRifle
-  entities:
-  - uid: 68097
-    components:
-    - type: Transform
-      pos: 63.59985,-37.439087
-      parent: 2
-  - uid: 68098
-    components:
-    - type: Transform
-      pos: 63.614605,-37.660324
-      parent: 2
-  - uid: 68099
-    components:
-    - type: Transform
-      pos: 63.614605,-37.896313
-      parent: 2
 - proto: WeaponLaserCarbinePractice
   entities:
   - uid: 68100
@@ -356094,69 +356077,12 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
-- proto: WeaponPistolACP14
-  entities:
-  - uid: 68101
-    components:
-    - type: Transform
-      pos: 63.53826,-38.326332
-      parent: 2
-  - uid: 68102
-    components:
-    - type: Transform
-      pos: 63.656322,-38.53282
-      parent: 2
-- proto: WeaponRifleAR18
-  entities:
-  - uid: 68103
-    components:
-    - type: Transform
-      pos: 63.524666,-36.377575
-      parent: 2
-  - uid: 68104
-    components:
-    - type: Transform
-      pos: 63.52456,-36.61301
-      parent: 2
-- proto: WeaponShotguntrenchgun4034
-  entities:
-  - uid: 68105
-    components:
-    - type: Transform
-      pos: 63.524666,-34.25368
-      parent: 2
-  - uid: 68106
-    components:
-    - type: Transform
-      pos: 63.55418,-34.401173
-      parent: 2
-- proto: WeaponSniperMosinNew
-  entities:
-  - uid: 68107
-    components:
-    - type: Transform
-      pos: -15.933733,-36.387592
-      parent: 2
 - proto: WeaponSprayNozzle
   entities:
   - uid: 68108
     components:
     - type: Transform
       pos: 15.01539,21.774874
-      parent: 2
-- proto: WeaponSubMachineGunP90
-  entities:
-  - uid: 68110
-    components:
-    - type: Transform
-      pos: 64.50154,-30.224583
-      parent: 2
-- proto: WeaponSubMachineGunVectorSpecial
-  entities:
-  - uid: 68109
-    components:
-    - type: Transform
-      pos: 63.598454,-35.44837
       parent: 2
 - proto: WeaponTurretNanoTrasen
   entities:

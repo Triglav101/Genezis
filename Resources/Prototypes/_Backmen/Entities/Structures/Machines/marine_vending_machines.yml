@@ -81,37 +81,9 @@
 - type: vendingMachineInventory
   id: EGMCWeaponInventoryMarine
   startingInventory:
-    WeaponPistolACP14: 10
     WeaponPistolG22: 10
     MagazinePistol: 20
-    WeaponRifleAR18: 10
-    WeaponRifleFamas: 10
-    WeaponRifleG36: 10
-    WeaponRifleM16A4: 10
-    MagazineRifle: 40
-    WeaponSubMachineGunMP5: 10
-    WeaponSubMachineGunMP7: 10
-    WeaponSubMachineGunVectorSpecial: 10
-    MagazinePistolSubMachineGun: 30
-    WeaponSubMachineGunP90: 10
-    MagazinePistolTopSubMachineGun: 20
-    WeaponEarthGovXRay: 5
-    WeaponEarthGovLaserSniper: 5
-    WeaponEarthGovLaserCarbine: 10
-    WeaponEarthGovLaserRifle: 10
-    WeaponEarthGovLaserPistol: 10
-    WeaponRifleSR127: 5
-    MagazineAntiMaterielRifleSR: 10
-    WeaponPistolDEagle: 5
-    MagazineMagnumPistol: 10
-    WeaponShotgun39: 10
-    WeaponShotgun12: 10
-    WeaponShotgunPaladin12: 10
-    BoxLethalshot: 60
-    WeaponRifleBR64: 10
-    MagazineHeavyRifleBR64: 20
-    WeaponRevolverMateba: 10
-    SpeedLoaderMagnum: 20
+
 
 - type: entity
   parent: VendingMachine

@@ -12,7 +12,7 @@ cm-distress-signal-marine = {$player}
 
 rmc-distress-signal-next-map-title = Выбор операции:
 rmc-distress-signal-next-map-tie = Ничья при выборе операции... {$picked}
-rmc-distress-signal-next-map-win = {$winner} успешно выбрана как оперция!
+rmc-distress-signal-next-map-win = {$winner} успешно выбрана как операция!
 
 cm-distress-signal-medals = Медали:
 cm-distress-signal-jellies = Монстро-медали:

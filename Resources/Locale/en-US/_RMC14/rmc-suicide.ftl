@@ -1,8 +1,8 @@
-﻿rmc-suicide = Suicide
-rmc-suicide-start-self = You stick your gun in your mouth, ready to pull the trigger.
-rmc-suicide-start-others = {$user} sticks their gun in their mouth, ready to pull the trigger.
-rmc-suicide-cancel-self = You decided life was worth living.
-rmc-suicide-cancel-others = {$user} decided life was worth living.
-rmc-suicide-finish-self = You pull the trigger!
-rmc-suicide-finish-others = {$user} pulls the trigger!
-rmc-suicide-fumble-self = You fumble with your gun, you can't do that so quickly!
+﻿rmc-suicide = Суицид
+rmc-suicide-start-self = Вы засовываете оружие в рот, готовясь спустить курок.
+rmc-suicide-start-others = {$user} засовывает оружие в рот, готовясь спустить курок.
+rmc-suicide-cancel-self = Вы решили, что ваша жизнь стоит того, чтобы ее прожить.
+rmc-suicide-cancel-others = {$user} решил, что его жизнь стоит того, чтобы ее прожить.
+rmc-suicide-finish-self = Вы спустили курок!
+rmc-suicide-finish-others = {$user} спустил курок!
+rmc-suicide-fumble-self = Вы неловко держите оружие, нельзя ускорить процесс!

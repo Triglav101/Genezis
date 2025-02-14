@@ -1,25 +1,25 @@
 - type: gameMap
   id: CentComm
-  mapName: 'Central Command'
-  mapPath: /Maps/centcomm.yml
+  mapName: 'Аванпост Гризли'
+  mapPath: /Maps/Genezis/SpacePort.yml
   minPlayers: 10
   stations:
     centcomm:
       stationProto: NanotrasenCentralCommand
       components:
         - type: StationNameSetup
-          mapNameTemplate: '{0} Central Command {1}'
+          mapNameTemplate: '{0} Аванпост Гризли {1}'
           nameGenerator:
             !type:NanotrasenCentComNameGenerator
             prefixCreator: 'TG'
-        - type: StationJobs
-          availableJobs:
-            BKCCOperator: [ 0, 0]
-            BKCCSecGavna: [ 0, 0]
-            BKCCCargo: [ 0, 0]
-            BKCCSecOfficer: [ 0, 0]
-            BKCCAssistant: [ 0, 1]
-            BKCCAdmiral: [ 0, 0]
+        # - type: StationJobs
+        #   availableJobs:
+        #     BKCCOperator: [ 0, 0]
+        #     BKCCSecGavna: [ 0, 0]
+        #     BKCCCargo: [ 0, 0]
+        #     BKCCSecOfficer: [ 0, 0]
+        #     BKCCAssistant: [ 0, 1]
+        #     BKCCAdmiral: [ 0, 0]
 
 # - type: gameMap
 #   id: CentCommv2

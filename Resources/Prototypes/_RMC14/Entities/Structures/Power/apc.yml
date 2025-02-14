@@ -5,6 +5,19 @@
   description: A control terminal for the area electrical systems.
   categories: [ HideSpawnMenu ]
   components:
+  - type: StationAiWhitelist
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -9
+    range: 2
+    sound:
+      path: /Audio/Ambience/Objects/hdd_buzz.ogg
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#3db83b"
+    castShadows: false
+    netsync: false
   - type: Transform
     anchored: true
   - type: AccessReader
@@ -41,6 +54,22 @@
   - type: Appearance
   - type: WallMount
     arc: 360
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: MVPower
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: Apc
+  - type: PowerMonitoringDevice
+    group: APC
+    sourceNode: input
+    loadNode: output
+    collectionName: apc
+    sprite: Structures/Power/apc.rsi
+    state: static
   - type: UserInterface
     interfaces:
       enum.RMCApcUiKey.Key:
@@ -50,6 +79,8 @@
   - type: Corrodible
     isCorrodible: false
   - type: RMCApc
+  - type: PowerProvider
+    voltage: Apc
   - type: ActivatableUIBlacklist
     blacklist:
       components:
@@ -64,6 +95,7 @@
       behaviors:
       - !type:DoActsBehavior
         acts: ["Breakage"]
+  - type: StationInfiniteBatteryTarget
   - type: GenericVisualizer
     visuals:
       enum.RMCApcVisualsLayers.Layer:

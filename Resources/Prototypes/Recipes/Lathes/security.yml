@@ -63,15 +63,6 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
-  id: WeaponLaserCarbine
-  result: WeaponEarthGovLaserCarbine
-  materials:
-    Steel: 2000
-    Glass: 800
-    Plastic: 500
-
-- type: latheRecipe
-  parent: BaseWeaponRecipeLong
   id: WeaponLaserPistol
   result: WeaponEarthGovLaserPistol
   materials:

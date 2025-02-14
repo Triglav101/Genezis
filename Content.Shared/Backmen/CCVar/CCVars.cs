@@ -86,7 +86,7 @@ public sealed class CCVars
         EconomyWagesEnabled = CVarDef.Create("economy.wages_enabled", true, CVar.SERVERONLY);
 
     public static readonly CVarDef<bool>
-        WhitelistRolesEnabled = CVarDef.Create("game.whitelist_role_enabled", true, CVar.SERVER | CVar.REPLICATED);
+        WhitelistRolesEnabled = CVarDef.Create("game.whitelist_role_enabled", false, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     /// Whether the Shipyard is enabled.
@@ -116,7 +116,7 @@ public sealed class CCVars
     ///     Guaranteed psionics will still go through.
     /// </summary>
     public static readonly CVarDef<bool> PsionicRollsEnabled =
-        CVarDef.Create("psionics.rolls_enabled", true, CVar.SERVERONLY);
+        CVarDef.Create("psionics.rolls_enabled", false, CVar.SERVERONLY);
 
     /// <summary>
     /// Shipwrecked
@@ -174,7 +174,7 @@ public sealed class CCVars
         CVarDef.Create("ghost.respawn_time", 15f, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<int> GhostRespawnMaxPlayers =
-        CVarDef.Create("ghost.respawn_max_players", 40, CVar.SERVERONLY);
+        CVarDef.Create("ghost.respawn_max_players", 75, CVar.SERVERONLY);
 
     /*
      * Immersive

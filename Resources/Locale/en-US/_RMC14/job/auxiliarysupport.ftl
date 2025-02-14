@@ -1,25 +1,20 @@
 ﻿# auxiliary support
-cm-job-name-aso = Auxiliary Support Officer
-cm-job-description-aso = Coordinate the support and auxiliary departments of the operation.
-cm-job-prefix-aso = ASO
-CMJobAuxiliarySupportOfficer = Auxiliary Support Officer
+cm-job-name-aso = Глава воздушных операций
+cm-job-description-aso = Координируйте работу пилотов шаттлов, а также доставки с материнского корабля.
+cm-job-prefix-aso = ГВО
+CMJobAuxiliarySupportOfficer = Глава воздушных операций
 
-cm-job-name-dropship-pilot = Dropship Pilot
-cm-job-description-dropship-pilot = Transport troops via the dropship and provide medevac. Make sure no invaders get onto your assigned Dropship.
-cm-job-prefix-dropship-pilot = DP
-CMJobPilotDropship = Dropship Pilot
+cm-job-name-dropship-pilot = Пилот транспортного шаттла
+cm-job-description-dropship-pilot = Перевозите войска на шаттле и оказывайте всяческую помощь персоналу.
+cm-job-prefix-dropship-pilot = ПТШ
+CMJobPilotDropship = Пилот транспортного шаттла
 
-cm-job-name-gunship-pilot = Gunship Pilot
-cm-job-description-gunship-pilot = Fly, protect, and maintain the ship's transport dropship.
-cm-job-prefix-gunship-pilot = GP
-CMJobPilotGunship = Gunship Officer
+cm-job-name-gunship-pilot = Пилот боевого шаттла
+cm-job-description-gunship-pilot = Летайте, защищайте и обслуживайте боевой шаттл.
+cm-job-prefix-gunship-pilot = ПБШ
+CMJobPilotGunship = Пилот боевого шаттла
 
-cm-job-name-dcc = Dropship Crew Chief
-cm-job-description-dcc = Assist the dropship and gunship pilots and maintain the ship's dropship as well as the dropship's wounded.
-cm-job-prefix-dcc = DCC
-CMJobDropshipCrewChief = Dropship Crew Chief
-
-cm-job-name-intel = Intelligence Officer
-cm-job-description-intel = Recover intelligence objects from groundside, process, and gain tech points to support the operation by OB warhead, dropship points or requisition supply.
-cm-job-prefix-intel = IO
-CMJobIntelOfficer = Intelligence Officer
+cm-job-name-dcc = Обслуживающий персонал шаттла
+cm-job-description-dcc = Помогайте пилотам шаттлов в обслуживании шаттла, а также выполняйте их приказы.
+cm-job-prefix-dcc = ОПШ
+CMJobDropshipCrewChief = Обслуживающий персонал шаттла

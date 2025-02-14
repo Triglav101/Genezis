@@ -348,7 +348,7 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("guidebook.show_editor_species_button", false, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<bool> RMCEnableSuicide =
-        CVarDef.Create("rmc.enable_suicide", false, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("rmc.enable_suicide", true, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<int> RMCWeedKillerDropshipDelaySeconds =
         CVarDef.Create("rmc.weed_killer_dropship_delay_seconds", 20, CVar.SERVER | CVar.REPLICATED);

@@ -1,6 +1,6 @@
 ﻿- type: decal
   id: Meatcross
-  tags: ["station", "markings"]
+  tags: ["station"]
   sprite:
-    sprite: /Genezis/Decals/Meat.rsi
+    sprite: /Textures/Genezis/Decals/Meat.rsi
     state: meatcross

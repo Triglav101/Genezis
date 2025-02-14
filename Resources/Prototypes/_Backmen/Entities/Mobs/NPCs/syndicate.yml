@@ -15,9 +15,6 @@
     - type: HTN
       rootTask:
         task: SimpleHumanoidHostileCompound
-    - type: InnateTool
-      tools:
-        - id: WeaponAKMSRifleAI
 
 - type: entity
   name: Ядерный оперативник

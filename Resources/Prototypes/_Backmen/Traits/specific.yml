@@ -3,6 +3,7 @@
   id: Giant10
   name: Giant10-name
   description: Giant10-desc
+  category: Quirks
   blacklist:
     components:
     - BSSDrone #backmen: bssdrone
@@ -16,6 +17,7 @@
   id: Giant20
   name: Giant20-name
   description: Giant20-desc
+  category: Quirks
   blacklist:
     components:
     - BSSDrone #backmen: bssdrone
@@ -29,6 +31,7 @@
   id: Giant30
   name: Giant30-name
   description: Giant30-desc
+  category: Quirks
   blacklist:
     components:
     - BSSDrone #backmen: bssdrone

@@ -7,10 +7,9 @@
   showInVote: true
   description: Основной пресет, сможете ли вы разобраться с трудностями?
   rules:
-    - BasicRoundstartVariation
-    - BasicStationEventScheduler
     - WageScheduler
-  supportedMaps: GenezisDefaultMapPool
+    - CMDistressSignal
+  # supportedMaps: GenezisDefaultMapPool
   # forceMap: true
 
 # - type: gamePreset

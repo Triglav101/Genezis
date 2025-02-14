@@ -1,8 +1,8 @@
-no-eorg-popup-title = RMC14
-no-eorg-popup-label = Welcome to the End of Round!
-no-eorg-popup-message = [bold]End-of-round grief (EORG)[/bold] is not allowed at RMC14. Please stay in character until the lobby screen appears to maintain an immersive environment for everyone. Thank you for respecting the community rules!
-no-eorg-popup-rule = [bold][color=#a4885c]End of round grief of your own faction is not permitted and results in an instant unappealable 3 hour game ban.[/color][/bold]
-no-eorg-popup-rule-text = This includes any friendly fire at round end regardless of who started the griefing, as the round may not be entirely over even if the main condition has been reached. This also includes suicides without a valid roleplay reason.
-no-eorg-popup-close-button = Sounds good!
-no-eorg-popup-close-button-wait = The close button will be enabled after {$time} seconds.
-no-eorg-popup-skip-checkbox = Don't show this again.
+no-eorg-popup-title = Сообщение от Триглава
+no-eorg-popup-label = Операция подошла к концу!
+no-eorg-popup-message = Скоро раунд будет перезапущен, правила на РДМ после титров у нас отсутствуют - можете повеселиться.
+no-eorg-popup-rule = Не забывайте о правилах приличия! После окончания "операции" все оскорбления буду наказываться, так-как РП часть раунда окончена.
+no-eorg-popup-rule-text = Спасибо, что вступили в ряды Триглава и участвовали в операции!
+no-eorg-popup-close-button = Закрыть сообщение
+no-eorg-popup-close-button-wait = Кнопка закрытия будет включена после {$time} секунд.
+no-eorg-popup-skip-checkbox = Не показывать снова.

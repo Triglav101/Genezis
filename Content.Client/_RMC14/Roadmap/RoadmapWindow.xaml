@@ -12,7 +12,7 @@
                 <BoxContainer Orientation="Vertical" Margin="0 0 20 0">
                     <BoxContainer Orientation="Horizontal">
                         <Button Name="DiscordButton" Access="Public" Text="{Loc 'rmc-ui-discord'}"
-                                Visible="False" StyleClasses="OpenRight" HorizontalExpand="True" />
+                                Visible="true" StyleClasses="OpenRight" HorizontalExpand="True" />
                         <Button Name="PatreonButton" Access="Public" Text="{Loc 'rmc-ui-patreon'}"
                                 Visible="False" StyleClasses="OpenBoth" HorizontalExpand="True" />
                         <Button Name="CreditsButton" Access="Public" Text="Credits"

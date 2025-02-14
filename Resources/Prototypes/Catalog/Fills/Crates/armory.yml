@@ -1,30 +1,4 @@
 - type: entity
-  id: CrateArmorySMG
-  parent: [ CrateWeaponSecure, BaseRestrictedContraband ]
-  name: SMG crate
-  description: Contains two high-powered, semiautomatic rifles with four mags. Requires Armory access to open.
-  components:
-  - type: StorageFill
-    contents:
-      - id: WeaponSubMachineGunMP5
-        amount: 2
-      - id: MagazinePistolSubMachineGun
-        amount: 4
-
-- type: entity
-  id: CrateArmoryShotgun
-  parent: [ CrateWeaponSecure, BaseRestrictedContraband ]
-  name: shotgun crate
-  description: For when the enemy absolutely needs to be replaced with lead. Contains two Enforcer Combat Shotguns, and some standard shotgun shells. Requires Armory access to open.
-  components:
-  - type: StorageFill
-    contents:
-      - id: WeaponShotguntrenchgun4034
-        amount: 2
-      - id: BoxLethalshot
-        amount: 4
-
-- type: entity
   id: CrateTrackingImplants
   parent: [ CrateWeaponSecure, BaseRestrictedContraband ]
   name: tracking implants
@@ -45,17 +19,6 @@
     contents:
     - id: TrainingBomb
       amount: 3
-
-- type: entity
-  id: CrateArmoryLaser
-  parent: [ CrateWeaponSecure, BaseRestrictedContraband ]
-  name: lasers crate
-  description: Contains three standard-issue laser rifles. Requires Armory access to open.
-  components:
-  - type: StorageFill
-    contents:
-      - id: WeaponEarthGovLaserCarbine
-        amount: 2
 
 - type: entity
   id: CrateArmoryPistols

@@ -46,13 +46,13 @@
       path: /Maps/Shuttles/cargo.yml
     - type: GridSpawn
       groups:
-        trade: !type:GridSpawnGroup
-          addComponents:
-            - type: ArrivalsProtectGrid
-            - type: ProtectedGrid
-            - type: TradeStation
-          paths:
-            - /Maps/Shuttles/trading_outpost.yml
+        # trade: !type:GridSpawnGroup
+        #   addComponents:
+        #     - type: ArrivalsProtectGrid
+        #     - type: ProtectedGrid
+        #     - type: TradeStation
+        #   paths:
+        #     - /Maps/Shuttles/trading_outpost.yml
         # Spawn last
         ruins: !type:GridSpawnGroup
           hide: true

@@ -23,7 +23,40 @@
   id: Mauler
 
 - type: Tag
+  id: ClarkePeripheralsControlModule
+
+- type: Tag
+  id: RipleyMKIIUpgradeKit
+
+- type: Tag
   id: LMauler
+
+- type: Tag
+  id: DurandTargetingControlModule
+
+- type: Tag
+  id: ClarkeLArm
+
+- type: Tag
+  id: ClarkeHead
+
+- type: Tag
+  id: ClarkeRLeg
+
+- type: Tag
+  id: ClarkeLLeg
+
+- type: Tag
+  id: DurandHead
+
+- type: Tag
+  id: DurandRLeg
+
+- type: Tag
+  id: DurandArmor
+
+- type: Tag
+  id: DurandPeripheralsControlModule
 
 - type: Tag
   id: DurandCentralControlModule

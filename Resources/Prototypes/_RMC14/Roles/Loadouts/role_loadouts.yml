@@ -71,23 +71,6 @@
   - FoodPackagedRMC
   - FoodHealthyRMC
 
-- type: roleLoadout
-  id: JobCMIntelOfficer
-  points: 7
-  groups:
-  - MarineBackpack
-  - EyewearRMC
-  - MasksRMC
-  - HeadwearRMC
-  - PaperworkRMC
-  - PlushiesRMC
-  - WeaponsRMC
-  - CannedDrinksRMC
-  - FlasksRMC
-  - FoodSweetsRMC
-  - FoodPackagedRMC
-  - FoodHealthyRMC
-
 # Command
 - type: roleLoadout
   id: JobCMCommandingOfficer

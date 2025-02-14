@@ -42860,27 +42860,6 @@ entities:
     - type: Transform
       pos: -12.346658,4.475792
       parent: 2
-- proto: WeaponRifleSR127
-  entities:
-  - uid: 6961
-    components:
-    - type: Transform
-      pos: 8.479478,29.789814
-      parent: 2
-- proto: WeaponSubMachineGunMP7
-  entities:
-  - uid: 6962
-    components:
-    - type: Transform
-      pos: 8.51666,29.42835
-      parent: 2
-- proto: WeaponSubMachineGunP90
-  entities:
-  - uid: 6963
-    components:
-    - type: Transform
-      pos: -13.438182,-3.4256558
-      parent: 2
 - proto: WelderExperimental
   entities:
   - uid: 6964

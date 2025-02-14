@@ -15,7 +15,7 @@ entities:
   - uid: 1
     components:
     - type: MetaData
-      name: map 98
+      name: Map Entity
     - type: Transform
     - type: Map
       mapPaused: True
@@ -24,13 +24,13 @@ entities:
     - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
-    - type: LoadedMap
     - type: Parallax
       parallax: HD
+    - type: LoadedMap      
   - uid: 2
     components:
     - type: MetaData
-      name: Космопорт
+      name: Аванпост Гризли
     - type: Transform
       pos: -0.5,-0.541667
       parent: 1
@@ -94,7 +94,7 @@ entities:
     - type: Fixtures
       fixtures: {}
     - type: BecomesStation
-      id: SpacePort
+      id: Аванпост Гризли
     - type: OccluderTree
     - type: SpreaderGrid
     - type: Shuttle

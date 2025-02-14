@@ -13,5 +13,5 @@ rmc-ui-named-sentry = Название для турели
 
 rmc-other-credits-tab = Другое
 
-rmc-ui-auto-punctuate = Automatically punctuate in-character messages
-rmc-ui-auto-eject-magazines = Automatically eject magazines from guns
+rmc-ui-auto-punctuate = Автоматическое расставление знаков препинания в сообщениях
+rmc-ui-auto-eject-magazines = Автоматическое извлечение магазинов из оружия

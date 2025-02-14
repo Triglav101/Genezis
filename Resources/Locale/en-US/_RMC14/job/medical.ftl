@@ -1,20 +1,20 @@
 ﻿# medical
-cm-job-name-cmo = Chief Medical Officer
-cm-job-description-cmo = Oversee Medbay, Research, and Chemistry. Manage your medical crew. Advise the Command staff on matters of health and wellness of the marine force.
-cm-job-prefix-cmo = CMO
-CMJobCMO = Chief Medical Officer
+cm-job-name-cmo = Медицинский офицер
+cm-job-description-cmo = Управляйте врачами и учеными, в ваших руках оба отдела могут засиять.
+cm-job-prefix-cmo = МО
+CMJobCMO = Медицинский офицер
 
-cm-job-name-doctor = Doctor
-cm-job-description-doctor = Treat all patients that come into medbay. Transfer injured marines from the hanger to medbay. Perform surgery if needed.
-cm-job-prefix-doctor = Doc
-CMJobDoctor = Doctor
+cm-job-name-doctor = Врач Триглава
+cm-job-description-doctor = Лечите всех пациентов, поступающих в медблок, при необходимости проведите операцию.
+cm-job-prefix-doctor = ВТ
+CMJobDoctor = Врач Триглава
 
-cm-job-name-nurse = Nurse
-cm-job-description-nurse = Aid the doctors and medics in providing aid to the wounded.
-cm-job-prefix-nurse = Nurse
-CMJobNurse = Nurse
+cm-job-name-nurse = Пармедик Триглава
+cm-job-description-nurse = Спасайте раненых бойцов с поля боя, стабилизируйте их состояние и несите врачам.
+cm-job-prefix-nurse = ПТ
+CMJobNurse = Пармедик Триглава
 
-cm-job-name-researcher = Researcher
-cm-job-description-researcher = Conduct research on what is sent to you. Create and analyze new chemicals, tools and objects.
-cm-job-prefix-researcher = Rsr
-CMJobResearcher = Researcher
+cm-job-name-researcher = Ученый Триглава
+cm-job-description-researcher = Проведите исследование того, что вам прислали. Создавайте и анализируйте новые химические вещества, инструменты и предметы.
+cm-job-prefix-researcher = УТ
+CMJobResearcher = Ученый Триглава
