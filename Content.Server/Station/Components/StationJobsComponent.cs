@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Content.Server.Station.Systems;
+using Content.Server._RMC14.Stations;
 using Content.Shared.Roles;
 using JetBrains.Annotations;
 using Robust.Shared.Network;
@@ -79,4 +80,7 @@ public sealed partial class StationJobsComponent : Component
     /// </summary>
     [DataField("availableJobs", required: true)]
     public Dictionary<ProtoId<JobPrototype>, int[]> SetupAvailableJobs = default!;
+
+    [DataField]
+    public EntProtoId<JobSlotScalingComponent>? JobSlotScaling = "RMCJobSlotScaling";
 }

@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared._RMC14.CCVar;
 using Content.Shared._RMC14.GameStates;
@@ -51,7 +51,14 @@ public sealed class AreaSystem : EntitySystem
         var areas = ent.Comp.Areas.Values.DistinctBy(a => a.Id);
         foreach (var area in areas)
         {
+            if (ent.Comp.AreaEntities.ContainsKey(area))
+            {
+                Log.Warning($"Duplicate area {area} found in entity {ToPrettyString(ent)}");
+                continue;
+            }
+
             var areaEnt = Spawn(area, MapCoordinates.Nullspace);
+            ent.Comp.AreaEntities[area] = areaEnt;
             _rmcPvs.AddGlobalOverride(areaEnt);
         }
     }
@@ -73,9 +80,14 @@ public sealed class AreaSystem : EntitySystem
         if (!_prototypes.TryIndex(areaProtoId, out areaPrototype))
             return false;
 
-#pragma warning disable CS8762
+        if (!grid.Comp2.AreaEntities.TryGetValue(areaProtoId, out var areaEnt) ||
+            !TryComp(areaEnt, out AreaComponent? areaComp))
+        {
+            return false;
+        }
+
+        area = (areaEnt, areaComp);
         return true;
-#pragma warning restore CS8762
     }
 
     public bool TryGetArea(
@@ -183,6 +195,14 @@ public sealed class AreaSystem : EntitySystem
         return area.Value.Comp.OB;
     }
 
+    public bool CanFulton(EntityCoordinates coordinates)
+    {
+        if (!TryGetArea(coordinates, out var area, out _))
+            return false;
+
+        return area.Value.Comp.Fulton;
+    }
+
     private bool IsRoofed(EntityCoordinates coordinates, Predicate<Entity<RoofingEntityComponent>> predicate)
     {
         var roofs = EntityQueryEnumerator<RoofingEntityComponent>();
@@ -205,6 +225,14 @@ public sealed class AreaSystem : EntitySystem
     {
         if (!TryGetArea(grid, indices, out var area, out _))
             return true;
+
+        if (area.Value.Comp.WeedKilling)
+        {
+            if (user != null)
+                _popup.PopupClient("This area is unsuited to host the hive!", user.Value, user.Value, PopupType.MediumCaution);
+
+            return false;
+        }
 
         if (area.Value.Comp.ResinAllowed)
             return true;

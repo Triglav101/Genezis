@@ -4,18 +4,18 @@ cm-job-description-rifleman = Выполняйте приказы вышесто
 cm-job-prefix-rifleman = ШРК
 CMJobRifleman = Штурмовик
 
-cm-job-name-squad-leader = Командир штурмовой группы
+cm-job-name-squad-leader = Командир зачистки
 cm-job-description-squad-leader = Возглавьте отряд вооруженных самоубийц. Ставьте задачи своему отряду и выполняйте приказы от Триглава.
-cm-job-prefix-squad-leader = КШГ
-CMJobSquaderLeader = Командир штурмовой группы
+cm-job-prefix-squad-leader = КЗ
+CMJobSquaderLeader = Командир зачистки
 
 cm-job-name-fireteam-leader = Старший штурмовик
-cm-job-description-fireteam-leader = Follow the squad leader's orders and command your fireteam. Co-ordinate with CAS and fire support elements.
+cm-job-description-fireteam-leader = Выполняйте приказы командира отряда и помогайте управлять отрядом. Вы обязаны при необходимости возглавить отряд.
 cm-job-prefix-fireteam-leader = СШ
 CMJobFireteamLeader = Старший штурмовик
 
 cm-job-name-weapons-specialist = Специалист по оружию
-cm-job-description-weapons-specialist = У вас есть доступ к более тяжелому и мощному оружию и снаряжению. Вы обязаны при необходимости возглавить отряд.
+cm-job-description-weapons-specialist = У вас есть доступ к более тяжелому и мощному оружию и снаряжению.
 cm-job-prefix-weapons-specialist = СПО
 CMJobWeaponsSpecialist = Специалист по оружию
 

@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Xenonids.Weeds;
+﻿using Content.Shared._RMC14.Xenonids.Weeds;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -13,6 +13,9 @@ public sealed partial class XenoNestSurfaceComponent : Component
 
     [DataField, AutoNetworkedField]
     public TimeSpan DoAfter = TimeSpan.FromSeconds(8);
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<Direction, EntityUid> Nests = new();
 
     [DataField, AutoNetworkedField]
     [Access(typeof(XenoNestSystem), typeof(SharedXenoWeedsSystem))]

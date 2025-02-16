@@ -4,6 +4,7 @@ using Content.Shared._RMC14.Xenonids.Announce;
 using Content.Shared._RMC14.Xenonids.Construction;
 using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared.Administration.Logs;
+using Content.Shared.Backmen.Eye.NightVision.Components;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mind;
@@ -207,7 +208,12 @@ public abstract class SharedXenoHiveSystem : EntitySystem
             return;
 
         hive.Comp.SeeThroughContainers = see;
-        var xenos = EntityQueryEnumerator<XenoComponent, HiveMemberComponent>();
+        var xenos = EntityQueryEnumerator<XenoComponent, HiveMemberComponent, NightVisionComponent>();
+        while (xenos.MoveNext(out var uid, out _, out var member, out var nv))
+        {
+            if (member.Hive != hive)
+                continue;
+        }
     }
 
     public void AnnounceNeedsOvipositorToSameHive(Entity<HiveMemberComponent?> xeno)

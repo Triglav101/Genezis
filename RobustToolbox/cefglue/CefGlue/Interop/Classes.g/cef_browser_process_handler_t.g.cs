@@ -19,6 +19,7 @@ namespace Xilium.CefGlue.Interop
         internal delegate* unmanaged<cef_browser_process_handler_t*, cef_command_line_t*, cef_string_t*, int> _on_already_running_app_relaunch;
         internal delegate* unmanaged<cef_browser_process_handler_t*, long, void> _on_schedule_message_pump_work;
         internal delegate* unmanaged<cef_browser_process_handler_t*, cef_client_t*> _get_default_client;
+        internal delegate* unmanaged<cef_browser_process_handler_t*, cef_request_context_handler_t*> _get_default_request_context_handler;
         
         internal GCHandle _obj;
         
@@ -92,12 +93,18 @@ namespace Xilium.CefGlue.Interop
             return obj.get_default_client(self);
         }
         
-        internal static cef_browser_process_handler_t* Alloc(CefBrowserProcessHandler obj)
+        [UnmanagedCallersOnly]
+        public static cef_request_context_handler_t* get_default_request_context_handler(cef_browser_process_handler_t* self)
+        {
+            var obj = (CefBrowserProcessHandler)self->_obj.Target;
+            return obj.get_default_request_context_handler(self);
+        }
+        
+        internal static cef_browser_process_handler_t* Alloc()
         {
             var ptr = (cef_browser_process_handler_t*)NativeMemory.Alloc((UIntPtr)sizeof(cef_browser_process_handler_t));
             *ptr = default(cef_browser_process_handler_t);
             ptr->_base._size = (UIntPtr)sizeof(cef_browser_process_handler_t);
-            ptr->_obj = GCHandle.Alloc(obj);
             ptr->_base._add_ref = (delegate* unmanaged<cef_base_ref_counted_t*, void>)(delegate* unmanaged<cef_browser_process_handler_t*, void>)&add_ref;
             ptr->_base._release = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_browser_process_handler_t*, int>)&release;
             ptr->_base._has_one_ref = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_browser_process_handler_t*, int>)&has_one_ref;
@@ -108,12 +115,12 @@ namespace Xilium.CefGlue.Interop
             ptr->_on_already_running_app_relaunch = &on_already_running_app_relaunch;
             ptr->_on_schedule_message_pump_work = &on_schedule_message_pump_work;
             ptr->_get_default_client = &get_default_client;
+            ptr->_get_default_request_context_handler = &get_default_request_context_handler;
             return ptr;
         }
         
         internal static void Free(cef_browser_process_handler_t* ptr)
         {
-            ptr->_obj.Free();
             NativeMemory.Free((void*)ptr);
         }
         

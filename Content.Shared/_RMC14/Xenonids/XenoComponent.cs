@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Content.Shared.Access;
 using Content.Shared.Alert;
 using Content.Shared.Chat.Prototypes;
@@ -19,6 +19,9 @@ public sealed partial class XenoComponent : Component
 
     [DataField, AutoNetworkedField]
     public List<EntProtoId> ActionIds = new();
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<EntProtoId, EntityUid> Actions = new();
 
     [DataField, AutoNetworkedField]
     public FixedPoint2 FlatHealing = 0.5;

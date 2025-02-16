@@ -48,7 +48,6 @@
   tier: 1
   cost: 7500
   recipeUnlocks:
-  - WeaponLaserCarbine
   - WeaponMechCombatFiredartLaser
   - WeaponEnergyGun   # Sunrise-edit
   - WeaponEnergyGunMini # Sunrise-edit

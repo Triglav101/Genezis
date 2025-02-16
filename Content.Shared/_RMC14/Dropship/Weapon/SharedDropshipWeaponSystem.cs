@@ -261,7 +261,10 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
 
         if (_net.IsServer)
         {
-
+            foreach (var (_, eye) in ent.Comp.Eyes)
+            {
+                QueueDel(eye);
+            }
         }
     }
 
@@ -273,6 +276,17 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
             return;
         }
 
+        _targetsToRemove.Clear();
+        foreach (var (terminal, eye) in target.Eyes)
+        {
+            if (eye == ent.Owner)
+                _targetsToRemove.Add(terminal);
+        }
+
+        foreach (var remove in _targetsToRemove)
+        {
+            target.Eyes.Remove(remove);
+        }
     }
 
     private void OnAmmoExamined(Entity<DropshipAmmoComponent> ent, ref ExaminedEvent args)
@@ -458,7 +472,7 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
         }
 
         var coordinates = _transform.GetMoverCoordinates(target).SnapToGrid(EntityManager, _mapManager);
-        if (!CasDebug)
+        if (!CasDebug && !_area.CanCAS(coordinates))
         {
             var msg = Loc.GetString("rmc-laser-designator-not-cas");
             _popup.PopupCursor(msg, actor);
@@ -526,6 +540,8 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
             return;
 
         ent.Comp.NightVision = args.On;
+        if (EnsureTargetEye(ent, ent.Comp.Target) is { } target)
+            _eye.SetDrawLight(target, !ent.Comp.NightVision);
     }
 
     private void OnWeaponsExitMsg(Entity<DropshipTerminalWeaponsComponent> ent, ref DropshipTerminalWeaponsExitMsg args)
@@ -565,6 +581,9 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
 
         ent.Comp.Offset = newOffset;
 
+        if (EnsureTargetEye(ent, ent.Comp.Target) is { } target)
+            _eye.SetOffset(target, ent.Comp.Offset);
+
         Dirty(ent);
         RefreshWeaponsUI(ent);
     }
@@ -572,6 +591,9 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
     private void OnWeaponsResetOffset(Entity<DropshipTerminalWeaponsComponent> ent, ref DropshipTerminalWeaponsResetOffsetMsg args)
     {
         ent.Comp.Offset = Vector2i.Zero;
+
+        if (EnsureTargetEye(ent, ent.Comp.Target) is { } target)
+            _eye.SetOffset(target, ent.Comp.Offset);
 
         Dirty(ent);
         RefreshWeaponsUI(ent);
@@ -634,6 +656,12 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
     {
         RemovePvsActors(ent);
         SetTarget(ent, target);
+
+        if (EnsureTargetEye(ent, ent.Comp.Target) is { } targetEye)
+        {
+            _eye.SetOffset(targetEye, ent.Comp.Offset);
+            _eye.SetDrawLight(targetEye, !ent.Comp.NightVision);
+        }
 
         AddPvsActors(ent);
 
@@ -937,11 +965,46 @@ public abstract class SharedDropshipWeaponSystem : EntitySystem
         }
     }
 
+    private EntityUid? EnsureTargetEye(Entity<DropshipTerminalWeaponsComponent> terminal, Entity<DropshipTargetComponent?>? targetNullable)
+    {
+        if (targetNullable == null)
+            return null;
+
+        var target = targetNullable.Value;
+        if (!Resolve(target, ref target.Comp, false))
+            return null;
+
+        if (!target.Comp.Eyes.TryGetValue(terminal, out var eye))
+        {
+            if (_net.IsClient)
+                return null;
+
+            eye = Spawn(null, target.Owner.ToCoordinates());
+            target.Comp.Eyes[terminal] = eye;
+            Dirty(target);
+
+            var eyeComp = EnsureComp<EyeComponent>(eye);
+            _eye.SetDrawFov(eye, false, eyeComp);
+
+            var targetEyeComp = EnsureComp<DropshipTargetEyeComponent>(eye);
+            targetEyeComp.Target = target;
+            Dirty(eye, targetEyeComp);
+        }
+
+        return eye;
+    }
+
     public bool TryGetTargetEye(
         Entity<DropshipTerminalWeaponsComponent> terminal,
         Entity<DropshipTargetComponent?> target,
         out EntityUid eye)
     {
+        if (Resolve(target, ref target.Comp, false) &&
+            target.Comp.Eyes.TryGetValue(terminal, out eye))
+        {
+            return true;
+        }
+
         eye = default;
         return false;
     }

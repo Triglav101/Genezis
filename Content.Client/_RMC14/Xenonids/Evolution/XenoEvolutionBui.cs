@@ -1,4 +1,3 @@
-using Content.Client._RMC14.Xenonids.UI;
 using Content.Client.Message;
 using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared._RMC14.Xenonids.Strain;
@@ -52,11 +51,6 @@ public sealed class XenoEvolutionBui : BoundUserInterface
     {
         if (!_prototype.TryIndex(evolutionId, out var evolution))
             return;
-
-        var control = new XenoChoiceControl();
-        control.Set(evolution.Name, _sprite.Frame0(evolution));
-
-        _window?.EvolutionsContainer.AddChild(control);
     }
 
     private void AddStrain(EntProtoId strainId)
@@ -67,7 +61,6 @@ public sealed class XenoEvolutionBui : BoundUserInterface
         if (!_prototype.TryIndex(strainId, out var strain))
             return;
 
-        var control = new XenoChoiceControl();
         var name = strain.Name;
         if (strain.TryGetComponent(out XenoStrainComponent? strainComp, _compFactory))
         {
@@ -78,10 +71,6 @@ public sealed class XenoEvolutionBui : BoundUserInterface
 
             }
         }
-
-        control.Set(name, _sprite.Frame0(strain));
-
-        _window.StrainsContainer.AddChild(control);
     }
 
     public void Refresh()

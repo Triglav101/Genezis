@@ -28,7 +28,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoAcidWeak
     - ActionXenoSlowingSpit

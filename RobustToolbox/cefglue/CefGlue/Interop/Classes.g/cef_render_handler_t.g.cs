@@ -21,7 +21,7 @@ namespace Xilium.CefGlue.Interop
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, int, void> _on_popup_show;
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, cef_rect_t*, void> _on_popup_size;
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, CefPaintElementType, UIntPtr, cef_rect_t*, void*, int, int, void> _on_paint;
-        internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, CefPaintElementType, UIntPtr, cef_rect_t*, void*, void> _on_accelerated_paint;
+        internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, CefPaintElementType, UIntPtr, cef_rect_t*, cef_accelerated_paint_info_t*, void> _on_accelerated_paint;
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, CefHorizontalAlignment, cef_size_t*, void> _get_touch_handle_size;
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, cef_touch_handle_state_t*, void> _on_touch_handle_state_changed;
         internal delegate* unmanaged<cef_render_handler_t*, cef_browser_t*, cef_drag_data_t*, CefDragOperationsMask, int, int, int> _start_dragging;
@@ -118,10 +118,10 @@ namespace Xilium.CefGlue.Interop
         }
         
         [UnmanagedCallersOnly]
-        public static void on_accelerated_paint(cef_render_handler_t* self, cef_browser_t* browser, CefPaintElementType type, UIntPtr dirtyRectsCount, cef_rect_t* dirtyRects, void* shared_handle)
+        public static void on_accelerated_paint(cef_render_handler_t* self, cef_browser_t* browser, CefPaintElementType type, UIntPtr dirtyRectsCount, cef_rect_t* dirtyRects, cef_accelerated_paint_info_t* info)
         {
             var obj = (CefRenderHandler)self->_obj.Target;
-            obj.on_accelerated_paint(self, browser, type, dirtyRectsCount, dirtyRects, shared_handle);
+            obj.on_accelerated_paint(self, browser, type, dirtyRectsCount, dirtyRects, info);
         }
         
         [UnmanagedCallersOnly]
@@ -180,12 +180,11 @@ namespace Xilium.CefGlue.Interop
             obj.on_virtual_keyboard_requested(self, browser, input_mode);
         }
         
-        internal static cef_render_handler_t* Alloc(CefRenderHandler obj)
+        internal static cef_render_handler_t* Alloc()
         {
             var ptr = (cef_render_handler_t*)NativeMemory.Alloc((UIntPtr)sizeof(cef_render_handler_t));
             *ptr = default(cef_render_handler_t);
             ptr->_base._size = (UIntPtr)sizeof(cef_render_handler_t);
-            ptr->_obj = GCHandle.Alloc(obj);
             ptr->_base._add_ref = (delegate* unmanaged<cef_base_ref_counted_t*, void>)(delegate* unmanaged<cef_render_handler_t*, void>)&add_ref;
             ptr->_base._release = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_render_handler_t*, int>)&release;
             ptr->_base._has_one_ref = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_render_handler_t*, int>)&has_one_ref;
@@ -212,7 +211,6 @@ namespace Xilium.CefGlue.Interop
         
         internal static void Free(cef_render_handler_t* ptr)
         {
-            ptr->_obj.Free();
             NativeMemory.Free((void*)ptr);
         }
         

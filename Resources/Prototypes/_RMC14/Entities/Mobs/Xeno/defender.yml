@@ -100,7 +100,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailSlam
     - ActionXenoToggleCrest
     - ActionXenoHeadbutt
@@ -126,7 +125,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailSlam
     - ActionXenoToggleCrest
     - ActionXenoHeadbutt

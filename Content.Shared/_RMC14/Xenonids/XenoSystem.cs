@@ -121,7 +121,11 @@ public sealed class XenoSystem : EntitySystem
     {
         foreach (var actionId in xeno.Comp.ActionIds)
         {
-
+            if (!xeno.Comp.Actions.ContainsKey(actionId) &&
+                _action.AddAction(xeno, actionId) is { } newAction)
+            {
+                xeno.Comp.Actions[actionId] = newAction;
+            }
         }
 
         xeno.Comp.NextRegenTime = _timing.CurTime + xeno.Comp.RegenCooldown;
@@ -156,7 +160,7 @@ public sealed class XenoSystem : EntitySystem
 
     private void OnXenoGetDefaultRadioChannel(Entity<XenoComponent> ent, ref GetDefaultRadioChannelEvent args)
     {
-
+    
     }
 
     private void OnXenoAttackAttempt(Entity<XenoComponent> xeno, ref AttackAttemptEvent args)

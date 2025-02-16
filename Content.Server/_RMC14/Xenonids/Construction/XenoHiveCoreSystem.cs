@@ -1,4 +1,4 @@
-using Content.Server._RMC14.Damage;
+﻿using Content.Server._RMC14.Damage;
 using Content.Server.Ghost.Roles;
 using Content.Server.Ghost.Roles.Events;
 using Content.Shared._RMC14.Dropship;
@@ -92,6 +92,15 @@ public sealed class XenoHiveCoreSystem : SharedXenoHiveCoreSystem
             }
         }
 
+        _ghostRole.SetCurrent((uid, spawner), core.LiveLesserDrones.Count);
+
+        if (!_evolution.HasLiving<XenoComponent>(1) &&
+            !_evolution.HasLiving<XenoEvolutionGranterComponent>(1))
+        {
+            _ghostRole.SetAvailable((uid, spawner), 0);
+            return;
+        }
+
         var living = _evolution.GetLiving<XenoComponent>(x => x.Comp.CountedInSlots);
         var available = Math.Max(core.MinimumLesserDrones, living / core.XenosPerLesserDrone);
         core.MaxLesserDrones = available;
@@ -103,6 +112,8 @@ public sealed class XenoHiveCoreSystem : SharedXenoHiveCoreSystem
             core.NextLesserDroneAt = time + (hasOvipositor ? core.NextLesserDroneOviCooldown : core.NextLesserDroneCooldown * 2);
             core.CurrentLesserDrones = Math.Min(core.MaxLesserDrones, core.CurrentLesserDrones + 1);
         }
+
+        _ghostRole.SetAvailable((uid, spawner), core.CurrentLesserDrones);
     }
 
     public override void Update(float frameTime)

@@ -42,7 +42,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoOrderConstruction
     - ActionXenoAcidNormal

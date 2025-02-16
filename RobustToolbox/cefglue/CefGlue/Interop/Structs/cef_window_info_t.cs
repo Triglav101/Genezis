@@ -25,19 +25,12 @@ namespace Xilium.CefGlue.Interop
         public int shared_texture_enabled;
         public int external_begin_frame_enabled;
         public IntPtr window;
+        public CefRuntimeStyle runtime_style;
 
         #region Alloc & Free
-        private static int _sizeof;
-
-        static cef_window_info_t_windows()
-        {
-            _sizeof = Marshal.SizeOf(typeof(cef_window_info_t_windows));
-        }
-
         public static cef_window_info_t_windows* Alloc()
         {
-            var ptr = (cef_window_info_t_windows*)Marshal.AllocHGlobal(_sizeof);
-            *ptr = new cef_window_info_t_windows();
+            var ptr = (cef_window_info_t_windows*)NativeMemory.AllocZeroed((nuint)sizeof(cef_window_info_t_windows));
             return ptr;
         }
 
@@ -46,7 +39,7 @@ namespace Xilium.CefGlue.Interop
             if (ptr != null)
             {
                 libcef.string_clear(&ptr->window_name);
-                Marshal.FreeHGlobal((IntPtr)ptr);
+                NativeMemory.Free(ptr);
             }
         }
         #endregion
@@ -61,19 +54,12 @@ namespace Xilium.CefGlue.Interop
         public int shared_texture_enabled;
         public int external_begin_frame_enabled;
         public IntPtr window;
+        public CefRuntimeStyle runtime_style;
 
         #region Alloc & Free
-        private static int _sizeof;
-
-        static cef_window_info_t_linux()
-        {
-            _sizeof = Marshal.SizeOf(typeof(cef_window_info_t_linux));
-        }
-
         public static cef_window_info_t_linux* Alloc()
         {
-            var ptr = (cef_window_info_t_linux*)Marshal.AllocHGlobal(_sizeof);
-            *ptr = new cef_window_info_t_linux();
+            var ptr = (cef_window_info_t_linux*)NativeMemory.AllocZeroed((nuint)sizeof(cef_window_info_t_linux));
             return ptr;
         }
 
@@ -82,7 +68,7 @@ namespace Xilium.CefGlue.Interop
             if (ptr != null)
             {
                 libcef.string_clear(&ptr->window_name);
-                Marshal.FreeHGlobal((IntPtr)ptr);
+                NativeMemory.Free(ptr);
             }
         }
         #endregion
@@ -98,19 +84,12 @@ namespace Xilium.CefGlue.Interop
         public int shared_texture_enabled;
         public int external_begin_frame_enabled;
         public IntPtr view;
+        public CefRuntimeStyle runtime_style;
 
         #region Alloc & Free
-        private static int _sizeof;
-
-        static cef_window_info_t_mac()
-        {
-            _sizeof = Marshal.SizeOf(typeof(cef_window_info_t_mac));
-        }
-
         public static cef_window_info_t_mac* Alloc()
         {
-            var ptr = (cef_window_info_t_mac*)Marshal.AllocHGlobal(_sizeof);
-            *ptr = new cef_window_info_t_mac();
+            var ptr = (cef_window_info_t_mac*)NativeMemory.AllocZeroed((nuint)sizeof(cef_window_info_t_mac));
             return ptr;
         }
 
@@ -119,7 +98,7 @@ namespace Xilium.CefGlue.Interop
             if (ptr != null)
             {
                 libcef.string_clear(&ptr->window_name);
-                Marshal.FreeHGlobal((IntPtr)ptr);
+                NativeMemory.Free(ptr);
             }
         }
         #endregion

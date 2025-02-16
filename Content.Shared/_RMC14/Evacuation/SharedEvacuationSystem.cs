@@ -1,6 +1,7 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Numerics;
 using System.Text;
+using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Dropship;
 using Content.Shared._RMC14.Explosion;
 using Content.Shared._RMC14.Map;
@@ -34,6 +35,7 @@ namespace Content.Shared._RMC14.Evacuation;
 public abstract class SharedEvacuationSystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AreaSystem _area = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
@@ -52,6 +54,7 @@ public abstract class SharedEvacuationSystem : EntitySystem
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedXenoAnnounceSystem _xenoAnnounce = default!;
 
+    private EntityQuery<AreaComponent> _areaQuery;
     private EntityQuery<DoorComponent> _doorQuery;
     private EntityQuery<MobStateComponent> _mobStateQuery;
 
@@ -60,6 +63,7 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
     public override void Initialize()
     {
+        _areaQuery = GetEntityQuery<AreaComponent>();
         _doorQuery = GetEntityQuery<DoorComponent>();
         _mobStateQuery = GetEntityQuery<MobStateComponent>();
 
@@ -374,6 +378,23 @@ public abstract class SharedEvacuationSystem : EntitySystem
         }
     }
 
+    private IEnumerable<EntityUid> GetEvacuationAreas(EntityCoordinates coordinates)
+    {
+        if (!_area.TryGetAllAreas(coordinates, out var areaGrid))
+            yield break;
+
+        foreach (var areaId in areaGrid.Value.Comp.AreaEntities.Values)
+        {
+            if (!_areaQuery.TryComp(areaId, out var area) ||
+                !area.HijackEvacuationArea)
+            {
+                continue;
+            }
+
+            yield return areaId;
+        }
+    }
+
     private bool IsAreaPumpPowered(EntityUid area)
     {
         return _rmcPower.IsAreaPowered(area, RMCPowerChannel.Equipment);
@@ -461,6 +482,17 @@ public abstract class SharedEvacuationSystem : EntitySystem
                 progress.StartAnnounced = true;
                 SetPumpAppearance(EvacuationPumpVisuals.Empty);
 
+                var areas = new StringBuilder();
+                foreach (var areaId in GetEvacuationAreas(uid.ToCoordinates()))
+                {
+                    var powered = IsAreaPumpPowered(areaId);
+                    var line = $"[{Name(areaId)}] - [{(powered ? "Online" : "Offline")}]";
+                    areas.AppendLine(line);
+                }
+
+                areas.Append(
+                    "Due to low orbit, extra fuel is required for non-surface evacuations.\nMaintain fueling functionality for optimal evacuation conditions.");
+                _marineAnnounce.AnnounceARES(null, areas.ToString());
             }
 
             if (progress.NextUpdate > time)
@@ -471,6 +503,37 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
             double progressAdd = 0;
             double progressMultiply = 1;
+            foreach (var areaId in GetEvacuationAreas(uid.ToCoordinates()))
+            {
+                if (!_areaQuery.TryComp(areaId, out var area) ||
+                    !area.HijackEvacuationArea)
+                {
+                    continue;
+                }
+
+                var powered = IsAreaPumpPowered(areaId);
+                if (progress.LastPower.TryGetValue(areaId, out var lastPower) &&
+                    lastPower != powered)
+                {
+                    _marineAnnounce.AnnounceARES(null, $"{Name(areaId)} - [{(powered ? "Online" : "Offline")}]");
+                }
+
+                progress.LastPower[areaId] = powered;
+                if (!powered)
+                    continue;
+
+                switch (area.HijackEvacuationType)
+                {
+                    case AreaHijackEvacuationType.Add:
+                        progressAdd += area.HijackEvacuationWeight;
+                        break;
+                    case AreaHijackEvacuationType.Multiply:
+                        progressMultiply += area.HijackEvacuationWeight;
+                        break;
+                    default:
+                        continue;
+                }
+            }
 
             progress.Progress = Math.Min(progress.Required, progress.Progress + progressAdd * progressMultiply);
 

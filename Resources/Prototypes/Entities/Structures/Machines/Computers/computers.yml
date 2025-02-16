@@ -330,7 +330,7 @@
         type: WiresBoundUserInterface
 
 - type: entity
-  parent: BaseComputerAiAccess
+  parent: BaseComputer
   id: ComputerMedicalRecords
   name: medical records computer
   description: This can be used to check medical records.
@@ -345,8 +345,6 @@
       state: medcomp
     - map: ["computerLayerKeys"]
       state: med_key
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
-      state: generic_panel_open
   - type: PointLight
     radius: 1.5
     energy: 1.6

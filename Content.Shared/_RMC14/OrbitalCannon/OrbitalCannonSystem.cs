@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Atmos;
 using Content.Shared._RMC14.CameraShake;
 using Content.Shared._RMC14.Chat;
@@ -32,6 +33,7 @@ public sealed class OrbitalCannonSystem : EntitySystem
 {
     [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AreaSystem _area = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedMarineAnnounceSystem _marineAnnounce = default!;
@@ -411,6 +413,18 @@ public sealed class OrbitalCannonSystem : EntitySystem
             return false;
         }
 
+        if (!_area.CanOrbitalBombard(_transform.ToCoordinates(planetCoordinates), out var roofed))
+        {
+            if (roofed)
+            {
+                _popup.PopupCursor("The target zone has strong biological protection. The orbital strike cannot reach here.", user, PopupType.LargeCaution);
+                return false;
+            }
+
+            _popup.PopupCursor("The target zone is deep underground. The orbital strike cannot reach here.", user, PopupType.LargeCaution);
+            return false;
+        }
+
         _popup.PopupCursor("Orbital bombardment request accepted. Orbital cannons are now calibrating.", PopupType.Large);
 
         var warhead = warheadContainer.ContainedEntities[0];
@@ -469,6 +483,11 @@ public sealed class OrbitalCannonSystem : EntitySystem
                 var msg = "[font size=16][color=red]Orbital bombardment launch command detected![/color][/font]";
                 _rmcChat.ChatMessageToMany(msg, msg, groundFilter, ChatChannel.Radio);
 
+                if (_area.TryGetArea(planetCoordinates, out var areaProto, out _))
+                {
+                    msg = $"[color=red]Launch command informs {firing.WarheadName}. Estimated impact area: [/color]";
+                    _rmcChat.ChatMessageToMany(msg, msg, groundFilter, ChatChannel.Radio);
+                }
             }
 
             if (!firing.BegunFire && time > firing.StartedAt + firing.BeginFireDelay)

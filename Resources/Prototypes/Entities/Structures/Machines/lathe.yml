@@ -402,7 +402,6 @@
       - BoxShotgunUranium
       - BoxShellTranquilizer
       - ExplosivePayload
-      - WeaponLaserCarbine
       - WeaponLaserPistol
       - GrenadeBlast
       - GrenadeEMP
@@ -436,7 +435,6 @@
       - Truncheon
       - WeaponAdvancedLaser
       - WeaponLaserCannon
-      - WeaponLaserCarbine
       - WeaponXrayCannon
 
 - type: entity
@@ -896,7 +894,6 @@
       - WeaponDisabler
       - WeaponDisablerSMG
       - WeaponLaserCannon
-      - WeaponLaserCarbine
       - WeaponLaserPistol
       - WeaponLaserCarbinePractice
       - InsulativeHeadcage

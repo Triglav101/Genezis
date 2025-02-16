@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -22,4 +22,7 @@ public sealed partial class XenoOvipositorCapableComponent : Component
 
     [DataField, AutoNetworkedField]
     public EntProtoId[] ActionIds = ["ActionXenoLeader", "ActionXenoHeal"];
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<EntProtoId, EntityUid> Actions = new();
 }

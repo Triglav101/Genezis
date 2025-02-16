@@ -225,7 +225,14 @@ public sealed partial class XenoTunnelSystem : SharedXenoTunnelSystem
 
         _xenoPlasma.TryRemovePlasma(xenoBuilder.Owner, args.PlasmaCost);
 
+        if (!TryPlaceTunnel(xenoBuilder.Owner, null, out var newTunnelEnt))
+        {
+            _popup.PopupEntity(tunnelFailureMessage, xenoBuilder.Owner, xenoBuilder.Owner);
+            return;
+        }
+
         NextTempTunnelId++;
+        _ui.OpenUi(newTunnelEnt.Value, NameTunnelUI.Key, xenoBuilder.Owner);
 
         args.Handled = true;
     }
@@ -242,8 +249,28 @@ public sealed partial class XenoTunnelSystem : SharedXenoTunnelSystem
             return;
         }
         var hiveComp = hive.Value.Comp;
+        var hiveTunnels = hiveComp.HiveTunnels;
 
         string? curName = null;
+        foreach (var item in hiveTunnels)
+        {
+            if (item.Value == xenoTunnel.Owner)
+            {
+                curName = item.Key;
+            }
+        }
+
+        if (!hiveTunnels.TryAdd(name, xenoTunnel.Owner))
+        {
+            _popup.PopupCursor(Loc.GetString("rmc-xeno-construction-failed-tunnel-rename"), args.Actor);
+            return;
+        }
+
+        _adminLog.Add(LogType.RMCXenoTunnel, $"{ToPrettyString(args.Actor)} renamed {ToPrettyString(xenoTunnel)} to {name}");
+        if (curName is string)
+        {
+            hiveTunnels.Remove(curName);
+        }
 
         _ui.CloseUi(xenoTunnel.Owner, NameTunnelUI.Key, args.Actor);
     }
@@ -657,5 +684,21 @@ public sealed partial class XenoTunnelSystem : SharedXenoTunnelSystem
         {
             actionComp.Enabled = newStatus;
         }
+    }
+    public bool TryPlaceTunnel(Entity<HiveMemberComponent?> builder, string? name, [NotNullWhen(true)] out EntityUid? tunnelEnt)
+    {
+        tunnelEnt = null;
+        if (!Resolve(builder, ref builder.Comp) ||
+            builder.Comp.Hive is null)
+        {
+            return false;
+        }
+
+        var hasPlacedTunnel = TryPlaceTunnel(builder.Comp.Hive.Value, name, out tunnelEnt);
+
+        if (tunnelEnt is EntityUid)
+            _hive.SetSameHive(builder.Owner, tunnelEnt.Value);
+
+        return hasPlacedTunnel;
     }
 }

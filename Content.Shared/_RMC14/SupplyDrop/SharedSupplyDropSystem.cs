@@ -1,5 +1,6 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Numerics;
+using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.CameraShake;
 using Content.Shared._RMC14.Extensions;
 using Content.Shared._RMC14.Map;
@@ -24,6 +25,7 @@ namespace Content.Shared._RMC14.SupplyDrop;
 
 public abstract class SharedSupplyDropSystem : EntitySystem
 {
+    [Dependency] private readonly AreaSystem _area = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IComponentFactory _compFactory = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
@@ -179,6 +181,12 @@ public abstract class SharedSupplyDropSystem : EntitySystem
         if (!TryFindCrate(computer, out var crate))
         {
             _popup.PopupCursor("No crate was detected on the drop pad. Get Requisitions on the line!", user, PopupType.MediumCaution);
+            return false;
+        }
+
+        if (!_area.CanSupplyDrop(mapCoordinates))
+        {
+            _popup.PopupCursor("The landing zone is underground. The supply drop cannot reach here.", user, PopupType.MediumCaution);
             return false;
         }
 

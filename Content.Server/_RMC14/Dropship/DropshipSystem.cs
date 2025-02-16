@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Content.Server._RMC14.Marines;
 using Content.Server.Doors.Systems;
 using Content.Server.GameTicking;
@@ -274,6 +274,7 @@ public sealed class DropshipSystem : SharedDropshipSystem
             if (user != null)
             {
                 var xenoText = "The Queen has commanded the metal bird to depart for the metal hive in the sky! Rejoice!";
+                _xenoAnnounce.AnnounceSameHive(user.Value, xenoText);
                 _audio.PlayPvs(dropship.LocalHijackSound, dropshipId.Value);
 
                 var marineText = "Unscheduled dropship departure detected from operational area. Hijack likely. Shutting down autopilot.";

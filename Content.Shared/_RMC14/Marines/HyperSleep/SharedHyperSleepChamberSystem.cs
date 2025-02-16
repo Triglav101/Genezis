@@ -36,7 +36,11 @@ public abstract class SharedHyperSleepChamberSystem : EntitySystem
 
     private void OnInsertAttempt(Entity<HyperSleepChamberComponent> ent, ref ContainerIsInsertingAttemptEvent args)
     {
-
+        if (HasComp<XenoComponent>(args.EntityUid))
+        {
+            args.Cancel();
+            return;
+        }
     }
 
     private void OnInserted(Entity<HyperSleepChamberComponent> ent, ref EntInsertedIntoContainerMessage args)

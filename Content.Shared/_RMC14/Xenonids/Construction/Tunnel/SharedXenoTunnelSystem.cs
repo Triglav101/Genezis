@@ -66,7 +66,49 @@ public abstract partial class SharedXenoTunnelSystem : EntitySystem
             return false;
         }
 
+        var hiveTunnels = hive.Value.Comp.HiveTunnels;
+
+        foreach (var tunnel in hiveTunnels)
+        {
+            if (tunnel.Value == xenoTunnel.Owner)
+            {
+                tunnelName = tunnel.Key;
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    public bool TryPlaceTunnel(EntityUid associatedHiveEnt, string? name, EntityCoordinates buildLocation, [NotNullWhen(true)] out EntityUid? tunnelEnt)
+    {
+        tunnelEnt = null;
+        if (!TryComp(associatedHiveEnt, out HiveComponent? hiveComp))
+        {
+            return false;
+        }
+        var tunnels = hiveComp.HiveTunnels;
+
+        if (name is null)
+        {
+            var mapCoords = _transform.ToMapCoordinates(buildLocation.AlignWithClosestGridTile());
+            var areaName = Loc.GetString("rmc-xeno-construction-default-area-name");
+            var randomGreekLetter = _random.Pick(_greekLetters);
+
+            name = Loc.GetString("rmc-xeno-construction-default-tunnel-name", ("areaName", areaName), ("coordX", mapCoords.X), ("coordY", mapCoords.Y), ("greekLetter", randomGreekLetter));
+        }
+
+        if (tunnels.ContainsKey(name))
+        {
+            return false;
+        }
+
+        var newTunnel = Spawn(TunnelPrototypeId, buildLocation);
+        tunnelEnt = newTunnel;
+
+        Hive.SetHive(newTunnel, associatedHiveEnt);
+
+        return hiveComp.HiveTunnels.TryAdd(name, newTunnel);
     }
 }
 

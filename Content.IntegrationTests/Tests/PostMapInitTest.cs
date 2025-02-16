@@ -43,63 +43,20 @@ namespace Content.IntegrationTests.Tests
 
         private static readonly string[] GameMaps =
         {
-            // Corvax-Start
-            "CorvaxAvrite",
-            "CorvaxDelta",
-            "CorvaxSilly",
-            "CorvaxOutpost",
-            "CorvaxAstra",
-            "CorvaxGelta",
-			"CorvaxMaus",
-			"CorvaxIshimura",
-			"CorvaxPaper",
-            "CorvaxPilgrim",
-            "CorvaxSplit",
-            "CorvaxTerra",
-            "CorvaxFrame",
-            "CorvaxPearl",
-            "CorvaxTushkan",
-            //"CorvaxGlacier",
-            "CorvaxAwesome",
-            "Origin",
-            // Corvax-End
             "Dev",
             "TestTeg",
-            "Fland",
-            "Meta",
-            "Packed",
-            "Omega",
-            "Bagel",
             "CentComm",
-            "Box",
-            "Core",
-            "Marathon",
             "MeteorArena",
-            //start-backmen
             "CentCommv2",
             "CentCommv3",
             "ShwrAdventurer",
             "ShwrBig",
             "shwrDust",
-            "BackmenTortuga",
-            "BackmenHive",
-			"BackmenShoukou",
-			"BackmenAspid",
-			"BackmenKettle",
-			"BackmenRook",
             "BargeVsShip",
-            "BackmenDelta",
-            //end-backmen
-            "Saltern",
-            "Reach",
-            "Train",
-            "Oasis",
-            "Cog",
-            "Gate",
-            "Amber",
-            "Loop",
-            "Elkridge"
-
+            "RMCDev",
+            "Almayer",
+            "RMCAdminFax",
+            "Underground",
 
         };
 

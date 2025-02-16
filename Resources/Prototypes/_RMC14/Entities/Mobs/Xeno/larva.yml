@@ -23,7 +23,6 @@
     role: CMXenoLarva
     actionIds:
     - ActionXenoRest
-    - ActionXenoWatch
     - ActionXenoHide
     hudOffset: -0.1,0.25
     tier: 0

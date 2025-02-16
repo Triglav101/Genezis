@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -107,7 +107,7 @@ public abstract partial class ToolshedCommand
 
         var impls = GetGenericImplementations().ToArray();
         if (impls.Length == 0)
-            throw new InvalidCommandImplementation($"Command {type} have errors");
+            throw new Exception($"Command has no implementations?");
 
         var implementations = new HashSet<(string?, Type?)>();
         var argNames =  new HashSet<string>();

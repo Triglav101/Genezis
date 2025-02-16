@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Medical.Defibrillator;
+﻿using Content.Shared._RMC14.Medical.Defibrillator;
 using Content.Shared._RMC14.Marines.Skills;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared._RMC14.Xenonids.Parasite;
@@ -47,12 +47,17 @@ public sealed class DogtagsSystem : EntitySystem
 
     private void OnTagsExamine(Entity<TakeableTagsComponent> tags, ref ExaminedEvent args)
     {
+        if (HasComp<XenoComponent>(args.Examiner))
+            return;
+
         GetTagInformation(tags, out var name, out var job, out var blood);
         args.PushMarkup(Loc.GetString("rmc-dogtags-read", ("name", name), ("assignment", job), ("bloodtype", blood)));
     }
 
     private void OnInfoTagsExamine(Entity<InformationTagsComponent> tags, ref ExaminedEvent args)
     {
+        if (HasComp<XenoComponent>(args.Examiner))
+            return;
         //Priorities to make sure they appear in about the right spots
         args.PushMarkup(Loc.GetString("rmc-dogtags-info-read-start", ("tags", tags.Comp.Tags.Count)), -19);
         int count = 1;
@@ -63,6 +68,8 @@ public sealed class DogtagsSystem : EntitySystem
     }
     private void OnMemorialExamined(Entity<RMCMemorialComponent> memorial, ref ExaminedEvent args)
     {
+        if (HasComp<XenoComponent>(args.Examiner) || memorial.Comp.Names.Count == 0)
+            return;
 
         string text = Loc.GetString("rmc-memorial-start") + " ";
         int count = 1;
@@ -105,7 +112,8 @@ public sealed class DogtagsSystem : EntitySystem
         if (!args.CanInteract ||
             !args.CanAccess ||
             args.Hands == null ||
-            tags.Comp.TagsTaken)
+            tags.Comp.TagsTaken ||
+            HasComp<XenoComponent>(args.User))
             return;
 
         var wearer = Transform(tags).ParentUid;

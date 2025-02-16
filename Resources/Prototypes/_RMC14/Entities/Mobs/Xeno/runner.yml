@@ -117,7 +117,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoHide
     - ActionXenoLeap
@@ -157,7 +156,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoHide
     - ActionXenoAcidAcider

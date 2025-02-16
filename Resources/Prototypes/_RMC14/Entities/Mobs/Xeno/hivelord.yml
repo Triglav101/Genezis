@@ -102,7 +102,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoAcidNormal
     - ActionXenoPheromones
@@ -145,7 +144,6 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
-    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoPheromones
     - ActionXenoOrderConstruction

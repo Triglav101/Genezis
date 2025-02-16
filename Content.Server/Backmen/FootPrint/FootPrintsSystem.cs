@@ -100,12 +100,8 @@ public sealed class FootPrintsSystem : EntitySystem
         comp.PrintsColor = comp.PrintsColor.WithAlpha(ReduceAlpha(comp.PrintsColor.A, comp.ColorReduceAlpha));
         comp.StepPos = transform.LocalPosition;
 
-        if (!TryComp<SolutionContainerManagerComponent>(entity, out var solutionContainer)
-            || !_solutionSystem.ResolveSolution((entity, solutionContainer), footPrintComponent.SolutionName, ref footPrintComponent.Solution, out var solution)
-            || string.IsNullOrWhiteSpace(comp.ReagentToTransfer) || solution.Volume >= 1)
+        if (!TryComp<SolutionContainerManagerComponent>(entity, out var solutionContainer))
             return;
-
-        _solutionSystem.TryAddReagent(footPrintComponent.Solution.Value, comp.ReagentToTransfer, 1, out _);
     }
 
     private EntityCoordinates CalcCoords(EntityUid uid, FootPrintsComponent comp, TransformComponent transform, bool state)

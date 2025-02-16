@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Coordinates;
 using Content.Shared.Damage;
@@ -74,5 +74,13 @@ public sealed class XenoBrutalizeSystem : EntitySystem
 
         if (!TryComp<XenoComponent>(xeno, out var act))
             return;
+
+        if (TryComp<InstantActionComponent>(act.Actions[xeno.Comp.BaseCooldownAction], out var basAct) && basAct.Cooldown != null)
+            _actions.SetCooldown(act.Actions[xeno.Comp.BaseCooldownAction], basAct.Cooldown.Value.Start, basAct.Cooldown.Value.End - xeno.Comp.BaseCooldownReduction);
+
+
+        if (TryComp<WorldTargetActionComponent>(act.Actions[xeno.Comp.CummulativeCooldownAction], out var culAct) && culAct.Cooldown != null)
+            _actions.SetCooldown(act.Actions[xeno.Comp.CummulativeCooldownAction], culAct.Cooldown.Value.Start, culAct.Cooldown.Value.End - (xeno.Comp.BaseCooldownReduction + currHits
+             * xeno.Comp.AddtionalCooldownReductions));
     }
 }

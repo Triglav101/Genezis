@@ -62,8 +62,6 @@
     id: CentComPrivateOfficerPDA
     ears: ClothingHeadsetCentComCC
     belt: ClothingBeltSecuritySuper
-    pocket1: WeaponPistolG23
-    pocket2: MagazinePistol
   storage:
     back:
     - MedkitCombatFilled

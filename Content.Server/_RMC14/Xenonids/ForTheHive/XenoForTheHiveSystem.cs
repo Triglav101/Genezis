@@ -9,6 +9,7 @@ using Content.Server._RMC14.Spawners;
 using Robust.Shared.Map;
 using Content.Server.Chat.Systems;
 using Content.Server._RMC14.Xenonids.Respawn;
+using Content.Shared.Backmen.Chat;
 
 namespace Content.Server._RMC14.Xenonids.ForTheHive;
 
@@ -19,7 +20,7 @@ public sealed class XenoForTheHiveSystem : SharedXenoForTheHiveSystem
 
     protected override void ForTheHiveShout(EntityUid xeno)
     {
-
+        _chat.TrySendInGameICMessage(xeno, Loc.GetString("rmc-xeno-for-the-hive-announce"), InGameICChatType.Speak, false);
     }
 
     protected override void ForTheHiveRespawn(EntityUid xeno, TimeSpan time, bool atCorpse = false, EntityCoordinates? corpse = null)

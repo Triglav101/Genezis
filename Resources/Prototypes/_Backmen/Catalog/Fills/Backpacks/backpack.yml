@@ -29,7 +29,6 @@
         - id: BattleMedipen
           amount: 2
         - id: WeaponDominatorNT
-        - id: WeaponPistolG23
         - id: MagazinePistol
           amount: 2
         - id: WeaponRifleM28Tactical
@@ -81,7 +80,6 @@
         - id: BattleMedipen
           amount: 2
         - id: WeaponDominatorNT
-        - id: WeaponPistolG23
         - id: MagazinePistol
           amount: 2
         - id: WeaponRifleG36Tactical
@@ -100,7 +98,6 @@
         - id: BoxFlare
         - id: BattleMedipen
         - id: BattleMedipen
-        - id: WeaponPistolG23
         - id: MagazinePistol
           amount: 2
         - id: WeaponSubMachineGunMP5Tactical
@@ -123,9 +120,6 @@
       contents:
         - id: BattleMedipen
           amount: 2
-        - id: WeaponPistolG23
-        - id: MagazinePistol
-          amount: 3
         - id: MedkitFilled
         - id: BoxLightMixed
           amount: 2

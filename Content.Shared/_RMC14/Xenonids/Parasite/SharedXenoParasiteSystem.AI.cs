@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.NPC;
+﻿using Content.Shared._RMC14.NPC;
 using Content.Shared.Examine;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Actions;
@@ -215,6 +215,12 @@ public abstract partial class SharedXenoParasiteSystem
     {
         if (!TryComp<XenoComponent>(para, out var xeno) || !xeno.Initialized)
             return;
+
+        if (!TryComp<InstantActionComponent>(xeno.Actions[para.Comp.RestAction], out var instant))
+            return;
+
+
+        _actions.PerformAction(para, null, xeno.Actions[para.Comp.RestAction], instant, instant.Event, _timing.CurTime);
     }
 
     protected virtual void ChangeHTN(EntityUid parasite, ParasiteMode mode)

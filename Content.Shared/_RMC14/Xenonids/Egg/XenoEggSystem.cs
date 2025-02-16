@@ -504,7 +504,8 @@ public sealed class XenoEggSystem : EntitySystem
             RemoveOvipositorActions((xeno.Owner, capable));
             foreach (var actionId in capable.ActionIds)
             {
-
+                if (_actions.AddAction(xeno, actionId) is { } action)
+                    capable.Actions[actionId] = action;
             }
         }
     }
@@ -649,6 +650,13 @@ public sealed class XenoEggSystem : EntitySystem
     {
         if (!Resolve(capable, ref capable.Comp, false))
             return;
+
+        foreach (var action in capable.Comp.Actions)
+        {
+            _actions.RemoveAction(action.Value);
+        }
+
+        capable.Comp.Actions.Clear();
     }
 
     public override void Update(float frameTime)

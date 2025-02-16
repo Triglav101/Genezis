@@ -14,7 +14,7 @@ namespace Xilium.CefGlue.Interop
     {
         internal cef_base_ref_counted_t _base;
         internal delegate* unmanaged<cef_download_handler_t*, cef_browser_t*, cef_string_t*, cef_string_t*, int> _can_download;
-        internal delegate* unmanaged<cef_download_handler_t*, cef_browser_t*, cef_download_item_t*, cef_string_t*, cef_before_download_callback_t*, void> _on_before_download;
+        internal delegate* unmanaged<cef_download_handler_t*, cef_browser_t*, cef_download_item_t*, cef_string_t*, cef_before_download_callback_t*, int> _on_before_download;
         internal delegate* unmanaged<cef_download_handler_t*, cef_browser_t*, cef_download_item_t*, cef_download_item_callback_t*, void> _on_download_updated;
         
         internal GCHandle _obj;
@@ -55,10 +55,10 @@ namespace Xilium.CefGlue.Interop
         }
         
         [UnmanagedCallersOnly]
-        public static void on_before_download(cef_download_handler_t* self, cef_browser_t* browser, cef_download_item_t* download_item, cef_string_t* suggested_name, cef_before_download_callback_t* callback)
+        public static int on_before_download(cef_download_handler_t* self, cef_browser_t* browser, cef_download_item_t* download_item, cef_string_t* suggested_name, cef_before_download_callback_t* callback)
         {
             var obj = (CefDownloadHandler)self->_obj.Target;
-            obj.on_before_download(self, browser, download_item, suggested_name, callback);
+            return obj.on_before_download(self, browser, download_item, suggested_name, callback);
         }
         
         [UnmanagedCallersOnly]
@@ -68,12 +68,11 @@ namespace Xilium.CefGlue.Interop
             obj.on_download_updated(self, browser, download_item, callback);
         }
         
-        internal static cef_download_handler_t* Alloc(CefDownloadHandler obj)
+        internal static cef_download_handler_t* Alloc()
         {
             var ptr = (cef_download_handler_t*)NativeMemory.Alloc((UIntPtr)sizeof(cef_download_handler_t));
             *ptr = default(cef_download_handler_t);
             ptr->_base._size = (UIntPtr)sizeof(cef_download_handler_t);
-            ptr->_obj = GCHandle.Alloc(obj);
             ptr->_base._add_ref = (delegate* unmanaged<cef_base_ref_counted_t*, void>)(delegate* unmanaged<cef_download_handler_t*, void>)&add_ref;
             ptr->_base._release = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_download_handler_t*, int>)&release;
             ptr->_base._has_one_ref = (delegate* unmanaged<cef_base_ref_counted_t*, int>)(delegate* unmanaged<cef_download_handler_t*, int>)&has_one_ref;
@@ -86,7 +85,6 @@ namespace Xilium.CefGlue.Interop
         
         internal static void Free(cef_download_handler_t* ptr)
         {
-            ptr->_obj.Free();
             NativeMemory.Free((void*)ptr);
         }
         

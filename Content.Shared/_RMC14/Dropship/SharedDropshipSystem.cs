@@ -122,6 +122,11 @@ public abstract class SharedDropshipSystem : EntitySystem
             return;
 
         var user = args.User;
+        if (!HasComp<XenoComponent>(user))
+        {
+            _popup.PopupEntity("This terminal doesn't seem to work yet... Maybe you should ask High Command?", user, user, PopupType.MediumCaution);
+            return;
+        }
 
         if (!HasComp<DropshipHijackerComponent>(user))
         {

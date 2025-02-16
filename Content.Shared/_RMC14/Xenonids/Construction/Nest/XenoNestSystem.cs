@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared._RMC14.Map;
 using Content.Shared._RMC14.Xenonids.Hive;
@@ -197,6 +197,9 @@ public sealed class XenoNestSystem : EntitySystem
         _transform.SetCoordinates(nest, nestCoordinates.Offset(offset));
 
         _hive.SetSameHive(args.User, nest);
+
+        ent.Comp.Nests[direction.Value] = nest;
+        Dirty(ent);
 
         var nestComp = EnsureComp<XenoNestComponent>(nest);
         nestComp.Surface = ent;
@@ -411,6 +414,12 @@ public sealed class XenoNestSystem : EntitySystem
                 continue;
             }
 
+            if (surface.Comp.Nests.ContainsKey(dir))
+            {
+                response ??= Loc.GetString("cm-xeno-nest-failed-cant-already-there");
+                continue;
+            }
+
             response = null;
             direction = dir;
             break;
@@ -452,6 +461,14 @@ public sealed class XenoNestSystem : EntitySystem
             if (TryComp(nest, out XenoNestComponent? nestComp) &&
                 TryComp(nestComp.Surface, out XenoNestSurfaceComponent? surfaceComp))
             {
+                foreach (var (dir, nestUid) in surfaceComp.Nests)
+                {
+                    if (nestUid != nest)
+                        continue;
+
+                    surfaceComp.Nests.Remove(dir);
+                    break;
+                }
 
                 Dirty(nestComp.Surface.Value, surfaceComp);
             }
@@ -500,6 +517,12 @@ public sealed class XenoNestSystem : EntitySystem
             {
                 if (!_xenoNestSurfaceQuery.TryComp(uid, out var surface))
                     continue;
+
+                if (surface.Nests.TryGetValue(opposite, out var nest) &&
+                    !TerminatingOrDeleted(nest))
+                {
+                    return true;
+                }
             }
         }
 

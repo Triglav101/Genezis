@@ -39,7 +39,6 @@
     head: ClothingHeadHatBeretMobileTaskForce
     id: DedSquadronLeaderGavnaIDCard
     ears: ClothingHeadsetCentComCCAltDeath
-    belt: WeaponRevolverMatebaNew
     pocket1: EnergySwordDedSad
     pocket2: WeaponPulsePistol
   storage:
@@ -59,7 +58,6 @@
     outerClothing: ClothingOuterHardsuitDeathsquad
     id: DedSquadronGavnaIDCard
     ears: ClothingHeadsetCentComCCAltDeath
-    belt: WeaponRevolverMatebaNew
     pocket1: EnergySwordDedSad
     pocket2: WeaponPulsePistol
   storage:
@@ -77,13 +75,10 @@
     eyes: ClothingEyesVision
     gloves: ClothingHandsGlovesSpetsnazcombat
     outerClothing: ClothingOuterHardsuitDeathsquad
-    suitstorage: WeaponMinigunPulse
     id: DedSquadronGavnaIDCard
     ears: ClothingHeadsetCentComCCAltDeath
     belt: ClothingBeltGeneralG6FilledSpetsnaz
     pocket1: EnergySwordDedSad
-    pocket2: WeaponRevolverMatebaNew
-
 - type: startingGear
   id: SpecialForceAgentGearFull
   equipment:
