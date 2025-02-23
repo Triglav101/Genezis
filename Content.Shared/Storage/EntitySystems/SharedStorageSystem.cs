@@ -1,6 +1,8 @@
 using System.Collections.Frozen;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared._RMC14.Inventory;
+using Content.Shared._RMC14.Storage;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Containers.ItemSlots;
@@ -17,12 +19,11 @@ using Content.Shared.Inventory;
 using Content.Shared.Item;
 using Content.Shared.Lock;
 using Content.Shared.Materials;
-using Content.Shared.Placeable;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Storage.Components;
-using Content.Shared.Timing;
 using Content.Shared.Storage.Events;
+using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
@@ -61,6 +62,7 @@ public abstract class SharedStorageSystem : EntitySystem
     [Dependency] protected readonly UseDelaySystem UseDelay = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
+    [Dependency] protected readonly RMCStorageSystem RMCStorage = default!;
 
     private EntityQuery<ItemComponent> _itemQuery;
     private EntityQuery<StackComponent> _stackQuery;
@@ -192,6 +194,7 @@ public abstract class SharedStorageSystem : EntitySystem
         }
 
         component.SavedLocations = state.SavedLocations;
+        UpdateUI((uid, component));
     }
 
     public override void Shutdown()
@@ -305,8 +308,11 @@ public abstract class SharedStorageSystem : EntitySystem
     ///     Opens the storage UI for an entity
     /// </summary>
     /// <param name="entity">The entity to open the UI for</param>
-    public void OpenStorageUI(EntityUid uid, EntityUid entity, StorageComponent? storageComp = null, bool silent = true)
+    public void OpenStorageUI(EntityUid uid, EntityUid entity, StorageComponent? storageComp = null, bool silent = true, bool doAfter = true)
     {
+        if (doAfter && RMCStorage.OpenDoAfter(uid, entity, storageComp, silent))
+            return;
+
         if (!Resolve(uid, ref storageComp, false))
             return;
 
@@ -327,7 +333,7 @@ public abstract class SharedStorageSystem : EntitySystem
         _ui.OpenUi(uid, StorageComponent.StorageUiKey.Key, entity);
     }
 
-    public virtual void UpdateUI(Entity<StorageComponent?> entity) {}
+    public virtual void UpdateUI(Entity<StorageComponent?> entity) { }
 
     private void AddTransferVerbs(EntityUid uid, StorageComponent component, GetVerbsEvent<UtilityVerb> args)
     {
@@ -438,7 +444,7 @@ public abstract class SharedStorageSystem : EntitySystem
                 if (entity == args.User
                     || !_itemQuery.TryGetComponent(entity, out var itemComp) // Need comp to get item size to get weight
                     || !_prototype.TryIndex(itemComp.Size, out var itemSize)
-                    || !CanInsert(uid, entity, out _, storageComp, item: itemComp)
+                    || !CanInsert(uid, entity, args.User, out _, storageComp, item: itemComp)
                     || !_interactionSystem.InRangeUnobstructed(args.User, entity))
                 {
                     continue;
@@ -605,6 +611,7 @@ public abstract class SharedStorageSystem : EntitySystem
                 Audio.PlayPredicted(storage.Comp.StorageRemoveSound, storage, player, _audioParams);
             }
 
+            UpdateUI((storage, storage));
             return;
         }
 
@@ -702,6 +709,24 @@ public abstract class SharedStorageSystem : EntitySystem
 
         UpdateAppearance((entity, entity.Comp, null));
         UpdateUI((entity, entity.Comp));
+
+        var items = new List<(EntityUid Id, ItemStorageLocation Location)>();
+        foreach (var (item, location) in entity.Comp.StoredItems)
+        {
+            items.Add((item, location));
+        }
+
+        items.Sort(static (a, b) => a.Location.Position.X.CompareTo(b.Location.Position.X));
+        items.Sort(static (a, b) => a.Location.Position.Y.CompareTo(b.Location.Position.Y));
+
+        foreach (var (item, location) in items)
+        {
+            if (CMInventoryExtensions.TryGetFirst(entity, item, out var newLocation) &&
+                location != newLocation)
+            {
+                TrySetItemStorageLocation(item, (entity, entity), newLocation);
+            }
+        }
     }
 
     private void OnInsertAttempt(EntityUid uid, StorageComponent component, ContainerIsInsertingAttemptEvent args)
@@ -713,7 +738,7 @@ public abstract class SharedStorageSystem : EntitySystem
         if (CheckingCanInsert)
             return;
 
-        if (!CanInsert(uid, args.EntityUid, out var reason, component, ignoreStacks: true))
+        if (!CanInsert(uid, args.EntityUid, null, out var reason, component, ignoreStacks: true))
         {
 #if DEBUG
             if (reason != null)
@@ -782,6 +807,7 @@ public abstract class SharedStorageSystem : EntitySystem
     /// </summary>
     /// <param name="uid">The entity to check</param>
     /// <param name="insertEnt"></param>
+    /// <param name="user"></param>
     /// <param name="reason">If returning false, the reason displayed to the player</param>
     /// <param name="storageComp"></param>
     /// <param name="item"></param>
@@ -791,6 +817,7 @@ public abstract class SharedStorageSystem : EntitySystem
     public bool CanInsert(
         EntityUid uid,
         EntityUid insertEnt,
+        EntityUid? user,
         out string? reason,
         StorageComponent? storageComp = null,
         ItemComponent? item = null,
@@ -825,14 +852,16 @@ public abstract class SharedStorageSystem : EntitySystem
         }
 
         var maxSize = GetMaxItemSize((uid, storageComp));
-        if (ItemSystem.GetSizePrototype(item.Size) > maxSize)
+        if (ItemSystem.GetSizePrototype(item.Size) > maxSize
+            && !RMCStorage.IgnoreItemSize((uid, storageComp), insertEnt))
         {
             reason = "comp-storage-too-big";
             return false;
         }
 
         if (TryComp<StorageComponent>(insertEnt, out var insertStorage)
-            && GetMaxItemSize((insertEnt, insertStorage)) >= maxSize)
+            && GetMaxItemSize((insertEnt, insertStorage)) >= maxSize
+            && !RMCStorage.IgnoreItemSize((uid, storageComp), insertEnt))
         {
             reason = "comp-storage-too-big";
             return false;
@@ -845,6 +874,12 @@ public abstract class SharedStorageSystem : EntitySystem
                 reason = "comp-storage-insufficient-capacity";
                 return false;
             }
+        }
+
+        if (!RMCStorage.CanInsert((uid, storageComp), insertEnt, user, out var popup))
+        {
+            reason = popup;
+            return false;
         }
 
         CheckingCanInsert = true;
@@ -1003,7 +1038,7 @@ public abstract class SharedStorageSystem : EntitySystem
 
         var toInsert = player.Comp.ActiveHandEntity;
 
-        if (!CanInsert(ent, toInsert.Value, out var reason, ent.Comp))
+        if (!CanInsert(ent, toInsert.Value, player.Owner, out var reason, ent.Comp))
         {
             _popupSystem.PopupClient(Loc.GetString(reason ?? "comp-storage-cant-insert"), ent, player);
             return false;
@@ -1105,7 +1140,7 @@ public abstract class SharedStorageSystem : EntitySystem
             {
                 for (var angle = startAngle; angle <= Angle.FromDegrees(360 - startAngle); angle += Math.PI / 2f)
                 {
-                    var location = new ItemStorageLocation(angle, (x, y));
+                    var location = new ItemStorageLocation(0, (x, y));
                     if (ItemFitsInGridLocation(itemEnt, storageEnt, location))
                     {
                         storageLocation = location;
@@ -1215,7 +1250,7 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!gridBounds.Contains(position))
             return false;
 
-        var itemShape = ItemSystem.GetAdjustedItemShape(itemEnt, rotation, position);
+        var itemShape = ItemSystem.GetAdjustedItemShape((storageEnt, storageEnt.Comp), itemEnt, rotation, position);
 
         foreach (var box in itemShape)
         {
@@ -1263,7 +1298,7 @@ public abstract class SharedStorageSystem : EntitySystem
             if (!_itemQuery.TryGetComponent(ent, out var itemComp))
                 continue;
 
-            var adjustedShape = ItemSystem.GetAdjustedItemShape((ent, itemComp), storedItem);
+            var adjustedShape = ItemSystem.GetAdjustedItemShape(storageEnt, (ent, itemComp), storedItem);
             foreach (var box in adjustedShape)
             {
                 if (box.Contains(location))
@@ -1320,7 +1355,7 @@ public abstract class SharedStorageSystem : EntitySystem
         {
             if (!_itemQuery.TryGetComponent(item, out var itemComp))
                 continue;
-            sum += ItemSystem.GetItemShape((item, itemComp)).GetArea();
+            sum += ItemSystem.GetItemShape(entity, (item, itemComp)).GetArea();
         }
 
         return sum;
@@ -1423,7 +1458,7 @@ public abstract class SharedStorageSystem : EntitySystem
         if (!canInteract)
             return false;
 
-        var ev = new StorageInteractAttemptEvent(silent);
+        var ev = new StorageInteractAttemptEvent(user, silent);
         RaiseLocalEvent(storage, ref ev);
 
         return !ev.Cancelled;

@@ -23,6 +23,9 @@
   id: Mauler
 
 - type: Tag
+  id: CMPillCanister
+
+- type: Tag
   id: ClarkeTreads
 
 - type: Tag

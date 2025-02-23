@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Marines;
+﻿using Content.Shared._RMC14.Marines;
 using Content.Shared._RMC14.Marines.Skills;
 using Content.Shared._RMC14.Prototypes;
 using Content.Shared.DoAfter;
@@ -44,6 +44,8 @@ public sealed class RMCStorageSystem : EntitySystem
     {
         _storageQuery = GetEntityQuery<StorageComponent>();
 
+        SubscribeLocalEvent<StorageComponent, CMStorageItemFillEvent>(OnStorageFillItem);
+
         SubscribeLocalEvent<StorageOpenDoAfterComponent, OpenStorageDoAfterEvent>(OnStorageOpenDoAfter);
 
         SubscribeLocalEvent<StorageSkillRequiredComponent, StorageInteractAttemptEvent>(OnStorageSkillOpenAttempt);
@@ -62,6 +64,11 @@ public sealed class RMCStorageSystem : EntitySystem
             subs.Event<BoundUIOpenedEvent>(OnCloseOnMoveUIOpened);
         });
 
+        Subs.BuiEvents<StorageOpenComponent>(StorageUiKey.Key, subs =>
+        {
+            subs.Event<BoundUIClosedEvent>(OnCloseOnMoveUIClosed);
+        });
+
         UpdatesAfter.Add(typeof(SharedStorageSystem));
     }
 
@@ -72,6 +79,40 @@ public sealed class RMCStorageSystem : EntitySystem
 
         if (TryCancel(args.User, ent))
             args.Handled = true;
+    }
+
+    private void OnStorageFillItem(Entity<StorageComponent> storage, ref CMStorageItemFillEvent args)
+    {
+        var tries = 0;
+        while (!_storage.CanInsert(storage, args.Item, null, out var reason) &&
+               reason == "comp-storage-insufficient-capacity" &&
+               tries < 3)
+        {
+            tries++;
+
+            // TODO RMC14 make this error if this is a cm-specific storage
+            if (CMPrototypeExtensions.FilterCM)
+                Log.Warning($"Storage {ToPrettyString(storage)} can't fit {ToPrettyString(args.Item)}");
+
+            foreach (var shape in _item.GetItemShape((storage, args.Storage), (args.Item, args.Item)))
+            {
+                var grid = args.Storage.Grid;
+                if (grid.Count == 0)
+                {
+                    grid.Add(shape);
+                    continue;
+                }
+
+                // TODO RMC14 this might create more space than is necessary to fit the item if there is some free space left in the storage before expanding it
+                var last = grid[^1];
+                var expanded = new Box2i(last.Left, last.Bottom, last.Right + shape.Width + 1, last.Top);
+
+                if (expanded.Top < shape.Top)
+                    expanded.Top = shape.Top;
+
+                grid[^1] = expanded;
+            }
+        }
     }
 
     public bool IgnoreItemSize(Entity<StorageComponent> storage, EntityUid item)
@@ -119,30 +160,40 @@ public sealed class RMCStorageSystem : EntitySystem
             return;
 
         args.Handled = true;
+        _storage.OpenStorageUI(uid.Value, entity.Value, storage, args.Silent, false);
     }
 
     private void OnStorageSkillOpenAttempt(Entity<StorageSkillRequiredComponent> ent, ref StorageInteractAttemptEvent args)
     {
         if (args.Cancelled)
             return;
+
+        if (TryCancel(args.User, ent))
+            args.Cancelled = true;
     }
 
     private void OnStorageEquip(Entity<StorageCloseOnMoveComponent> ent, ref GotEquippedEvent args)
     {
         _ui.CloseUi(ent.Owner, StorageUiKey.Key, args.Equipee);
+        if (TryComp<StorageOpenComponent>(ent, out var comp))
+            comp.OpenedAt.Remove(args.Equipee);
     }
 
     private void OnBlockInsertIntoEntityStorageAttempt(Entity<BlockEntityStorageComponent> ent, ref InsertIntoEntityStorageAttemptEvent args)
     {
-
+        if (_entityWhitelist.IsWhitelistPassOrNull(ent.Comp.Whitelist, args.Container))
+            args.Cancelled = true;
     }
 
     private void OnRemovedMarineFromContainer(Entity<MarineComponent> ent, ref EntGotRemovedFromContainerMessage args)
     {
+        if (_timing.ApplyingState)
+            return;
+
         if (TerminatingOrDeleted(ent))
             return;
 
-        if (!HasComp<NoStunOnExitComponent>(args.Container.Owner) && _timing.IsFirstTimePredicted)
+        if (!HasComp<NoStunOnExitComponent>(args.Container.Owner))
             _stun.TryStun(ent, STUN_STORAGE, true);
     }
 
@@ -155,11 +206,15 @@ public sealed class RMCStorageSystem : EntitySystem
             return;
         }
 
+        if (_skills.HasSkills(args.User, ent.Comp.Skills))
+            return;
+
         args.Cancelled = true;
         if (args.Silent)
             return;
 
         var msg = Loc.GetString("rmc-storage-nested-unable", ("nested", ent), ("parent", container.Owner));
+        _popup.PopupClient(msg, ent, args.User, PopupType.SmallCaution);
     }
 
     private void OnCloseOnMoveUIOpened(Entity<StorageCloseOnMoveComponent> ent, ref BoundUIOpenedEvent args)
@@ -172,6 +227,12 @@ public sealed class RMCStorageSystem : EntitySystem
 
         var user = args.Actor;
         var coordinates = GetNetCoordinates(_transform.GetMoverCoordinates(user));
+        EnsureComp<StorageOpenComponent>(ent).OpenedAt[user] = coordinates;
+    }
+
+    private void OnCloseOnMoveUIClosed(Entity<StorageOpenComponent> ent, ref BoundUIClosedEvent args)
+    {
+        ent.Comp.OpenedAt.Remove(args.Actor);
     }
 
     private bool TryCancel(EntityUid user, Entity<StorageSkillRequiredComponent> storage)
@@ -303,5 +364,33 @@ public sealed class RMCStorageSystem : EntitySystem
             RemCompDeferred<RemoveOnlyStorageComponent>(uid);
         }
 
+        var openQuery = EntityQueryEnumerator<StorageOpenComponent>();
+        while (openQuery.MoveNext(out var uid, out var open))
+        {
+            _toRemove.Clear();
+            foreach (var (user, netOrigin) in open.OpenedAt)
+            {
+                if (TerminatingOrDeleted(user))
+                {
+                    _toRemove.Add(user);
+                    continue;
+                }
+
+                var origin = GetCoordinates(netOrigin);
+                var current = _transform.GetMoverCoordinates(user);
+
+                if (!_transform.InRange(origin, current, 0.1f))
+                    _toRemove.Add(user);
+            }
+
+            foreach (var user in _toRemove)
+            {
+                _ui.CloseUi(uid, StorageUiKey.Key, user);
+                open.OpenedAt.Remove(user);
+            }
+
+            if (open.OpenedAt.Count == 0)
+                RemCompDeferred<StorageOpenComponent>(uid);
+        }
     }
 }

@@ -34,7 +34,7 @@
   - type: PowerCellVisuals
   - type: Riggable
   - type: HitscanBatteryAmmoProvider
-    proto: RedLightLaser
+    proto: BulletRedLaser # Sunrise-Edit
     fireCost: 50
 
 - type: entity
