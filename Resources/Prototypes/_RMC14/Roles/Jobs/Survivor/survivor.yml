@@ -17,7 +17,7 @@
   ranks:
     RMCRankCivilian: []
   startingGear: RMCGearSurvivor
-  icon: "CMJobIconEmpty"
+  icon: "CMJobIconSurvival"
   joinNotifyCrew: false
   supervisors: cm-job-supervisors-nobody
   accessGroups:

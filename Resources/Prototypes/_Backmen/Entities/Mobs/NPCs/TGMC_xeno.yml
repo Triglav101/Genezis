@@ -1665,56 +1665,56 @@
     sprite: Effects/fire.rsi
     normalState: 1
 
-- type: entity
-  id: XenoDoor
-  name: resin door
-  parent: BaseMaterialDoor
-  description: Its a door? Idk, but its like a huge... Yes this is door.
-  components:
-  - type: Sprite
-    sprite: Backmen/test/base/rsi/Textures/Structures/xeno/xenodoor.rsi
-    layers:
-    - state: closed
-      map: ["enum.DoorVisualLayers.Base"]
-  - type: Door
-    bumpOpen: true
-    clickOpen: true
-    canCrush: false
-    canPry: false
-    closeTimeOne: 0.4
-    closeTimeTwo: 0.4
-    openTimeOne: 0.4
-    openTimeTwo: 0.4
-    openSound:
-      path: /Audio/Backmen/Effects/Xeno/alien_resin_move1.ogg
-    closeSound:
-      path: /Audio/Backmen/Effects/Xeno/alien_resin_move2.ogg
-  - type: AccessReader
-    access: [ [ "Xeno" ] ]
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: XenoSlimeModifier
-  - type: IconSmooth
-    key: xenowalls
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-  - type: Temperature
-    heatDamage:
-      types:
-        Heat: 5
-    coldDamage: {}
-    coldDamageThreshold: 0
-  - type: Flammable
-    fireSpread: true #If you walk into incredibly dense, flaming vines, you can expect to burn.
-    damage:
-      types:
-        Heat: 3
+# - type: entity
+#   id: XenoDoor
+#   name: resin door
+#   parent: BaseMaterialDoor
+#   description: Its a door? Idk, but its like a huge... Yes this is door.
+#   components:
+#   - type: Sprite
+#     sprite: Backmen/test/base/rsi/Textures/Structures/xeno/xenodoor.rsi
+#     layers:
+#     - state: closed
+#       map: ["enum.DoorVisualLayers.Base"]
+#   - type: Door
+#     bumpOpen: true
+#     clickOpen: true
+#     canCrush: false
+#     canPry: false
+#     closeTimeOne: 0.4
+#     closeTimeTwo: 0.4
+#     openTimeOne: 0.4
+#     openTimeTwo: 0.4
+#     openSound:
+#       path: /Audio/Backmen/Effects/Xeno/alien_resin_move1.ogg
+#     closeSound:
+#       path: /Audio/Backmen/Effects/Xeno/alien_resin_move2.ogg
+#   - type: AccessReader
+#     access: [ [ "Xeno" ] ]
+#   - type: Damageable
+#     damageContainer: Inorganic
+#     damageModifierSet: XenoSlimeModifier
+#   - type: IconSmooth
+#     key: xenowalls
+#   - type: Destructible
+#     thresholds:
+#     - trigger:
+#         !type:DamageTrigger
+#         damage: 100
+#       behaviors:
+#       - !type:DoActsBehavior
+#         acts: ["Destruction"]
+#   - type: Temperature
+#     heatDamage:
+#       types:
+#         Heat: 5
+#     coldDamage: {}
+#     coldDamageThreshold: 0
+#   - type: Flammable
+#     fireSpread: true #If you walk into incredibly dense, flaming vines, you can expect to burn.
+#     damage:
+#       types:
+#         Heat: 3
 
 - type: damageModifierSet
   id: XenoSlimeModifier

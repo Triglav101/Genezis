@@ -12,7 +12,7 @@
       map: [ "openLayer" ]
       visible: false
   - type: Storage # TODO RMC14 require medical skill for opening this while in another container
-    maxItemSize: Small
+    maxItemSize: Normal
     grid:
     - 0,0,13,1 # 7 slots
     whitelist:

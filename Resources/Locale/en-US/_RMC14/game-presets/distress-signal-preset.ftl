@@ -1,4 +1,4 @@
-﻿rmc-distress-signal-title = Distress Signal
+﻿rmc-distress-signal-title = Операция Триглава
 rmc-distress-signal-description = Respond to a distress signal sent by a nearby planet.
 
 cm-distress-signal-majormarinevictory = [color=green]All of the xenos were wiped out![/color]
@@ -10,9 +10,9 @@ cm-distress-signal-none = [color=yellow]No outcome![/color]
 
 cm-distress-signal-marine = {$player}
 
-rmc-distress-signal-next-map-title = Выбор операции:
-rmc-distress-signal-next-map-tie = Ничья при выборе операции... {$picked}
-rmc-distress-signal-next-map-win = {$winner} успешно выбрана как операция!
+rmc-distress-signal-next-map-title = Выбор карты для операции:
+rmc-distress-signal-next-map-tie = Ничья при выборе карты... {$picked}
+rmc-distress-signal-next-map-win = {$winner} успешно выбрана как карта!
 
 cm-distress-signal-medals = Медали:
 cm-distress-signal-jellies = Монстро-медали:

@@ -14,11 +14,11 @@
     sprite: _RMC14/Objects/Consumable/Food/mre.rsi
     state: closed
   - type: Item
-    size: Small
+    size: Normal
   - type: Storage
     grid:
     - 0,0,13,1
-    maxItemSize: Small
+    maxItemSize: Normal
     whitelist:
       components:
       - MREItem
@@ -80,16 +80,6 @@
     - id: CMFortuneCookie
       prob: 0.333
     - id: CMCigarettePackLuckySlothsMini
-    - id: CMMatchBook
-      orGroup: matchbook
-    - id: CMBrownMatchBook
-      orGroup: matchbook
-    - id: CMExecutiveSelectMatchbook
-      orGroup: matchbook
-    - id: CMElectroMatchbook
-      orGroup: matchbook
-    - id: CMExecutiveWEYAMatchbook
-      orGroup: matchbook
   - type: FixedItemSizeStorage
   - type: RemoveOnlyStorage
   - type: InteractedBlacklist
@@ -162,7 +152,7 @@
           Medium: { state: magaz_mre_2, visible: true }
           High: { state: magaz_mre_3, visible: true }
           Full: { state: magaz_mre, visible: true }
-    
+
 - type: entity
   parent: RMCBoxMREEmpty
   id: RMCBoxMRE

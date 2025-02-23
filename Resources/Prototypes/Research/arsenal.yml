@@ -28,7 +28,6 @@
   - BoxShotgunIncendiary
   - MagazineRifleIncendiary
   - MagazinePistolIncendiary
-  - MagazinePistolSubMachineGunIncendiary #sunrise-edit
   - MagazineLightRifleIncendiary
   - SpeedLoaderMagnumIncendiary
   - MagazineShotgunIncendiary
@@ -36,7 +35,6 @@
   - MagazineBoxMagnumIncendiary
   - MagazineBoxLightRifleIncendiary
   - MagazineBoxRifleIncendiary
-  - MagazineLightRifleBoxIncendiary #sunrise-edit
 
 - type: technology
   id: WeaponizedLaserManipulation
@@ -49,8 +47,6 @@
   cost: 7500
   recipeUnlocks:
   - WeaponMechCombatFiredartLaser
-  - WeaponEnergyGun   # Sunrise-edit
-  - WeaponEnergyGunMini # Sunrise-edit
 
 - type: technology
   id: NonlethalAmmunition
@@ -66,17 +62,7 @@
   - BoxShellTranquilizer
   - BoxBeanbag
   - WeaponDisabler
-  # Sunrise-Start
   - WeaponMechCombatDisabler
-  - MagazinePistolSubMachineGunRubber
-  - MagazineMagnumRubber
-  - MagazineLightRifleRubber
-  - MagazineRifleRubber
-  - MagazineBoxPistolRubber
-  - MagazineBoxMagnumRubber
-  - MagazineBoxLightRifleRubber
-  - MagazineBoxRifleRubber
-  # Sunrise-End
 
 - type: technology
   id: UraniumMunitions
@@ -97,10 +83,6 @@
   - MagazineBoxLightRifleUranium
   - MagazineBoxRifleUranium
   - BoxShotgunUranium
-  - MagazineShotgunUranium # Sunrise-edit
-  - MagazineLightRifleBoxUranium # Sunrise-edit
-  - MagazineMagnumUranium # Sunrise-edit
-  - MagazinePistolSubMachineGunUranium  # Sunrise-edit
 
 - type: technology
   id: AdvancedRiotControl
@@ -116,7 +98,6 @@
   - TelescopicShield
   - HoloprojectorSecurity
   - WeaponDisablerSMG
-  - ClothingHeadHelmetPubgMore  # Sunrise-edit
 
 - type: technology
   id: ExplosiveTechnology
@@ -174,7 +155,6 @@
   cost: 8000
   recipeUnlocks:
   - WeaponLaserSvalinn
-  - WeaponGunLaserCarbineSemi #Sunrise-Edit
 
 - type: technology
   id: WaveParticleHarnessing
