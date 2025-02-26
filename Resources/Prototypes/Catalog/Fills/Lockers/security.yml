@@ -208,17 +208,17 @@
     - id: MagazineRifle
       amount: 4
 
-- type: entity
-  parent: [GunSafeBaseSecure, BaseRestrictedContraband]
-  id: GunSafeSubMachineGunDrozd
-  name: drozd safe
-  components:
-  - type: StorageFill
-    contents:
-    - id: WeaponSubMachineGunVectorSpecial
-      amount: 2
-    - id: MagazinePistolSubMachineGun
-      amount: 4
+# - type: entity
+#   parent: [GunSafeBaseSecure, BaseRestrictedContraband]
+#   id: GunSafeSubMachineGunDrozd
+#   name: drozd safe
+#   components:
+#   - type: StorageFill
+#     contents:
+#     - id: WeaponSubMachineGunVectorSpecial
+#       amount: 2
+#     - id: MagazinePistolSubMachineGun
+#       amount: 4
 
 - type: entity
   parent: [GunSafeBaseSecure, BaseRestrictedContraband]
@@ -257,12 +257,12 @@
     - id: MagazinePistolSubMachineGunTopMounted
       amount: 4
 
-- type: entity
-  parent: [GunSafeBaseSecure, BaseRestrictedContraband]
-  id: GunSafeLaserCarbine
-  name: laser safe
-  components:
-  - type: StorageFill
-    contents:
-    - id: WeaponEarthGovLaserRifle
-      amount: 3
+# - type: entity
+#   parent: [GunSafeBaseSecure, BaseRestrictedContraband]
+#   id: GunSafeLaserCarbine
+#   name: laser safe
+#   components:
+#   - type: StorageFill
+#     contents:
+#     - id: WeaponEarthGovLaserRifle
+#       amount: 3

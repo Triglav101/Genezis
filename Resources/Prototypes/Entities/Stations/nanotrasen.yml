@@ -15,9 +15,9 @@
     - BaseStationCargo
     - BaseStationJobsSpawning
     - BaseStationRecords
-    # - BaseStationArrivals
+    - BaseStationArrivals
     - BaseStationGateway
-    # - BaseStationShuttles
+    - BaseStationShuttles
     - BaseStationCentcomm
     - BaseStationEvacuation
     - BaseStationAlertLevels

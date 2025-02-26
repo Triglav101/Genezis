@@ -29,6 +29,7 @@
     - category: Thirst
     - alertType: Magboots
     - alertType: Pacified
+    - alertType: Rooted
     - alertType: Offer #Ataraxia
 
 - type: entity

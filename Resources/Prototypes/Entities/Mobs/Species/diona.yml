@@ -120,6 +120,7 @@
     understands:
     - TauCetiBasic
     - RootSpeak
+  - type: Rootable
 
 - type: entity
   parent: BaseSpeciesDummy

@@ -1013,9 +1013,7 @@ BaseAdvancedPen: Pen
 GunSafeRifleLecter: GunSafeRifleAR18
 GunSafeSubMachineGunDrozd: GunSafeSubMachineGunVector
 GunSafeShotgunEnforcer: GunSafeShotgunShotgun39
-GunSafeShotgunKammerer: GunSafeShotgunTrenchgun
 GunSafeSubMachineGunWt550: GunSafeSubMachineGunMP5
-GunSafeLaserCarbine: GunSafeLaserCarbineUEG
 
 # 2024-10-05 - Corvax
 SheetPrinter: SheetPaper
