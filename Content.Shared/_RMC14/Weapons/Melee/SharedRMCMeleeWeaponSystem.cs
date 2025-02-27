@@ -168,6 +168,6 @@ public abstract class SharedRMCMeleeWeaponSystem : EntitySystem
         var targetPos = _transform.GetWorldPosition(target);
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
-        _melee.DoLunge(user, target, Angle.Zero, localPos, null);
+        _melee.DoLunge(user, target, Angle.Zero, localPos, null, Angle.Zero);
     }
 }

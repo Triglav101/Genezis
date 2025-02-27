@@ -1,8 +1,10 @@
 using System.Linq;
+using System.Xml;
 using Content.Client.Gameplay;
 using Content.Shared._RMC14.Input;
 using Content.Shared._RMC14.Tackle;
 using Content.Shared.CombatMode;
+using Content.Shared.Damage;
 using Content.Shared.Effects;
 using Content.Shared.Hands.Components;
 using Content.Shared.Mobs.Components;
@@ -110,6 +112,33 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             coordinates = EntityCoordinates.FromMap(MapManager.GetMapEntityId(mousePos.MapId), mousePos, TransformSystem, EntityManager);
         }
 
+
+        // ERRORGATE MELEE
+
+        // Right click
+        // Melee weapons will shove
+        // Ranged weapons will do a light attack.
+        if (altDown == BoundKeyState.Down)
+        {
+            // Get the target that was clicked on
+            EntityUid? target = null;
+
+            if (_stateManager.CurrentState is GameplayStateBase screen)
+                target = screen.GetClickedEntity(mousePos);
+
+            // If it's a ranged weapon then do a light attack
+            if (TryComp<GunComponent>(weaponUid, out var gun1) && gun1.UseKey)
+            {
+                RaisePredictiveEvent(new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates)));
+                return;
+            }
+
+            // ERRORGATE SHOVE ON RMB
+            EntityManager.RaisePredictiveEvent(new ShoveAttackEvent(GetNetEntity(target), GetNetEntity(entity), GetNetCoordinates(coordinates)));
+            return;
+        }
+
+
         // If the gun has AltFireMeleeComponent, it can be used to attack.
         if (TryComp<GunComponent>(weaponUid, out var gun) && gun.UseKey)
         {
@@ -148,12 +177,39 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
             return;
         }
 
-        // Light attack
-        if (useDown == BoundKeyState.Down)
-            ClientLightAttack(entity, mousePos, coordinates, weaponUid, weapon);
         // Xeno WidePrimary
         if (wideDown == BoundKeyState.Down)
             ClientHeavyAttack(entity, coordinates, weaponUid, weapon);
+        // Light attack
+        if (useDown == BoundKeyState.Down)
+        {
+            // If it's a gun that shoots with right click do not attack
+            if (TryComp<GunComponent>(weaponUid, out var gun1) && gun1.UseKey)
+                return;
+
+            EntityUid? target = null;
+
+            if (_stateManager.CurrentState is GameplayStateBase screen)
+            {
+                target = screen.GetClickedEntity(mousePos);
+            }
+
+            if (Interaction.CombatModeCanHandInteract(entity, target))
+                return;
+
+            // Do a light attack if clicked directly on a damageable entity in weapons range
+            if (target != null &&
+                InRange(entity, (EntityUid)target, weapon.Range, _player.LocalSession) &&
+                HasComp<DamageableComponent>(target))
+            {
+                RaisePredictiveEvent(new LightAttackEvent(GetNetEntity(target), GetNetEntity(weaponUid), GetNetCoordinates(coordinates)));
+                return;
+            }
+
+            // Do a wide attack otherwise
+            ClientHeavyAttack(entity, coordinates, weaponUid, weapon);
+        }
+
     }
 
     protected override bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session)
@@ -269,7 +325,7 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
 
         // Entity might not have been sent by PVS.
         if (Exists(ent) && Exists(entWeapon))
-            DoLunge(ent, entWeapon, ev.Angle, ev.LocalPos, ev.Animation);
+            DoLunge(ent, entWeapon, ev.Angle, ev.LocalPos, ev.Animation, ev.SpriteRotation);
     }
 
 }

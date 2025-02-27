@@ -27718,26 +27718,12 @@ entities:
           showEnts: False
           occludes: True
           ent: null
-- proto: GunSafeLaserCarbineUEG
-  entities:
-  - uid: 5285
-    components:
-    - type: Transform
-      pos: 8.5,32.5
-      parent: 2
 - proto: GunSafeShotgunShotgun39
   entities:
   - uid: 3266
     components:
     - type: Transform
       pos: 10.5,30.5
-      parent: 2
-- proto: GunSafeSubMachineGunDrozd
-  entities:
-  - uid: 3267
-    components:
-    - type: Transform
-      pos: 8.5,30.5
       parent: 2
 - proto: Handcuffs
   entities:

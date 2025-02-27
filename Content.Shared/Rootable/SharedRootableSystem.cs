@@ -12,7 +12,6 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
-using Content.Server.Damage.Components;
 
 namespace Content.Shared.Rootable;
 
@@ -107,7 +106,7 @@ public abstract class SharedRootableSystem : EntitySystem
         if (!ent.Comp.Rooted)
             return;
 
-        if (args.SlipCausingEntity != null && HasComp<DamageUserOnTriggerComponentOld>(args.SlipCausingEntity))
+        if (args.SlipCausingEntity != null)
             return;
 
         args.NoSlip = true;

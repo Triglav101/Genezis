@@ -24,6 +24,16 @@ using Robust.Shared.Random;
 using System.Linq;
 using System.Numerics;
 using Content.Shared.Backmen.Chat;
+using Content.Shared.Body.Events;
+using Content.Shared.Item;
+using Robust.Shared.Physics.Components;
+using Robust.Shared.Physics;
+using Content.Shared.Coordinates;
+using Content.Shared.Examine;
+using Content.Shared.Throwing;
+using Content.Shared.Weapons.Ranged.Components;
+using Robust.Shared.Physics.Systems;
+
 
 namespace Content.Server.Weapons.Melee;
 
@@ -36,6 +46,8 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
     [Dependency] private readonly LagCompensationSystem _lag = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
+    [Dependency] private readonly ThrowingSystem _throwing = default!;
 
     public override void Initialize()
     {
@@ -77,6 +89,87 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
             return false;
 
         // TODO: Check arc though due to the aforementioned aimbot + damage split comments it's less important.
+        return true;
+    }
+
+    protected override bool DoShove(EntityUid user, ShoveAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
+    {
+        if (!base.DoShove(user, ev, meleeUid, component, session)) // Checks and attempt animation
+            return false;
+
+        var target = GetEntity(ev.Target!.Value);
+        var attacker = GetEntity(ev.Attacker!.Value);
+
+        Interaction.DoContactInteraction(user, target);
+
+        ApplyShovePhysics(target, attacker, component); // Before the status check so you can shove inanimate objects too
+                                                        //_flipAnimation.AnimateFlip(target); // Funny flip animation (was under if applyshove physics)
+
+        var attemptEvent = new ShoveAttemptEvent(target, user); // nothing uses this afaik
+        RaiseLocalEvent(target, attemptEvent);
+
+        if (attemptEvent.Cancelled)
+            return false;
+
+        /* ERRORGATE LESS POPUPS
+        var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
+        var msgPrefix = "disarm-action-shove-";
+
+        var msgOther = Loc.GetString(
+                msgPrefix + "popup-message-other-clients",
+                ("performerName", Identity.Entity(user, EntityManager)),
+                ("targetName", Identity.Entity(target, EntityManager)));
+
+        var msgUser = Loc.GetString(msgPrefix + "popup-message-cursor", ("targetName", Identity.Entity(target, EntityManager)));
+
+        PopupSystem.PopupEntity(msgOther, user, filterOther, true);
+        PopupSystem.PopupEntity(msgUser, target, user);
+        */
+
+        //_audio.PlayPvs(combatMode.DisarmSuccessSound, user, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} tried to shove {ToPrettyString(target):target}");
+
+        var eventArgs = new ShoveEvent { Target = target, Source = user, StaminaDamage = component.ShoveStaminaDamage, StaminaCost = component.ShoveStaminaCost };
+        RaiseLocalEvent(target, eventArgs);
+
+        if (!eventArgs.Handled)
+            return false;
+
+        return true;
+    }
+
+    private bool ApplyShovePhysics(EntityUid target, EntityUid attacker, MeleeWeaponComponent component)
+    {
+        // Return false if couldn't push
+        if (!TryComp<PhysicsComponent>(target, out var p))
+            return false;
+
+        if (p.BodyType != BodyType.Dynamic && p.BodyType != BodyType.KinematicController)
+            return false;
+
+        if (!TryComp<PhysicsComponent>(attacker, out var physics)) // Cant push if you have no physics yourself?
+            return false;
+
+        const float forcemultiplier = 8f;
+        const float throwrangemultiplier = 3f;
+        const float throwforcemultiplier = 12f;
+
+        var attackermass = physics.Mass;
+
+        var force = attackermass * forcemultiplier * component.ShoveForceMultiplier;
+
+        var userPos = attacker.ToCoordinates().ToMapPos(EntityManager, TransformSystem);
+        var targetPos = target.ToCoordinates().ToMapPos(EntityManager, TransformSystem);
+        var pushVector = (targetPos - userPos).Normalized() * force;
+
+        if (HasComp<ItemComponent>(target)) // If its an item, throw it instead.
+        {
+            _throwing.TryThrow(target, pushVector.Normalized() * throwrangemultiplier,
+                throwforcemultiplier * component.ShoveForceMultiplier, attacker, 1f);
+            return false; // Return false since the spin is handled by the TryThrow.
+        }
+
+        _physics.ApplyLinearImpulse(target, pushVector);
         return true;
     }
 
@@ -134,48 +227,38 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
 
         if (_random.Prob(chance))
         {
-            // Yknow something tells me this comment is hilariously out of date...
             // Don't play a sound as the swing is already predicted.
             // Also don't play popups because most disarms will miss.
             return false;
         }
 
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
+        var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
+        var msgPrefix = "disarm-action-";
 
-        var eventArgs = new DisarmedEvent { Target = target, Source = user, PushProbability = 1 - chance };
-        RaiseLocalEvent(target, eventArgs);
-
-        if (!eventArgs.Handled)
-        {
-            return false;
-        }
-
-        _audio.PlayPvs(combatMode.DisarmSuccessSound, user, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
-        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
-
-        var targetEnt = Identity.Entity(target, EntityManager);
-        var userEnt = Identity.Entity(user, EntityManager);
+        if (inTargetHand == null)
+            msgPrefix = "disarm-action-shove-";
 
         var msgOther = Loc.GetString(
-                eventArgs.PopupPrefix + "popup-message-other-clients",
-                ("performerName", userEnt),
-                ("targetName", targetEnt));
+                msgPrefix + "popup-message-other-clients",
+                ("performerName", Identity.Entity(user, EntityManager)),
+                ("targetName", Identity.Entity(target, EntityManager)));
 
-        var msgUser = Loc.GetString(eventArgs.PopupPrefix + "popup-message-cursor", ("targetName", targetEnt));
-
-        var filterOther = Filter.PvsExcept(user, entityManager: EntityManager);
+        var msgUser = Loc.GetString(msgPrefix + "popup-message-cursor", ("targetName", Identity.Entity(target, EntityManager)));
 
         PopupSystem.PopupEntity(msgOther, user, filterOther, true);
         PopupSystem.PopupEntity(msgUser, target, user);
 
-        if (eventArgs.IsStunned)
-        {
+        _audio.PlayPvs(combatMode.DisarmSuccessSound, user, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
 
-            PopupSystem.PopupEntity(Loc.GetString("stunned-component-disarm-success-others", ("source", userEnt), ("target", targetEnt)), targetEnt, Filter.PvsExcept(user), true, PopupType.LargeCaution);
-            PopupSystem.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), user, PopupType.Large);
+        var eventArgs = new DisarmedEvent { Target = target, Source = user, PushProbability = 1 };
+        RaiseLocalEvent(target, eventArgs);
 
-            AdminLogger.Add(LogType.DisarmedKnockdown, LogImpact.Medium, $"{ToPrettyString(user):user} knocked down {ToPrettyString(target):target}");
-        }
+        if (!eventArgs.Handled)
+            return false;
+
+        _audio.PlayPvs(combatMode.DisarmSuccessSound, user, AudioParams.Default.WithVariation(0.025f).WithVolume(5f));
+        AdminLogger.Add(LogType.DisarmedAction, $"{ToPrettyString(user):user} used disarm on {ToPrettyString(target):target}");
 
         return true;
     }
@@ -218,7 +301,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         return Math.Clamp(chance, 0f, 1f);
     }
 
-    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
+    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, Angle spriteRotation, bool predicted = true)
     {
         Filter filter;
 
@@ -231,7 +314,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
             filter = Filter.Pvs(user, entityManager: EntityManager);
         }
 
-        RaiseNetworkEvent(new MeleeLungeEvent(GetNetEntity(user), GetNetEntity(weapon), angle, localPos, animation), filter);
+        RaiseNetworkEvent(new MeleeLungeEvent(GetNetEntity(user), GetNetEntity(weapon), angle, localPos, animation, spriteRotation), filter);
     }
 
     private void OnSpeechHit(EntityUid owner, MeleeSpeechComponent comp, MeleeHitEvent args)

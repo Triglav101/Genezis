@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Shared._RMC14.Fireman;
 using Content.Shared._RMC14.Xenonids.Parasite;
 using Content.Shared.ActionBlocker;
@@ -368,7 +368,7 @@ public sealed class RMCPullingSystem : EntitySystem
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
-        _melee.DoLunge(puller, puller, Angle.Zero, localPos, null);
+        _melee.DoLunge(puller, puller, Angle.Zero, localPos, null, Angle.Zero);
         _audio.PlayPredicted(_pullSound, pulled, puller);
 
         if (_net.IsServer)

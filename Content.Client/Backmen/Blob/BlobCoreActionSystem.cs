@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using Content.Client.Weapons.Melee;
 using Content.Shared.Backmen.Blob;
 using Robust.Client.Audio;
@@ -25,6 +25,6 @@ public sealed class BlobCoreActionSystem : SharedBlobCoreActionSystem
         if(!TryGetEntity(ev.BlobEntity, out var user))
             return;
 
-        _meleeWeaponSystem.DoLunge(user.Value, user.Value, Angle.Zero, ev.Position, Animation, false);
+        _meleeWeaponSystem.DoLunge(user.Value, user.Value, Angle.Zero, ev.Position, Animation, Angle.Zero, false);
     }
 }

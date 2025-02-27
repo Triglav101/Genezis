@@ -30,7 +30,6 @@ BulletAntiMaterial: BulletAntiMateriel
 # 2023-05-10
 FoodCondimentBottleSmallHotsauce: FoodCondimentBottleHotsauce
 FoodBakedCookieFortune: FoodSnackCookieFortune
-GunSafeSubMachineGunVector: GunSafeSubMachineGunDrozd
 
 # 2023-05-24
 AMEController: AmeController
@@ -906,7 +905,7 @@ PowerCellHyper: RMCPowerCellHyper
 PowerCellHyperPrinted: RMCPowerCellHyperEmpty
 UnfinishedMachineFrame: CMMachineFrameUnfinished
 MachineFrame: CMMachineFrame
-Autolathe: CMAutolathe
+# Autolathe: CMAutolathe
 Paper: CMPaper
 Pen: CMPen
 LuxuryPen: CMPenFountain
@@ -1008,12 +1007,6 @@ BlueprintFlare: null
 
 # 2024-10-04
 BaseAdvancedPen: Pen
-
-# 2024-10-04 backmen
-GunSafeRifleLecter: GunSafeRifleAR18
-GunSafeSubMachineGunDrozd: GunSafeSubMachineGunVector
-GunSafeShotgunEnforcer: GunSafeShotgunShotgun39
-GunSafeSubMachineGunWt550: GunSafeSubMachineGunMP5
 
 # 2024-10-05 - Corvax
 SheetPrinter: SheetPaper

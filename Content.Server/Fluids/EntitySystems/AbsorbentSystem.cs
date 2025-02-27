@@ -327,7 +327,7 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
-        _melee.DoLunge(user, used, Angle.Zero, localPos, null, false);
+        _melee.DoLunge(user, used, Angle.Zero, localPos, null, Angle.Zero, false);
 
         return true;
     }
@@ -379,7 +379,7 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
-        _melee.DoLunge(user, used, Angle.Zero, localPos, null, false);
+        _melee.DoLunge(user, used, Angle.Zero, localPos, null, Angle.Zero, false);
         return true;
     }
     // BACKMEN EDIT END

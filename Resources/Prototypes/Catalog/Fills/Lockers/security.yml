@@ -208,18 +208,6 @@
     - id: MagazineRifle
       amount: 4
 
-# - type: entity
-#   parent: [GunSafeBaseSecure, BaseRestrictedContraband]
-#   id: GunSafeSubMachineGunDrozd
-#   name: drozd safe
-#   components:
-#   - type: StorageFill
-#     contents:
-#     - id: WeaponSubMachineGunVectorSpecial
-#       amount: 2
-#     - id: MagazinePistolSubMachineGun
-#       amount: 4
-
 - type: entity
   parent: [GunSafeBaseSecure, BaseRestrictedContraband]
   id: GunSafeShotgunEnforcer
