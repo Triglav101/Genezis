@@ -1,2 +1,5 @@
-alerts-rooted-name = Rooted
-alerts-rooted-desc = You are attached to the ground. You can't slip, but you absorb fluids under you.
+alerts-rooted-name = Корни
+alerts-rooted-desc = Вы прикреплены к земле. Вы не можете поскользнуться, но впитываете жидкости под собой.
+
+alerts-blocked-name = Атака заблокирована
+alerts-blocked-desc = Невозможно блокировать некоторое время.

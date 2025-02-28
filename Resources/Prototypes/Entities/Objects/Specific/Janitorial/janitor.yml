@@ -72,6 +72,7 @@
       inHandsFillBaseName: -fill-
       inHandsMaxFillLevels: 2
     - type: MeleeWeapon
+      canBeBlocked: false # WD EDIT
       damage:
         types:
           Blunt: 10
@@ -204,7 +205,7 @@
         - Scientist
         - Borg
 # Corvax-HiddenDesc-End
-        
+
 - type: entity
   name: plunger
   id: Plunger
@@ -324,6 +325,7 @@
     - type: Spillable
       solution: absorbed
     - type: MeleeWeapon
+      canBeBlocked: false # WD EDIT
       soundNoDamage:
         path: "/Audio/Effects/Fluids/splat.ogg"
       damage:

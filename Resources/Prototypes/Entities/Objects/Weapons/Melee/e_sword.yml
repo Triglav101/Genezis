@@ -74,6 +74,10 @@
     - NoPaint
   - type: IgnitionSource
     temperature: 700
+  - type: MeleeBlock # WD EDIT
+    delay: 6.1
+    blockSound:
+      path: /Audio/Weapons/eblade1.ogg
 # Corvax-HiddenDesc-Start
   - type: HiddenDescription
     entries:
@@ -258,6 +262,8 @@
     tags:
     - Write
     - NoPaint
+  - type: MeleeBlock # WD EDIT
+    delay: 12.1
 # Corvax-HiddenDesc-Start
   - type: HiddenDescription
     entries:
@@ -382,6 +388,8 @@
     damage:
       types:
         Blunt: 4.5
+  - type: MeleeBlock # WD EDIT
+    delay: 3.1
   - type: Sprite
     sprite: Objects/Weapons/Melee/e_sword_double.rsi
     layers:

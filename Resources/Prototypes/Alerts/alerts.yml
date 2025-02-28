@@ -20,6 +20,7 @@
     - alertType: Walking
     - category: Piloting
     - alertType: Corporeal
+    - alertType: RecentlyBlocked
     - alertType: Stun
     - category: Breathing # Vox gang not calling this oxygen
     - category: Pressure

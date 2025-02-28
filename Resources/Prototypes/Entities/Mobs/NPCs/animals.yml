@@ -402,6 +402,7 @@
       behaviors:
       - !type:GibBehavior
         gibContents: Skip
+        recursive: false
   - type: NonSpreaderZombie
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-organic
@@ -1882,6 +1883,17 @@
       enum.SurgeryUIKey.Key:
         type: SurgeryBui
   # end-backmen: surgery
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Blunt
+        damage: 100
+      behaviors:
+      - !type:GibBehavior
+        gibContents: Skip
+        recursive: false
+
 
 - type: entity
   parent: MobMouse

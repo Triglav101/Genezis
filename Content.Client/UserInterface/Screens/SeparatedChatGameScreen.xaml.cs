@@ -22,7 +22,8 @@ public sealed partial class SeparatedChatGameScreen : InGameScreen
         SetAnchorAndMarginPreset(TopLeftContainer, LayoutPreset.TopLeft, margin: 10);
         SetAnchorAndMarginPreset(Ghost, LayoutPreset.BottomWide, margin: 80);
         SetAnchorAndMarginPreset(Hotbar, LayoutPreset.BottomWide, margin: 5);
-        SetAnchorAndMarginPreset(Alerts, LayoutPreset.CenterRight, margin: 10);
+        SetAnchorAndMarginPreset(Alerts, LayoutPreset.TopRight, margin: 15);
+        //Genezis в алертах сменил (центр райт и марджин 10)
         SetAnchorAndMarginPreset(Targeting, LayoutPreset.BottomRight, margin: 5);
 
         ScreenContainer.OnSplitResizeFinished += () =>

@@ -23,6 +23,7 @@
   - type: Item
     size: Small
   - type: MeleeWeapon
+    canBeBlocked: false # WD EDIT
     soundNoDamage:
       path: "/Audio/Effects/Fluids/splat.ogg"
     damage:
@@ -194,7 +195,7 @@
           Quantity: 100
   - type: Sprite
     sprite: Objects/Consumable/Drinks/oatmilk.rsi
-    
+
 - type: entity
   parent: [DrinkCartonVisualsOpenable, DrinkCartonBaseFull]
   id: DrinkJuiceLemonCarton

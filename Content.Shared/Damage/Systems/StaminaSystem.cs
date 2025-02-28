@@ -189,6 +189,9 @@ public sealed partial class StaminaSystem : EntitySystem
 
     private void OnMeleeHit(EntityUid uid, StaminaDamageOnHitComponent component, MeleeHitEvent args)
     {
+        if (args.Handled) // WD EDIT
+            return;
+
         if (!args.IsHit ||
             !args.HitEntities.Any() ||
             component.Damage <= 0f)
