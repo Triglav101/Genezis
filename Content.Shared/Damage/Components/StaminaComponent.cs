@@ -50,6 +50,19 @@ public sealed partial class StaminaComponent : Component
     public TimeSpan StunTime = TimeSpan.FromSeconds(6);
 
     /// <summary>
+    /// A dictionary of active stamina drains, with the key being the source of the drain
+    /// and the value being the drain rate per second.
+    /// </summary>
+    [DataField("activeDrains"), AutoNetworkedField]
+    public Dictionary<EntityUid, float> ActiveDrains = new();
+
+    /// <summary>
+    /// How much stamina per second is decreased by sprinting.
+    /// </summary>
+    [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
+    public float SprintingStaminaDrainRate = 3f;
+
+    /// <summary>
     /// To avoid continuously updating our data we track the last time we updated so we can extrapolate our current stamina.
     /// </summary>
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]

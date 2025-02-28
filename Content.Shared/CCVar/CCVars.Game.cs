@@ -116,6 +116,12 @@ public sealed partial class CCVars
             GameRoleWhitelist = CVarDef.Create("game.role_whitelist", true, CVar.SERVER | CVar.REPLICATED);
 
         /// <summary>
+        ///     When true, you have to press the change speed button to sprint.
+        /// </summary>
+        public static readonly CVarDef<bool> GamePressToSprint =
+            CVarDef.Create("game.press_to_sprint", true, CVar.REPLICATED);
+
+        /// <summary>
         ///     Whether or not disconnecting inside of a cryopod should remove the character or just store them until they reconnect.
         /// </summary>
         public static readonly CVarDef<bool>
