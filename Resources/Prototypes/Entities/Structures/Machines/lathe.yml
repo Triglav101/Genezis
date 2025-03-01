@@ -361,6 +361,9 @@
       - FauxTileAstroSnow
       - OreBagOfHolding
       - DeviceQuantumSpinInverter
+      - PKAUpgradeDamage
+      - PKAUpgradeRange
+      - PKAUpgradeFireRate
       - EnergyDomeDirectionalTurtle
       - PowerCageHigh
       - PowerCageMedium

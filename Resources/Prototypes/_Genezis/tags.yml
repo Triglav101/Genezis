@@ -99,6 +99,18 @@
   id: VehicleKey
 ######
 
+- type: Tag
+  id: GunUpgradeDamage
+
+- type: Tag
+  id: GunUpgradeRange
+
+- type: Tag
+  id: GunUpgradeReloadSpeed
+
+- type: Tag
+  id: PKAUpgrade
+
 # ss220 shlepi
 - type: Tag
   id: ElWyccoAxe
