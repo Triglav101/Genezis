@@ -25,6 +25,9 @@
   id: Arrow
 
 - type: Tag
+  id: Maints
+
+- type: Tag
   id: ArtifactFragment
 
 - type: Tag

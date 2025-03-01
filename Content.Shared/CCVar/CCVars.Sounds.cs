@@ -16,7 +16,8 @@ public sealed partial class CCVars
     public static readonly CVarDef<bool> RestartSoundsEnabled =
         CVarDef.Create("ambience.restart_sounds_enabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
-
+    public static readonly CVarDef<bool> BwoinkSoundEnabled =
+        CVarDef.Create("audio.bwoink_sound_enabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
     public static readonly CVarDef<bool> AdminSoundsEnabled =
         CVarDef.Create("audio.admin_sounds_enabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);

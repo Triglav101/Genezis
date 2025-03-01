@@ -67,7 +67,6 @@
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorCentcom
-    suitstorage: WeaponRifleFamas
     head: ClothingHeadHatBeretHoSCentcom
     id: CCOfficerPDA
     ears: ClothingHeadsetCentComCC

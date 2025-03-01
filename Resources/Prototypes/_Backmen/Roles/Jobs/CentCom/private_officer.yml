@@ -58,7 +58,6 @@
     gloves: ClothingHandsGlovesCombat
     head: ClothingHeadHelmetCentcom
     outerClothing: ClothingOuterArmorCentcom
-    suitstorage: WeaponRifleFamas
     id: CentComPrivateOfficerPDA
     ears: ClothingHeadsetCentComCC
     belt: ClothingBeltSecuritySuper
