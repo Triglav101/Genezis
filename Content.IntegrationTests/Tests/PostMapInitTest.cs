@@ -49,7 +49,7 @@ namespace Content.IntegrationTests.Tests
             "MeteorArena",
             "CentCommv2",
             "CentCommv3",
-            "ShwrAdventurer",
+            "ShwrPhoenix",
             "ShwrBig",
             "shwrDust",
             "BargeVsShip",

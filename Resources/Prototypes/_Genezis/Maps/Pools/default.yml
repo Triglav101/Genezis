@@ -2,3 +2,8 @@
   id: GenezisDefaultMapPool
   maps:
   - Almayer
+
+- type: gameMapPool
+  id: GenezisShipwreckedPool
+  maps:
+    - ShwrPhoenix

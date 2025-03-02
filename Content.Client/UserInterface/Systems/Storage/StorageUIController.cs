@@ -202,9 +202,13 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
             keyEvent.Handle();
     }
 
-    private void OnStorageUpdated(Entity<StorageComponent> uid)
+    private void OnStorageUpdated(Entity<StorageComponent>? uid)
     {
-        if (_container?.StorageEntity != uid)
+        if (uid == null)
+            _container?.BuildItemPieces();
+
+        return; // RMC14
+        if (_container?.StorageEntity != uid.Value)
             return;
 
         _container.BuildItemPieces();
@@ -233,11 +237,12 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
 
         if (args.Function == ContentKeyFunctions.MoveStoredItem)
         {
-            DraggingRotation = control.Location.Rotation;
+            // DraggingRotation = control.Location.Rotation;
+            //
+            // _menuDragHelper.MouseDown(control);
+            // _menuDragHelper.Update(0f);
 
-            _menuDragHelper.MouseDown(control);
-            _menuDragHelper.Update(0f);
-
+            // This Handle here is what prevents always inserting and allows InteractUsing on items in storage.
             args.Handle();
         }
         else if (args.Function == ContentKeyFunctions.SaveItemLocation)
@@ -309,10 +314,10 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
             }
 
             _menuDragHelper.EndDrag();
-            _container?.BuildItemPieces();
         }
-        else //if we just clicked, then take it out of the bag.
+        else if (control.Has((args.PointerLocation.Position - control.GlobalPixelPosition) / control.UIScale))
         {
+            //if we just clicked, then take it out of the bag.
             _menuDragHelper.EndDrag();
             _entity.RaisePredictiveEvent(new StorageInteractWithItemEvent(
                 _entity.GetNetEntity(control.Entity),
@@ -353,7 +358,7 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
         if (DraggingGhost == null)
             return;
 
-        if (_container?.StorageEntity is not { } storageEnt || !_entity.TryGetComponent<StorageComponent>(storageEnt, out var storageComp))
+        if (_container?.StorageEntity is not { } storageEnt|| !_entity.TryGetComponent<StorageComponent>(storageEnt, out var storageComp))
             return;
 
         var offset = ItemGridPiece.GetCenterOffset(
@@ -363,7 +368,7 @@ public sealed class StorageUIController : UIController, IOnSystemChanged<Storage
             _entity);
 
         // I don't know why it divides the position by 2. Hope this helps! -emo
-        LayoutContainer.SetPosition(DraggingGhost, UIManager.MousePositionScaled.Position / 2 - offset);
+        LayoutContainer.SetPosition(DraggingGhost, UIManager.MousePositionScaled.Position / 2 - offset );
     }
 
     private void OnMenuEndDrag()

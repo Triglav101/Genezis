@@ -333,7 +333,7 @@ public abstract class SharedStorageSystem : EntitySystem
         _ui.OpenUi(uid, StorageComponent.StorageUiKey.Key, entity);
     }
 
-    public virtual void UpdateUI(Entity<StorageComponent?> entity) { }
+    public virtual void UpdateUI(Entity<StorageComponent?> entity) {}
 
     private void AddTransferVerbs(EntityUid uid, StorageComponent component, GetVerbsEvent<UtilityVerb> args)
     {
