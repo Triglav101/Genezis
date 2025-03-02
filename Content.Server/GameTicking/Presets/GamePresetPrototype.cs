@@ -15,6 +15,9 @@ namespace Content.Server.GameTicking.Presets
         [IdDataField]
         public string ID { get; private set; } = default!;
 
+        [DataField("disableRandomEvents")]
+        public bool DisableRandomEvents = false;
+
         [DataField("alias")]
         public string[] Alias = Array.Empty<string>();
 

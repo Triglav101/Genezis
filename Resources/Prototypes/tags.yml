@@ -28,6 +28,9 @@
   id: Maints
 
 - type: Tag
+  id: HardsuitSpatio
+
+- type: Tag
   id: ArtifactFragment
 
 - type: Tag
