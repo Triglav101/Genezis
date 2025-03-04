@@ -1,0 +1,65 @@
+- type: entity
+  name: устройство передачи координат
+  parent: ToolboxElectrical
+  id: evacmodule
+  description: При активации посылает мощный импульс на поверхность планеты, который, в свою очередь, считывают системы Триглава. Устройство настроено на само активацию при жестком ударе об землю. Примите к сведенью, что из-за того, чтобы достичь поверхности планеты, импульсу нужна огромная нагрузка на системы модуля очень высока вероятность того, что запуск систем модуля сожжет его внутренности. Поэтому устройство является одноразовым.
+  components:
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Genezis/AmbientSound/On.ogg  
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Evacmarker:
+            min: 1
+            max: 1
+  - type: DamageOnLand
+    damage:
+      types:
+        Blunt: 1
+  - type: StaticPrice
+    price: 50
+
+- type: entity
+  parent: BaseWeaponTurret
+  name: Маяк координат (вызов шаттла)
+  id: Evacmarker
+  components:  
+    - type: Destructible
+      thresholds:
+        - trigger:
+            !type:DamageTrigger
+            damage: 10
+          behaviors:
+            - !type:DoActsBehavior
+              acts: [ "Destruction" ]
+    - type: FTLBeacon
+    - type: DropshipDestination
+    - type: NoFTL
+    - type: TimedDespawn
+      lifetime: 80
+    - type: PointLight
+      radius: 6
+      energy: 1
+      castShadows: true
+      color: "#db1943"
+    - type: AmbientSound
+      volume: -5
+      range: 5
+      sound:
+        path: /Audio/Ambience/Objects/alarm.ogg      
