@@ -329,10 +329,6 @@ Observationskit: null
 # 2024-02-26
 CrateBaseWeldable: CrateGenericSteel
 
-
-# 2024-09-03 Backmen
-WeaponTaser: WeaponDominatorNT
-
 # 2024-03-05
 BookBotanicalTextbook: BookRandomStory
 BookEscalation: BookRandomStory
@@ -972,7 +968,6 @@ RMCDispenserChem: RMCChemDispenserGround
 
 # 2024-08-28 backmen
 SpawnPointStationAI: PlayerStationAi
-WeaponTurretLaserNanoTrasenAI: WeaponTurretSyndicateBroken
 
 # 2024-08-22
 ComputerShuttleSalvage: null

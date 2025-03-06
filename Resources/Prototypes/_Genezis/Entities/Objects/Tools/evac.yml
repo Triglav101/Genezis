@@ -1,9 +1,14 @@
 - type: entity
   name: устройство передачи координат
-  parent: ToolboxElectrical
+  parent: BaseItem
   id: evacmodule
   description: При активации посылает мощный импульс на поверхность планеты, который, в свою очередь, считывают системы Триглава. Устройство настроено на само активацию при жестком ударе об землю. Примите к сведенью, что из-за того, чтобы достичь поверхности планеты, импульсу нужна огромная нагрузка на системы модуля очень высока вероятность того, что запуск систем модуля сожжет его внутренности. Поэтому устройство является одноразовым.
   components:
+  - type: Sprite
+    sprite: Genezis/Objects/Specific/Evac.rsi
+    state: tray-off
+  - type: Item
+    size: Small  
   - type: Damageable
     damageContainer: Inorganic
   - type: Destructible
@@ -36,10 +41,20 @@
     price: 50
 
 - type: entity
-  parent: BaseWeaponTurret
+  parent: BaseItem
   name: Маяк координат (вызов шаттла)
   id: Evacmarker
-  components:  
+  components:    
+    - type: Sprite
+      noRot: true
+      sprite: Backmen/Objects/Misc/marker.rsi
+      drawdepth: FloorTiles
+      layers:
+      - state: marker
+        shader: unshaded
+    - type: Timer
+
+
     - type: Destructible
       thresholds:
         - trigger:
@@ -62,4 +77,5 @@
       volume: -5
       range: 5
       sound:
-        path: /Audio/Ambience/Objects/alarm.ogg      
+        path: /Audio/Ambience/Objects/alarm.ogg
+        

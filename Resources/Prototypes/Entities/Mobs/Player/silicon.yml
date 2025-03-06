@@ -432,6 +432,7 @@
   - type: Access
     groups:
     - AllAccess
+    - Silicon    
   - type: Eye
     drawFov: false
   - type: Examiner
