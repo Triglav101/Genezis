@@ -132,7 +132,12 @@
         /// <summary>
         ///     PlayTime commands
         /// </summary>
-        PlayTime = 1 << 30, //Backmen:perms-upd
+        PlayTime = 1 << 28, //Backmen:perms-upd
+
+        /// <summary>
+        ///     Lets you use the mentor help system.
+        /// </summary>
+        MentorHelp = 1 << 30,
 
         /// <summary>
         ///     Dangerous host permissions like scsi.

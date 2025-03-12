@@ -1,4 +1,4 @@
-using Content.Client.Weapons.Melee;
+﻿using Content.Client.Weapons.Melee;
 using Content.Shared._RMC14.Input;
 using Content.Shared._RMC14.Weapons.Melee;
 using Robust.Client.GameObjects;
@@ -55,6 +55,6 @@ public sealed class RMCMeleeWeaponSystem : SharedRMCMeleeWeaponSystem
             return;
 
         if (weapon.WidePrimary)
-            _melee.ClientHeavyAttack(entity, coordinates, weaponUid, weapon);
+                _melee.ClientHeavyAttack(entity, coordinates, weaponUid, weapon);
     }
 }

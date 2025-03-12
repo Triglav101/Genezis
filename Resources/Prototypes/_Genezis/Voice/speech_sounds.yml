@@ -1,9 +1,0 @@
-#IPC
-- type: speechSounds
-  id: IPC
-  saySound:
-    path: /Audio/Voice/Talk/pai.ogg
-  askSound:
-    path: /Audio/Voice/Talk/pai_ask.ogg
-  exclaimSound:
-    path: /Audio/Voice/Talk/pai_exclaim.ogg

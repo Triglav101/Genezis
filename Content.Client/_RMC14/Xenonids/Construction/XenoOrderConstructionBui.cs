@@ -1,4 +1,4 @@
-using Content.Client.Xenonids.UI;
+﻿using Content.Client._RMC14.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Construction;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
@@ -37,6 +37,11 @@ public sealed class XenoOrderConstructionBui : BoundUserInterface
 
                 var control = new XenoChoiceControl();
                 control.Set(structure.Name, _sprite.Frame0(structure));
+
+                //control.Button.OnPressed += _ =>
+                //{
+                //    SendPredictedMessage(new XenoOrderConstructionBuiMsg(structureId));
+                //};
 
                 _window.StructureContainer.AddChild(control);
             }

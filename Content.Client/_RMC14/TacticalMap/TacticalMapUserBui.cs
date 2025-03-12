@@ -1,3 +1,4 @@
+﻿using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.TacticalMap;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
@@ -18,9 +19,10 @@ public sealed class TacticalMapUserBui(EntityUid owner, Enum uiKey) : BoundUserI
         TabContainer.SetTabTitle(_window.MapTab, "Map");
         TabContainer.SetTabVisible(_window.MapTab, true);
 
-        if (EntMan.TryGetComponent(Owner, out TacticalMapUserComponent? user))
+        if (EntMan.TryGetComponent(Owner, out TacticalMapUserComponent? user) &&
+            EntMan.TryGetComponent(user.Map, out AreaGridComponent? areaGrid))
         {
-
+            _window.UpdateTexture((user.Map.Value, areaGrid));
         }
 
         Refresh();

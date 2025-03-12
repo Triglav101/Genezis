@@ -1,7 +1,6 @@
 using System.Threading;
 using Content.Server.Administration.Commands;
 using Content.Server.Administration.Components;
-using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
@@ -18,8 +17,10 @@ using Content.Server.Storage.Components;
 using Content.Server.Storage.EntitySystems;
 using Content.Server.Tabletop;
 using Content.Server.Tabletop.Components;
+using Content.Shared._RMC14.Xenonids.Parasite;
 using Content.Shared.Administration;
 using Content.Shared.Administration.Components;
+using Content.Shared.Atmos.Components;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using Content.Shared.Clumsy;
@@ -42,16 +43,17 @@ using Content.Shared.Slippery;
 using Content.Shared.Tabletop.Components;
 using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
+using Robust.Shared.Audio;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
-using Content.Shared.Atmos.Components;
 
 namespace Content.Server.Administration.Systems;
 
@@ -81,6 +83,9 @@ public sealed partial class AdminVerbSystem
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly SuperBonkSystem _superBonkSystem = default!;
     [Dependency] private readonly SlipperySystem _slipperySystem = default!;
+    [Dependency] private readonly SharedXenoParasiteSystem _xenoParasite = default!;
+
+    private static readonly EntProtoId MouseProto = "CMMobMouse";
 
     // All smite verbs have names so invokeverb works.
     private void AddSmiteVerbs(GetVerbsEvent<Verb> args)
@@ -696,48 +701,6 @@ public sealed partial class AdminVerbSystem
         };
         args.Verbs.Add(reptilian);
 
-        Verb dwarf = new()
-        {
-            Text = "Dwarf Species Swap",
-            Category = VerbCategory.Smite,
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Objects/Fun/toys.rsi"), "plushie_lizard"),
-            Act = () =>
-            {
-                _polymorphSystem.PolymorphEntity(args.Target, "BDwarfMorph");
-            },
-            Impact = LogImpact.Extreme,
-            Message = Loc.GetString("admin-smite-dwarf-species-swap-description"),
-        };
-        args.Verbs.Add(dwarf);
-
-        Verb vox = new()
-        {
-            Text = "Vox Species Swap",
-            Category = VerbCategory.Smite,
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Objects/Fun/toys.rsi"), "plushie_lizard"),
-            Act = () =>
-            {
-                _polymorphSystem.PolymorphEntity(args.Target, "BVoxMorph");
-            },
-            Impact = LogImpact.Extreme,
-            Message = Loc.GetString("admin-smite-vox-species-swap-description"),
-        };
-        args.Verbs.Add(vox);
-
-        Verb skilet = new()
-        {
-            Text = "Skilet Species Swap",
-            Category = VerbCategory.Smite,
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/Objects/Fun/toys.rsi"), "plushie_lizard"),
-            Act = () =>
-            {
-                _polymorphSystem.PolymorphEntity(args.Target, "BSkeletonMorph");
-            },
-            Impact = LogImpact.Extreme,
-            Message = Loc.GetString("admin-smite-skilet-species-swap-description"),
-        };
-        args.Verbs.Add(skilet);
-
         var lockerName = Loc.GetString("admin-smite-locker-stuff-name").ToLowerInvariant();
         Verb locker = new()
         {
@@ -935,5 +898,37 @@ public sealed partial class AdminVerbSystem
             Message = string.Join(": ", superslipName, Loc.GetString("admin-smite-super-slip-description"))
         };
         args.Verbs.Add(superslip);
+
+        Verb chestburst = new()
+        {
+            Text = "Chestburst into larva",
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_RMC14/Effects/burst.rsi"), "bursted_stand"),
+            Act = () =>
+            {
+                var infected = EnsureComp<VictimInfectedComponent>(args.Target);
+                _xenoParasite.TryStartBurst((args.Target, infected));
+            },
+            Impact = LogImpact.Extreme,
+            Message = "Chestburst into larva",
+        };
+        args.Verbs.Add(chestburst);
+
+        Verb chestburstMouse = new()
+        {
+            Text = "Chestburst into mouse",
+            Category = VerbCategory.Smite,
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_RMC14/Effects/burst.rsi"), "bursted_stand"),
+            Act = () =>
+            {
+                var infected = EnsureComp<VictimInfectedComponent>(args.Target);
+                _xenoParasite.SetBurstSpawn((args.Target, infected), MouseProto);
+                _xenoParasite.SetBurstSound((args.Target, infected), new SoundPathSpecifier("/Audio/Animals/mouse_squeak.ogg"));
+                _xenoParasite.TryStartBurst((args.Target, infected));
+            },
+            Impact = LogImpact.Extreme,
+            Message = "Chestburst into mouse",
+        };
+        args.Verbs.Add(chestburstMouse);
     }
 }

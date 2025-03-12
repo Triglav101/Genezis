@@ -57,6 +57,16 @@ public sealed class CMDoorSystem : EntitySystem
 
     private void OnButtonActivateInWorld(Entity<RMCDoorButtonComponent> button, ref ActivateInWorldEvent args)
     {
+        var user = args.User;
+        if (HasComp<XenoComponent>(user))
+            return;
+
+        if (!_accessReader.IsAllowed(user, button))
+        {
+            // TODO RMC14 denied animation
+            _popup.PopupClient(Loc.GetString("cm-vending-machine-access-denied"), button, user, PopupType.SmallCaution);
+            return;
+        }
 
         var time = _timing.CurTime;
         if (time < button.Comp.LastUse + button.Comp.Cooldown)
@@ -88,6 +98,10 @@ public sealed class CMDoorSystem : EntitySystem
                 _doors.TryOpen(door, doorComp);
             }
         }
+
+        var selfMsg = Loc.GetString("rmc-door-button-pressed-self", ("button", button));
+        var othersMsg = Loc.GetString("rmc-door-button-pressed-others", ("user", user), ("button", button));
+        _popup.PopupPredicted(selfMsg, othersMsg, user, user);
 
         if (_net.IsServer)
             RaiseNetworkEvent(new RMCPodDoorButtonPressedEvent(GetNetEntity(button)), Filter.PvsExcept(button));

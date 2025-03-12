@@ -12,5 +12,6 @@ namespace Content.Shared.Preferences
         Разгрузка,
         Тяжелая,
         Легкая,
+        Random,
     }
 }

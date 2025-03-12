@@ -1,4 +1,7 @@
-﻿using Content.Client.Administration.Managers;
+﻿using Content.Client._RMC14.Commendations;
+// using Content.Client._RMC14.LinkAccount;
+using Content.Client._RMC14.PlayTimeTracking;
+using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Clickable;
@@ -65,6 +68,11 @@ namespace Content.Client.IoC
             collection.Register<PlayerRateLimitManager>();
             collection.Register<SharedPlayerRateLimitManager, PlayerRateLimitManager>();
             collection.Register<TitleWindowManager>();
+
+            // RMC14
+            // collection.Register<LinkAccountManager>();
+            collection.Register<RMCPlayTimeManager>();
+            collection.Register<CommendationsManager>();            
         }
     }
 }

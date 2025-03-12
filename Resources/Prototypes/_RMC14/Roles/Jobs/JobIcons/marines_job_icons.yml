@@ -14,13 +14,6 @@
 
 - type: jobIcon
   parent: CMJobIconBase
-  id: CMJobIconRifleman
-  icon:
-    sprite: _RMC14/Interface/cm_job_icons.rsi
-    state: hudsquad_rm
-
-- type: jobIcon
-  parent: CMJobIconBase
   id: CMJobIconHospitalCorpsman
   icon:
     sprite: _RMC14/Interface/cm_job_icons.rsi

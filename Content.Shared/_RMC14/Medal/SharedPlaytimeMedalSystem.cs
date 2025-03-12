@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Xenonids;
+﻿using Content.Shared._RMC14.Xenonids;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory.Events;
@@ -116,7 +116,7 @@ public abstract class SharedPlaytimeMedalSystem : EntitySystem
 
     private void OnPlaytimeMedalHolderGetEquipmentVerbs(Entity<PlaytimeMedalHolderComponent> ent, ref GetVerbsEvent<EquipmentVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract)
+        if (!args.CanAccess || !args.CanInteract || HasComp<XenoComponent>(args.User))
             return;
 
         if (!_container.TryGetContainer(ent, ent.Comp.ContainerId, out var container) ||

@@ -34,9 +34,9 @@ public sealed partial class VoiceMaskComponent : Component
     public EntProtoId Action = "ActionChangeVoiceMask";
 
     // Corvax-TTS-Start
-    [DataField]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public string VoiceId = SharedHumanoidAppearanceSystem.DefaultVoice;
+    //[DataField]
+    //[ViewVariables(VVAccess.ReadWrite)]
+    //public string VoiceId = SharedHumanoidAppearanceSystem.DefaultVoice;
     // Corvax-TTS-End
 
     /// <summary>

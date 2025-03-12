@@ -20,7 +20,7 @@
     - id: RMCCrayonYellow
     - id: RMCCrayonGreen
     - id: RMCCrayonBlue
-    # - id: RMCCrayonPurple
+    - id: RMCCrayonPurple
   - type: ItemMapper
     mapLayers:
       red:

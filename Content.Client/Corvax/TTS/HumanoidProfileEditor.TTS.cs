@@ -25,7 +25,7 @@ public sealed partial class HumanoidProfileEditor
         VoiceButton.OnItemSelected += args =>
         {
             VoiceButton.SelectId(args.Id);
-            SetVoice(_voiceList[args.Id].ID);
+            //SetVoice(_voiceList[args.Id].ID);
         };
 
         VoicePlayButton.OnPressed += _ => PlayPreviewTTS();
@@ -62,12 +62,12 @@ public sealed partial class HumanoidProfileEditor
             }
         }
 
-        var voiceChoiceId = _voiceList.FindIndex(x => x.ID == Profile.Voice);
-        if (!VoiceButton.TrySelectId(voiceChoiceId) &&
-            VoiceButton.TrySelectId(firstVoiceChoiceId))
-        {
-            SetVoice(_voiceList[firstVoiceChoiceId].ID);
-        }
+        //var voiceChoiceId = _voiceList.FindIndex(x => x.ID == Profile.Voice);
+        //if (!VoiceButton.TrySelectId(voiceChoiceId) &&
+        //    VoiceButton.TrySelectId(firstVoiceChoiceId))
+        //{
+        //    SetVoice(_voiceList[firstVoiceChoiceId].ID);
+        //}
     }
 
     private void PlayPreviewTTS()
@@ -75,6 +75,6 @@ public sealed partial class HumanoidProfileEditor
         if (Profile is null)
             return;
 
-        _entManager.System<TTSSystem>().RequestGlobalTTS(Shared.Backmen.TTS.VoiceRequestType.Preview,Profile.Voice);
+        //_entManager.System<TTSSystem>().RequestGlobalTTS(Shared.Backmen.TTS.VoiceRequestType.Preview,Profile.Voice);
     }
 }

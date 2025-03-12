@@ -1,9 +1,9 @@
-﻿using Robust.Shared.Serialization;
+﻿﻿using Robust.Shared.Serialization;
 
 namespace Content.Shared.Chemistry.Components;
 
 [Serializable, NetSerializable]
-public sealed class SmokeComponentState : ComponentState
+public sealed class SolutionComponentState(Solution solution) : ComponentState
 {
-    public Color Color;
+    public Solution Solution = solution;
 }

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Content.Server._RMC14.LinkAccount;
 using Content.Server.Administration.Logs;
 using Content.Shared._RMC14.Armor;
 using Content.Shared._RMC14.NamedItems;
@@ -34,6 +33,7 @@ public sealed class RMCNamedItemSystem : EntitySystem
 
     private void OnPlayerSpawnComplete(PlayerSpawnCompleteEvent ev)
     {
+
         var user = EnsureComp<RMCUserNamedItemsComponent>(ev.Mob);
         var named = ev.Profile.NamedItems;
         user.Names = new SharedRMCNamedItems(named.PrimaryGunName, named.SidearmName, named.HelmetName, named.ArmorName, named.SentryName);

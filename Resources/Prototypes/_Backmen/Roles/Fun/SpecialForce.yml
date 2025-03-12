@@ -33,7 +33,6 @@
     shoes: ClothingShoesBootsMagSpecialForce
     mask: ClothingMaskGasDeathSquadV2_1
     neck: CombatKnifeSpetsnaz
-    eyes: ClothingEyesVision
     gloves: ClothingHandsGlovesSpetsnazcombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     head: ClothingHeadHatBeretMobileTaskForce
@@ -53,7 +52,6 @@
     shoes: ClothingShoesBootsMagSpecialForce
     mask: ClothingMaskGasDeathSquadV2_1
     neck: CombatKnifeSpetsnaz
-    eyes: ClothingEyesVision
     gloves: ClothingHandsGlovesSpetsnazcombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     id: DedSquadronGavnaIDCard
@@ -72,7 +70,6 @@
     shoes: ClothingShoesBootsMagSpecialForce
     mask: ClothingMaskGasDeathSquadV2_1
     neck: CombatKnifeSpetsnaz
-    eyes: ClothingEyesVision
     gloves: ClothingHandsGlovesSpetsnazcombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     id: DedSquadronGavnaIDCard
@@ -87,7 +84,6 @@
     shoes: ClothingShoesChameleonNoSlips
     mask: ClothingMaskGasDeathSquadV2_1
     neck: CombatKnifeSpetsnaz
-    eyes: ClothingEyesVision
     gloves: ClothingHandsGlovesSpetsnazcombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     id: DedSquadronGavnaIDCard

@@ -45,6 +45,7 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
+    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoOrderConstruction
     - ActionXenoPheromones
@@ -64,6 +65,9 @@
   - type: XenoConstruction
     canOrderConstruction:
     - HiveCoreXenoConstructionNode
+    - HiveEggMorpherXenoConstructionNode
+    - HiveClusterXenoConstructionNode
+    - HiveRecoveryNodeXenoConstructionNode
   - type: XenoPheromones
     pheromonesMultiplier: 2
   - type: XenoPlasma
@@ -125,3 +129,5 @@
       state: carrier
   - type: XenoInhands
     prefix: carrier
+  - type: IntelRecoverCorpseObjectiveOnDeath
+    value: 0.2

@@ -1,4 +1,4 @@
-using Content.Server.Chat.Managers;
+﻿using Content.Server.Chat.Managers;
 using Content.Server.Speech.Components;
 using Content.Server.Speech.EntitySystems;
 using Content.Shared._RMC14.Chat;
@@ -26,6 +26,7 @@ public sealed class CMChatSystem : SharedCMChatSystem
     {
         base.Initialize();
         SubscribeLocalEvent<MarineComponent, ChatMessageAfterGetRecipients>(OnMarineAfterGetRecipients);
+        SubscribeLocalEvent<XenoComponent, ChatMessageAfterGetRecipients>(OnXenoAfterGetRecipients);
     }
 
     private void OnMarineAfterGetRecipients(Entity<MarineComponent> ent, ref ChatMessageAfterGetRecipients args)
@@ -36,6 +37,9 @@ public sealed class CMChatSystem : SharedCMChatSystem
         {
             if (data.Observer)
                 continue;
+
+            if (HasComp<XenoComponent>(session.AttachedEntity))
+                _toRemove.Add(session);
         }
 
         foreach (var session in _toRemove)
@@ -44,7 +48,7 @@ public sealed class CMChatSystem : SharedCMChatSystem
         }
     }
 
-    private void OnXenoAfterGetRecipients(ref ChatMessageAfterGetRecipients args)
+    private void OnXenoAfterGetRecipients(Entity<XenoComponent> ent, ref ChatMessageAfterGetRecipients args)
     {
         _toRemove.Clear();
 
@@ -52,6 +56,9 @@ public sealed class CMChatSystem : SharedCMChatSystem
         {
             if (data.Observer)
                 continue;
+
+            if (!HasComp<XenoComponent>(session.AttachedEntity))
+                _toRemove.Add(session);
         }
 
         foreach (var session in _toRemove)
@@ -63,6 +70,9 @@ public sealed class CMChatSystem : SharedCMChatSystem
     public override string SanitizeMessageReplaceWords(EntityUid source, string msg)
     {
         msg = _wordreplacement.ApplyReplacements(msg, ChatSanitize);
+
+        var factionSanitize = HasComp<XenoComponent>(source) ? XenoChatSanitize : MarineChatSanitize;
+        msg = _wordreplacement.ApplyReplacements(msg, factionSanitize);
 
         return msg;
     }

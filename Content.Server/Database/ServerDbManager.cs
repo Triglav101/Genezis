@@ -217,6 +217,16 @@ namespace Content.Server.Database
         Task AddAdminAsync(Admin admin, CancellationToken cancel = default);
         Task UpdateAdminAsync(Admin admin, CancellationToken cancel = default);
 
+        /// <summary>
+        /// Update whether an admin has voluntarily deadminned.
+        /// </summary>
+        /// <remarks>
+        /// This does nothing if the player is not an admin.
+        /// </remarks>
+        /// <param name="userId">The user ID of the admin.</param>
+        /// <param name="deadminned">Whether the admin is deadminned or not.</param>
+        Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel = default);
+
         Task RemoveAdminRankAsync(int rankId, CancellationToken cancel = default);
         Task AddAdminRankAsync(AdminRank rank, CancellationToken cancel = default);
         Task UpdateAdminRankAsync(AdminRank rank, CancellationToken cancel = default);
@@ -312,6 +322,12 @@ namespace Content.Server.Database
 
         #region RMC14
 
+        Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel);
+
+        Task<bool> ExcludeRoleTimer(Guid player, string tracker);
+
+        Task<bool> RemoveRoleTimerExclusion(Guid player, string tracker);
+
         Task AddCommendation(Guid giver,
             Guid receiver,
             string giverName,
@@ -331,7 +347,7 @@ namespace Content.Server.Database
 
 
         Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel = default);
-        Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job);
+        Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job, CancellationToken cancel = default);
 
         Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job);
 
@@ -681,6 +697,12 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.UpdateAdminAsync(admin, cancel));
         }
 
+        public Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel = default)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.UpdateAdminDeadminnedAsync(userId, deadminned, cancel));
+        }
+
         public Task RemoveAdminRankAsync(int rankId, CancellationToken cancel = default)
         {
             DbWriteOpsMetric.Inc();
@@ -994,7 +1016,7 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.GetJobWhitelists(player, cancel));
         }
 
-        public Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job)
+        public Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job, CancellationToken cancel = default)
         {
             DbReadOpsMetric.Inc();
             return RunDbCommand(() => _db.IsJobWhitelisted(player, job));
@@ -1028,6 +1050,24 @@ namespace Content.Server.Database
                     handler(notification);
                 }
             }
+        }
+
+        public Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetExcludedRoleTimers(player, cancel));
+        }
+
+        public Task<bool> ExcludeRoleTimer(Guid player, string tracker)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.ExcludeRoleTimer(player, tracker));
+        }
+
+        public Task<bool> RemoveRoleTimerExclusion(Guid player, string tracker)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.RemoveRoleTimerExclusion(player, tracker));
         }
 
         public Task AddCommendation(Guid giver,

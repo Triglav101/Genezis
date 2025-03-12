@@ -73,11 +73,22 @@ public sealed class CMArmorSystem : EntitySystem
         if (!Resolve(armored, ref armored.Comp, false))
             return;
 
+        if (TryComp<XenoComponent>(armored, out var xeno))
+        {
+            var ev = new CMGetArmorEvent(SlotFlags.OUTERCLOTHING | SlotFlags.INNERCLOTHING);
+            RaiseLocalEvent(armored, ref ev);
+            string? armorMessage = FixedPoint2.New(ev.Armor * ev.ArmorModifier) + " / " + armored.Comp.Armor;
+            var max = _alerts.GetMaxSeverity(xeno.ArmorAlert);
+
+            var severity = max - ContentHelpers.RoundToLevels(ev.Armor * ev.ArmorModifier, MaxXenoArmor, max + 1);
+            _alerts.ShowAlert(armored, xeno.ArmorAlert, (short)severity, dynamicMessage: armorMessage);
+        }
     }
 
     private void OnRemove(Entity<CMArmorComponent> armored, ref ComponentRemove args)
     {
-
+        if (TryComp(armored, out XenoComponent? xeno))
+            _alerts.ClearAlert(armored, xeno.ArmorAlert);
     }
 
     private void OnDamageModify(Entity<CMArmorComponent> armored, ref DamageModifyEvent args)
@@ -194,7 +205,17 @@ public sealed class CMArmorSystem : EntitySystem
         var ev = new CMGetArmorEvent(SlotFlags.OUTERCLOTHING | SlotFlags.INNERCLOTHING);
         RaiseLocalEvent(ent, ref ev);
 
+        var armorPiercing = args.ArmorPiercing;
+        if (args.Tool != null)
+        {
+            var piercingEv = new CMGetArmorPiercingEvent(ent);
+            RaiseLocalEvent(args.Tool.Value, ref piercingEv);
+            armorPiercing += piercingEv.Piercing;
+        }
+
         ev.Armor = (int) (ev.Armor * ev.ArmorModifier);
+        ev.Armor -= armorPiercing;
+        ev.Bio -= armorPiercing;
 
         if (args.Origin is { } origin)
         {
@@ -264,7 +285,7 @@ public sealed class CMArmorSystem : EntitySystem
         if (comp.Types.TryGetValue(preference.ToString(), out var equipment))
             equipmentEntityID = equipment;
 
-        if (preference == ArmorPreference.Случайно)
+        if (preference == ArmorPreference.Random)
         {
             var random = new System.Random();
             var randomType = comp.Types.ElementAt(random.Next(0, comp.Types.Count)).Value;

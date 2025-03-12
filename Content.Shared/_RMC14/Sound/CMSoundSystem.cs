@@ -1,4 +1,4 @@
-using Content.Shared.Mobs;
+﻿using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Sound;
 using Robust.Shared.Audio.Systems;
@@ -48,7 +48,10 @@ public sealed class CMSoundSystem : EntitySystem
 
     private void OnEmitSoundOnAction(Entity<EmitSoundOnActionComponent> ent, ref SoundActionEvent args)
     {
+        _emitSound.TryEmitSound(ent, ent, args.Performer);
 
+        if (ent.Comp.Handle)
+            args.Handled = true;
     }
 
     public override void Update(float frameTime)

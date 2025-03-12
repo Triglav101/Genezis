@@ -4,5 +4,7 @@
     xmlns:cc="clr-namespace:Content.Client.Administration.UI.CustomControls"
     Orientation="Horizontal"
     Margin="0 0 0 15">
+    <cc:HSeparator HorizontalExpand="True" MaxHeight="2" />
     <Label Name="Version" Access="Public" Margin="5 0" />
+    <cc:HSeparator HorizontalExpand="True" MaxHeight="2" />
 </controls:RoadmapVersionHeader>

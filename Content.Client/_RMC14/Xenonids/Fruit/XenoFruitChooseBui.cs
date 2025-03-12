@@ -1,3 +1,4 @@
+using Content.Client._RMC14.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Fruit;
 using Content.Shared._RMC14.Xenonids.Fruit.Components;
 using JetBrains.Annotations;
@@ -16,6 +17,8 @@ public sealed class XenoFruitChooseBui : BoundUserInterface
     private readonly SpriteSystem _sprite;
     private readonly SharedXenoFruitSystem _xenoFruit;
 
+    private readonly Dictionary<EntProtoId, XenoChoiceControl> _buttons = new();
+
     [ViewVariables]
     private XenoFruitChooseWindow? _window;
 
@@ -30,6 +33,7 @@ public sealed class XenoFruitChooseBui : BoundUserInterface
         _window = new XenoFruitChooseWindow();
         _window.OnClose += Close;
 
+        _buttons.Clear();
         var group = new ButtonGroup();
         if (EntMan.TryGetComponent(Owner, out XenoFruitPlanterComponent? xeno))
         {
@@ -40,7 +44,18 @@ public sealed class XenoFruitChooseBui : BoundUserInterface
                 if (!_prototype.TryIndex(fruitId, out var fruit))
                     continue;
 
+                var control = new XenoChoiceControl();
+                //control.Button.Group = group;
+
                 var name = fruit.Name;
+
+                control.Set(name, _sprite.Frame0(fruit));
+                //control.Button.OnPressed += _ => SendPredictedMessage(new XenoFruitChooseBuiMsg(fruitId));
+                //control.Button.ToolTip = fruit.Description;
+                //control.Button.TooltipDelay = 0.1f;
+
+                _window.FruitContainer.AddChild(control);
+                _buttons.Add(fruitId, control);
             }
         }
 
@@ -74,8 +89,10 @@ public sealed class XenoFruitChooseBui : BoundUserInterface
             _window == null)
             return;
 
-        if (xeno.FruitChoice is not { } choice)
+        if (xeno.FruitChoice is not { } choice ||
+            !_buttons.TryGetValue(choice, out var button))
             return;
 
+        //button.Button.Pressed = true;
     }
 }

@@ -55,7 +55,7 @@
   - type: IgnoreContentsSize
     items:
       tags:
-      - CMPillCanister
+      - PillCanister
 
 - type: entity
   name: box of syringes

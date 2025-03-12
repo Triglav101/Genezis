@@ -8,6 +8,8 @@
   - type: GhostRole
     name: cm-job-name-xeno-parasite
     prob: 0.25
+    raffle:
+      settings: timeRequirement
   - type: Sprite
     sprite: _RMC14/Mobs/Xenonids/Parasite/parasite.rsi
   - type: MobState
@@ -22,6 +24,7 @@
     role: CMXenoParasite
     actionIds:
     - ActionXenoRest
+    - ActionXenoWatch
     - ActionXenoHide
     - ActionXenoLeap
     tier: 0
@@ -30,6 +33,7 @@
     countedInSlots: false
     unlockAt: 0
     emoteSounds: Larva
+    muteOnSpawn: true
   - type: XenoPlasma
     maxPlasma: 10
     plasmaRegenOnWeeds: 0.1
@@ -99,5 +103,7 @@
     accent: ReplacementAccent
     replacement: mumble
   - type: Blindfold
+  # - type: StandingState
+  #   downSound: null
   - type: XenoInhandSprite
     stateName: parasite

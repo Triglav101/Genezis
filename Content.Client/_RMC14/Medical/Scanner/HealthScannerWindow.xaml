@@ -21,25 +21,21 @@
             <Label Text="Damage:" MinWidth="80" Modulate="#5B88B0" />
             <PanelContainer Margin="0 0 5 0">
                 <PanelContainer.PanelOverride>
-                    <graphics:StyleBoxFlat BorderColor="#4972A1" BorderThickness="2" />
                 </PanelContainer.PanelOverride>
                 <RichTextLabel Name="BruteLabel" Access="Public" Margin="5 2" />
             </PanelContainer>
             <PanelContainer Margin="0 0 5 0">
                 <PanelContainer.PanelOverride>
-                    <graphics:StyleBoxFlat BorderColor="#4972A1" BorderThickness="2" />
                 </PanelContainer.PanelOverride>
                 <RichTextLabel Name="BurnLabel" Access="Public" Margin="5 2" />
             </PanelContainer>
             <PanelContainer Margin="0 0 5 0">
                 <PanelContainer.PanelOverride>
-                    <graphics:StyleBoxFlat BorderColor="#4972A1" BorderThickness="2" />
                 </PanelContainer.PanelOverride>
                 <RichTextLabel Name="ToxinLabel" Access="Public" Margin="5 2" />
             </PanelContainer>
             <PanelContainer Margin="0 0 5 0">
                 <PanelContainer.PanelOverride>
-                    <graphics:StyleBoxFlat BorderColor="#4972A1" BorderThickness="2" />
                 </PanelContainer.PanelOverride>
                 <RichTextLabel Name="OxygenLabel" Access="Public" Margin="5 2" />
             </PanelContainer>
@@ -48,10 +44,9 @@
             <Label Text="Holocard:" MinWidth="80" Modulate="#5B88B0" />
 			<PanelContainer Name="HolocardPanel" Access="Public" Visible="True" Margin="2 5">
 				<PanelContainer.PanelOverride>
-					<graphics:StyleBoxFlat BackgroundColor="#984A16" />
 				</PanelContainer.PanelOverride>
 				<Label Name="HolocardDescription" Access="Public" Align="Right" MinWidth="160" Margin="2 2"/>
-			</PanelContainer>
+			</PanelContainer>			
             <Button Name="ChangeHolocardButton" Access="Public" StyleClasses="OpenBoth" Margin="5 0 0 0" />
         </BoxContainer>
         <BoxContainer Orientation="Horizontal">
@@ -68,10 +63,10 @@
             <RichTextLabel Name="PulseLabel" Access="Public" />
         </BoxContainer>
         <Label Name="ChemicalContentsLabel" Access="Public" Text="Chemical Contents" Margin="0 20 0 0" />
+        <cc:HSeparator Name="ChemicalContentsSeparator" Access="Public" Margin="0 0 0 5" />
         <BoxContainer Orientation="Vertical">
             <PanelContainer Name="UnknownChemicalsPanel" Access="Public" Visible="False" Margin="0 5">
                 <PanelContainer.PanelOverride>
-                    <graphics:StyleBoxFlat BackgroundColor="#984A16" />
                 </PanelContainer.PanelOverride>
                 <RichTextLabel Name="UnknownReagentsLabel" Access="Public" Margin="5 2" />
             </PanelContainer>

@@ -261,6 +261,7 @@
       RMCSkillMedical: 2
   - type: Hypospray
     transferAmount: 15
+  - type: RMCEmptySolution
 
 - type: entity
   parent: RMCMedicAutoInjector15
@@ -423,6 +424,9 @@
         reagents:
         - ReagentId: CMTricordrazine
           Quantity: 90
+
+- type: Tag
+  id: CMAutoInjector
 
 - type: Tag
   id: RMCAutoInjectorMedical

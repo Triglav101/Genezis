@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Xenonids.Evolution;
+﻿using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared.Examine;
 using Content.Shared.Popups;
 using Robust.Shared.Network;
@@ -34,6 +34,8 @@ public sealed class XenoStrainSystem : EntitySystem
 
         if (_net.IsClient)
             return;
+
+        _popup.PopupEntity(Loc.GetString(popup), ent, ent, PopupType.MediumXeno);
     }
 
     public bool AreSameStrain(Entity<XenoStrainComponent?> one, Entity<XenoStrainComponent?> two)

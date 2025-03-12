@@ -3073,7 +3073,7 @@
 - type: radioChannel
   id: SNKRadio
   name: name-of-SNKRadio
-  keycode: 's' 
+  keycode: '\' 
   frequency: 1527
   color: "#001a68"
   longRange: false

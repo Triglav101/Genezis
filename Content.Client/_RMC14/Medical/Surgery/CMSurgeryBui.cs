@@ -1,4 +1,4 @@
-using Content.Client.Xenonids.UI;
+﻿using Content.Client._RMC14.Xenonids.UI;
 using Content.Client.Administration.UI.CustomControls;
 using Content.Shared._RMC14.Medical.Surgery;
 using Content.Shared.Body.Part;
@@ -202,6 +202,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
 
         var stepButton = new CMSurgeryStepButton { Step = step };
 
+        _window.Steps.AddChild(stepButton);
     }
 
     private void OnSurgeryPressed(Entity<CMSurgeryComponent> surgery, NetEntity netPart, EntProtoId surgeryId)
@@ -218,20 +219,13 @@ public sealed class CMSurgeryBui : BoundUserInterface
         {
             var label = new XenoChoiceControl();
 
-            {
-                _previousSurgeries.Add(surgeryId);
-
-                if (_entities.TryGetComponent(requirement, out CMSurgeryComponent? requirementComp))
-                    OnSurgeryPressed((requirement, requirementComp), netPart, requirementId);
-            };
-
             var msg = new FormattedMessage();
             var surgeryName = _entities.GetComponent<MetaDataComponent>(requirement).EntityName;
             msg.AddMarkupOrThrow($"[bold]Requires: {surgeryName}[/bold]");
             label.Set(msg, null);
 
             _window.Steps.AddChild(label);
-            _window.Steps.AddChild(new HSeparator {Margin = new Thickness(0, 0, 0, 1) });
+
         }
 
         foreach (var stepId in surgery.Comp.Steps)
@@ -299,6 +293,8 @@ public sealed class CMSurgeryBui : BoundUserInterface
         var i = 0;
         foreach (var child in _window.Steps.Children)
         {
+            if (child is not CMSurgeryStepButton stepButton)
+                continue;
 
             var status = StepStatus.Incomplete;
             if (next == null)
@@ -319,7 +315,42 @@ public sealed class CMSurgeryBui : BoundUserInterface
             }
 
             var stepName = new FormattedMessage();
+            stepName.AddText(_entities.GetComponent<MetaDataComponent>(stepButton.Step).EntityName);
 
+            //if (status == StepStatus.Complete)
+            //{
+            //    stepButton.Button.Modulate = Color.Green;
+            //}
+            //else
+            //{
+            //    stepButton.Button.Modulate = Color.White;
+            //    if (_player.LocalEntity is { } player &&
+            //        !_system.CanPerformStep(player, Owner, part.PartType, stepButton.Step, false, out var popup, out var reason, out _))
+            //    {
+            //        stepButton.ToolTip = popup;
+            //        stepButton.Button.Disabled = true;
+
+            //        switch (reason)
+            //        {
+            //            case StepInvalidReason.MissingSkills:
+            //                stepName.AddMarkupOrThrow(" [color=red](Missing surgery skill)[/color]");
+            //                break;
+            //            case StepInvalidReason.NeedsOperatingTable:
+            //                stepName.AddMarkupOrThrow(" [color=red](Needs operating table)[/color]");
+            //                break;
+            //            case StepInvalidReason.Armor:
+            //                stepName.AddMarkupOrThrow(" [color=red](Remove their armor!)[/color]");
+            //                break;
+            //            case StepInvalidReason.MissingTool:
+            //                stepName.AddMarkupOrThrow(" [color=red](Missing tool)[/color]");
+            //                break;
+            //        }
+            //    }
+            //}
+
+            var texture = _entities.GetComponentOrNull<SpriteComponent>(stepButton.Step)?.Icon?.Default;
+            stepButton.Set(stepName, texture);
+            i++;
         }
 
         UpdateDisabledPanel();

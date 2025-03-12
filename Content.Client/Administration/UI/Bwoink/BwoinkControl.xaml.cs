@@ -77,11 +77,6 @@ namespace Content.Client.Administration.UI.Bwoink
                 if (info.OverallPlaytime <= TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.NewPlayerThreshold)))
                     sb.Append(new Rune(0x23F2)); // ⏲
 
-                // start-backmen: gpt
-                if(info.AutoGpt)
-                    sb.Append(new Rune(0x2607)); // ☇
-                // end-backmen: gpt
-
                 sb.AppendFormat("\"{0}\"", text);
 
                 return sb.ToString();
@@ -155,21 +150,6 @@ namespace Content.Client.Administration.UI.Bwoink
                     _console.ExecuteCommand($"banpanel \"{_currentPlayer.SessionId}\"");
             };
 
-            // start-backmen: gpt
-            GptChatToggle.OnPressed += _ =>
-            {
-                if (_currentPlayer is not null)
-                    _console.ExecuteCommand($"ahelp_gpt_toggle \"{_currentPlayer.Username}\"");
-
-                GptChatToggle.Pressed = !GptChatToggle.Pressed;
-            };
-            GptChat.OnPressed += _ =>
-            {
-                if (_currentPlayer is not null)
-                    _console.ExecuteCommand($"ahelp_gpt \"{_currentPlayer.Username}\"");
-            };
-            // end-backmen: gpt
-
             Kick.OnPressed += _ =>
             {
                 if (!AdminUIHelpers.TryConfirm(Kick, _confirmations))
@@ -232,14 +212,6 @@ namespace Content.Client.Administration.UI.Bwoink
         public void UpdateButtons()
         {
             var disabled = _currentPlayer == null;
-
-            // start-backmen: gpt
-            GptChat.Visible = _adminManager.CanCommand("ahelp_gpt");
-            GptChat.Disabled = !GptChat.Visible || disabled;
-            GptChatToggle.Visible = _adminManager.CanCommand("ahelp_gpt_toggle");
-            GptChatToggle.Disabled = !GptChatToggle.Visible || disabled;
-            GptChatToggle.Pressed = _currentPlayer?.AutoGpt ?? false;
-            // end-backmen: gpt
 
             Bans.Visible = _adminManager.HasFlag(AdminFlags.Ban);
             Bans.Disabled = !Bans.Visible || disabled;

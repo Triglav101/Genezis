@@ -23,7 +23,7 @@ public sealed class ARESSystem : EntitySystem
             return alert;
 
         var uid = Spawn();
-        _metaData.SetEntityName(uid, "Суперкомпьютер");
+        _metaData.SetEntityName(uid, "ARES v3.2");
         var comp = EnsureComp<ARESComponent>(uid);
         return (uid, comp);
     }

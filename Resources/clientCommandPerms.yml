@@ -23,8 +23,8 @@
     - gcf
     - gc
     - gc_mode
-    - cvar
-    - fuckrules
+    # - cvar
+    # - fuckrules
     - midipanic
     - reloadui
     - replay_recording_start
@@ -76,6 +76,9 @@
     - detachent
     - localdelete
     - fullstatereset
+    - fuckrules
+    - showautofire
+    - showareas    
     - dumpentities
 
 - Flags: MAPPING

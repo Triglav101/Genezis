@@ -1,4 +1,4 @@
-using Content.Server.Administration.Logs;
+﻿using Content.Server.Administration.Logs;
 using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Shared._RMC14.CCVar;
@@ -13,6 +13,7 @@ namespace Content.Server._RMC14.Commendations;
 public sealed class CommendationSystem : SharedCommendationSystem
 {
     [Dependency] private readonly IAdminLogManager _adminLog = default!;
+    [Dependency] private readonly CommendationManager _commendation = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly IServerDbManager _db = default!;
     [Dependency] private readonly GameTicker _gameTicker = default!;
@@ -60,7 +61,16 @@ public sealed class CommendationSystem : SharedCommendationSystem
 
         var commendation = new Commendation(giverName, receiverName, name, text, type, round);
         RoundCommendations.Add(commendation);
+        _commendation.CommendationAdded(new NetUserId(receiverId), commendation);
         _adminLog.Add(LogType.RMCMedal, $"{ToPrettyString(giver)} gave a medal to {ToPrettyString(receiver)} of type {type} {name} that reads:\n{text}");
 
+        try
+        {
+            await _db.AddCommendation(giverId, receiverId, giverName, receiverName, name, text, type, round);
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Error giving commendation from {receiverName} to {giverName} for round {round}:\n{e}");
+        }
     }
 }

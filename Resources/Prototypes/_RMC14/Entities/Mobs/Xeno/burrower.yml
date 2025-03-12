@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent:
   - CMXenoDeveloped
   - CMXenoTail
@@ -28,6 +28,7 @@
     actionIds:
     - ActionXenoRest
     - ActionXenoRegurgitate
+    - ActionXenoWatch
     - ActionXenoTailStab
     - ActionXenoAcidNormal
     - ActionXenoOrderConstruction
@@ -59,6 +60,7 @@
     range: 4
     plasmaCost: 100
     paralyzeTime: 2
+    slows: false
     sound: /Audio/_RMC14/Xeno/alien_footstep_charge1.ogg
   - type: XenoBurrow
   - type: MeleeWeapon
@@ -105,3 +107,8 @@
   - type: XenoConstruction
     canOrderConstruction:
     - HiveCoreXenoConstructionNode
+    - HiveEggMorpherXenoConstructionNode
+    - HiveClusterXenoConstructionNode
+    - HiveRecoveryNodeXenoConstructionNode
+  - type: IntelRecoverCorpseObjectiveOnDeath
+    value: 0.2

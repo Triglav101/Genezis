@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Weapons.Ranged.Battery;
+﻿using Content.Shared._RMC14.Weapons.Ranged.Battery;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared.Actions;
 using Content.Shared.Coordinates;
@@ -37,6 +37,7 @@ public sealed class GunToggleableAutoFireSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
+    private readonly HashSet<Entity<XenoComponent>> _targets = new();
     public readonly PolygonShape Shape = new();
     public bool Debug;
 
@@ -149,6 +150,29 @@ public sealed class GunToggleableAutoFireSystem : EntitySystem
             var box = new Box2Rotated(Box2.CenteredAround(pos, auto.Range), rotation, pos);
             var shapeTransform = Robust.Shared.Physics.Transform.Empty;
 
+            Shape.Set(box);
+            _targets.Clear();
+            _entityLookup.GetEntitiesIntersecting(xform.MapID, Shape, shapeTransform, _targets, LookupFlags.Uncontained);
+
+            foreach (var target in _targets)
+            {
+                if (_mobState.IsDead(target))
+                    continue;
+
+                if (!_interaction.InRangeUnobstructed(container.Owner,
+                        target.Owner,
+                        auto.MaxRange,
+                        CollisionGroup.Impassable | CollisionGroup.BulletImpassable))
+                {
+                    continue;
+                }
+
+                if (_net.IsServer)
+                    _gun.AttemptShoot(container.Owner, uid, gun, target.Owner.ToCoordinates());
+
+                active.NextFire = time + active.Cooldown;
+                break;
+            }
         }
     }
 }

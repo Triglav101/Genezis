@@ -53,8 +53,6 @@
       - state: marker
         shader: unshaded
     - type: Timer
-
-
     - type: Destructible
       thresholds:
         - trigger:

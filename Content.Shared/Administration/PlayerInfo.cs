@@ -16,9 +16,7 @@ public sealed record PlayerInfo(
     NetUserId SessionId,
     bool Connected,
     bool ActiveThisRound,
-    TimeSpan? OverallPlaytime,
-    bool AutoGpt = false // backmen: gpt
-    )
+    TimeSpan? OverallPlaytime)
 {
     private string? _playtimeString;
 

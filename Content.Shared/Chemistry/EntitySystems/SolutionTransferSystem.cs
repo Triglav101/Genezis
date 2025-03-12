@@ -165,11 +165,11 @@ public sealed class SolutionTransferSystem : EntitySystem
         Entity<SolutionComponent> target,
         FixedPoint2 amount)
     {
-        var transferAttempt = new SolutionTransferAttemptEvent(sourceEntity, targetEntity);
+        var transferAttempt = new SolutionTransferAttemptEvent(sourceEntity, source, targetEntity, target);
 
         // Check if the source is cancelling the transfer
         RaiseLocalEvent(sourceEntity, ref transferAttempt);
-        if (transferAttempt.CancelReason is {} reason)
+        if (transferAttempt.CancelReason is { } reason)
         {
             _popup.PopupClient(reason, sourceEntity, user);
             return FixedPoint2.Zero;
@@ -184,7 +184,7 @@ public sealed class SolutionTransferSystem : EntitySystem
 
         // Check if the target is cancelling the transfer
         RaiseLocalEvent(targetEntity, ref transferAttempt);
-        if (transferAttempt.CancelReason is {} targetReason)
+        if (transferAttempt.CancelReason is { } targetReason)
         {
             _popup.PopupClient(targetReason, targetEntity, user);
             return FixedPoint2.Zero;
@@ -218,7 +218,7 @@ public sealed class SolutionTransferSystem : EntitySystem
 /// To not mispredict this should always be cancelled in shared code and not server or client.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, string? CancelReason = null)
+public record struct SolutionTransferAttemptEvent(EntityUid From, Entity<SolutionComponent> FromSolution, EntityUid To, Entity<SolutionComponent> ToSolution, string? CancelReason = null)
 {
     /// <summary>
     /// Cancels the transfer.
@@ -233,4 +233,4 @@ public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, 
 /// Raised on the target entity when a non-zero amount of solution gets transferred.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid User, FixedPoint2 Amount);
+public record struct SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid? User, FixedPoint2 Amount);

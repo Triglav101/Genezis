@@ -1,5 +1,6 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Linq;
+using Content.Shared._RMC14.Admin;
 using Content.Shared._RMC14.Chat;
 using Content.Shared._RMC14.Cryostorage;
 using Content.Shared._RMC14.Inventory;
@@ -26,7 +27,7 @@ using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;
 using Content.Shared.Storage;
-using Content.Shared.Storage.EntitySystems;
+using Content.Shared.Whitelist;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -39,6 +40,7 @@ public sealed class SquadSystem : EntitySystem
     [Dependency] private readonly IComponentFactory _compFactory = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly EncryptionKeySystem _encryptionKey = default!;
+    [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
     [Dependency] private readonly SharedIdCardSystem _id = default!;
     [Dependency] private readonly SharedCMInventorySystem _cmInventory = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
@@ -51,10 +53,11 @@ public sealed class SquadSystem : EntitySystem
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private readonly SharedRMCBanSystem _rmcBan = default!;
     [Dependency] private readonly SharedCMChatSystem _rmcChat = default!;
-    [Dependency] private readonly SharedStorageSystem _storage = default!;
 
     private static readonly ProtoId<JobPrototype> SquadLeaderJob = "CMSquadLeader";
+    private static readonly ProtoId<JobPrototype> IntelOfficerJob = "CMIntelOfficer";
     public static readonly EntProtoId<SquadTeamComponent> EchoSquadId = "SquadEcho";
 
     public ImmutableArray<EntityPrototype> SquadPrototypes { get; private set; }
@@ -93,6 +96,8 @@ public sealed class SquadSystem : EntitySystem
 
         SubscribeLocalEvent<SquadLeaderHeadsetComponent, EncryptionChannelsChangedEvent>(OnSquadLeaderHeadsetChannelsChanged);
         SubscribeLocalEvent<SquadLeaderHeadsetComponent, EntityTerminatingEvent>(OnSquadLeaderHeadsetTerminating);
+
+        SubscribeLocalEvent<AssignSquadComponent, MapInitEvent>(OnAssignSquadMapInit);
 
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
 
@@ -234,6 +239,18 @@ public sealed class SquadSystem : EntitySystem
         }
     }
 
+    private void OnAssignSquadMapInit(Entity<AssignSquadComponent> ent, ref MapInitEvent args)
+    {
+        var query = EntityQueryEnumerator<SquadTeamComponent>();
+        while (query.MoveNext(out var uid, out var comp))
+        {
+            if (!_entityWhitelist.IsWhitelistPass(ent.Comp.Whitelist, uid))
+                continue;
+
+            AssignSquad(ent, (uid, comp), null);
+        }
+    }
+
     private void SearchForMappedItems(Entity<SquadMemberComponent> ent, EntityUid squad)
     {
         var user = ent.Owner;
@@ -318,6 +335,9 @@ public sealed class SquadSystem : EntitySystem
             if (job.HasSquad)
                 jobBuilder.Add(job);
         }
+
+        if (_prototypes.TryIndex(IntelOfficerJob, out var intelJob))
+            jobBuilder.Add(intelJob);
 
         SquadRolePrototypes = jobBuilder.ToImmutable();
     }
@@ -518,6 +538,12 @@ public sealed class SquadSystem : EntitySystem
     {
         if (HasComp<SquadLeaderComponent>(toPromote))
             return;
+
+        if (_rmcBan.IsJobBanned(toPromote.Owner, SquadLeaderJob))
+        {
+            _popup.PopupCursor($"{Name(toPromote)} is unfit to lead!", user, PopupType.MediumCaution);
+            return;
+        }
 
         if (_mobState.IsDead(toPromote))
         {

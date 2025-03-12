@@ -1,3 +1,4 @@
+﻿using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Marines.Skills;
 using Content.Shared._RMC14.TacticalMap;
 using JetBrains.Annotations;
@@ -34,6 +35,12 @@ public sealed class TacticalMapComputerBui(EntityUid owner, Enum uiKey) : BoundU
         else
         {
             TabContainer.SetTabVisible(_window.CanvasTab, false);
+        }
+
+        if (computer != null &&
+            EntMan.TryGetComponent(computer.Map, out AreaGridComponent? areaGrid))
+        {
+            _window.UpdateTexture((computer.Map.Value, areaGrid));
         }
 
         Refresh();

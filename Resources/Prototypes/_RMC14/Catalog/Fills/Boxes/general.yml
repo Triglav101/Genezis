@@ -11,7 +11,7 @@
     sprite: _RMC14/Objects/Storage/boxes.rsi
     size: Large
   - type: Storage
-    maxItemSize: Normal
+    maxItemSize: Small
     grid:
     - 0,0,13,1
   - type: Tag

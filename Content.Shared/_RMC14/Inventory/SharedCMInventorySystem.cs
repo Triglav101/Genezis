@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared._RMC14.Input;
 using Content.Shared.Administration.Logs;
@@ -443,6 +443,13 @@ public abstract class SharedCMInventorySystem : EntitySystem
                     continue;
                 }
 
+                // If holster has StorageComponent
+                // And item can be inserted
+                if (HasComp<StorageComponent>(clothing) &&
+                    _storage.CanInsert(clothing, item, user, out _))
+                {
+                    validSlots.Add(new HolsterSlot(priority, true, null, clothing, null));
+                }
             }
             priority++;
         }
@@ -546,6 +553,8 @@ public abstract class SharedCMInventorySystem : EntitySystem
 
         if (slots.Count == 0)
             return false;
+
+        slots.Sort(ItemSlotsSystem.SortEmpty);
 
         itemSlot = slots[0];
         return true;

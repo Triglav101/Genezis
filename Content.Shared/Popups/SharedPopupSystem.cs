@@ -198,6 +198,8 @@ namespace Content.Shared.Popups
         Large,
         LargeCaution,
 
-        LargeGreen // backmen: blob
+        LargeGreen, // backmen: blob
+        MediumXeno
+
     }
 }

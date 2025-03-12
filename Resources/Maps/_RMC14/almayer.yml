@@ -7399,6 +7399,18 @@ entities:
       rot: 3.141592653589793 rad
       pos: -47.5,-25.5
       parent: 1
+- proto: CMDispenserChem
+  entities:
+  - uid: 6798
+    components:
+    - type: Transform
+      pos: 29.5,-4.5
+      parent: 1
+  - uid: 6799
+    components:
+    - type: Transform
+      pos: 26.5,-1.5
+      parent: 1
 - proto: CMDispenserSoda
   entities:
   - uid: 6797
@@ -11453,6 +11465,28 @@ entities:
     components:
     - type: Transform
       pos: 63.5,-24.5
+      parent: 1
+- proto: CMSpawnPointIntelOfficer
+  entities:
+  - uid: 534
+    components:
+    - type: Transform
+      pos: -38.5,7.5
+      parent: 1
+  - uid: 535
+    components:
+    - type: Transform
+      pos: -37.5,7.5
+      parent: 1
+  - uid: 5765
+    components:
+    - type: Transform
+      pos: -38.5,8.5
+      parent: 1
+  - uid: 5766
+    components:
+    - type: Transform
+      pos: -37.5,8.5
       parent: 1
 - proto: CMSpawnPointLiaison
   entities:

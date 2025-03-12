@@ -1,4 +1,4 @@
-﻿- type: entity # TODO RMC14 sound
+- type: entity # TODO RMC14 sound
   id: XenoWeeds
   name: weeds
   description: Weird black weeds...
@@ -93,6 +93,7 @@
       Brute:
         collection: XenoResinBreak
   - type: ExplosionRandomResistance
+  - type: DeletedByWeedKiller
 #  - type: Physics
 #    bodyType: Static
 #  - type: FootstepModifier
@@ -210,6 +211,7 @@
         acts: [ "Destruction" ]
   - type: XenoConstructionPlasmaCost
     plasma: 75
+
 - type: entity
   id: XenoWeedsWall
   name: weeds
@@ -242,6 +244,7 @@
     key: cm_xeno_weeds_walls
     base: weedwall
     mode: Corners
+  - type: XenoNestSurface
   - type: XenoFriendly
   - type: Damageable
     damageContainer: StructuralXeno

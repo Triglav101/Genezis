@@ -435,8 +435,8 @@ public sealed partial class ChangelingSystem : EntitySystem
         {
             Name = metadata.EntityName,
             DNA = dna.DNA,
-            Appearance = (target,appearance),
-            TTS = appearance.Voice
+            Appearance = (target,appearance)
+            //TTS = appearance.Voice
         };
 
         if (fingerprint.Fingerprint != null)

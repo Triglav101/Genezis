@@ -15,6 +15,7 @@ public sealed class SharedXenoConstructReinforceSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<XenoConstructReinforceComponent, DamageModifyEvent>(OnReinforceDamageModify, after: [typeof(SharedRMCMeleeWeaponSystem)]);
+        SubscribeLocalEvent<XenoConstructReinforceComponent, BeforeExplodeEvent>(OnReinforceBeforeExplode);
     }
 
     public void Reinforce(EntityUid uid, FixedPoint2 amount, TimeSpan duration)
@@ -48,6 +49,11 @@ public sealed class SharedXenoConstructReinforceSystem : EntitySystem
                 break;
             }
         }
+    }
+
+    private void OnReinforceBeforeExplode(Entity<XenoConstructReinforceComponent> ent, ref BeforeExplodeEvent args)
+    {
+        
     }
 
     private void OnReinforceDamageModify(Entity<XenoConstructReinforceComponent> ent, ref DamageModifyEvent args)

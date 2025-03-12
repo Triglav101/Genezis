@@ -28,7 +28,7 @@ public sealed class ChangeTTSCommand : ToolshedCommand
         {
             _appearanceSystem ??= GetSys<HumanoidAppearanceSystem>();
 
-            _appearanceSystem.SetTTSVoice(input, prototype.Id, humanoid: humanoidAppearanceComponent);
+            //_appearanceSystem.SetTTSVoice(input, prototype.Id, humanoid: humanoidAppearanceComponent);
             return input;
         }
 

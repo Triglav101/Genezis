@@ -1,4 +1,4 @@
-using Content.Shared.Backmen.Eye.NightVision.Components;
+﻿using Content.Shared._RMC14.NightVision;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
@@ -27,9 +27,19 @@ public sealed class NightVisionFilterOverlay : Overlay
 
     protected override void Draw(in OverlayDrawArgs args)
     {
-        if (!_entity.TryGetComponent(_players.LocalEntity, out NightVisionComponent? nightVision))
+        if (!_entity.TryGetComponent(_players.LocalEntity, out NightVisionComponent? nightVision) ||
+            nightVision.State == NightVisionState.Off)
         {
             return;
+        }
+
+        var handle = args.WorldHandle;
+        if (nightVision.Green && ScreenTexture != null)
+        {
+            _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+            handle.UseShader(_shader);
+            handle.DrawRect(args.WorldBounds, Color.White);
+            handle.UseShader(null);
         }
     }
 }

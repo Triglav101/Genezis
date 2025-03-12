@@ -60,6 +60,7 @@
   - type: StorageFill
     contents:
       - id: CMScrewdriver
+      - id: CMCrowbar
       - id: CMWirecutter
       - id: RMCCableCoil
       - id: RMCCableCoil

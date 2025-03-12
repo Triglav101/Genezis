@@ -1,6 +1,7 @@
-using Content.Server.GameTicking;
+﻿using Content.Server.GameTicking;
 using Content.Shared._RMC14.CCVar;
 using Content.Shared._RMC14.Dropship;
+using Content.Shared._RMC14.Intel;
 using Content.Shared.Coordinates;
 using Content.Shared.GameTicking;
 using Robust.Shared.Configuration;
@@ -109,6 +110,7 @@ public sealed class RMCSpawnerSystem : EntitySystem
 
             _corpsesSpawned++;
             var corpse = Spawn(spawner.Comp.Spawn, _transform.GetMoverCoordinates(spawner));
+            EnsureComp<IntelRecoverCorpseObjectiveComponent>(corpse);
         }
 
         var proportional = EntityQueryEnumerator<ProportionalSpawnerComponent>();

@@ -1,5 +1,8 @@
 using System.Collections.Frozen;
 using System.Text.RegularExpressions;
+using Content.Shared._RMC14.Chat;
+using Content.Shared._RMC14.Xenonids;
+using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared.Popups;
 using Content.Shared.Radio;
 using Content.Shared.Speech;
@@ -22,6 +25,7 @@ public abstract class SharedChatSystem : EntitySystem
     public const char EmotesAltPrefix = '*';
     public const char AdminPrefix = ']';
     public const char WhisperPrefix = ',';
+    public const char MentorPrefix = '}';
     public const char DefaultChannelKey = 'р'; // Corvax-Localization
     public const char TelepathicPrefix = '='; // backmen: Psionic
     // Corvax-TTS-Start: Moved from Server to Shared
@@ -31,7 +35,14 @@ public abstract class SharedChatSystem : EntitySystem
     // Corvax-TTS-End
 
     [ValidatePrototypeId<RadioChannelPrototype>]
-    public const string CommonChannel = "Common";
+    public const string CommonChannel = "MarineCommon";
+
+    [ValidatePrototypeId<RadioChannelPrototype>]
+    public const string HivemindChannel = "Hivemind";
+
+    //[ValidatePrototypeId<RadioChannelPrototype>]
+    //public const string CommonChannel = "Common";
+    //Genezis
 
     public static string DefaultChannelPrefix = $"{RadioChannelPrefix}{DefaultChannelKey}";
 
@@ -40,6 +51,7 @@ public abstract class SharedChatSystem : EntitySystem
 
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly XenoEvolutionSystem _xenoEvolution = default!;
 
     /// <summary>
     /// Cache of the keycodes for faster lookup.
@@ -142,6 +154,27 @@ public abstract class SharedChatSystem : EntitySystem
         if (input.Length == 0)
             return false;
 
+        // TODO RMC14 replace all of this with something else when chat code isnt a joke
+        if (input.StartsWith(RadioCommonPrefix))
+        {
+            output = SanitizeMessageCapital(input[1..].TrimStart());
+            channel = HasComp<XenoComponent>(source)
+                ? _prototypeManager.Index<RadioChannelPrototype>(HivemindChannel)
+                : _prototypeManager.Index<RadioChannelPrototype>(CommonChannel);
+
+            if (channel.ID == HivemindChannel &&
+                !_xenoEvolution.HasLiving<XenoEvolutionGranterComponent>(1))
+            {
+                if (!quiet)
+                    _popup.PopupEntity(Loc.GetString("rmc-no-queen-hivemind-chat"), source, source, PopupType.LargeCaution);
+
+                output = SanitizeMessageCapital(input[1..].TrimStart());
+                return false;
+            }
+
+            return true;
+        }
+
         if (input.StartsWith(RadioCommonPrefix))
         {
             output = SanitizeMessageCapital(input[1..].TrimStart());
@@ -168,6 +201,16 @@ public abstract class SharedChatSystem : EntitySystem
         {
             var ev = new GetDefaultRadioChannelEvent();
             RaiseLocalEvent(source, ev);
+
+            if (ev.Channel == HivemindChannel &&
+                !_xenoEvolution.HasLiving<XenoEvolutionGranterComponent>(1))
+            {
+                if (!quiet)
+                    _popup.PopupEntity(Loc.GetString("rmc-no-queen-hivemind-chat"), source, source, PopupType.LargeCaution);
+
+                output = SanitizeMessageCapital(input[1..].TrimStart());
+                return false;
+            }
 
             if (ev.Channel != null)
                 _prototypeManager.TryIndex(ev.Channel, out channel);
