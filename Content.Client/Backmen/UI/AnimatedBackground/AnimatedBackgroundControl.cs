@@ -15,7 +15,7 @@ public sealed class AnimatedBackgroundControl : TextureRect
     [Dependency] private readonly IClyde _clyde = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
-    private string _rsiPath = "/Textures/Backmen/LobbyScreens/native.rsi";
+    //private string _rsiPath = "/Textures/Backmen/LobbyScreens/native.rsi";
     public RSI? _RSI;
     private const int States = 1;
 
@@ -26,56 +26,56 @@ public sealed class AnimatedBackgroundControl : TextureRect
     private readonly int[] _frameCounter = new int[States];
     private readonly Texture[][] _frames = new Texture[States][];
 
-    public AnimatedBackgroundControl()
-    {
-        IoCManager.InjectDependencies(this);
+    //public AnimatedBackgroundControl()
+    //{
+    //    IoCManager.InjectDependencies(this);
 
-        InitializeStates();
-    }
+    //    InitializeStates();
+    //}
 
-    private void InitializeStates()
-    {
-        _RSI ??= _resourceCache.GetResource<RSIResource>(_rsiPath).RSI;
+    //private void InitializeStates()
+    //{
+    //    _RSI ??= _resourceCache.GetResource<RSIResource>(_rsiPath).RSI;
 
-        for (var i = 0; i < States; i++)
-        {
-            if (!_RSI.TryGetState((i + 1).ToString(), out var state))
-                continue;
+    //    for (var i = 0; i < States; i++)
+    //    {
+    //        if (!_RSI.TryGetState((i + 1).ToString(), out var state))
+    //            continue;
 
-            _frames[i] = state.GetFrames(RsiDirection.South);
-            _frameDelays[i] = state.GetDelays();
-            _frameCounter[i] = 0;
-        }
-    }
+    //        _frames[i] = state.GetFrames(RsiDirection.South);
+    //        _frameDelays[i] = state.GetDelays();
+    //        _frameCounter[i] = 0;
+    //    }
+    //}
 
-    public void SetRSI(RSI? rsi)
-    {
-        _RSI = rsi;
-        InitializeStates();
-    }
+    //public void SetRSI(RSI? rsi)
+    //{
+    //    _RSI = rsi;
+    //    InitializeStates();
+    //}
 
-    protected override void FrameUpdate(FrameEventArgs args)
-    {
-        base.FrameUpdate(args);
+    //protected override void FrameUpdate(FrameEventArgs args)
+    //{
+    //    base.FrameUpdate(args);
 
-        for (var i = 0; i < _frames.Length; i++)
-        {
-            var delays = _frameDelays[i];
-            if (delays.Length == 0)
-                continue;
+    //    for (var i = 0; i < _frames.Length; i++)
+    //    {
+    //        var delays = _frameDelays[i];
+    //        if (delays.Length == 0)
+    //            continue;
 
-            _timer[i] += args.DeltaSeconds;
+    //        _timer[i] += args.DeltaSeconds;
 
-            var currentFrameIndex = _frameCounter[i];
+    //        var currentFrameIndex = _frameCounter[i];
 
-            if (!(_timer[i] >= delays[currentFrameIndex]))
-                continue;
+    //        if (!(_timer[i] >= delays[currentFrameIndex]))
+    //            continue;
 
-            _timer[i] -= delays[currentFrameIndex];
-            _frameCounter[i] = (currentFrameIndex + 1) % _frames[i].Length;
-            Texture = _frames[i][_frameCounter[i]];
-        }
-    }
+    //        _timer[i] -= delays[currentFrameIndex];
+    //        _frameCounter[i] = (currentFrameIndex + 1) % _frames[i].Length;
+    //        Texture = _frames[i][_frameCounter[i]];
+    //    }
+    //}
 
     protected override void Draw(DrawingHandleScreen handle)
     {
@@ -87,25 +87,25 @@ public sealed class AnimatedBackgroundControl : TextureRect
         handle.DrawTextureRect(_buffer.Texture, PixelSizeBox);
     }
 
-    protected override void Resized()
-    {
-        base.Resized();
-        _buffer?.Dispose();
-        _buffer = _clyde.CreateRenderTarget(PixelSize, RenderTargetColorFormat.Rgba8Srgb);
-    }
+    //protected override void Resized()
+    //{
+    //    base.Resized();
+    //    _buffer?.Dispose();
+    //    _buffer = _clyde.CreateRenderTarget(PixelSize, RenderTargetColorFormat.Rgba8Srgb);
+    //}
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-        _buffer?.Dispose();
-    }
+    //protected override void Dispose(bool disposing)
+    //{
+    //    base.Dispose(disposing);
+    //    _buffer?.Dispose();
+    //}
 
-    public void RandomizeBackground()
-    {
-        var backgroundsProto = _prototypeManager.EnumeratePrototypes<AnimatedLobbyScreenPrototype>().ToList();
-        var random = new Random();
-        var index = random.Next(backgroundsProto.Count);
-        _rsiPath = $"/Textures/{backgroundsProto[index].Path}";
-        InitializeStates();
-    }
+    //public void RandomizeBackground()
+    //{
+    //    var backgroundsProto = _prototypeManager.EnumeratePrototypes<AnimatedLobbyScreenPrototype>().ToList();
+    //    var random = new Random();
+    //    var index = random.Next(backgroundsProto.Count);
+    //    _rsiPath = $"/Textures/{backgroundsProto[index].Path}";
+    //    InitializeStates();
+    //}
 }

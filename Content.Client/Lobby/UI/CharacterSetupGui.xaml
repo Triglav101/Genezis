@@ -12,7 +12,7 @@
                        Margin="8 0 0 0" VAlign="Center"
                        StyleClasses="LabelHeadingBigger" />
                 <Button Name="CommendationsButton" HorizontalExpand="True"
-                        Text="Medals and Jellies"
+                        Text="Награды"
                         StyleClasses="ButtonBig"
                         HorizontalAlignment="Right" />
                 <Button Name="StatsButton"

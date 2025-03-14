@@ -22,13 +22,13 @@ public sealed partial class HumanoidProfileEditor
             .OrderBy(o => Loc.GetString(o.Name))
             .ToList();
 
-        VoiceButton.OnItemSelected += args =>
-        {
-            VoiceButton.SelectId(args.Id);
-            //SetVoice(_voiceList[args.Id].ID);
-        };
+        //VoiceButton.OnItemSelected += args =>
+        //{
+        //    VoiceButton.SelectId(args.Id);
+        //    //SetVoice(_voiceList[args.Id].ID);
+        //};
 
-        VoicePlayButton.OnPressed += _ => PlayPreviewTTS();
+        //VoicePlayButton.OnPressed += _ => PlayPreviewTTS();
 
         IoCManager.Instance!.TryResolveType(out _sponsorsMgr);
     }
@@ -38,29 +38,29 @@ public sealed partial class HumanoidProfileEditor
         if (Profile is null)
             return;
 
-        VoiceButton.Clear();
+        //VoiceButton.Clear();
 
-        var firstVoiceChoiceId = 1;
-        for (var i = 0; i < _voiceList.Count; i++)
-        {
-            var voice = _voiceList[i];
-            if (!HumanoidCharacterProfile.CanHaveVoice(voice, Profile.Sex))
-                continue;
+        //var firstVoiceChoiceId = 1;
+        //for (var i = 0; i < _voiceList.Count; i++)
+        //{
+        //    var voice = _voiceList[i];
+        //    if (!HumanoidCharacterProfile.CanHaveVoice(voice, Profile.Sex))
+        //        continue;
 
-            var name = Loc.GetString(voice.Name);
-            VoiceButton.AddItem(name, i);
+        //    var name = Loc.GetString(voice.Name);
+        //    VoiceButton.AddItem(name, i);
 
-            if (firstVoiceChoiceId == 1)
-                firstVoiceChoiceId = i;
+        //    if (firstVoiceChoiceId == 1)
+        //        firstVoiceChoiceId = i;
 
-            if (_sponsorsMgr is null)
-                continue;
-            if (voice.SponsorOnly && _sponsorsMgr != null &&
-                !_sponsorsMgr.GetClientPrototypes().Contains(voice.ID))
-            {
-                VoiceButton.SetItemDisabled(VoiceButton.GetIdx(i), true);
-            }
-        }
+        //    if (_sponsorsMgr is null)
+        //        continue;
+        //    if (voice.SponsorOnly && _sponsorsMgr != null &&
+        //        !_sponsorsMgr.GetClientPrototypes().Contains(voice.ID))
+        //    {
+        //        VoiceButton.SetItemDisabled(VoiceButton.GetIdx(i), true);
+        //    }
+        //}
 
         //var voiceChoiceId = _voiceList.FindIndex(x => x.ID == Profile.Voice);
         //if (!VoiceButton.TrySelectId(voiceChoiceId) &&

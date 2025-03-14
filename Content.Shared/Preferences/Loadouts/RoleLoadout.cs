@@ -1,10 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.Humanoid.Prototypes;
-using Content.Corvax.Interfaces.Shared;
 using Content.Shared.Random;
 using Robust.Shared.Collections;
-using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -44,6 +42,8 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             weh.SelectedLoadouts.Add(selected.Key, new List<Loadout>(selected.Value));
         }
 
+        weh.Points = Points;
+
         return weh;
     }
 
@@ -54,7 +54,6 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     {
         var groupRemove = new ValueList<string>();
         var protoManager = collection.Resolve<IPrototypeManager>();
-        var netManager = collection.Resolve<INetManager>(); // Corvax-Loadouts
 
         if (!protoManager.TryIndex(Role, out var roleProto))
         {
@@ -91,24 +90,6 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 continue;
             }
 
-            // Corvax-Loadouts-Start
-            var groupProtoLoadouts = groupProto.Loadouts;
-            if (collection.TryResolveType<ISharedLoadoutsManager>(out var loadoutsManager) && group.Id == "Inventory")
-            {
-                var prototypes = new List<string>();
-                if (netManager.IsClient)
-                {
-                    prototypes = loadoutsManager.GetClientPrototypes();
-                }
-                else if (loadoutsManager.TryGetServerPrototypes(session.UserId, out var protos))
-                {
-                    prototypes = protos;
-                }
-
-                groupProtoLoadouts = prototypes.Select(id => (ProtoId<LoadoutPrototype>)id).ToList();
-            }
-            // Corvax-Loadouts-End
-
             var loadouts = groupLoadouts[..Math.Min(groupLoadouts.Count, groupProto.MaxLimit)];
 
             // Validate first
@@ -124,7 +105,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 }
 
                 // Malicious client maybe, check the group even has it.
-                if (!groupProtoLoadouts.Contains(loadout.Prototype))
+                if (!groupProto.Loadouts.Contains(loadout.Prototype))
                 {
                     loadouts.RemoveAt(i);
                     continue;
@@ -145,7 +126,7 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             // If you put invalid ones first but that's your fault for not using sensible defaults
             if (loadouts.Count < groupProto.MinLimit)
             {
-                foreach (var protoId in groupProtoLoadouts) // Corvax-Loadout: Use groupProtoLoadouts instead of groupProto.Loadouts
+                foreach (var protoId in groupProto.Loadouts)
                 {
                     if (loadouts.Count >= groupProto.MinLimit)
                         break;
@@ -185,6 +166,9 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         {
             effect.Apply(this);
         }
+
+        if (loadoutProto.Cost != null && Points != null)
+            Points -= loadoutProto.Cost;
     }
 
     /// <summary>
@@ -213,6 +197,8 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
 
             var loadouts = new List<Loadout>();
             SelectedLoadouts[group] = loadouts;
+
+            Points = roleProto.Points;
 
             if (groupProto.MinLimit > 0)
             {
@@ -264,11 +250,20 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             return false;
         }
 
+        if (loadoutProto.Cost != null && Points != null)
+        {
+            if (Points < loadoutProto.Cost)
+            {
+                reason = FormattedMessage.FromUnformatted(Loc.GetString("loadout-group-points-insufficient"));
+                return false;
+            }
+        }
+
         var valid = true;
 
         foreach (var effect in loadoutProto.Effects)
         {
-            valid = valid && effect.Validate(profile, this, loadoutProto, session, collection, out reason);
+            valid = valid && effect.Validate(profile, this, session, collection, out reason);
         }
 
         return valid;

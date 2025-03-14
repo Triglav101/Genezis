@@ -1,3 +1,11 @@
- - type: animatedLobbyScreen
-   id: RocketLobbyScreen
-   path: /Textures/Backmen/LobbyScreens/rocket.rsi
+- type: lobbyBackground
+  id: Main
+  background: /Textures/Genezis/LobbyScreens/Main.webp
+
+# - type: animatedLobbyScreen
+#   id: RocketLobbyScreen
+#   path: /Textures/Backmen/LobbyScreens/rocket.rsi
+
+#  - type: animatedLobbyScreen
+#    id: Main
+#    path: /Textures/Genezis/LobbyScreens/Main.rsi

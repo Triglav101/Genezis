@@ -61,8 +61,7 @@
     back: ClothingBackpackSatchelLeather
     neck: CombatKnifeSpetsnaz
     belt: ClothingBeltSecurityCentComSecurity
-    pocket1: WeaponPistolUCS
-    pocket2: RadioBlueShieldSupplyPod
+    pocket1: RadioBlueShieldSupplyPod
   storage:
     back:
     - BlueShieldSetLoadouts

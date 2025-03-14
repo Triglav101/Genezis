@@ -213,12 +213,6 @@ namespace Content.Server.Database
             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
                 gender = genderVal;
 
-            //// Corvax-TTS-Start
-            //var voice = profile.Voice;
-            //if (voice == String.Empty)
-            //    voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
-            //// Corvax-TTS-End
-
             // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
             var markingsRaw = profile.Markings?.Deserialize<List<string>>();
 
@@ -262,7 +256,6 @@ namespace Content.Server.Database
                 profile.CharacterName,
                 profile.FlavorText,
                 profile.Species,
-                //voice, // Corvax-TTS
                 profile.Age,
                 sex,
                 gender,
@@ -280,7 +273,7 @@ namespace Content.Server.Database
                 armorPreference,
                 squadPreference,
                 jobs,
-                (PreferenceUnavailableMode)profile.PreferenceUnavailable,
+                (PreferenceUnavailableMode) profile.PreferenceUnavailable,
                 antags.ToHashSet(),
                 traits.ToHashSet(),
                 loadouts,
@@ -312,7 +305,6 @@ namespace Content.Server.Database
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
             profile.Species = humanoid.Species;
-            //profile.Voice = humanoid.Voice; // Corvax-TTS
             profile.Age = humanoid.Age;
             profile.Sex = humanoid.Sex.ToString();
             profile.Gender = humanoid.Gender.ToString();
@@ -827,18 +819,6 @@ namespace Content.Server.Database
 
             await db.DbContext.SaveChangesAsync(cancel);
         }
-
-        //public async Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel)
-        //{
-        //    await using var db = await GetDb(cancel);
-
-        //    var adminRecord = db.DbContext.Admin.Where(a => a.UserId == userId);
-        //    await adminRecord.ExecuteUpdateAsync(
-        //        set => set.SetProperty(p => p.Deadminned, deadminned),
-        //        cancellationToken: cancel);
-
-        //    await db.DbContext.SaveChangesAsync(cancel);
-        //}
 
         public async Task AddAdminRankAsync(AdminRank rank, CancellationToken cancel)
         {

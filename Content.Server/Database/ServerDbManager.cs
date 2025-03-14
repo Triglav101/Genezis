@@ -320,7 +320,49 @@ namespace Content.Server.Database
 
         #endregion
 
+        #region Job Whitelists
+
+        Task AddJobWhitelist(Guid player, ProtoId<JobPrototype> job);
+
+
+        Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel = default);
+        Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job, CancellationToken cancel = default);
+
+        Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job);
+
+        #endregion
+
+        #region IPintel
+
+        Task<bool> UpsertIPIntelCache(DateTime time, IPAddress ip, float score);
+        Task<IPIntelCache?> GetIPIntelCache(IPAddress ip);
+        Task<bool> CleanIPIntelCache(TimeSpan range);
+
+        #endregion
+
         #region RMC14
+
+        Task<Guid?> GetLinkingCode(Guid player);
+
+        Task SetLinkingCode(Guid player, Guid code);
+
+        Task<bool> HasLinkedAccount(Guid player, CancellationToken cancel);
+
+        Task<RMCPatron?> GetPatron(Guid player, CancellationToken cancel);
+
+        Task<List<RMCPatron>> GetAllPatrons();
+
+        Task SetGhostColor(Guid player, System.Drawing.Color? color);
+
+        Task SetLobbyMessage(Guid player, string message);
+
+        Task SetMarineShoutout(Guid player, string name);
+
+        Task SetXenoShoutout(Guid player, string name);
+
+        Task<(string Message, string User)?> GetRandomLobbyMessage();
+
+        Task<(string? Marine, string? Xeno)> GetRandomShoutout();
 
         Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel);
 
@@ -338,18 +380,6 @@ namespace Content.Server.Database
             int round);
 
         Task<List<RMCCommendation>> GetCommendationsReceived(Guid player);
-
-        #endregion
-
-        #region Job Whitelists
-
-        Task AddJobWhitelist(Guid player, ProtoId<JobPrototype> job);
-
-
-        Task<List<string>> GetJobWhitelists(Guid player, CancellationToken cancel = default);
-        Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job, CancellationToken cancel = default);
-
-        Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job);
 
         #endregion
 
@@ -1028,6 +1058,23 @@ namespace Content.Server.Database
             return RunDbCommand(() => _db.RemoveJobWhitelist(player, job));
         }
 
+        public Task<bool> UpsertIPIntelCache(DateTime time, IPAddress ip, float score)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.UpsertIPIntelCache(time, ip, score));
+        }
+
+        public Task<IPIntelCache?> GetIPIntelCache(IPAddress ip)
+        {
+            return RunDbCommand(() => _db.GetIPIntelCache(ip));
+        }
+
+        public Task<bool> CleanIPIntelCache(TimeSpan range)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.CleanIPIntelCache(range));
+        }
+
         public void SubscribeToNotifications(Action<DatabaseNotification> handler)
         {
             lock (_notificationHandlers)
@@ -1050,6 +1097,72 @@ namespace Content.Server.Database
                     handler(notification);
                 }
             }
+        }
+
+        public Task<Guid?> GetLinkingCode(Guid player)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetLinkingCode(player));
+        }
+
+        public Task SetLinkingCode(Guid player, Guid code)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetLinkingCode(player, code));
+        }
+
+        public Task<bool> HasLinkedAccount(Guid player, CancellationToken cancel)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.HasLinkedAccount(player, cancel));
+        }
+
+        public Task<RMCPatron?> GetPatron(Guid player, CancellationToken cancel)
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetPatron(player, cancel));
+        }
+
+        public Task<List<RMCPatron>> GetAllPatrons()
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetAllPatrons());
+        }
+
+        public Task SetGhostColor(Guid player, System.Drawing.Color? color)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetGhostColor(player, color));
+        }
+
+        public Task SetLobbyMessage(Guid player, string message)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetLobbyMessage(player, message));
+        }
+
+        public Task SetMarineShoutout(Guid player, string name)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetMarineShoutout(player, name));
+        }
+
+        public Task SetXenoShoutout(Guid player, string name)
+        {
+            DbWriteOpsMetric.Inc();
+            return RunDbCommand(() => _db.SetXenoShoutout(player, name));
+        }
+
+        public Task<(string Message, string User)?> GetRandomLobbyMessage()
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetRandomLobbyMessage());
+        }
+
+        public Task<(string? Marine, string? Xeno)> GetRandomShoutout()
+        {
+            DbReadOpsMetric.Inc();
+            return RunDbCommand(() => _db.GetRandomShoutout());
         }
 
         public Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel)
@@ -1088,7 +1201,6 @@ namespace Content.Server.Database
             DbReadOpsMetric.Inc();
             return RunDbCommand(() => _db.GetCommendations(player));
         }
-
 
         // Wrapper functions to run DB commands from the thread pool.
         // This will avoid SynchronizationContext capturing and avoid running CPU work on the main thread.
