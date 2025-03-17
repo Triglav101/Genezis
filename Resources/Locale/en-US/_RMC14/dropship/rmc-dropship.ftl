@@ -1,4 +1,4 @@
-﻿rmc-dropship-pre-flight-fueling = The shuttle is still undergoing pre-flight fueling and cannot depart yet. Please wait another {$minutes} minutes before trying again.
+﻿rmc-dropship-pre-flight-fueling = Шаттл все еще проходит предполетную заправку топливом и пока не может отправиться. Пожалуйста, подождите еще {$minutes} минут, прежде чем повторить попытку.
 rmc-dropship-pre-hijack = This terminal won't be operational for another {$minutes} minutes.
 
 rmc-dropship-weapons-title = Weapons Console

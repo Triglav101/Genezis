@@ -87,7 +87,7 @@ public sealed class CCCVars
     /// Making everyone a pacifist at the end of a round.
     /// </summary>
     public static readonly CVarDef<bool> PeacefulRoundEnd =
-        CVarDef.Create("game.peaceful_end", true, CVar.SERVERONLY);
+        CVarDef.Create("game.peaceful_end", false, CVar.SERVERONLY);
 
     /*
      * Station Goal
@@ -97,5 +97,5 @@ public sealed class CCCVars
     /// Send station goal on round start or not.
     /// </summary>
     public static readonly CVarDef<bool> StationGoal =
-        CVarDef.Create("game.station_goal", true, CVar.SERVERONLY);
+        CVarDef.Create("game.station_goal", false, CVar.SERVERONLY);
 }

@@ -363,7 +363,7 @@
     damage:
       types:
         Blunt: 5
-  - type: CMSurgeryTarget
+  # - type: CMSurgeryTarget
   - type: UserInterface
     interfaces:
       enum.VoiceMaskUIKey.Key:
@@ -372,8 +372,8 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
-      enum.CMSurgeryUIKey.Key:
-        type: CMSurgeryBui
+      # enum.CMSurgeryUIKey.Key:
+      #   type: CMSurgeryBui
       enum.HolocardChangeUIKey.Key:
         type: HolocardChangeBoundUserInterface
         interactionRange: 0
@@ -504,6 +504,11 @@
       - Xeno
   - type: RMCPickupDroppedItems
   - type: CommendationReceiver
+  - type: RMCSpeciesSlowdownModifier
+    slowMultiplier: 0.66
+    superSlowMultiplier: 0.33
+  - type: RMCHandEmotes
+  - type: RMCBuckleDrawDepth
 
 - type: entity
   save: false

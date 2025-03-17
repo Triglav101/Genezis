@@ -1,4 +1,4 @@
-humanoid-profile-editor-preferred-squad-label = Предпочитаемый отряд:
+humanoid-profile-editor-preferred-squad-label = Изначальная корпорация вашего персонажа:
 humanoid-profile-editor-preferred-armor-label = Предпочитаемая броня:
 humanoid-profile-editor-enable-playtime-perks = Включить префикс/постфикс:
 humanoid-profile-editor-xeno-prefix = Монстро префикс:

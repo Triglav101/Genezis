@@ -16,4 +16,4 @@ console-line-edit-placeholder = Command Here
 
 ## Common Used
 
-window-erase-button-text = Удалить
+window-erase-button-text = Erase Mode

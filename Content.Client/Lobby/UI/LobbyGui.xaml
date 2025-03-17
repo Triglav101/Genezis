@@ -84,7 +84,7 @@
                     </PanelContainer>
                     <!-- Changelog -->
                     <PanelContainer Name="Changelog" StyleClasses="LobbyBackground" HorizontalAlignment="Right"
-                                    VerticalAlignment="Top" Visible="True">
+                                    VerticalAlignment="Top" Visible="false">
                         <BoxContainer Orientation="Vertical">
                             <RichTextLabel Name="ChangelogLabel" Access="Public" HorizontalAlignment="Center" />
                             <BoxContainer Name="ChangelogContainer" Access="Public" Orientation="Vertical"

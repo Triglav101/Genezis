@@ -3,5 +3,5 @@ role-timer-medical-roles = любая медицинская роль
 role-timer-engineering-roles = любая роль стройбата
 role-timer-dropship-roles = любая роль вторичной поддержки
 
-role-timer-total-department-insufficient = Вам потребуется больше минут, чтобы поиграть на этой роли.
-role-timer-total-department-too-high = Вам потребуется меньше минут, чтобы играть на этой роли.
+role-timer-total-department-insufficient = Вам потребуется [color=yellow]{ $time }[/color] минут за [color={$rolesColor}]{$roles}[/color], чтобы поиграть на этой роли.
+role-timer-total-department-too-high = Вам нужно на [color=yellow]{ $time }[/color] меньше минут за [color={$departmentColor}]{$rolesColor}[/color], чтобы играть на этой роли.

@@ -4,8 +4,10 @@
   name: department-CMCommand
   description: cm-department-Command-description
   color: "#334E6D"
+  weight: 99  
   roles:
   - CMCommandingOfficer
   - CMExecutiveOfficer
   - CMStaffOfficer
+  - CMSeniorEnlistedAdvisor  
   primary: false

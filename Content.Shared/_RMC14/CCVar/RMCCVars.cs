@@ -157,13 +157,13 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.admin_fax_area_map", "Maps/_RMC14/admin_fax.yml", CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanInitialDelaySeconds =
-        CVarDef.Create("rmc.bioscan_initial_delay_seconds", 300, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.bioscan_initial_delay_seconds", 1200, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanCheckDelaySeconds =
         CVarDef.Create("rmc.bioscan_check_delay_seconds", 60, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanMinimumCooldownSeconds =
-        CVarDef.Create("rmc.bioscan_minimum_cooldown_seconds", 300, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.bioscan_minimum_cooldown_seconds", 1130, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanBaseCooldownSeconds =
         CVarDef.Create("rmc.bioscan_base_cooldown_seconds", 1800, CVar.REPLICATED | CVar.SERVER);
@@ -190,13 +190,13 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.entities_log_delete", false, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<bool> RMCPlanetMapVote =
-        CVarDef.Create("rmc.planet_map_vote", true, CVar.SERVER | CVar.SERVERONLY);
+        CVarDef.Create("rmc.planet_map_vote", false, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<int> RMCPlanetMapVoteExcludeLast =
         CVarDef.Create("rmc.planet_map_vote_exclude_last", 2, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<bool> RMCUseCarryoverVoting =
-        CVarDef.Create("rmc.planet_map_vote_carryover", true, CVar.SERVER | CVar.SERVERONLY);
+        CVarDef.Create("rmc.planet_map_vote_carryover", false, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<int> RMCTacticalMapAnnounceCooldownSeconds =
         CVarDef.Create("rmc.tactical_map_announce_cooldown_seconds", 240, CVar.SERVER | CVar.SERVERONLY);

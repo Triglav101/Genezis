@@ -34,8 +34,8 @@ CMJobXenoLurker = Lurker
 cm-job-name-xeno-praetorian = Praetorian
 CMJobXenoPraetorian = Praetorian
 
-cm-job-name-xeno-queen = Queen
-CMJobXenoQueen = Queen
+cm-job-name-xeno-queen = Бедствие
+CMJobXenoQueen = Бедствие
 
 cm-job-name-xeno-ravager = Ravager
 CMJobXenoRavager = Ravager
@@ -53,13 +53,14 @@ cm-job-name-xeno-warrior = Warrior
 CMJobXenoWarrior = Warrior
 
 # TODO RMC14
-department-CMXeno = Xenonid
-cm-department-Xeno-description = ""
+department-CMXeno = Монстры планеты
+cm-department-Xeno-description = "Существа, что находятся под контролем разума планеты. Убивайте вторженцев из Триглава."
 
-cm-job-name-selectable-xenonid = Xenonid
-CMXenoSelectableXeno = Xenonid
+cm-job-name-selectable-xenonid = Плоть
+CMXenoSelectableXeno = Плоть
+cm-job-description-first = Самый первый этап эволиции у тварей плоти, ваше строение позволяет развится в любого другого монстра.
 
-cm-job-supervisors-queen = the Queen
+cm-job-supervisors-queen = Бедствие
 
 role-timer-xeno-roles = Xenonid
 role-timer-xeno-drones = drone and drone evolutions

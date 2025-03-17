@@ -14,10 +14,10 @@ cm-job-description-commanding-officer = Управляйте военным об
 cm-job-prefix-commanding-officer = ГК
 CMJobCommandingOfficer = Главнокомандующий
 
-cm-job-name-executive-officer = Глава по обороне
+cm-job-name-executive-officer = Глава обороны
 cm-job-description-executive-officer = Вы - второй в управлении наземной операции Триглава, следите за работой военизированных отделов и не дайте операции пойти под откос.
 cm-job-prefix-executive-officer = ГПО
-CMJobExecutiveOfficer = Глава по обороне
+CMJobExecutiveOfficer = Глава обороны
 
 # Только для админов.
 cm-job-name-high-command = Совет Триглава

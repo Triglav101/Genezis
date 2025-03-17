@@ -9,7 +9,7 @@ cm-job-description-cargotech = Вся тяжелая работа в отдел�
 cm-job-prefix-cargotech = ОР
 CMJobCargoTech = Оператор разрузки
 
-cm-job-name-messtech = Утилизатор
-cm-job-description-messtech = Вы с обломками на ты, что на замле, что в космосе. Копайтесь на полях битвы или же ищете ценности в космосе.
-cm-job-prefix-messtech = УР
-CMJobMessTech = Утилизатор
+cm-job-name-messtech = Повар
+cm-job-description-messtech = Вы посвятили свою жизнь кулинарному мастерству, готовьте еду для солдат Триглава.
+cm-job-prefix-messtech = ПР
+CMJobMessTech = Повар

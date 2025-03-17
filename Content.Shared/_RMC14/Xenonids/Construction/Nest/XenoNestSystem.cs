@@ -324,9 +324,7 @@ public sealed class XenoNestSystem : EntitySystem
         if (args.Mind.UserId is not { } userId)
             return;
 
-#pragma warning disable CS8602 // –азыменование веро€тной пустой ссылки.
         nested.GhostedId = userId;
-#pragma warning restore CS8602 // –азыменование веро€тной пустой ссылки.
         Dirty(ent, nested);
     }
 

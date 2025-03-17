@@ -5,24 +5,24 @@
   description: cm-department-Xeno-description
   color: "#8b36a6"
   weight: 100
-  customName: Xenonid
+  customName: Монстры Триглава
   roles:
-  - CMXenoBoiler
-  - CMXenoBurrower
-  - CMXenoCarrier
-  - CMXenoCrusher
-  - CMXenoDefender
-  - CMXenoDrone
-  - CMXenoHivelord
-  - CMXenoParasite
-  - CMXenoLarva
-  - CMXenoLesserDrone
-  - CMXenoLurker
-  - CMXenoPraetorian
-  - CMXenoQueen
-  - CMXenoRavager
-  - CMXenoRunner
-  - CMXenoSentinel
-  - CMXenoSpitter
-  - CMXenoWarrior
+  # - CMXenoBoiler
+  # - CMXenoBurrower
+  # - CMXenoCarrier
+  # - CMXenoCrusher
+  # - CMXenoDefender
+  # - CMXenoDrone
+  # - CMXenoHivelord
+  # - CMXenoParasite
+  # - CMXenoLarva
+  # - CMXenoLesserDrone
+  # - CMXenoLurker
+  # - CMXenoPraetorian
+  # - CMXenoQueen
+  # - CMXenoRavager
+  # - CMXenoRunner
+  # - CMXenoSentinel
+  # - CMXenoSpitter
+  # - CMXenoWarrior
   - CMXenoSelectableXeno
