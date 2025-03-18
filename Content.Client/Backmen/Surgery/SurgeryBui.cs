@@ -148,6 +148,7 @@ public sealed class SurgeryBui : BoundUserInterface
             var partButton = new XenoChoiceControl();
 
             partButton.Set(partName, null);
+            partButton.Button.OnPressed += _ => OnPartPressed(netEntity, surgeries);
 
             _window.Parts.AddChild(partButton);
 
@@ -182,6 +183,7 @@ public sealed class SurgeryBui : BoundUserInterface
         var stepName = new FormattedMessage();
         stepName.AddText(_entities.GetComponent<MetaDataComponent>(step).EntityName);
         var stepButton = new SurgeryStepButton { Step = step };
+        stepButton.Button.OnPressed += _ => SendMessage(new SurgeryStepChosenBuiMsg(netPart, surgeryId, stepId, _isBody));
 
         _window.Steps.AddChild(stepButton);
     }
@@ -201,6 +203,7 @@ public sealed class SurgeryBui : BoundUserInterface
         if (surgery.Comp.Requirement is { } requirementId && _system.GetSingleton(requirementId) is { } requirement)
         {
             var label = new XenoChoiceControl();
+            label.Button.OnPressed += _ =>
             {
                 _previousSurgeries.Add(surgeryId);
 
@@ -259,6 +262,7 @@ public sealed class SurgeryBui : BoundUserInterface
             var surgeryButton = new XenoChoiceControl();
             surgeryButton.Set(surgery.Name, null);
 
+            surgeryButton.Button.OnPressed += _ => OnSurgeryPressed(surgery.Ent, netPart, surgery.Id);
             _window.Surgeries.AddChild(surgeryButton);
         }
 
@@ -293,13 +297,16 @@ public sealed class SurgeryBui : BoundUserInterface
             else if (i < next.Value.Step)
                 status = StepStatus.Complete;
 
+            stepButton.Button.Disabled = status != StepStatus.Next;
+
             var stepName = new FormattedMessage();
             stepName.AddText(_entities.GetComponent<MetaDataComponent>(stepButton.Step).EntityName);
 
-            if (status == StepStatus.Complete);
-
+            if (status == StepStatus.Complete)
+                stepButton.Button.Modulate = Color.Green;
             else
             {
+                stepButton.Button.Modulate = Color.White;
                 if (_player.LocalEntity is { } player
                     && status == StepStatus.Next
                     && !_system.CanPerformStep(player, Owner, _part.Value, stepButton.Step, false, out var popup, out var reason, out _))

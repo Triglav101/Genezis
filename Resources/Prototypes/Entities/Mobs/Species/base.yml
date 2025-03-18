@@ -19,7 +19,6 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-#    - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: ["jumpsuit"]
@@ -34,7 +33,6 @@
     - map: [ "eyes" ]
     - map: [ "belt" ]
     - map: [ "id" ]
-    - map: [ "neck" ]
     - map: [ "back" ]
     - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
     - map: [ "enum.HumanoidVisualLayers.Hair" ]
@@ -42,6 +40,7 @@
     - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
     - map: [ "enum.HumanoidVisualLayers.Tail" ]
     - map: [ "mask" ]
+    - map: [ "neck" ] # RMC14 re-arrange neck slot    
     - map: [ "head" ]
     - map: [ "enum.SquadArmorLayers.Helmet" ]    
     - map: [ "pocket1" ]
@@ -197,8 +196,8 @@
         type: StrippableBoundUserInterface
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
-      enum.SurgeryUIKey.Key: # backmen: surgery
-        type: SurgeryBui
+      # enum.SurgeryUIKey.Key: # backmen: surgery
+      #   type: SurgeryBui
   - type: Puller
   - type: Speech
     speechSounds: Alto
@@ -234,7 +233,7 @@
     - TauCetiBasic
   - type: Immersive # backmen: immersive
   - type: Targeting # backmen: surgery
-  - type: SurgeryTarget # backmen: surgery
+  # - type: SurgeryTarget # backmen: surgery
 
 - type: entity
   save: false
@@ -353,6 +352,7 @@
   - type: Woundable
   - type: Marine
   - type: RMCSuitLight
+  - type: RMCCanBeFultoned
   - type: HolocardState
   - type: MeleeWeapon
     soundHit:
@@ -363,7 +363,7 @@
     damage:
       types:
         Blunt: 5
-  # - type: CMSurgeryTarget
+  - type: CMSurgeryTarget        
   - type: UserInterface
     interfaces:
       enum.VoiceMaskUIKey.Key:
@@ -372,8 +372,8 @@
         type: HumanoidMarkingModifierBoundUserInterface
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
-      # enum.CMSurgeryUIKey.Key:
-      #   type: CMSurgeryBui
+      enum.CMSurgeryUIKey.Key:
+        type: CMSurgeryBui        
       enum.HolocardChangeUIKey.Key:
         type: HolocardChangeBoundUserInterface
         interactionRange: 0

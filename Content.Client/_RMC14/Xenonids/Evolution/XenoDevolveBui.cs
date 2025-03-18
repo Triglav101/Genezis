@@ -1,4 +1,4 @@
-﻿using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Evolution;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
@@ -35,6 +35,12 @@ public sealed class XenoDevolveBui : BoundUserInterface
 
                 var control = new XenoChoiceControl();
                 control.Set(evolution.Name, _sprite.Frame0(evolution));
+
+                control.Button.OnPressed += _ =>
+                {
+                    SendPredictedMessage(new XenoDevolveBuiMsg(devolvesTo));
+                    Close();
+                };
 
                 _window.DevolutionsContainer.AddChild(control);
             }

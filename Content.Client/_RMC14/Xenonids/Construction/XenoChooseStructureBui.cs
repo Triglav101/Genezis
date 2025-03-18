@@ -1,4 +1,4 @@
-﻿using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Construction;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
@@ -41,15 +41,15 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
                     continue;
 
                 var control = new XenoChoiceControl();
-                //control.Button.Group = group;
-                //control.Button.Mode = 0;
+                control.Button.Group = group;
+                control.Button.Mode = 0;
 
                 var name = structure.Name;
                 if (_xenoConstruction.GetStructurePlasmaCost(structureId) is { } cost)
                     name += $" ({cost} plasma)";
 
                 control.Set(name, _sprite.Frame0(structure));
-                //control.Button.OnPressed += _ => SendPredictedMessage(new XenoChooseStructureBuiMsg(structureId));
+                control.Button.OnPressed += _ => SendPredictedMessage(new XenoChooseStructureBuiMsg(structureId));
 
                 _window.StructureContainer.AddChild(control);
                 _buttons.Add(structureId, control);
@@ -74,6 +74,6 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
             return;
         }
 
-        //button.Button.Pressed = true;
+        button.Button.Pressed = true;
     }
 }

@@ -1,4 +1,4 @@
-﻿using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Client.Administration.UI.CustomControls;
 using Content.Shared._RMC14.Medical.Surgery;
 using Content.Shared.Body.Part;
@@ -163,6 +163,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
             var partButton = new XenoChoiceControl();
 
             partButton.Set(partName, null);
+            partButton.Button.OnPressed += _ => OnPartPressed(netPart, surgeries);
 
             _window.Parts.AddChild(partButton);
 
@@ -201,6 +202,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
         stepName.AddText(_entities.GetComponent<MetaDataComponent>(step).EntityName);
 
         var stepButton = new CMSurgeryStepButton { Step = step };
+        stepButton.Button.OnPressed += _ => SendMessage(new CMSurgeryStepChosenBuiMsg(netPart, surgeryId, stepId));
 
         _window.Steps.AddChild(stepButton);
     }
@@ -218,6 +220,13 @@ public sealed class CMSurgeryBui : BoundUserInterface
         if (surgery.Comp.Requirement is { } requirementId && _system.GetSingleton(requirementId) is { } requirement)
         {
             var label = new XenoChoiceControl();
+            label.Button.OnPressed += _ =>
+            {
+                _previousSurgeries.Add(surgeryId);
+
+                if (_entities.TryGetComponent(requirement, out CMSurgeryComponent? requirementComp))
+                    OnSurgeryPressed((requirement, requirementComp), netPart, requirementId);
+            };
 
             var msg = new FormattedMessage();
             var surgeryName = _entities.GetComponent<MetaDataComponent>(requirement).EntityName;
@@ -225,7 +234,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
             label.Set(msg, null);
 
             _window.Steps.AddChild(label);
-
+            _window.Steps.AddChild(new HSeparator { Color = Color.FromHex("#4972A1"), Margin = new Thickness(0, 0, 0, 1) });
         }
 
         foreach (var stepId in surgery.Comp.Steps)
@@ -273,6 +282,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
             var surgeryButton = new XenoChoiceControl();
             surgeryButton.Set(surgery.Name, null);
 
+            surgeryButton.Button.OnPressed += _ => OnSurgeryPressed(surgery.Ent, netPart, surgery.Id);
             _window.Surgeries.AddChild(surgeryButton);
         }
 
@@ -314,39 +324,41 @@ public sealed class CMSurgeryBui : BoundUserInterface
                 status = StepStatus.Complete;
             }
 
+            stepButton.Button.Disabled = status != StepStatus.Next;
+
             var stepName = new FormattedMessage();
             stepName.AddText(_entities.GetComponent<MetaDataComponent>(stepButton.Step).EntityName);
 
-            //if (status == StepStatus.Complete)
-            //{
-            //    stepButton.Button.Modulate = Color.Green;
-            //}
-            //else
-            //{
-            //    stepButton.Button.Modulate = Color.White;
-            //    if (_player.LocalEntity is { } player &&
-            //        !_system.CanPerformStep(player, Owner, part.PartType, stepButton.Step, false, out var popup, out var reason, out _))
-            //    {
-            //        stepButton.ToolTip = popup;
-            //        stepButton.Button.Disabled = true;
+            if (status == StepStatus.Complete)
+            {
+                stepButton.Button.Modulate = Color.Green;
+            }
+            else
+            {
+                stepButton.Button.Modulate = Color.White;
+                if (_player.LocalEntity is { } player &&
+                    !_system.CanPerformStep(player, Owner, part.PartType, stepButton.Step, false, out var popup, out var reason, out _))
+                {
+                    stepButton.ToolTip = popup;
+                    stepButton.Button.Disabled = true;
 
-            //        switch (reason)
-            //        {
-            //            case StepInvalidReason.MissingSkills:
-            //                stepName.AddMarkupOrThrow(" [color=red](Missing surgery skill)[/color]");
-            //                break;
-            //            case StepInvalidReason.NeedsOperatingTable:
-            //                stepName.AddMarkupOrThrow(" [color=red](Needs operating table)[/color]");
-            //                break;
-            //            case StepInvalidReason.Armor:
-            //                stepName.AddMarkupOrThrow(" [color=red](Remove their armor!)[/color]");
-            //                break;
-            //            case StepInvalidReason.MissingTool:
-            //                stepName.AddMarkupOrThrow(" [color=red](Missing tool)[/color]");
-            //                break;
-            //        }
-            //    }
-            //}
+                    switch (reason)
+                    {
+                        case StepInvalidReason.MissingSkills:
+                            stepName.AddMarkupOrThrow(" [color=red](Missing surgery skill)[/color]");
+                            break;
+                        case StepInvalidReason.NeedsOperatingTable:
+                            stepName.AddMarkupOrThrow(" [color=red](Needs operating table)[/color]");
+                            break;
+                        case StepInvalidReason.Armor:
+                            stepName.AddMarkupOrThrow(" [color=red](Remove their armor!)[/color]");
+                            break;
+                        case StepInvalidReason.MissingTool:
+                            stepName.AddMarkupOrThrow(" [color=red](Missing tool)[/color]");
+                            break;
+                    }
+                }
+            }
 
             var texture = _entities.GetComponentOrNull<SpriteComponent>(stepButton.Step)?.Icon?.Default;
             stepButton.Set(stepName, texture);

@@ -1,4 +1,4 @@
-﻿using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Client.Message;
 using Content.Shared._RMC14.Xenonids.Evolution;
 using Content.Shared._RMC14.Xenonids.Strain;
@@ -56,11 +56,11 @@ public sealed class XenoEvolutionBui : BoundUserInterface
         var control = new XenoChoiceControl();
         control.Set(evolution.Name, _sprite.Frame0(evolution));
 
-        //control.Button.OnPressed += _ =>
-        //{
-        //    SendPredictedMessage(new XenoEvolveBuiMsg(evolutionId));
-        //    Close();
-        //};
+        control.Button.OnPressed += _ =>
+        {
+            SendPredictedMessage(new XenoEvolveBuiMsg(evolutionId));
+            Close();
+        };
 
         _window?.EvolutionsContainer.AddChild(control);
     }
@@ -79,20 +79,20 @@ public sealed class XenoEvolutionBui : BoundUserInterface
         {
             name = $"{Loc.GetString(strainComp.Name)} {name}";
 
-            //if (strainComp.Description is { } description)
-            //{
-            //    control.Button.ToolTip = Loc.GetString(description);
-            //    control.Button.TooltipDelay = 0.1f;
-            //}
+            if (strainComp.Description is { } description)
+            {
+                control.Button.ToolTip = Loc.GetString(description);
+                control.Button.TooltipDelay = 0.1f;
+            }
         }
 
         control.Set(name, _sprite.Frame0(strain));
 
-        //control.Button.OnPressed += _ =>
-        //{
-        //    SendPredictedMessage(new XenoStrainBuiMsg(strainId));
-        //    Close();
-        //};
+        control.Button.OnPressed += _ =>
+        {
+            SendPredictedMessage(new XenoStrainBuiMsg(strainId));
+            Close();
+        };
 
         _window.StrainsContainer.AddChild(control);
     }

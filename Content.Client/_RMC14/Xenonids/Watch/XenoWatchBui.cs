@@ -1,4 +1,4 @@
-﻿using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Watch;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
@@ -48,6 +48,7 @@ public sealed class XenoWatchBui : BoundUserInterface
 
             var control = new XenoChoiceControl();
             control.Set(xeno.Name, texture);
+            control.Button.OnPressed += _ => SendPredictedMessage(new XenoWatchBuiMsg(xeno.Entity));
 
             _window.XenoContainer.AddChild(control);
         }
@@ -83,6 +84,8 @@ public sealed class XenoWatchBui : BoundUserInterface
 
             if (string.IsNullOrWhiteSpace(args.Text))
                 control.Visible = true;
+            else
+                control.Visible = control.NameLabel.GetMessage()?.Contains(args.Text, StringComparison.OrdinalIgnoreCase) ?? false;
         }
     }
 }

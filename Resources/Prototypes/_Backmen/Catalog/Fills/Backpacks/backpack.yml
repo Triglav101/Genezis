@@ -100,7 +100,6 @@
         - id: BattleMedipen
         - id: MagazinePistol
           amount: 2
-        - id: WeaponSubMachineGunMP5Tactical
         - id: MagazinePistolSubMachineGun
           amount: 6
         - id: MedkitFilled
