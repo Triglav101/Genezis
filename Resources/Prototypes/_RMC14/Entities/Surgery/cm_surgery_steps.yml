@@ -5,787 +5,154 @@
   components:
   - type: CMSurgeryStep
 
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepOpenIncisionScalpel
-#   name: Cut with a scalpel
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMScalpel
-#     add:
-#     - type: CMIncisionOpen
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/scalpel.rsi
-#     state: scalpel
-#   - type: CMSurgeryStepBleedEffect
-#     damage: 10
-#   - type: CMSurgeryStepEmoteEffect
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepClampBleeders
-#   name: Clamp the bleeders
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMHemostat
-#     add:
-#     - type: CMBleedersClamped
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/hemostat.rsi
-#     state: hemostat
-#   - type: CMSurgeryClampBleedEffect
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepRetractSkin
-#   name: Retract the skin
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMRetractor
-#     add:
-#     - type: CMSkinRetracted
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
-#     state: retractor
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepSawBones
-#   name: Saw through bones
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMBoneSaw
-#     add:
-#     - type: CMRibcageSawed
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/saw.rsi
-#     state: saw
-#   - type: CMSurgeryStepEmoteEffect
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepPriseOpenBones
-#   name: Prise the bones open
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMRetractor
-#     add:
-#     - type: CMRibcageOpen
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
-#     state: retractor
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepCutLarvaRoots
-#   name: Cut larva roots
-#   components:
-#   - type: CMSurgeryStep
-#     skill: 2
-#     tool:
-#     - type: CMScalpel
-#   - type: CMSurgeryCutLarvaRootsStep
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/scalpel.rsi
-#     state: scalpel
-#   - type: CMSurgeryOperatingTableCondition
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepRemoveLarva
-#   name: Remove larva
-#   components:
-#   - type: CMSurgeryStep
-#     skill: 2
-#     tool:
-#     - type: CMHemostat
-#     bodyRemove:
-#     - type: VictimInfected
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/hemostat.rsi
-#     state: hemostat
-#   - type: CMSurgeryOperatingTableCondition
-#   - type: RMCSurgeryStepLarvaEffect
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepCloseBones
-#   name: Close bones
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMRetractor
-#     remove:
-#     - type: CMRibcageOpen
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
-#     state: retractor
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepMendRibcage
-#   name: Mend ribcage
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMBoneGel
-#     remove:
-#     - type: CMRibcageSawed
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/bone_gel.rsi
-#     state: bone-gel
-
-# - type: entity
-#   parent: CMSurgeryStepBase
-#   id: CMSurgeryStepCloseIncision
-#   name: Close incision
-#   components:
-#   - type: CMSurgeryStep
-#     tool:
-#     - type: CMCautery
-#     remove:
-#     - type: CMSkinRetracted
-#     - type: CMBleedersClamped
-#     - type: CMIncisionOpen
-#   - type: Sprite
-#     sprite: _RMC14/Objects/Medical/Surgery/cautery.rsi
-#     state: cautery
-#   - type: CMSurgeryStepEmoteEffect
-
-# Advanced surgery
-
 - type: entity
-  id: SurgeryStepBase
-  categories: [ HideSpawnMenu ]
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepOpenIncisionScalpel
+  name: Cut with a scalpel
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
+    tool:
+    - type: CMScalpel
+    add:
+    - type: CMIncisionOpen
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: CMSurgeryStepBleedEffect
+    damage: 10
+  - type: CMSurgeryStepEmoteEffect
 
 - type: entity
   parent: CMSurgeryStepBase
-  id: SurgeryStepOpenIncisionScalpel
-  name: Cut with a scalpel
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Scalpel
-    add:
-    - type: IncisionOpen
-    duration: 2
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
-    state: scalpel
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Bloodloss: 10
-    sleepModifier: 0.5
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepClampBleeders
+  id: CMSurgeryStepClampBleeders
   name: Clamp the bleeders
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: Hemostat
+    - type: CMHemostat
     add:
-    - type: BleedersClamped
-    duration: 2
+    - type: CMBleedersClamped
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/hemostat.rsi
     state: hemostat
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Bloodloss: -5
-    sleepModifier: 2
+  - type: CMSurgeryClampBleedEffect
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRetractSkin
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepRetractSkin
   name: Retract the skin
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: Retractor
+    - type: CMRetractor
     add:
-    - type: SkinRetracted
-    duration: 2
+    - type: CMSkinRetracted
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/retractor.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
     state: retractor
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepSawBones
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepSawBones
   name: Saw through bones
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: BoneSaw
+    - type: CMBoneSaw
     add:
-    - type: RibcageSawed
-    duration: 4
+    - type: CMRibcageSawed
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/circular-saw.rsi
-    state: circular-saw
-  - type: SurgeryStepEmoteEffect
+    sprite: _RMC14/Objects/Medical/Surgery/saw.rsi
+    state: saw
+  - type: CMSurgeryStepEmoteEffect
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepPriseOpenBones
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepPriseOpenBones
   name: Prise the bones open
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: Retractor
+    - type: CMRetractor
     add:
-    - type: RibcageOpen
-    duration: 2
+    - type: CMRibcageOpen
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/retractor.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
     state: retractor
 
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepCutLarvaRoots
-#  name: Cut larva roots
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    skill: 2
-#    tool:
-#    - type: Scalpel
-#  - type: SurgeryCutLarvaRootsStep
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
-#    state: scalpel
-#  - type: SurgeryOperatingTableCondition
-
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepRemoveLarva
-#  name: Remove larva
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    skill: 2
-#    tool:
-#    - type: Hemostat
-#    bodyRemove:
-#    - type: VictimInfected
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
-#    state: hemostat
-#  - type: SurgeryOperatingTableCondition
-#  - type: SurgeryStepSpawnEffect
-#    entity: XenoEmbryo
+- type: entity
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepCutLarvaRoots
+  name: Cut larva roots
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMScalpel
+  - type: CMSurgeryCutLarvaRootsStep
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/scalpel.rsi
+    state: scalpel
+  - type: CMSurgeryOperatingTableCondition
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepCloseBones
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepRemoveLarva
+  name: Remove larva
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMHemostat
+    bodyRemove:
+    - type: VictimInfected
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: CMSurgeryOperatingTableCondition
+  - type: RMCSurgeryStepLarvaEffect
+
+- type: entity
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepCloseBones
   name: Close bones
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: Retractor
+    - type: CMRetractor
     remove:
-    - type: RibcageOpen
-    duration: 2
+    - type: CMRibcageOpen
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/retractor.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
     state: retractor
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepMendRibcage
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepMendRibcage
   name: Mend ribcage
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: BoneGel
+    - type: CMBoneGel
     remove:
-    - type: RibcageSawed
-    duration: 2
+    - type: CMRibcageSawed
   - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/bone_gel.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/bone_gel.rsi
     state: bone-gel
 
 - type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepCloseIncision
+  parent: CMSurgeryStepBase
+  id: CMSurgeryStepCloseIncision
   name: Close incision
-  categories: [ HideSpawnMenu ]
   components:
-  - type: SurgeryStep
+  - type: CMSurgeryStep
     tool:
-    - type: Cautery
+    - type: CMCautery
     remove:
-    # This surgery removes a bunch of components that might be leftover from other surgeries in unintended cases.
-    # Essentially a bit of a fallback for endusers :)
-    - type: SkinRetracted
-    - type: BleedersClamped
-    - type: IncisionOpen
-    - type: BodyPartReattached
-    - type: InternalBleedersClamped
-    duration: 2
+    - type: CMSkinRetracted
+    - type: CMBleedersClamped
+    - type: CMIncisionOpen
   - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
+    sprite: _RMC14/Objects/Medical/Surgery/cautery.rsi
     state: cautery
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Heat: -5
-    sleepModifier: 2
-  - type: SurgeryStepEmoteEffect
-
-# Feature Insertion
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepInsertFeature
-  name: Insert part
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: BodyPart
-    duration: 6
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-    state: insertion
-  - type: SurgeryAddPartStep
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepSealWounds
-  name: Seal wounds
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Cautery
-    remove:
-    - type: SkinRetracted
-    - type: BleedersClamped
-    - type: IncisionOpen
-    - type: InternalBleedersClamped
-    duration: 2
-  - type: SurgeryAffixPartStep
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
-    state: cautery
-  - type: SurgeryStepEmoteEffect
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Heat: -5
-    sleepModifier: 2
-
-# Feature Removal
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepSawFeature
-  name: Saw through bones
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: BoneSaw
-    add:
-    - type: BodyPartSawed
-    duration: 4
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/circular-saw.rsi
-    state: circular-saw
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepClampInternalBleeders
-  name: Clamp internal bleeders
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Hemostat
-    add:
-    - type: InternalBleedersClamped
-    duration: 2
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Bloodloss: -5
-    sleepModifier: 2
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRemoveFeature
-  name: Amputate part
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: BoneSaw
-    remove:
-    # We remove these components to force people to go through all the steps again lol, otherwise you can just keep chopping.
-    - type: SkinRetracted
-    - type: BleedersClamped
-    - type: InternalBleedersClamped
-    - type: IncisionOpen
-    duration: 8
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/circular-saw.rsi
-    state: circular-saw
-  - type: SurgeryRemovePartStep
-  - type: SurgeryStepEmoteEffect
-
-# Tend Wounds
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepCarefulIncisionScalpel
-  name: Make a careful incision
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Scalpel
-    add:
-    - type: IncisionOpen
-    duration: 3
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/scalpel.rsi
-    state: scalpel
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRepairBruteTissue
-  name: Repair damaged tissue
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Tending
-    duration: 1
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
-  - type: SurgeryTendWoundsEffect
-    damage:
-      groups:
-        Brute: -5
-  - type: SurgeryRepeatableStep
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRepairBurnTissue
-  name: Repair burnt tissue
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Tending
-    duration: 1
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
-  - type: SurgeryTendWoundsEffect
-    mainGroup: Burn
-    damage:
-      groups:
-        Burn: -5
-  - type: SurgeryRepeatableStep
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepSealTendWound
-  name: Seal the wound
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Cautery
-    remove:
-    - type: IncisionOpen
-    duration: 2
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
-    state: cautery
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Heat: -5
-    sleepModifier: 2
-  - type: SurgeryStepEmoteEffect
-
-# Cavity Implanting
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepInsertItem
-  name: Insert item into cavity
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    duration: 4
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-    state: insertion
-  - type: SurgeryStepCavityEffect
-    action: Insert
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRemoveItem
-  name: Remove item from cavity
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    duration: 4
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-    state: insertion
-  - type: SurgeryStepCavityEffect
-    action: Remove
-  - type: SurgeryStepEmoteEffect
-
-# Organ Manipulation
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepRemoveOrgan
-  name: Remove organ
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Tweezers
-    duration: 8
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/hemostat.rsi
-    state: hemostat
-  - type: SurgeryRemoveOrganStep
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepInsertOrgan
-  name: Add organ
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Organ
-    duration: 6
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-    state: insertion
-  - type: SurgeryAddOrganStep
-  - type: SurgeryStepEmoteEffect
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertLungs
-  name: Add lungs
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Asphyxiation: -2147483648 # Literally the max 32 bit value, if your patient has gone higher than this, maybe it's time to restart the round.
-    sleepModifier: 1
-    isConsumable: true
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertLiver
-  name: Add liver
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Poison: -2147483648 # Literally the max 32 bit value, if your patient has gone higher than this, maybe it's time to restart the round.
-    sleepModifier: 1
-    isConsumable: true
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertEyes
-  name: Add eyes
-  categories: [ HideSpawnMenu ]
-
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertHeart
-  name: Add heart
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgerySpecialDamageChangeEffect
-    damageType: Rot
-    isConsumable: true
-
-# Doesn't serve much of a purpose right now. Just here for completeness-sake.
-- type: entity
-  parent: SurgeryStepInsertOrgan
-  id: SurgeryStepInsertStomach
-  name: Add stomach
-  categories: [ HideSpawnMenu ]
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepSealOrganWound
-  name: Seal wounds
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Cautery
-    duration: 2
-  - type: SurgeryAffixOrganStep
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/cautery.rsi
-    state: cautery
-  - type: SurgeryStepEmoteEffect
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Heat: -5
-    sleepModifier: 2
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepLobotomize
-  name: Lobotomize patient
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Drill
-    bodyAdd:
-    - type: OhioAccent
-    - type: RatvarianLanguage
-    - type: SlurredAccent
-    duration: 5
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/drill.rsi
-    state: drill
-  - type: SurgeryStepEmoteEffect
-  - type: SurgeryDamageChangeEffect
-    damage:
-      types:
-        Piercing: 10
-
-- type: entity
-  parent: SurgeryStepBase
-  id: SurgeryStepMendBrainTissue
-  name: Mend brain tissue
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tool:
-    - type: Hemostat
-    duration: 5
-    bodyRemove:
-    - type: OhioAccent
-    - type: RatvarianLanguage
-    - type: SlurredAccent
-  - type: Sprite
-    sprite: _Shitmed/Objects/Specific/Medical/Surgery/drill.rsi
-    state: drill
-  - type: SurgeryStepEmoteEffect
-
-# The lengths I go to just for a joke... I HATE HARDCODING AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-# Maybe I should modify species prototypes to include tails and ears properly...
-
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepAddFelinidEars
-#  name: Add cat ears
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    tool:
-#    - type: Organ
-#  - type: SurgeryAddMarkingStep
-#    marking: FelinidEarsBasic
-#    markingCategory: HeadTop
-#    matchString: FelinidEars
-#    organ:
-#    - type: Ears
-#    accent:
-#    - type: OwOAccent
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-#    state: insertion
-
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepAddFelinidTail
-#  name: Add cat tail
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    tool:
-#    - type: Organ
-#  - type: SurgeryAddMarkingStep
-#    marking: FelinidTailBasic
-#    markingCategory: Tail
-#    matchString: FelinidTail
-#    organ:
-#    - type: Tail
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-#    state: insertion
-
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepRemoveFelinidEars
-#  name: Remove cat ears
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    tool:
-#    - type: Organ
-#  - type: SurgeryRemoveMarkingStep
-#    markingCategory: HeadTop
-#    matchString: FelinidEars
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-#    state: insertion
-
-#- type: entity
-#  parent: SurgeryStepBase
-#  id: SurgeryStepRemoveFelinidTail
-#  name: Remove cat tail
-#  categories: [ HideSpawnMenu ]
-#  components:
-#  - type: SurgeryStep
-#    tool:
-#    - type: Organ
-#  - type: SurgeryRemoveMarkingStep
-#    markingCategory: Tail
-#    matchString: FelinidTail
-#  - type: Sprite
-#    sprite: Objects/Specific/Medical/Surgery/manipulation.rsi
-#    state: insertion
+  - type: CMSurgeryStepEmoteEffect

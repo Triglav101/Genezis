@@ -72928,6 +72928,13 @@ entities:
     - type: Transform
       pos: 132.34375,-97.4375
       parent: 1
+- proto: CMSheetMetal10
+  entities:
+  - uid: 37262
+    components:
+    - type: Transform
+      pos: 27.492182,-187.52594
+      parent: 1
 - proto: CMSheetPlasteel1
   entities:
   - uid: 39192
@@ -72947,12 +72954,19 @@ entities:
     - type: Transform
       pos: 142.5,-50.5
       parent: 1
-- proto: CMShellShotgunBuckshot
+- proto: CMSheetPlasteel30
+  entities:
+  - uid: 37261
+    components:
+    - type: Transform
+      pos: 26.476088,-185.5954
+      parent: 1
+- proto: CMShellShotgunIncendiaryBuckshot
   entities:
   - uid: 30202
     components:
     - type: Transform
-      pos: 21.5,-183.125
+      pos: 21.410006,-183.14896
       parent: 1
 - proto: CMShower
   entities:
@@ -190046,7 +190060,7 @@ entities:
       pos: 126.5,-167.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -9811.478
+      secondsUntilStateChange: -10703.448
       state: Opening
   - uid: 27915
     components:
@@ -201449,6 +201463,11 @@ entities:
     - type: Physics
       canCollide: False
     - type: InsideEntityStorage
+  - uid: 37258
+    components:
+    - type: Transform
+      pos: 92.487946,-37.32963
+      parent: 1
 - proto: RMCContainerBlueLeft
   entities:
   - uid: 38598

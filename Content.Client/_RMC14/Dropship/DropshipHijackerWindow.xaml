@@ -6,6 +6,7 @@
     MinSize="200 300">
     <BoxContainer Orientation="Vertical">
         <RichTextLabel Name="Header" Access="Public" />
+        <cc:HSeparator Color="#4972A1" Margin="0 0 0 5" />
         <BoxContainer Name="Destinations" Access="Public" Orientation="Vertical" />
     </BoxContainer>
 </controls:DropshipHijackerWindow>

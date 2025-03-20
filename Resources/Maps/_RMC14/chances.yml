@@ -97922,6 +97922,8 @@ entities:
       parent: 1
   - uid: 23825
     components:
+    - type: MetaData
+      name: Hydro North
     - type: Transform
       pos: -25.5,-38.5
       parent: 1

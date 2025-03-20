@@ -157,13 +157,13 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.admin_fax_area_map", "Maps/_RMC14/admin_fax.yml", CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanInitialDelaySeconds =
-        CVarDef.Create("rmc.bioscan_initial_delay_seconds", 1200, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.bioscan_initial_delay_seconds", 300, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanCheckDelaySeconds =
         CVarDef.Create("rmc.bioscan_check_delay_seconds", 60, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanMinimumCooldownSeconds =
-        CVarDef.Create("rmc.bioscan_minimum_cooldown_seconds", 1130, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.bioscan_minimum_cooldown_seconds", 300, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCBioscanBaseCooldownSeconds =
         CVarDef.Create("rmc.bioscan_base_cooldown_seconds", 1800, CVar.REPLICATED | CVar.SERVER);
@@ -196,7 +196,7 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.planet_map_vote_exclude_last", 2, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<bool> RMCUseCarryoverVoting =
-        CVarDef.Create("rmc.planet_map_vote_carryover", false, CVar.SERVER | CVar.SERVERONLY);
+        CVarDef.Create("rmc.planet_map_vote_carryover", true, CVar.SERVER | CVar.SERVERONLY);
 
     public static readonly CVarDef<int> RMCTacticalMapAnnounceCooldownSeconds =
         CVarDef.Create("rmc.tactical_map_announce_cooldown_seconds", 240, CVar.SERVER | CVar.SERVERONLY);
@@ -208,7 +208,7 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.tactical_map_admin_history_size", 100, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<float> RMCTacticalMapUpdateEverySeconds =
-        CVarDef.Create("rmc.tactical_map_update_every_seconds", 1f, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("rmc.tactical_map_update_every_seconds", 0.5f, CVar.SERVER | CVar.REPLICATED);
 
     public static readonly CVarDef<bool> RMCTacticalMapShowAreaLabels =
         CVarDef.Create("rmc.tactical_map_show_area_labels", true, CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
@@ -411,4 +411,10 @@ public sealed class RMCCVars : CVars
 
     public static readonly CVarDef<bool> RMCDamageYourself =
         CVarDef.Create("rmc.damage_yourself", false, CVar.ARCHIVE | CVar.CLIENT | CVar.REPLICATED);
+
+    public static readonly CVarDef<float> RMCOverwatchMaxProcessTimeMilliseconds =
+        CVarDef.Create("rmc.overwatch_max_process_time_milliseconds", 1f, CVar.REPLICATED | CVar.SERVER);
+
+    public static readonly CVarDef<float> RMCOverwatchConsoleUpdateEverySeconds =
+        CVarDef.Create("rmc.overwatch_console_update_every_seconds", 0.5f, CVar.REPLICATED | CVar.SERVER);
 }

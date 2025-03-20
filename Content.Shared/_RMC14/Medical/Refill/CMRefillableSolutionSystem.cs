@@ -112,6 +112,7 @@ public sealed class CMRefillableSolutionSystem : EntitySystem
         }
 
         var volume = refillable.Value.Comp.Solution.AvailableVolume;
+        //_solutionTransfer.Transfer(null, ent, solutionEnt.Value, args.Entity, refillable.Value, volume);
     }
 
     private void OnRefillSolutionFromContainerOnStoreInserted(Entity<RMCRefillSolutionFromContainerOnStoreComponent> ent, ref EntInsertedIntoContainerMessage args)

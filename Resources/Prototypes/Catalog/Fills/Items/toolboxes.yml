@@ -30,7 +30,6 @@
   id: ToolboxEmergencyFilledEntityTable
   table: !type:AllSelector
     children:
-    - id: CrowbarRed
     - id: RadioHandheld
     - id: WelderMini
     - id: FireExtinguisherMini
@@ -64,7 +63,6 @@
   table: !type:AllSelector
     children:
     - id: Screwdriver
-    - id: CrowbarOrange
     - id: Wirecutter
     - id: CableApcStack10
     - id: CableMVStack10
@@ -95,7 +93,6 @@
   id: ToolboxMechanicalFilledEntityTable
   table: !type:AllSelector
     children:
-    - id: CrowbarOrange
     - id: Wrench
     - id: Welder
     - id: Wirecutter

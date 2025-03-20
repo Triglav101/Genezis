@@ -23,12 +23,10 @@
   - Boxer
   - Chaplain
   - Chef
-  - Clown
   - HeadOfPersonnel
   - Janitor
   - Lawyer
   - Librarian
-  - Mime
   - Musician
   - Passenger
   - Reporter
@@ -151,7 +149,7 @@
   name: department-Silicon
   description: department-Silicon-description
   color: "#D381C9"
-  editorHidden: true
+  editorHidden: false
   roles:
   - Borg
   - StationAi

@@ -56,7 +56,7 @@ public abstract class SharedChatSystem : EntitySystem
     /// <summary>
     /// Cache of the keycodes for faster lookup.
     /// </summary>
-    private FrozenDictionary<char, RadioChannelPrototype> _keyCodes = default!;
+    public FrozenDictionary<char, RadioChannelPrototype> _keyCodes = default!;
 
     public override void Initialize()
     {

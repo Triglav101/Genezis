@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Alert;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
@@ -66,6 +67,7 @@ public sealed class ThirstSystem : EntitySystem
 
     private void OnRefreshMovespeed(EntityUid uid, ThirstComponent component, RefreshMovementSpeedModifiersEvent args)
     {
+        return; // RMC14 no thirst in 13, so no slowdown from it here        
         // TODO: This should really be taken care of somewhere else
         if (_config.GetCVar(CCVars.MoodEnabled)
             || _jetpack.IsUserFlying(uid))

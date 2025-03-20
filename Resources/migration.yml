@@ -840,7 +840,7 @@ CMBoxMRE: RMCBoxMRE
 CMBoxPackFlare: RMCBoxPackFlare
 CMCrateBase: RMCCrateBase
 CMCrateLarge: RMCCrateLarge
-CMCrateWeldable: RMCCrateWeldable
+CMCrateWeldable: RMCCrateBase
 CMCrateAlpha: RMCCrateAlpha
 CMCrateBravo: RMCCrateBravo
 CMCrateCharlie: RMCCrateCharlie
@@ -1190,9 +1190,13 @@ RMCAreaLv759IndoorsWeyyuOfficeVip: RMCAreaLv759IndoorsWeyaOfficeVip
 RMCAreaLv759IndoorsWeyyuOfficePressroom: RMCAreaLv759IndoorsWeyaOfficePressroom
 RMCAreaLv759IndoorsWeyyuOfficeSupervisor: RMCAreaLv759IndoorsWeyaOfficeSupervisor
 
+# 2025-03-14
+RMCCrateWeldable: RMCCrateBase
+
 # 2025-03-01
 RMCHeadsetDistressFreelancer: RMCHeadsetDistressDukes
 RMCEncryptionKeyFreelancer: RMCEncryptionKeyDukes
+
 
 #Genezis
 RMCCableCoil: CableApcStack

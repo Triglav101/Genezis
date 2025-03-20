@@ -1,6 +1,6 @@
-chat-radio-marine-highcommand = Marine High Command
+chat-radio-marine-highcommand = Управление Триглава
 
-chat-radio-marine-common = Almayer
+chat-radio-marine-common = Материнский корабль
 chat-radio-marine-command = Command
 chat-radio-marine-medical = Medical
 chat-radio-marine-engineer = Engineering
@@ -9,7 +9,7 @@ chat-radio-marine-requisition = Requisition
 chat-radio-marine-intel = Intelligence
 chat-radio-marine-jtac = JTAC
 
-chat-radio-marine-alpha = Alpha
+chat-radio-marine-alpha = Синдикат
 chat-radio-marine-bravo = Bravo
 chat-radio-marine-charlie = Charlie
 chat-radio-marine-delta = Delta

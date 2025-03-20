@@ -58,6 +58,7 @@ public sealed class RMCGlobalAdminEui : BaseEui
                 {
                     new HSeparator
                     {
+                        Color = Color.FromHex("#4972A1"),
                         Margin = new Thickness(0, 10),
                     },
                     new Label { Text = cVar, MinWidth = 50 },
@@ -122,6 +123,7 @@ public sealed class RMCGlobalAdminEui : BaseEui
             _window.XenoTiers.AddChild(new Label { Text = $"Tier {tier}: {amount} xenos" });
             _window.XenoTiers.AddChild(new HSeparator
             {
+                Color = Color.FromHex("#4972A1"),
                 Margin = new Thickness(0, 10),
             });
         }

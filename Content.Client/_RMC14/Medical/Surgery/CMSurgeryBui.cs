@@ -67,7 +67,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
         {
             _window = new CMSurgeryWindow();
             _window.OnClose += Close;
-            _window.Title = "Surgery";
+            _window.Title = Loc.GetString("surgery-ui-window-title");
 
             _window.PartsButton.OnPressed += _ =>
             {
@@ -230,7 +230,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
 
             var msg = new FormattedMessage();
             var surgeryName = _entities.GetComponent<MetaDataComponent>(requirement).EntityName;
-            msg.AddMarkupOrThrow($"[bold]Requires: {surgeryName}[/bold]");
+            msg.AddMarkup($"[bold]{Loc.GetString("surgery-ui-window-require")}: {surgeryName}[/bold]");
             label.Set(msg, null);
 
             _window.Steps.AddChild(label);

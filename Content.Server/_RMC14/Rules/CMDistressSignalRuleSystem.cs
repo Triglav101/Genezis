@@ -46,6 +46,7 @@ using Content.Shared._RMC14.Survivor;
 using Content.Shared._RMC14.TacticalMap;
 using Content.Shared._RMC14.Thunderdome;
 using Content.Shared._RMC14.Weapons.Ranged.IFF;
+using Content.Shared._RMC14.WeedKiller;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared._RMC14.Xenonids.Construction.Nest;
 using Content.Shared._RMC14.Xenonids.Construction.Tunnel;
@@ -776,13 +777,6 @@ public sealed class CMDistressSignalRuleSystem : GameRuleSystem<CMDistressSignal
     private void OnMapInit(Entity<XenoEvolutionGranterComponent> ent, ref MapInitEvent args)
     {
         CheckRoundShouldEnd();
-        var hive = _hive.GetHive(ent.Owner);
-        if (hive is null)
-        {
-            return;
-        }
-
-        _hive.SetHiveQueen(ent.Owner, hive.Value);
     }
 
     private void ReloadPrototypes()
@@ -837,7 +831,7 @@ public sealed class CMDistressSignalRuleSystem : GameRuleSystem<CMDistressSignal
             if (xenoCandidate)
                 continue;
 
-            ChatManager.SendAdminAnnouncement("Can't start distress signal. Requires at least 1 xeno player but we have 0.");
+            ChatManager.SendAdminAnnouncement("Невозможно запустить режим. Требуется как минимум 1 игрок на монстрах, а у нас их 0.");
             ev.Cancel();
         }
     }
@@ -1065,6 +1059,12 @@ public sealed class CMDistressSignalRuleSystem : GameRuleSystem<CMDistressSignal
                     Spawn(gas, coordinates);
                 }
             }
+        }
+
+        var tunnels = EntityQueryEnumerator<XenoTunnelComponent>();
+        while (tunnels.MoveNext(out var uid, out _))
+        {
+            EnsureComp<DeletedByWeedKillerComponent>(uid);
         }
 
         return true;
@@ -1324,7 +1324,7 @@ public sealed class CMDistressSignalRuleSystem : GameRuleSystem<CMDistressSignal
         if (!component.AresGreetingDone && announcementTime >= component.AresGreetingDelay)
         {
             component.AresGreetingDone = true;
-            _marineAnnounce.AnnounceARES(default, "Системы... в норме. Инициация разморозки криокапсул", component.AresGreetingAudio,"rmc-announcement-ares-online");
+            _marineAnnounce.AnnounceARES(default, "Системы... в норме, инициация разморозки криокапсул.", component.AresGreetingAudio,"rmc-announcement-ares-online");
         }
 
         if (!component.AresMapDone && announcementTime >= component.AresMapDelay)

@@ -2,7 +2,6 @@
   parent: CMJobXenoBase
   id: CMXenoSelectableXeno
   name: cm-job-name-selectable-xenonid
-  description: cm-job-description-first
   playTimeTracker: CMJobSelectableXeno
   hidden: false
 

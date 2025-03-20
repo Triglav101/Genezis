@@ -51,7 +51,7 @@
   requireAdminNotify: true
   joinNotifyCrew: true
   supervisors: cm-job-supervisors-marine-high-command
-  whitelisted: true
+  whitelisted: false
   accessGroups:
   - ShipMasterAccess
   minimapIcon:
@@ -101,10 +101,11 @@
     shoes: CMShoesLaceupCommander
     head: CMHeadBeretCO
     outerClothing: RMCCoatService
-    id: CMIDCardCommandingOfficer
     ears: CMHeadsetSeniorCommand
     pocket1: RMCPouchCommand
     pocket2: RMCPouchGeneralLarge
+  inhand:
+    - RMCMatebaCustomizationCase
 
 - type: entity
   parent: CMSpawnPointJobBase

@@ -121,10 +121,10 @@ public sealed class RMCTelephoneSystem : SharedRMCTelephoneSystem
     {
         if (TryComp<RotaryPhoneBackpackComponent>(ev.Receiving, out var comp))
         {
-            _chat.TrySendInGameICMessage(ev.Receiving, "rings vigorously!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
+            _chat.TrySendInGameICMessage(ev.Receiving, "звонит энергично!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
         }else
         {
-            _chat.TrySendInGameICMessage(ev.Receiving, "phone rings vigorously!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
+            _chat.TrySendInGameICMessage(ev.Receiving, "рация звонит энергично!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
         }
     }
 }

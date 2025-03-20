@@ -1,4 +1,4 @@
-using Content.Server.Kitchen.Components;
+using Content.Shared.Kitchen.Components;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Damage;

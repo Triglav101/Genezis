@@ -1,4 +1,4 @@
 defaultWindowTitle: вступайте в ряды Триглава
 windowIconSet: /Textures/Logo/icon-ru
 splashLogo: /Textures/Logo/logo-ru.png
-#multiWindow: true
+multiWindow: true
