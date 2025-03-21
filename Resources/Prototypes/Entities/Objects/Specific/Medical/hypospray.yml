@@ -383,6 +383,35 @@
   - type: Tag
     tags: []
 
+# Genezis
+
+- type: entity
+  name: старый инъектор из руин
+  parent: ChemicalMedipen
+  id: NanomachinesMedipen
+  description: Очень старый инъектор, даже если на нём и были знаки отличия - всё исчезло со временем.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: machpen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: machpen_empty
+  - type: SolutionContainerManager
+    solutions:
+      pen:
+        maxVol: 15
+        reagents:
+        - ReagentId: NanomachinesPlus
+          Quantity: 6
+  - type: Tag
+    tags: []
+
+# Genezis
+
 - type: entity
   name: space medipen
   parent: ChemicalMedipen

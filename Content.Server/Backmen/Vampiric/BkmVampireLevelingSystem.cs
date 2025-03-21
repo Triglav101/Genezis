@@ -121,7 +121,7 @@ public sealed class BkmVampireLevelingSystem : EntitySystem
         if (!TryComp<BloodstreamComponent>(args.Target, out var bloodstream))
             return;
 
-        if (bloodstream.BloodReagent != "Blood" || bloodstream.BloodSolution == null)
+        if (bloodstream.BloodSolution == null)
         {
             _popupSystem.PopupEntity(Loc.GetString("bloodsucker-fail-not-blood", ("target", args.Target)), args.Target, ent.Owner, Shared.Popups.PopupType.Medium);
             return;

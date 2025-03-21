@@ -108,3 +108,7 @@
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.7
   - type: TantrumSpeedBuff
+  - type: RMCSurgeryXenoHeart
+    item: RMCOrganXenoHeartT3
+  - type: Bloodstream
+    bloodReagent: [RMCXenoBlood, RMCPlasmaChitin]    

@@ -345,16 +345,16 @@ public sealed class CMSurgeryBui : BoundUserInterface
                     switch (reason)
                     {
                         case StepInvalidReason.MissingSkills:
-                            stepName.AddMarkupOrThrow(" [color=red](Missing surgery skill)[/color]");
+                            stepName.AddMarkupOrThrow(" [color=red]Вы недостаточно натренированны для этого.[/color]");
                             break;
                         case StepInvalidReason.NeedsOperatingTable:
-                            stepName.AddMarkupOrThrow(" [color=red](Needs operating table)[/color]");
+                            stepName.AddMarkupOrThrow(" [color=red]Пациент должен быть на операционном столе.[/color]");
                             break;
                         case StepInvalidReason.Armor:
-                            stepName.AddMarkupOrThrow(" [color=red](Remove their armor!)[/color]");
+                            stepName.AddMarkupOrThrow(" [color=red]Для начала уберите броню![/color]");
                             break;
                         case StepInvalidReason.MissingTool:
-                            stepName.AddMarkupOrThrow(" [color=red](Missing tool)[/color]");
+                            stepName.AddMarkupOrThrow(" [color=red]Нет нужных инструментов.[/color]");
                             break;
                     }
                 }
@@ -383,7 +383,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
         _window.DisabledPanel.Visible = true;
 
         var text = new FormattedMessage();
-        text.AddMarkupOrThrow("[color=red][font size=16]They need to be lying down![/font][/color]");
+        text.AddMarkupOrThrow("[color=red][font size=16]Пациент должен лежать![/font][/color]");
         _window.DisabledLabel.SetMessage(text);
         _window.DisabledPanel.MouseFilter = MouseFilterMode.Stop;
     }
@@ -407,15 +407,15 @@ public sealed class CMSurgeryBui : BoundUserInterface
         if (_entities.TryGetComponent(_part, out MetaDataComponent? partMeta) &&
             _entities.TryGetComponent(_surgery?.Ent, out MetaDataComponent? surgeryMeta))
         {
-            _window.Title = $"Surgery - {partMeta.EntityName}, {surgeryMeta.EntityName}";
+            _window.Title = $"Операция - {partMeta.EntityName}, {surgeryMeta.EntityName}";
         }
         else if (partMeta != null)
         {
-            _window.Title = $"Surgery - {partMeta.EntityName}";
+            _window.Title = $"Операция - {partMeta.EntityName}";
         }
         else
         {
-            _window.Title = "Surgery";
+            _window.Title = "Операция";
         }
     }
 

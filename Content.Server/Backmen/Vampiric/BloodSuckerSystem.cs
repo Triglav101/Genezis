@@ -269,7 +269,7 @@ public sealed class BloodSuckerSystem : SharedBloodSuckerSystem
             }
         }
 
-        if (stream.BloodReagent != "Blood" || stream.BloodSolution == null)
+        if (stream.BloodSolution == null)
         {
             _popups.PopupEntity(Loc.GetString("bloodsucker-fail-not-blood", ("target", victim)), victim, bloodsucker, Shared.Popups.PopupType.Medium);
             return;

@@ -1,0 +1,9 @@
+- type: body
+  id: Xenonid
+  name: монстр
+  root: head
+  slots:
+    head:
+      part: RMCHeadXeno
+      organs:
+        heart: RMCOrganXenoHeart

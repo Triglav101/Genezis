@@ -331,13 +331,13 @@ public sealed partial class FleshCultistSystem : EntitySystem
                     }
                     else
                     {
-                        if (bloodstream.BloodReagent != "Blood")
-                        {
-                            _popupSystem.PopupEntity(
-                                Loc.GetString("flesh-cultist-devout-target-not-have-flesh"),
-                                uid, uid);
-                            return;
-                        }
+                        //if (bloodstream.BloodReagent != "Blood")
+                        //{
+                        //    _popupSystem.PopupEntity(
+                        //        Loc.GetString("flesh-cultist-devout-target-not-have-flesh"),
+                        //        uid, uid);
+                        //    return;
+                        //}
                         if (bloodstream.BloodMaxVolume < 30)
                         {
                             _popupSystem.PopupEntity(

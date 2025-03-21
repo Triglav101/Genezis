@@ -663,3 +663,25 @@
       raffle:
         settings: default
     - type: GhostTakeoverAvailable
+
+# Genezis
+
+- type: entity
+  id: PlayerBorgPolymorphPositronicBrain
+  parent: BorgChassisGeneric
+  suffix: PolymorphPositronicBrain
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain:
+      - PositronicBrain
+
+- type: entity
+  id: PlayerBorgPolymorph
+  parent: BorgChassisGeneric
+  suffix: Polymorph
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain:
+      - MMIFilled

@@ -120,6 +120,8 @@
       state: ravager
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.7
+  - type: RMCSurgeryXenoHeart
+    item: RMCOrganXenoHeartT3    
   - type: TantrumSpeedBuff
   - type: XenoShield
   - type: XenoLeap
@@ -145,3 +147,5 @@
     damage:
       types:
         Slash: 40
+  - type: Bloodstream
+    bloodReagent: [RMCXenoBlood, RMCPlasmaCatecholamine]

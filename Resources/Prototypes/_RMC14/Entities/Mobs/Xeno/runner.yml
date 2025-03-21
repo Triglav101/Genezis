@@ -111,6 +111,9 @@
     baseSprintSpeed: 10
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.1
+  - type: RMCSurgeryXenoHeart
+    item: RMCOrganXenoHeartT1
+    baseSprintSpeed: 10
 
 - type: entity
   parent: CMXenoRunnerBase

@@ -40,7 +40,7 @@
   - type: MovementAlwaysTouching
   - type: Bloodstream
     bloodMaxVolume: 300
-    bloodReagent: Cryoxadone
+    bloodReagent: [Cryoxadone]
   - type: CombatMode
   - type: Temperature
     heatDamageThreshold: 500
@@ -230,7 +230,7 @@
       prob: 0.5
   - type: Bloodstream
     bloodMaxVolume: 250
-    bloodReagent: Cryoxadone
+    bloodReagent: [Cryoxadone]
   - type: Fixtures
     fixtures:
       fix1:
@@ -342,7 +342,7 @@
           prob: 0.3
     - type: Bloodstream
       bloodMaxVolume: 200
-      bloodReagent: Cryoxadone
+      bloodReagent: [Cryoxadone]
     - type: Fixtures
       fixtures:
         fix1:
@@ -515,7 +515,7 @@
     combatToggleAction: ActionCombatModeToggleOff
   - type: Bloodstream
     bloodMaxVolume: 30
-    bloodReagent: Cryoxadone
+    bloodReagent: [Cryoxadone]
   - type: CanEscapeInventory
   - type: MobPrice
     price: 50

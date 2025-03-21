@@ -26,6 +26,26 @@
     {
         "name": "scar_chest",
         "directions": 4
+    },
+    {
+        "name": "scar_neck",
+        "directions": 4
+    },
+    {
+        "name": "scar_chest_bullets",
+        "directions": 4
+    },
+    {
+      "name": "scar_stomach_bullets",
+      "directions": 4
+    },
+    {
+        "name": "scar_face_1",
+        "directions": 4
+    },
+    {
+        "name": "scar_face_2",
+        "directions": 4
     }
   ]
 }
