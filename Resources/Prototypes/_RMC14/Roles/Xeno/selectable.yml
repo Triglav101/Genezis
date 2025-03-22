@@ -3,7 +3,9 @@
   id: CMXenoSelectableXeno
   name: cm-job-name-selectable-xenonid
   playTimeTracker: CMJobSelectableXeno
-  icon: "CMJobIconMonster_meat"  
+  icon: "CMJobIconMonster_meat"
+  jobEntity: CMXenoLarva
+  jobPreviewEntity: CMXenoLarva   
   hidden: false
 
 - type: playTimeTracker

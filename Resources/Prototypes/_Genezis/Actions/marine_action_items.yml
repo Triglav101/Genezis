@@ -1,0 +1,19 @@
+- type: entity
+  parent: ActionMarineBase
+  id: RMCActionToggleWeldingMask
+  name: Переключить режим маски
+  description: Сменить положение сварочной маски.
+  components:
+  - type: InstantAction
+    itemIconStyle: BigItem
+    event: !type:ToggleActionEvent
+
+- type: entity
+  parent: ActionMarineBase
+  id: RMCActionToggleWeldingHelmet
+  name: Переключить режим шлема
+  description: Сменить положение визора на шлеме.
+  components:
+  - type: InstantAction
+    itemIconStyle: BigItem
+    event: !type:ToggleActionEvent

@@ -166,6 +166,8 @@
     shiveringHeatRegulation: 2000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
+    visuallySweats: true
+    visuallyShivers: true    
   - type: MovedByPressure
 
 # Used for mobs that require regular atmospheric conditions.

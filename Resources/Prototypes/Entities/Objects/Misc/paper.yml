@@ -33,6 +33,7 @@
   - type: FaxableObject
   - type: PaperVisuals
   - type: Flammable
+    intensity: 10    
     fireSpread: true
     alwaysCombustible: true
     damage:

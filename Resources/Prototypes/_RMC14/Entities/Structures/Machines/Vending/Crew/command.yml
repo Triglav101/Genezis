@@ -889,7 +889,7 @@
       - id: CMHandsInsulated
       - id: CMHeadsetCE
       - id: CMBootsBlack
-      - id: ClothingEyesGlassesMeson # TODO change to CM13 engi goggles.
+      - id: RMCWeldingGoggles
       - id: RMCNailgunTactical
       # TODO KN5500/2 PDA
      
@@ -909,7 +909,7 @@
       - id: CMHeadBeretEngineer
       - id: RMCHardhatWhite
       - id: RMCHeadCapFlippable
-      # TODO Welding helmet
+      - id: RMCWeldingMask
     - name: Suit
       jobs:
       - CMChiefEngineer

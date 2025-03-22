@@ -35,9 +35,9 @@
         amount: 4
       - id: CMBeltUtility
         amount: 4
-      - id: ClothingEyesGlassesMeson
+      - id: RMCWeldingGoggles
         amount: 4
-      - id: ClothingHeadHatWelding
+      - id: RMCWeldingMask
         amount: 4
       - id: RMCEngineerKit
         amount: 2

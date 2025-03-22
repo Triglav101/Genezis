@@ -9,6 +9,7 @@ using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+using Content.Shared.Temperature;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
@@ -54,6 +55,7 @@ public abstract class SharedRMCFlamerSystem : EntitySystem
 
         SubscribeLocalEvent<RMCIgniterComponent, MapInitEvent>(OnIgniterMapInit, after: [typeof(SharedSolutionContainerSystem)]);
         SubscribeLocalEvent<RMCIgniterComponent, UniqueActionEvent>(OnIgniterUniqueAction);
+        SubscribeLocalEvent<RMCIgniterComponent, IsHotEvent>(OnIgniterToggle);
         SubscribeLocalEvent<RMCIgniterComponent, AttemptShootEvent>(OnIgniterAttemptShoot);
     }
 
@@ -163,6 +165,11 @@ public abstract class SharedRMCFlamerSystem : EntitySystem
 
         _audio.PlayPredicted(ent.Comp.Sound, ent, args.UserUid);
         _appearance.SetData(ent, RMCIgniterVisuals.Ignited, ent.Comp.Enabled);
+    }
+
+    private void OnIgniterToggle(Entity<RMCIgniterComponent> ent, ref IsHotEvent args)
+    {
+        args.IsHot = ent.Comp.Enabled;
     }
 
     protected virtual void OnIgniterAttemptShoot(Entity<RMCIgniterComponent> ent, ref AttemptShootEvent args)

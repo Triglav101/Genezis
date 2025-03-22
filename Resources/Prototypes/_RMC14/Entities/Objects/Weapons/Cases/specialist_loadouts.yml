@@ -80,11 +80,11 @@
     - id: RMCSatchelDemoSpec
     - id: RMCWeaponLauncherM5ATL
     - id: RMCRocket84mm
-      amount: 3 # +1 no WP
+      amount: 2
     - id: RMCRocket84mmAntiArmor
       amount: 2
-#    - id: RMCRocket84mmWhitePhosphorous
-#      amount: 1
+    - id: RMCRocket84mmWhitePhosphorous
+      amount: 1
     - id: RMCMK80
     - id: CMMagazinePistolMK80
       amount: 2

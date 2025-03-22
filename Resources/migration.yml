@@ -740,12 +740,12 @@ CMPouchSling: RMCPouchSling
 CMGroundsideOperationsConsole: RMCGroundsideOperationsConsole
 
 # 2024-08-08
-ToolboxEmergency: RMCToolboxEmergency
-ToolboxEmergencyFilled: RMCToolboxEmergencyFilled
-ToolboxElectrical: RMCToolboxElectrical
-ToolboxElectricalFilled: RMCToolboxElectricalFilled
-ToolboxMechanical: RMCToolboxMechanical
-ToolboxMechanicalFilled: RMCToolboxMechanicalFilled
+# ToolboxEmergency: RMCToolboxEmergency
+# ToolboxEmergencyFilled: RMCToolboxEmergencyFilled
+# ToolboxElectrical: RMCToolboxElectrical
+# ToolboxElectricalFilled: RMCToolboxElectricalFilled
+# ToolboxMechanical: RMCToolboxMechanical
+# ToolboxMechanicalFilled: RMCToolboxMechanicalFilled
 Bucket: RMCBucket
 CMBucket: RMCBucket
 
@@ -1197,6 +1197,9 @@ RMCCrateWeldable: RMCCrateBase
 RMCHeadsetDistressFreelancer: RMCHeadsetDistressDukes
 RMCEncryptionKeyFreelancer: RMCEncryptionKeyDukes
 
+# 2024-12-22
+ClothingHeadHatWelding: RMCWeldingMask
+ClothingEyesGlassesMeson: RMCWeldingGoggles
 
 #Genezis
 RMCCableCoil: CableApcStack

@@ -2,8 +2,8 @@
 - type: entity
   parent: BaseStructureDynamic
   id: RMCCrateBase
-  name: crate
-  description: A rectangular metal crate.
+  name: ящик
+  description: Обычный металический ящик.
   components:
   - type: Transform
     noRot: true
@@ -445,12 +445,28 @@
       map: ["enum.PaperLabelVisuals.Layer"]
   - type: Icon
     sprite: _RMC14/Structures/Storage/Crates/supply.rsi
+  - type: ContainerContainer
+    containers:
+      entity_storage: !type:Container
+      paper_label: !type:ContainerSlot
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: RMCLargeCrateTable
+        prob: 0.75
+  - type: StaticPrice
+    price: 50
+  - type: ItemSlots
+
+  - type: Construction
+    graph: RMCLargeCrates
+    node: planks
 
 - type: entity
   parent: RMCCrateBase
   id: RMCCrateWeapons
-  name: weapons crate
-  description: A weapons crate.
+  name: ящик с оружием
+  description: Оружейный ящик.
   components:
   - type: Sprite
     sprite: _RMC14/Structures/Storage/Crates/weapons.rsi

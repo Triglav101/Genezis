@@ -15,6 +15,9 @@
   - type: Icon
     sprite: _RMC14/Mobs/Rodentia/parts.rsi
     state: full
+  - type: Body
+    prototype: Scaven
+    requiredLegs: 2      
   - type: Speech
     speechVerb: Rodentia
     speechSounds: Squeak

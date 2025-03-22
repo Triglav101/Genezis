@@ -14,19 +14,21 @@
 
 - type: polymorph
   id: Cyborg
-  entity: PlayerBorgPolymorphPositronicBrain
-  forced: true
-  inventory: Drop
-  revertOnCrit: false
-  revertOnDeath: true
+  configuration:    
+    entity: PlayerBorgPolymorphPositronicBrain
+    forced: true
+    inventory: Drop
+    revertOnCrit: false
+    revertOnDeath: true
 
 - type: polymorph
   id: Cyborg2
-  entity: PlayerBorgPolymorph
-  forced: true
-  inventory: Drop
-  revertOnCrit: false
-  revertOnDeath: false
+  configuration:  
+    entity: PlayerBorgPolymorph
+    forced: true
+    inventory: Drop
+    revertOnCrit: false
+    revertOnDeath: false
 
 - type: polymorph
   id: Monkey

@@ -119,7 +119,7 @@
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCloakBlackCloak
-  name: Чёрная мантия священника
+  name: Чёрная мантия фанатика
   description: Чёрная мантия, скрывает тайны?
   components:
   - type: Sprite
@@ -129,8 +129,8 @@
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCloakWhiteCloak
-  name: Белая мантия священника
-  description: Белая официальная мантия священника.
+  name: Белая мантия фанатика
+  description: Белая официальная мантия фанатика.
   components:
   - type: Sprite
     sprite: Backmen/Clothing/Neck/Cloaks/white.rsi

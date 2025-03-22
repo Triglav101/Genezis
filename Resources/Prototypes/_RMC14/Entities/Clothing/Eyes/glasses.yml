@@ -479,8 +479,8 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCWeldingGoggles
-  name: welding goggles
-  description: Protects the eyes from welders, approved by the mad scientist association.
+  name: сварочные очки
+  description: Помогает защитить глаза от яркой сварки.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/welding_goggles.rsi
@@ -493,6 +493,12 @@
   - type: ComponentToggler
     components:
     - type: EyeProtection
+    - type: SightRestrictionItem
+      restriction:
+        impairFull: 3.0
+        impairPartial: 2.0
+        alphaOuter: 1.0
+        alphaInner: 0.0    
   - type: RMCItemToggleClothingVisuals
   - type: GenericVisualizer
     visuals:
