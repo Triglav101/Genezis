@@ -25,6 +25,12 @@
   id: AppraisalTool
 
 - type: Tag
+  id: Cable
+
+- type: Tag
+  id: Disposal
+
+- type: Tag
   id: Arrow
 
 - type: Tag

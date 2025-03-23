@@ -1,6 +1,9 @@
-﻿using Robust.Client.GameObjects;
+﻿using System.Numerics;
+using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.Player;
 using Robust.Shared.Enums;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using static Content.Client.Mapping.MappingState;
 
@@ -9,6 +12,7 @@ namespace Content.Client.Mapping;
 public sealed class MappingOverlay : Overlay
 {
     [Dependency] private readonly IEntityManager _entities = default!;
+    [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
 
     private readonly Dictionary<EntityUid, Color> _oldColors = new();
@@ -30,11 +34,17 @@ public sealed class MappingOverlay : Overlay
     {
         foreach (var (id, color) in _oldColors)
         {
-            if (_entities.TryGetComponent(id, out SpriteComponent? sprite))
+            if (!_entities.TryGetComponent(id, out SpriteComponent? sprite))
+                continue;
+
+            if (sprite.Color != color)
                 sprite.Color = color;
         }
 
         _oldColors.Clear();
+
+        if (_player.LocalEntity == null)
+            return;
 
         var handle = args.WorldHandle;
         handle.UseShader(_shader);
@@ -48,6 +58,16 @@ public sealed class MappingOverlay : Overlay
 
                 break;
             }
+            case CursorState.Decal:
+            {
+                if (_state.GetHoveredDecalData() is { } hovered)
+                {
+                    var (texture, box) = hovered;
+                    args.WorldHandle.DrawTextureRect(texture, box, _state.Meta.Color);
+                }
+
+                break;
+            }
             case CursorState.Entity:
             {
                 if (_state.GetHoveredEntity() is { } entity &&
@@ -55,6 +75,32 @@ public sealed class MappingOverlay : Overlay
                 {
                     _oldColors[entity] = sprite.Color;
                     sprite.Color = _state.Meta.Color;
+                }
+
+                break;
+            }
+            case CursorState.Grid:
+            {
+                if (args.MapId == MapId.Nullspace || _state.GetHoveredGrid() is not { } grid)
+                    break;
+
+                var mapSystem = _entities.System<SharedMapSystem>();
+                var xformSystem = _entities.System<SharedTransformSystem>();
+
+                var tileSize = grid.Comp.TileSize;
+                var tileDimensions = new Vector2(tileSize, tileSize);
+                var (_, _, worldMatrix, invMatrix) = xformSystem.GetWorldPositionRotationMatrixWithInv(grid.Owner);
+                args.WorldHandle.SetTransform(worldMatrix);
+                var bounds = args.WorldBounds;
+                bounds = new Box2Rotated(bounds.Box.Enlarged(1), bounds.Rotation, bounds.Origin);
+                var localAABB = invMatrix.TransformBox(bounds);
+
+                var enumerator = mapSystem.GetLocalTilesEnumerator(grid.Owner, grid, localAABB);
+
+                while (enumerator.MoveNext(out var tileRef))
+                {
+                    var box = Box2.FromDimensions(tileRef.GridIndices, tileDimensions);
+                    args.WorldHandle.DrawRect(box, _state.Meta.Color);
                 }
 
                 break;

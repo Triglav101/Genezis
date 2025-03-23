@@ -4,6 +4,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Tag
+    tags:
+    - Cable  
   - type: Cable
     cuttingDelay: 1
   - type: Clickable

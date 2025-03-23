@@ -128,7 +128,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/tech/jungle.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Helmets/m10/tech/jungle.rsi
-  - type: EyeProtection # TODO RMC14 toggleable
+  # - type: EyeProtection # TODO RMC14 toggleable
   - type: ItemCamouflage
     camouflageVariations:
       Jungle: _RMC14/Objects/Clothing/Head/Helmets/m10/tech/jungle.rsi

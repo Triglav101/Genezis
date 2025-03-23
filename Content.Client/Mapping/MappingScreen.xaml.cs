@@ -11,6 +11,7 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
+using Serilog;
 using static Robust.Client.UserInterface.Controls.BaseButton;
 
 namespace Content.Client.Mapping;
@@ -25,8 +26,7 @@ public sealed partial class MappingScreen : InGameScreen
     private PaletteColorPicker? _picker;
 
     private ProtoId<DecalPrototype>? _id;
-    private readonly FloatSpinBox _rotationSpinBox;
-    public Color DecalColor { get; private set; } = Color.White;
+    private Color _decalColor = Color.White;
     private bool _decalEnableColor;
     private float _decalRotation;
     private bool _decalSnap;
@@ -37,11 +37,12 @@ public sealed partial class MappingScreen : InGameScreen
 
     public override ChatBox ChatBox => GetWidget<ChatBox>()!;
 
-
     public MappingScreen()
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
+
+        var visibilityUIController = UserInterfaceManager.GetUIController<MappingVisibilityUIController>();
 
         AutoscaleMaxResolution = new Vector2i(1080, 770);
 
@@ -55,15 +56,15 @@ public sealed partial class MappingScreen : InGameScreen
         LeftContainer.OnSplitResizeFinished += () =>
             OnChatResized?.Invoke(new Vector2(LeftContainer.SplitFraction, 0));
 
-        _rotationSpinBox = new FloatSpinBox(90.0f, 0)
+        var rotationSpinBox = new FloatSpinBox(90.0f, 0)
         {
             HorizontalExpand = true
         };
-        DecalSpinBoxContainer.AddChild(_rotationSpinBox);
+        DecalSpinBoxContainer.AddChild(rotationSpinBox);
 
         DecalColorPicker.OnColorChanged += OnDecalColorPicked;
         DecalPickerOpen.OnPressed += OnDecalPickerOpenPressed;
-        _rotationSpinBox.OnValueChanged += args =>
+        rotationSpinBox.OnValueChanged += args =>
         {
             _decalRotation = args.Value;
             UpdateDecal();
@@ -79,7 +80,7 @@ public sealed partial class MappingScreen : InGameScreen
             _decalEnableColor = args.Pressed;
             UpdateDecal();
             RefreshDecalList();
-        };        
+        };
         DecalEnableSnap.OnToggled += args =>
         {
             _decalSnap = args.Pressed;
@@ -102,21 +103,22 @@ public sealed partial class MappingScreen : InGameScreen
         }
 
         Pick.Texture.TexturePath = "/Textures/Interface/eyedropper.svg.png";
+        PickDecal.Texture.TexturePath = "/Textures/Interface/VerbIcons/wand-magic-sparkles-solid.svg.192dpi.png";
         Flip.Texture.TexturePath = "/Textures/Interface/VerbIcons/rotate_cw.svg.192dpi.png";
         HideLeftSide.Texture.TexturePath = "/Textures/Interface/VerbIcons/caret-left-solid.svg.192dpi.png";
-        HideRightSide.Texture.TexturePath = "/Textures/Interface/VerbIcons/caret-right-solid.svg.192dpi.png";
-
+        HideRightSide.Texture.TexturePath = "/Textures/Interface/VerbIcons/caret-right-solid.svg.192dpi.png";        
         Flip.OnPressed += _ => FlipSides();
         HideLeftSide.OnPressed += OnToggleLeftContainer;
-        HideRightSide.OnPressed += OnToggleRightContainer;
-
-        var eraseGroup = new ButtonGroup();
-        EraseDecalButton.Group = eraseGroup;
-        EraseTileButton.Group = eraseGroup;
-        EraseEntityButton.Group = eraseGroup;
+        HideRightSide.OnPressed += OnToggleRightContainer;        
+        Visibility.Texture.TexturePath = "/Textures/Interface/VerbIcons/layer-group-solid.svg.192dpi.png";
+        Visibility.OnPressed += _ => visibilityUIController.ToggleWindow();
+        FixGridAtmos.Texture.TexturePath = "/Textures/Interface/VerbIcons/oxygen.svg.192dpi.png";
+        RemoveGrid.Texture.TexturePath = "/Textures/Interface/VerbIcons/delete_transparent.svg.192dpi.png";
+        MoveGrid.Texture.TexturePath = "/Textures/Interface/VerbIcons/point.svg.192dpi.png";
+        GridVV.Texture.TexturePath = "/Textures/Interface/VerbIcons/vv.svg.192dpi.png";
     }
 
-    private void FlipSides()
+    public void FlipSides()
     {
         LeftContainer.Flip();
         RightContainer.Flip();
@@ -137,7 +139,6 @@ public sealed partial class MappingScreen : InGameScreen
         else
         {
             Flip.Texture.TexturePath = "/Textures/Interface/VerbIcons/rotate_ccw.svg.192dpi.png";
-
 
             HideLeftSide.OnPressed -= OnToggleLeftContainer;
             HideLeftSide.OnPressed += OnToggleRightContainer;
@@ -178,16 +179,16 @@ public sealed partial class MappingScreen : InGameScreen
         {
             button.Texture.TexturePath = container.Visible
                 ? "/Textures/Interface/VerbIcons/caret-right-solid.svg.192dpi.png"
-                : "/Textures/Interface/VerbIcons/caret-left-solid.svg.192dpi.png";            
+                : "/Textures/Interface/VerbIcons/caret-left-solid.svg.192dpi.png";
         }
     }
 
     private void OnDecalColorPicked(Color color)
     {
-        DecalColor = color;
+        _decalColor = color;
         DecalColorPicker.Color = color;
         UpdateDecal();
-        RefreshDecalList();        
+        RefreshDecalList();
     }
 
     private void OnDecalPickerOpenPressed(ButtonEventArgs obj)
@@ -216,7 +217,7 @@ public sealed partial class MappingScreen : InGameScreen
         if (_id is not { } id)
             return;
 
-        DecalSystem.UpdateDecalInfo(id, _decalEnableColor ? DecalColor : Color.White, _decalRotation, _decalSnap, _decalZIndex, _decalCleanable);
+        DecalSystem.UpdateDecalInfo(id, _decalEnableColor ? _decalColor : Color.White, _decalRotation, _decalSnap, _decalZIndex, _decalCleanable);
     }
 
     public void SelectDecal(string decalId)
@@ -232,14 +233,14 @@ public sealed partial class MappingScreen : InGameScreen
             _decalCleanable = decal.DefaultCleanable;
             _decalSnap = decal.DefaultSnap;
 
-            DecalColorPicker.Color = DecalColor;
+            DecalColorPicker.Color = _decalColor;
             DecalEnableCleanable.Pressed = _decalCleanable;
             DecalEnableSnap.Pressed = _decalSnap;
-            DecalEnableColor.Pressed = _decalEnableColor;            
+            DecalEnableColor.Pressed = _decalEnableColor;
         }
 
         UpdateDecal();
-        RefreshDecalList();        
+        RefreshDecalList();
     }
 
     public void SelectDecal(Decal decal)
@@ -251,11 +252,11 @@ public sealed partial class MappingScreen : InGameScreen
         _decalCleanable = decal.Cleanable;
 
         if (decal.Color is { } color)
-            DecalColor = color;
+            _decalColor = color;
         else
             _decalEnableColor = false;
 
-        DecalColorPicker.Color = DecalColor;
+        DecalColorPicker.Color = _decalColor;
         DecalEnableCleanable.Pressed = _decalCleanable;
         DecalEnableSnap.Pressed = _decalSnap;
         DecalEnableColor.Pressed = _decalEnableColor;
@@ -264,22 +265,9 @@ public sealed partial class MappingScreen : InGameScreen
         RefreshDecalList();
     }
 
-    public void ChangeDecalRotation(float rotation)
-    {
-        _decalRotation += rotation;
-
-        if (_decalRotation > 360)
-            _decalRotation = 0;
-        if (_decalRotation < 0)
-            _decalRotation = 360;
-
-        _rotationSpinBox.Value = _decalRotation;
-        UpdateDecal();
-    }
-
     private void RefreshDecalList()
     {
-        Decals.TexturesModulate = _decalEnableColor ? DecalColor : Color.White;
+        Decals.TexturesModulate = _decalEnableColor ? _decalColor : Color.White;
         var children = Decals.PrototypeList.Children.ToList().Union(Decals.SearchList.Children);
         foreach (var control in children)
         {
@@ -301,7 +289,7 @@ public sealed partial class MappingScreen : InGameScreen
                 continue;
 
             if (childButton.Texture.Visible)
-                childButton.Texture.Modulate = _decalEnableColor ? DecalColor : Color.White;
+                childButton.Texture.Modulate = _decalEnableColor ? _decalColor : Color.White;
 
             RefreshDecalButton(childButton);
         }
@@ -319,6 +307,11 @@ public sealed partial class MappingScreen : InGameScreen
         Grab.Pressed = Grab == except;
         Move.Pressed = Move == except;
         Pick.Pressed = Pick == except;
+        PickDecal.Pressed = PickDecal == except;
+        FixGridAtmos.Pressed = FixGridAtmos == except;
+        RemoveGrid.Pressed = RemoveGrid == except;
+        MoveGrid.Pressed = MoveGrid == except;
+        GridVV.Pressed = GridVV == except;
 
         EraseEntityButton.Pressed = EraseEntityButton == except;
         EraseDecalButton.Pressed = EraseDecalButton == except;

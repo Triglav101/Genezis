@@ -557,6 +557,9 @@ binds:
   type: State
   key: S
   mod1: Control
+- function: MappingEnableDecalPick
+  type: State
+  key: Num4
 - function: MappingEnablePick
   type: State
   key: Num5
@@ -579,6 +582,8 @@ binds:
   type: State
   key: MouseRight
   canFocus: true
+
+
 - function: OpenLanguageMenu
   type: State
   key: L

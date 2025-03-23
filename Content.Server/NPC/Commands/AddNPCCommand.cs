@@ -44,8 +44,7 @@ namespace Content.Server.NPC.Commands
                 Task = args[1]
             };
             _entities.System<Systems.NPCSystem>().SetBlackboard(entId.Value,"Owner",entId); // backmen
-
-            shell.WriteLine("AI component added.");
+            shell.WriteLine("AI component added.");            
         }
     }
 }

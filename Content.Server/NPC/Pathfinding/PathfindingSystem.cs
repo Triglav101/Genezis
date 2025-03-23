@@ -67,7 +67,6 @@ namespace Content.Server.NPC.Pathfinding
 
         private int _portalIndex;
         private readonly Dictionary<int, PathPortal> _portals = new();
-
         private EntityQuery<Shared.Backmen.Blob.Components.BlobTileComponent> _tilesQuery; // backmen: blob
         private EntityQuery<AccessReaderComponent> _accessQuery;
         private EntityQuery<DestructibleComponent> _destructibleQuery;

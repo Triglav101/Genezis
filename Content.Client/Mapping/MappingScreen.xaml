@@ -1,7 +1,6 @@
 ﻿<mapping:MappingScreen
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    xmlns:menuBar="clr-namespace:Content.Client.UserInterface.Systems.MenuBar.Widgets"    
     xmlns:widgets="clr-namespace:Content.Client.UserInterface.Systems.Chat.Widgets"
     xmlns:hotbar="clr-namespace:Content.Client.UserInterface.Systems.Hotbar.Widgets"
     xmlns:graphics="clr-namespace:Robust.Client.Graphics;assembly=Robust.Client"
@@ -9,7 +8,6 @@
     VerticalExpand="False"
     VerticalAlignment="Bottom"
     HorizontalAlignment="Center">
-    <menuBar:GameTopMenuBar Visible="False" />
     <SplitContainer Name="LeftContainer" HorizontalExpand="True"
                     VerticalExpand="True" SplitWidth="0"
                     StretchDirection="TopLeft" ResizeMode="NotResizable">
@@ -49,7 +47,7 @@
                     </PanelContainer.PanelOverride>
                     <BoxContainer Orientation="Horizontal">
                         <mapping:MappingActionsButton Name="HideLeftSide" Access="Public" ToggleMode="False"
-                                                      ToolTip="{Loc 'mapping-hide-left-side-tooltip'}" SetWidth="24" />
+                                                      ToolTip="{Loc 'mapping-hide-left-side-tooltip'}" SetWidth="24" />                        
                         <mapping:MappingActionsButton Name="Add" Access="Public"
                                                       Disabled="True" ToolTip=""
                                                       Visible="False" />
@@ -60,15 +58,25 @@
                         <mapping:MappingActionsButton Name="Move" Access="Public"
                                                       ToolTip="" Visible="False" />
                         <mapping:MappingActionsButton Name="Pick" Access="Public" />
+                        <mapping:MappingActionsButton Name="PickDecal" Access="Public" />
                         <mapping:MappingActionsButton Name="Flip" Access="Public" ToggleMode="False"
                                                       ToolTip="{Loc 'mapping-flip-tooltip'}" />
-                        <BoxContainer HorizontalExpand="True" />
+                        <mapping:MappingActionsButton Name="Visibility" Access="Public" ToggleMode="False"
+                                                      ToolTip="{Loc 'mapping-visibility-tooltip'}" />
+                        <mapping:MappingActionsButton Name="FixGridAtmos" Access="Public"
+                                                      ToolTip="{Loc 'mapping-fixgridatmos-tooltip'}" />
+                        <mapping:MappingActionsButton Name="RemoveGrid" Access="Public"
+                                                      ToolTip="{Loc 'mapping-remove-grid-tooltip'}" />
+                        <mapping:MappingActionsButton Name="MoveGrid" Access="Public"
+                                                      ToolTip="{Loc 'mapping-move-grid-tooltip'}" />
+                        <mapping:MappingActionsButton Name="GridVV" Access="Public"
+                                                      ToolTip="{Loc 'mapping-grid-vv-tooltip'}" />
                         <mapping:MappingActionsButton Name="HideRightSide" Access="Public" ToggleMode="False"
                                                       ToolTip="{Loc 'mapping-hide-right-side-tooltip'}" SetWidth="24"
-                                                      Margin="0" />
+                                                      Margin="0" />                                                      
                     </BoxContainer>
                 </PanelContainer>
-                <widgets:ChatBox Visible="False" ReservesSpace="False" />
+                <widgets:ChatBox Visible="False" ReservesSpace="False" />                
             </LayoutContainer>
             <BoxContainer Name="RightSpawnContainer" Orientation="Vertical" VerticalExpand="True" MinWidth="200" SetWidth="500">
                 <PanelContainer VerticalExpand="True" HorizontalExpand="True">

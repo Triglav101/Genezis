@@ -25,12 +25,12 @@
                         ToggleMode="True" SetSize="48 48">
                     <TextureRect Name="FavoriteTexture" Access="Public" Stretch="KeepAspectCentered" SetSize="24 24"
                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Button>                       
+                </Button>
             </BoxContainer>
         </Control>
         <BoxContainer Name="ChildrenPrototypes" Access="Public" Orientation="Vertical"
                       Margin="24 0 0 0" />
         <GridContainer Name="ChildrenPrototypesGallery" Access="Public" Columns="10"
-                       Margin="24 0 0 0" />                      
+                       Margin="24 0 0 0" />
     </BoxContainer>
 </mapping:MappingSpawnButton>

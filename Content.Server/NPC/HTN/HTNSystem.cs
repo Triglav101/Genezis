@@ -166,6 +166,7 @@ public sealed class HTNSystem : EntitySystem
             RequestPlan(ent.Comp);
     }
 
+
     /// <summary>
     /// Forces the NPC to replan.
     /// </summary>

@@ -237,7 +237,6 @@
         - id: SpetsnazMedipen
           amount: 3
         - id: WeaponDominatorNT
-        - id: WeaponPistolDivet2
         - id: MagazinePistol345
           amount: 3
         - id: WeaponPulseRifleAP12
@@ -261,7 +260,6 @@
         - id: SpetsnazMedipen
           amount: 3
         - id: WeaponDominatorNT
-        - id: WeaponPistolDivet2
         - id: MagazinePistol345
           amount: 3
         - id: WeaponPulseRifleAP12
