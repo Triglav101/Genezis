@@ -230,6 +230,9 @@ internal sealed partial class ChatManager : IChatManager
             case OOCChatType.Admin:
                 SendAdminChat(player, message);
                 break;
+            case OOCChatType.Mentor:
+                SendMentorChat(player, message);
+                break;                
         }
     }
 

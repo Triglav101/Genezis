@@ -15,4 +15,4 @@ rmc-storage-webbing-remove-verb = Remove webbing
 rmc-storage-medal-remove-verb = Remove medal
 rmc-storage-holster-eject-verb = Unholster
 rmc-storage-nested-unable = You can't seem to open {THE($nested)} while it is in {THE($parent)}.
-rmc-storage-store-skill-unable = The storage cannot hold that item!
+rmc-storage-store-skill-unable = Этот предмет не помещается сюда!

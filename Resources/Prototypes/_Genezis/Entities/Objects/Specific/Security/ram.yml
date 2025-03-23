@@ -1,0 +1,27 @@
+- type: entity
+  id: Ram
+  parent: [BaseItem, BaseRestrictedContraband]
+  name: ручной таран
+  description: Для быстрого входа в помещение.
+  components:
+    - type: Sprite
+      sprite: Objects/Specific/Security/ram.rsi
+      state: icon
+    - type: Item
+      size: Ginormous
+    - type: MeleeWeapon
+      wideAnimationRotation: -90
+      damage:
+        types:
+          Blunt: 10
+          Structural: 17
+      attackRate: 0.5
+      angle: 0
+      animation: WeaponArcThrust
+      soundHit:
+        collection: MetalThud   
+    - type: MultiHandedItem
+    - type: ClothingSpeedModifier
+      walkModifier: 1
+      sprintModifier: 0.8
+    - type: HeldSpeedModifier

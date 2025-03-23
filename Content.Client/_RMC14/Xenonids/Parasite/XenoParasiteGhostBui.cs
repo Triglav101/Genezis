@@ -15,6 +15,7 @@ public sealed class XenoParasiteGhostBui : BoundUserInterface
 
     protected override void Open()
     {
+        base.Open();        
         _window = new XenoParasiteGhostWindow();
         _window.OnClose += Close;
         _window.DenyButton.OnPressed += _ => _window.Close();

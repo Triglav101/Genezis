@@ -63,6 +63,7 @@
   - BoxBeanbag
   - WeaponDisabler
   - WeaponMechCombatDisabler
+  - Ram
 
 - type: technology
   id: UraniumMunitions

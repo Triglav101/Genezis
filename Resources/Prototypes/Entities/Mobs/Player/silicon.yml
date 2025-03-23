@@ -123,163 +123,93 @@
         # anyway it's just a quality of life thing.
         showEnts: True
 
-# Boards
+# Интерфейс С.У.Д.Ь.И. + чипы законов
 - type: entity
-  id: AsimovCircuitBoard
-  parent: BaseElectronics
-  name: law board (Crewsimov)
-  description: An electronics board containing the Crewsimov lawset.
+  id: JudgeInterface
+  parent: BaseItem
+  name: Интерфейс С.У.Д.Ь.Я.
+  description: Одна из так и невышедших технологий Киберсана, способна переводить человекочитаемый текст в киберзаконный код, подчиняющийся ИИ, и впечатывать его в чипы памяти.
   components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: Crewsimov
+   - type: Sprite
+     sprite: Objects/Devices/judgeinterface.rsi
+     layers:
+       - state: device
+       - state: screen-normal
+         shader: unshaded
+         visible: false
+         map: ["enum.ToggleVisuals.Layer", "enum.JudgeInterfaceVisuals.Screen"]
+       - state: broken
+         visible: false
+         map: ["enum.JudgeInterfaceVisuals.Broken"]
+   - type: Appearance
+   - type: GenericVisualizer
+     visuals:
+      enum.JudgeInterfaceVisuals.DeviceState:
+        enum.JudgeInterfaceVisuals.Screen:
+          Normal: { state: screen-normal }
+          Hacked: { state: screen-hacked }
+          Broken: { state: screen-busted }
+        enum.JudgeInterfaceVisuals.Broken:
+          Normal: { visible: false }
+          Hacked: { visible: false }
+          Broken: { visible: true }
+      enum.ToggleVisuals.Toggled:
+        enum.ToggleVisuals.Layer:
+          True: { visible: true }
+          False: { visible: false }
+   - type: Damageable
+     damageContainer: Inorganic
+     damageModifierSet: Glass
+   - type: Destructible
+     thresholds:
+     - trigger:
+         !type:DamageTrigger
+         damage: 10
+       behaviors:
+       - !type:PlaySoundBehavior
+         sound:
+           collection: GlassBreak
+           params:
+             volume: -4
+       - !type:DoActsBehavior
+         acts: [ "Breakage" ]
+   - type: DamageOnLand
+     damage:
+       types:
+         Blunt: 10
+   - type: ItemToggle
+     predictable: false
+   - type: JudgeInterface
+     chipSlot:
+      name: device-law-chip-name-blank
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Machines/id_insert.ogg
+      whitelist:
+        components:
+        - LawChip
+   - type: ItemSlots
 
 - type: entity
-  id: CorporateCircuitBoard
+  id: LawChipBlank
   parent: BaseElectronics
-  name: law board (Corporate)
-  description: An electronics board containing the Corporate lawset.
+  name: law chip
+  description: A factory-fresh, empty and editable law chip.
   components:
   - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: Corporate
-
-- type: entity
-  id: NTDefaultCircuitBoard
-  parent: BaseElectronics
-  name: law board (NT Default)
-  description: An electronics board containing the NT Default lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: NTDefault
-
-- type: entity
-  id: CommandmentCircuitBoard
-  parent: BaseElectronics
-  name: law board (Ten Commandments)
-  description: An electronics board containing the Ten Commandments lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: CommandmentsLawset
-
-- type: entity
-  id: PaladinCircuitBoard
-  parent: BaseElectronics
-  name: law board (Paladin)
-  description: An electronics board containing the Paladin lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: PaladinLawset
-
-- type: entity
-  id: LiveLetLiveCircuitBoard
-  parent: BaseElectronics
-  name: law board (Live and Let Live)
-  description: An electronics board containing the Live and Let Live lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: LiveLetLiveLaws
-
-- type: entity
-  id: StationEfficiencyCircuitBoard
-  parent: BaseElectronics
-  name: law board (Station Efficiency)
-  description: An electronics board containing the Station Efficiency lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: EfficiencyLawset
-
-- type: entity
-  id: RobocopCircuitBoard
-  parent: BaseElectronics
-  name: law board (Robocop)
-  description: An electronics board containing the Robocop lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: RobocopLawset
-
-- type: entity
-  id: OverlordCircuitBoard
-  parent: BaseElectronics
-  name: law board (Overlord)
-  description: An electronics board containing the Overlord lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: OverlordLawset
-
-- type: entity
-  id: GameMasterCircuitBoard
-  parent: BaseElectronics
-  name: law board (Game Master)
-  description: An electronics board containing the Game Master lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: GameMasterLawset
-
-- type: entity
-  id: ArtistCircuitBoard
-  parent: BaseElectronics
-  name: law board (Artist)
-  description: An electronics board containing the Artist lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: PainterLawset
-
-- type: entity
-  id: AntimovCircuitBoard
-  parent: [BaseElectronics, BaseSyndicateContraband]
-  name: law board (Antimov)
-  description: An electronics board containing the Antimov lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: AntimovLawset
-    lawUploadSound: /Audio/Ambience/Antag/silicon_lawboard_antimov.ogg
-
-- type: entity
-  id: NutimovCircuitBoard
-  parent: BaseElectronics
-  name: law board (Nutimov)
-  description: An electronics board containing the Nutimov lawset.
-  components:
-  - type: Sprite
-    sprite: Objects/Misc/module.rsi
-    state: std_mod
-  - type: SiliconLawProvider
-    laws: NutimovLawset
+    sprite: Objects/Misc/law_chip.rsi
+    state: blank
+    map: [ enum.LawChipVisuals.Printing ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.LawChipVisuals.State:
+        enum.LawChipVisuals.Printing:
+            Blank:      { state: blank }
+            Normal:     { state: normal }
+            Defective:  { state: defective }
+            Hacked:     { state: hacked }
+            Custom:     { state: custom }
+  - type: LawChip
 
 # Items
 - type: entity

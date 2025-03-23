@@ -590,6 +590,12 @@ public sealed class ChatUIController : UIController
             FilterableChannels |= ChatChannel.Telepathic;
         }
 
+        if (_staffHelpUI.IsMentor)
+        {
+            FilterableChannels |= ChatChannel.MentorChat;
+            CanSendChannels |= ChatSelectChannel.Mentor;
+        }
+
         SelectableChannels = CanSendChannels;
 
         // Necessary so that we always have a channel to fall back to.
