@@ -67,6 +67,10 @@
     amount: 0.25
   - !type:PlantAdjustWater
     amount: 0.7
+  - !type:DrugIntoxication
+    addictionEffect: 0.05
+    toleranceEffect: 0.0015
+    drugStrenght: 1
 
 - type: reagent
   id: BaseJuice
