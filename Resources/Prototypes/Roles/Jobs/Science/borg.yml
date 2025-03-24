@@ -14,6 +14,8 @@
   jobEntity: StationAiBrain
   jobPreviewEntity: PlayerStationAiPreview
   applyTraits: false
+  loadoutOverride: StationAILoadoutWindow
+  loadoutButtonText: Снаряжение
 
 - type: job
   id: Borg
@@ -25,7 +27,7 @@
       time: 144000 # 40 hrs
   canBeAntag: false
   icon: JobIconBorg
-  supervisors: job-supervisors-rd
+  supervisors: job-supervisors-AI
   jobEntity: PlayerBorgBattery
   startingGear: RobotGear # backmen
   applyTraits: false

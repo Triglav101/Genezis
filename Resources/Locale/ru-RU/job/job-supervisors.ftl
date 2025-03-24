@@ -6,6 +6,7 @@ job-supervisors-ce = Старшему Инженеру
 job-supervisors-cmo = Главному Врачу
 job-supervisors-qm = Квартирмейстеру
 job-supervisors-rd = Научному Руководителю
+job-supervisors-AI = Главный ИИ объекта
 job-supervisors-service = Поварам, Ботаникам, Барменам, и Главе Персонала
 job-supervisors-engineering = Инженерам, Атмосферным Техникам, и Старшему Инженеру
 job-supervisors-medicine = Врачам, Химикам, и Главному Врачу

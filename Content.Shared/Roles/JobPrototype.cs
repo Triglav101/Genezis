@@ -178,6 +178,12 @@ namespace Content.Shared.Roles
         [DataField]
         public List<ProtoId<GuideEntryPrototype>>? Guides;
 
+        [DataField]
+        public string? LoadoutOverride;
+
+        [DataField]
+        public string? LoadoutButtonText;
+
         // SS220 Round End Titles begin
         /// <summary>
         /// This role will not be displayed in these department sections.

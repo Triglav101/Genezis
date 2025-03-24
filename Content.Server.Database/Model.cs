@@ -91,6 +91,12 @@ namespace Content.Server.Database
                 .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.TraitName})
                 .IsUnique();
 
+            modelBuilder.Entity<ExtraLoadoutData>()
+                 .HasOne(x => x.RoleLoadout)
+                 .WithMany(l => l.ExtraData)
+                 .HasForeignKey(x => x.ProfileRoleLoadoutId)
+                 .IsRequired();
+
             modelBuilder.Entity<ProfileRoleLoadout>()
                 .HasOne(e => e.Profile)
                 .WithMany(e => e.Loadouts)
@@ -598,6 +604,8 @@ namespace Content.Server.Database
         /// Store the saved loadout groups. These may get validated and removed when loaded at runtime.
         /// </summary>
         public List<ProfileLoadoutGroup> Groups { get; set; } = new();
+
+        public List<ExtraLoadoutData> ExtraData { get; set; } = new();        
     }
 
     /// <summary>
@@ -647,6 +655,14 @@ namespace Content.Server.Database
          */
     }
 
+    public class ExtraLoadoutData
+     {
+         public int Id { get; set; }
+         public ProfileRoleLoadout RoleLoadout { get; set; } = null!;
+         public int ProfileRoleLoadoutId { get; set; }
+         public string Key { get; set; } = string.Empty;
+         public string Value { get; set; } = string.Empty;
+     }
     #endregion
 
     public enum DbPreferenceUnavailableMode

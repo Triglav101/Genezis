@@ -287,3 +287,4 @@
   - type: SpawnOnTerminate
     spawn: RMCSmoke
     projectileAdjust: false
+  - type: GibOnHit

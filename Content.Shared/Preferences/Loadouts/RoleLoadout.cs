@@ -22,6 +22,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
     [DataField]
     public Dictionary<ProtoId<LoadoutGroupPrototype>, List<Loadout>> SelectedLoadouts = new();
 
+    /// <summary>
+    /// Extra data for this loadout.
+    /// </summary>
+    public Dictionary<string, string> ExtraData = new();
+
     /*
      * Loadout-specific data used for validation.
      */
@@ -41,6 +46,11 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         {
             weh.SelectedLoadouts.Add(selected.Key, new List<Loadout>(selected.Value));
         }
+        foreach (var extra in ExtraData)
+        {
+            weh.ExtraData.Add(extra.Key, extra.Value);
+        }
+
 
         weh.Points = Points;
 
@@ -158,6 +168,24 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
         {
             SelectedLoadouts.Remove(value);
         }
+        // Extras validation (we don't want assists to have SAI data, right?)
+        if (!protoManager.TryIndex(Role, out var role) || role.AllowedExtras == null)
+        {
+            ExtraData.Clear();
+            return;
+        }
+
+        List<string> toRemove = new();
+        foreach (var extra in ExtraData)
+        {
+            if (role.AllowedExtras.Contains(extra.Key))
+                continue;
+            toRemove.Add(extra.Key);
+        }
+        foreach (var key in toRemove)
+        {
+            ExtraData.Remove(key);
+        }        
     }
 
     private void Apply(LoadoutPrototype loadoutProto)
@@ -180,7 +208,10 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
             return;
 
         if (force)
+        {
             SelectedLoadouts.Clear();
+            ExtraData.Clear();
+        }    
 
         var collection = IoCManager.Instance!;
         var roleProto = protoManager.Index(Role);
@@ -352,6 +383,9 @@ public sealed partial class RoleLoadout : IEquatable<RoleLoadout>
                 return false;
             }
         }
+
+        if (!ExtraData.SequenceEqual(other.ExtraData))
+            return false;
 
         return true;
     }

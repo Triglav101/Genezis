@@ -584,3 +584,9 @@ public enum StationAiState : byte
     Occupied,
     Dead,
 }
+
+[Serializable, NetSerializable]
+public enum StationAiCustomVisualState : byte
+{
+    Key,
+}
