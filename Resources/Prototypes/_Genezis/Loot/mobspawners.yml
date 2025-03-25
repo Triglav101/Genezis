@@ -1,0 +1,30 @@
+﻿- type: entity
+  name: спавнер сущностей (моментально)
+  suffix: Триглав
+  id: TRVMobSpawner1
+  parent: MarkerBase
+  components:
+    - type: Sprite
+      layers:
+        - state: red
+    - type: Timer
+    - type: SmartMobSpawner
+      mobPrototype: MobGiantSpider
+      minRespawnTimeSeconds: 5
+      maxRespawnTimeSeconds: 10
+
+- type: entity
+  name: спавнер сущностей
+  suffix: Триглав
+  id: TRVMobSpawner2
+  parent: MarkerBase
+  components:
+  - type: Sprite
+    layers:
+    - state: red
+  - type: Timer
+  - type: SmartMobSpawner
+    mobPrototype: MobGiantSpider
+    minRespawnTimeSeconds: 5
+    maxRespawnTimeSeconds: 10
+    spawnMobOnInit: false

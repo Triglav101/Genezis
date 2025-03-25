@@ -17,6 +17,9 @@ public sealed partial class EntityHeaterComponent : Component
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public float Power = 2400f;
 
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
+     public bool RequiresPower = true;
+
     /// <summary>
     /// Current setting of the heater. If it is off or unpowered it won't heat anything.
     /// </summary>

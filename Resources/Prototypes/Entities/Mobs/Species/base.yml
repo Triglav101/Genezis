@@ -146,6 +146,7 @@
   - type: Body
     prototype: Human
     requiredLegs: 2
+  - type: CritDeathSounds    
   - type: Identity
   - type: IdExaminable
   - type: Hands
@@ -300,6 +301,9 @@
     spawned:
       - id: FoodMeat
         amount: 5
+      - id: HeadSkeleton
+      - id: MaterialBones1
+        amount: 4        
   - type: Respirator
     damage:
       types:
