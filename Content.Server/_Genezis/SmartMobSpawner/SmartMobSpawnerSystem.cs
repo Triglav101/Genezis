@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Content.Server._Genezis.Spawners.Components;
 using Robust.Shared.Random;
 
 namespace Content.Server._Genezis.SmartMobSpawner;
