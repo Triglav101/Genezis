@@ -14,17 +14,24 @@
       "name": "abomination",
       "directions": 4
     },
-	{
+	  {
       "name": "rag",
       "directions": 4
     },
-	{
+	  {
       "name": "armored",
       "directions": 4
     },
-	{
+	  {
       "name": "eyes",
       "directions": 4
+    },
+    {
+      "name": "dead-walker",
+      "directions": 4 
+    },
+    {
+      "name": "ddead-walker"
     }
   ]
 }

@@ -20,6 +20,15 @@ uplink-esword-double-desc = A much more expensive counter part to the normal ene
 uplink-edagger-name = Energy Dagger
 uplink-edagger-desc = A small energy blade conveniently disguised in the form of a pen.
 
+uplink-dualetta-kit-name = Набор дуалет
+uplink-dualetta-kit-desc = Две дуалеты по дешевой цене.
+
+uplink-dualetta-bundle-name = Полный набор дуалет
+uplink-dualetta-bundle-desc = Поставляется с двумя дуалетами, 2 магазинами для них, боевыми перчатками, костюмом в стиле нуар, плащом детектива и ботинки на шнуровке.
+
+uplink-highcap-pistol-mag-name = Пистолетный магазин большой емкости .35
+uplink-highcap-pistol-mag-desc = Емкий пистолетный магазин вмещает 4 дополнительных патрона - всего 16.
+
 uplink-fire-axe-flaming-name = Fire Axe
 uplink-fire-axe-flaming-desc = A classic-style weapon infused with advanced atmos technology to allow it to set targets on fire. Now with rugged rubberized handle!
 

@@ -8,7 +8,7 @@
     mobPrototype: MobWalker
   - type: Sprite
     layers:
-    - state: dead-walker
+    - state: red
     - sprite: Mobs/Demons/abomination.rsi
       state: dead-walker
 

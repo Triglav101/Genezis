@@ -1,8 +1,8 @@
 ﻿- type: entity
   parent: AirlockCargo
-  name: Kuznetsk factory entrance
+  name: Двери руин
   id: AirlockFactoryEntrance
-  suffix: ERRORGATE
+  suffix: Триглав
   components:
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/cargo.rsi
@@ -22,13 +22,13 @@
 
 - type: accessLevel
   id: Factory
-  name: Kuznetsk factory entrance
+  name: Странные руины
 
 - type: entity
   parent: BaseItem
   id: AccessCardBase
-  name: access card
-  description: A card necessary to access secure areas.
+  name: название???
+  description: Описание???
   abstract: true
   components:
   - type: Sprite
@@ -48,17 +48,13 @@
 - type: entity
   parent: AccessCardBase
   id: FactoryCard
-  description: "You can read the label: Kuznetsk factory worker"
-  suffix: ERRORGATE
+  name: древняя плата  
+  description: Усройство мертвой цивилизации, требуется для получения доступа к закрыт областям.
+  suffix: Триглав
   components:
   - type: Sprite
-    layers:
-    - state: default
-    - state: department
-      color: "#B18644"
-    - state: subdepartment
-      color: "#B18644"
-    - state: cargotechnician
+    sprite: /Textures/Genezis/Objects/Misc/id_cards.rsi
+    state: black
   - type: Access
     tags:
     - Factory

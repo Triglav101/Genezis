@@ -90,8 +90,8 @@
   - type: Sprite
     layers:
     - state: blue
-    - sprite: Objects/Fun/whistle.rsi
-      state: securityWhistle
+    - sprite: Objects/Misc/handcuffs.rsi
+      state: handcuff
 
 - type: entity
   name: loot spawner (Industrial)

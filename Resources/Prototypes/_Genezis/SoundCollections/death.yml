@@ -9,8 +9,8 @@
 - type: soundCollection
   id: deathSounds
   files:
-  - /White/Audio/Death/death.ogg
-  - /White/Audio/Death/death.wav
+  - /Audio/White/Audio/Death/death.ogg
+  - /Audio/White/Audio/Death/death.wav
  
 - type: soundCollection
   id: heartSounds

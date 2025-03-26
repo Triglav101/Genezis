@@ -26,7 +26,7 @@
   id: TurretCompatibleWeapon # Used in the construction of sentry turrets
 
 - type: Tag
-  id: Grenade
+  id: WeaponPistolDualetta
 
 - type: Tag
   id: CMPillCanister

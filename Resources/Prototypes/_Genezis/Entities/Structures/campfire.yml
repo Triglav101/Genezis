@@ -32,8 +32,12 @@
   components:
   - type: TimedDespawn
     lifetime: 300 # 5 minutes
-  - type: Lava
-    fireStacks: 0.5
+  - type: TileEntityEffect
+    effects:
+    - !type:FlammableReaction
+      multiplier: 3.75
+      multiplierOnExisting: 0.75
+    - !type:Ignite
   - type: StepTrigger
     requiredTriggeredSpeed: 0
     intersectRatio: 0.1
