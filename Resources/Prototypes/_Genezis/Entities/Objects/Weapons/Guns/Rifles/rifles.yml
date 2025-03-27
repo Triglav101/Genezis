@@ -1,0 +1,48 @@
+- type: entity
+  id: ADTEctoplasmicRifle
+  parent: BaseWeaponPowerCell
+  name: эктоплазматическая винтовка
+  description: Сделана специально для охоты на эктоплазматические формы жтзни.
+  components:
+  - type: Sprite
+    sprite: /Textures/ADT/Objects/Weapons/Guns/Rifles/ecto_rifle.rsi
+    layers:
+    - state: base
+  - type: Item
+    sprite: /Textures/ADT/Objects/Weapons/Guns/Rifles/ecto_rifle.rsi
+    size: Huge
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: true
+  - type: AmmoCounter
+  - type: Gun
+    fireRate: 3
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: ADTPowerCellEctoplasm
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags:
+            - PhantomEctoplasm
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Clothing
+    sprite: ADT/Objects/Weapons/Guns/Rifels/ecto_rifle.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage

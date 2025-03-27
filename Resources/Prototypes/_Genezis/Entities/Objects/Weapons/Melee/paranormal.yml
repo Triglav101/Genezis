@@ -1,0 +1,53 @@
+- type: entity
+  parent: ClothingHandsBase
+  id: ADTGhostClaws
+  name: зеленые боксерские перчатки
+  description: Зеленые перчатки для соревнований по боксу.
+  components:
+  - type: Sprite
+    sprite: ADT/Objects/Weapons/Melee/ghost_claws.rsi
+    state: icon
+  - type: Clothing
+    sprite: ADT/Objects/Weapons/Melee/ghost_claws.rsi
+  - type: MeleeWeapon
+    attackRate: 1
+    damage:
+      types:
+        Slash: 16
+    soundHit:
+        path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
+    angle: 0
+    animation: WeaponArcClaw
+  - type: FingerprintMask
+
+- type: entity
+  name: фанатичный меч
+  parent: BaseKnife
+  id: ADTEctoSword
+  description: Меч избранный фанатиком для уничтожения противников Триглава.
+  components:
+  - type: Tag
+    tags:
+    - Knife
+  - type: Sprite
+    sprite: ADT/Objects/Weapons/Melee/ecto-sword.rsi
+    state: icon
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
+    damage:
+      types:
+        Slash: 1.5
+  - type: Item
+    sprite: ADT/Objects/Weapons/Melee/ecto-sword.rsi
+    size: Huge
+  - type: HolyDamage
+  - type: PointLight
+    color: Cyan
+    radius: 1.5
+    softness: 3
+  - type: Clothing
+    sprite: ADT/Objects/Weapons/Melee/ecto-sword.rsi
+    quickEquip: false
+    slots:
+    - suitstorage

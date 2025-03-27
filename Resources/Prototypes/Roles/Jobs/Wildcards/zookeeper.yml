@@ -1,6 +1,7 @@
 - type: job
+  parent: CMJobBase
   id: Zookeeper
-  name: job-name-zookeeper
+  name: Ксенобиолог
   description: job-description-zookeeper
   playTimeTracker: JobZookeeper
   startingGear: ZookeeperGear

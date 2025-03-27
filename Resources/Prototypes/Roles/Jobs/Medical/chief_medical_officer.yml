@@ -45,8 +45,9 @@
       flatBonus: 0.025
     - type: NpcFactionMember
       factions:
-      - CentralCommand
+      - CentralCommand  
     - type: CommandStaff
+    - type: PhantomTyranyTarget # ADT Phantom        
     #start-backmen: surgery
     #- type: CPRTraining
     - type: SurgerySpeedModifier

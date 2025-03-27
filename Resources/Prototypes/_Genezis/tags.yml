@@ -32,6 +32,18 @@
   id: CMPillCanister
 
 - type: Tag
+  id: PhantomEctoplasm
+ 
+- type: Tag
+  id: PhantomEctoplasmBattery
+ 
+- type: Tag
+  id: PhantomEctoplasmPistolBattery
+ 
+- type: Tag
+  id: PhantomFreedom
+
+- type: Tag
   id: ClarkeTreads
 
 - type: Tag

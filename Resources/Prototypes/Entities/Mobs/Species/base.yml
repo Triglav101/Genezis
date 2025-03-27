@@ -143,6 +143,7 @@
     - RadiationProtection
     - Drowsiness
     - Adrenaline
+    - ADTHallucinations    
   - type: Body
     prototype: Human
     requiredLegs: 2
@@ -515,6 +516,7 @@
     superSlowMultiplier: 0.33
   - type: RMCHandEmotes
   - type: RMCBuckleDrawDepth
+  - type: RMCObstacleSlamming
 
 - type: entity
   save: false

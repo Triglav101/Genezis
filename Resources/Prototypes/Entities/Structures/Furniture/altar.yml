@@ -26,6 +26,7 @@
     - type: Sprite
       snapCardinals: true
     - type: Clickable
+    - type: Altar    
     - type: SacrificialAltar
     - type: Strap
       position: Down

@@ -38,6 +38,7 @@
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     - id: DerelictCyborgSpawn
+    - id: PhantomSpawn # ADT tweak phantom
 
 - type: entity
   id: BaseStationEvent

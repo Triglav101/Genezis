@@ -1,6 +1,6 @@
-﻿cm-ghost-window-title = Are you sure you want to ghost?
-cm-ghost-window-text = Are you -sure- you want to ghost? You are alive.
-  If you ghost, [bold][color=red]you won't be able to return to your body.[/color][/bold]
-  You can't change your mind so choose wisely!
-cm-ghost-window-stay = Stay in body
-cm-ghost-ghost = Ghost
+﻿cm-ghost-window-title = Вы уверены в том, что хотите перейти в призраки?
+cm-ghost-window-text = Вы ТОЧНО уверены в том, что хотите перейти в призраки? Ваш персонаж все еще жив.
+  после подтверждения, [bold][color=red]вы не сможете вернутся в тело.[/color][/bold]
+  Вы не сможете поменять свое решение, обдумайте свое решение!
+cm-ghost-window-stay = Остаться в теле
+cm-ghost-ghost = Призрак

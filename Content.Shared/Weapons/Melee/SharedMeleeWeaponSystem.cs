@@ -53,6 +53,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] private   readonly TagSystem               _tagSystem       = default!; // cats-shield
 
     private const int AttackMask = (int) (CollisionGroup.MobMask | CollisionGroup.Opaque);
+    private static readonly EntProtoId DisarmEffect = "RMCWeaponArcDisarm"; // RMC14
 
     /// <summary>
     /// Maximum amount of targets allowed for a wide-attack.
@@ -431,6 +432,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         for (var i = 0; i < swings; i++)
         {
             string animation = weapon.Animation;
+            animation = DisarmEffect; // RMC14 change disarm effect
             Angle spriteRotation = weapon.AnimationRotation;
 
             switch (attack)

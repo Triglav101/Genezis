@@ -1,0 +1,4 @@
+- type: ninjaHackingThreat
+  id: Phantom
+  announcement: terror-revenant
+  rule: PhantomSpawn

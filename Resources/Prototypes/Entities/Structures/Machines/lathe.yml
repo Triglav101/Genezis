@@ -398,6 +398,18 @@
       - EnergyScalpel # Shitmed Change
       - EnergyCautery # Shitmed Change
       - AdvancedRetractor # Shitmed Change
+
+  # vv ADT Phantom vv
+      - GhostRadio
+      - OuijaBoard
+      - EctoRifle
+      - EctoPistol
+      - EctoBatterySmall
+      - EctoBattery
+      - PsiShield
+      - PhantomHud
+      - EctoShield
+    # ^^ ADT Phantom ^^      
   - type: EmagLatheRecipes
     emagDynamicRecipes:
       - BoxBeanbag

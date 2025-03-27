@@ -11,5 +11,7 @@ namespace Content.Shared.Eye
         Ghost  = 1 << 1,
         PsionicInvisibility = 1 << 2, // backmen: psionic,
         DarkSwapInvisibility = 1 << 3, // backmen: shadowkin
+        PhantomVessel = 2 << 1, // ADT Phantom
+        BaseHallucination = 3 << 1, // ADT Phantom        
     }
 }
