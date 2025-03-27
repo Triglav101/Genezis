@@ -2,7 +2,7 @@
   parent: CMJobBase
   id: Zookeeper
   name: Ксенобиолог
-  description: job-description-zookeeper
+  description: Изучайте монстров планеты Ноктэра и создавайте из генов идеальное оруже для Триглава.
   playTimeTracker: JobZookeeper
   startingGear: ZookeeperGear
   icon: "JobIconZookeeper"

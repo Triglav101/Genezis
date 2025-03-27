@@ -1,7 +1,7 @@
 - type: job
   id: BKCCAssistant
-  name: job-name-centcomassistant
-  description: job-description-centcomassistant
+  name: Персонал Триглава
+  description: Самый низший чин в Совете Триглава. Вся грязная работа на материнском корабле на вас.
   playTimeTracker: JobCentralCommandAssistant
   setPreference: true
   startingGear: CentComInternGear

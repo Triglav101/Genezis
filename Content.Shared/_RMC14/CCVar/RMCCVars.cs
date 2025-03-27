@@ -124,7 +124,7 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.landing_zone_primary_auto_minutes", 25f, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<bool> RMCLandingZoneMiasmaEnabled =
-        CVarDef.Create("rmc.landing_zone_miasma_enabled", false, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.landing_zone_miasma_enabled", true, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCCorrosiveAcidTickDelaySeconds =
         CVarDef.Create("rmc.corrosive_acid_tick_delay_seconds", 10, CVar.REPLICATED | CVar.SERVER);
@@ -145,10 +145,10 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.evolution_points_accumulate_before_minutes", 15, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<bool> RMCAtmosTileEqualize =
-        CVarDef.Create("rmc.atmos_tile_equalize", false, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.atmos_tile_equalize", true, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<bool> RMCGasTileOverlayUpdate =
-        CVarDef.Create("rmc.gas_tile_overlay_update", false, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.gas_tile_overlay_update", true, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<bool> RMCActiveInputMoverEnabled =
         CVarDef.Create("rmc.active_input_mover_enabled", true, CVar.REPLICATED | CVar.SERVER);
@@ -178,7 +178,7 @@ public sealed class RMCCVars : CVars
         CVarDef.Create("rmc.dropship_fabricator_gain_every_seconds", 3.33333f, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<bool> RMCDropshipCASDebug =
-        CVarDef.Create("rmc.dropship_cas_debug", false, CVar.REPLICATED | CVar.SERVER);
+        CVarDef.Create("rmc.dropship_cas_debug", true, CVar.REPLICATED | CVar.SERVER);
 
     public static readonly CVarDef<int> RMCDropshipFlyByTimeSeconds =
         CVarDef.Create("rmc.dropship_fly_by_time_seconds", 100, CVar.REPLICATED | CVar.SERVER);
@@ -328,13 +328,13 @@ public sealed class RMCCVars : CVars
     /// Whether the no EORG popup is enabled.
     /// </summary>
     public static readonly CVarDef<bool> RMCRoundEndNoEorgPopup =
-        CVarDef.Create("game.round_end_eorg_popup_enabled", true, CVar.SERVER | CVar.REPLICATED);
+        CVarDef.Create("game.round_end_eorg_popup_enabled", false, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     /// Skip the no EORG popup.
     /// </summary>
     public static readonly CVarDef<bool> RMCSkipRoundEndNoEorgPopup =
-        CVarDef.Create("game.skip_round_end_eorg_popup", false, CVar.CLIENTONLY | CVar.ARCHIVE);
+        CVarDef.Create("game.skip_round_end_eorg_popup", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
     /// <summary>
     /// How long to display the EORG popup for.

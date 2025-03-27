@@ -500,11 +500,11 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
         }
     }
 
-// start-backmen: centcom
+    // start-backmen: centcom
     private void AddCentcomm(EntityUid station, StationCentcommComponent component)
     {
         var centcom = EntityManager.System<Content.Server.Backmen.Arrivals.CentcommSystem>();
-        DebugTools.Assert(LifeStage(station)>= EntityLifeStage.MapInitialized);
+        DebugTools.Assert(LifeStage(station) >= EntityLifeStage.MapInitialized);
         if (component.MapEntity != null || component.Entity != null)
         {
             Log.Warning("Attempted to re-add an existing centcomm map.");
@@ -522,12 +522,12 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
     {
         var maps = new HashSet<EntityUid>();
 
-        if(_centcommSystem.CentComMapUid.IsValid())
+        if (_centcommSystem.CentComMapUid.IsValid())
             maps.Add(_centcommSystem.CentComMapUid);
 
         return maps;
     }
-// end-backmen: centcom
+    // end-backmen: centcom
 
     private void AddEmergencyShuttle(Entity<StationEmergencyShuttleComponent?, StationCentcommComponent?> ent)
     {

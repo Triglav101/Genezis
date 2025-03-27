@@ -31,10 +31,12 @@ using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Shuttles.Systems;
@@ -44,23 +46,23 @@ namespace Content.Server.Shuttles.Systems;
 /// </summary>
 public sealed class ArrivalsSystem : EntitySystem
 {
+    [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly IConfigurationManager _cfgManager = default!;
     [Dependency] private readonly IConsoleHost _console = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly IChatManager _chat = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+    [Dependency] private readonly ActorSystem _actor = default!;
     [Dependency] private readonly BiomeSystem _biomes = default!;
+    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
     [Dependency] private readonly GameTicker _ticker = default!;
     [Dependency] private readonly MapLoaderSystem _loader = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly ShuttleSystem _shuttles = default!;
     [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
     [Dependency] private readonly StationSystem _station = default!;
-    [Dependency] private readonly ActorSystem _actor = default!;
 
     private EntityQuery<PendingClockInComponent> _pendingQuery;
     private EntityQuery<ArrivalsBlacklistComponent> _blacklistQuery;
@@ -340,17 +342,6 @@ public sealed class ArrivalsSystem : EntitySystem
         // Only works on latejoin even if enabled.
         if (!Enabled || _ticker.RunLevel != GameRunLevel.InRound)
             return;
-
-        // start-backmen: mini games
-        {
-            var evCan = new Backmen.Arrivals.CanHandleWithArrival(ev);
-            RaiseLocalEvent(evCan);
-            if (evCan.Cancelled)
-            {
-                return;
-            }
-        }
-        // end-backmen: mini games
 
         if (!HasComp<StationArrivalsComponent>(ev.Station))
             return;

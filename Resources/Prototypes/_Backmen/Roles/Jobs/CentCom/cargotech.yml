@@ -1,7 +1,7 @@
 - type: job
   id: BKCCCargo
-  name: job-name-centcomcargo
-  description: job-description-centcomcargo
+  name: Оператор разгрузки
+  description: Выполняйте товарные запросы Совета Триглава.
   playTimeTracker: JobCentralCommandCargo
   setPreference: true
   startingGear: CCCargo
@@ -11,7 +11,7 @@
   weight: 1
   requireAdminNotify: true
   joinNotifyCrew: true
-  discordRequired: true
+  discordRequired: false
   requirements:
     - !type:DepartmentTimeRequirement
       department: Cargo

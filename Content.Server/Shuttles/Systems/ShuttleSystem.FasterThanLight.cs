@@ -4,11 +4,11 @@ using System.Numerics;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Events;
+using Content.Shared._RMC14.Areas;
 using Content.Shared.Body.Components;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
-using Content.Shared.Ghost;
 using Content.Shared.Maps;
 using Content.Shared.Parallax;
 using Content.Shared.Shuttles.Components;
@@ -36,14 +36,14 @@ public sealed partial class ShuttleSystem
      * This is a way to move a shuttle from one location to another, via an intermediate map for fanciness.
      */
 
-    private readonly SoundSpecifier _startupSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg")
+    private readonly SoundSpecifier _startupSound = new SoundPathSpecifier("/Audio/_RMC14/Machines/Shuttle/engine_startup.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-5f),
+        Params = AudioParams.Default.WithVolume(6f),
     };
 
-    private readonly SoundSpecifier _arrivalSound = new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_end.ogg")
+    private readonly SoundSpecifier _arrivalSound = new SoundPathSpecifier("/Audio/_RMC14/Machines/Shuttle/engine_landing.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-5f),
+        Params = AudioParams.Default.WithVolume(5f),
     };
 
     public float DefaultStartupTime;
@@ -369,6 +369,7 @@ public sealed partial class ShuttleSystem
 
         // Make sure the map is setup before we leave to avoid pop-in (e.g. parallax).
         EnsureFTLMap();
+        _dropship.RaiseUpdate(uid);
         return true;
     }
 
@@ -436,6 +437,7 @@ public sealed partial class ShuttleSystem
         var wowdio = _audio.PlayPvs(comp.TravelSound, uid);
         comp.TravelStream = wowdio?.Entity;
         _audio.SetGridAudio(wowdio);
+        _dropship.RaiseUpdate(uid);
     }
 
     /// <summary>
@@ -462,6 +464,11 @@ public sealed partial class ShuttleSystem
         _thruster.EnableLinearThrustDirection(shuttle, DirectionFlag.South);
 
         _console.RefreshShuttleConsoles(entity.Owner);
+        _dropship.RaiseUpdate(entity);
+
+        // RMC14
+        var audio = _audio.PlayPvs(_arrivalSound, entity.Owner);
+        _audio.SetGridAudio(audio);
     }
 
     /// <summary>
@@ -545,8 +552,8 @@ public sealed partial class ShuttleSystem
         _thruster.DisableLinearThrusters(entity.Comp2);
 
         comp.TravelStream = _audio.Stop(comp.TravelStream);
-        var audio = _audio.PlayPvs(_arrivalSound, uid);
-        _audio.SetGridAudio(audio);
+        // RMC14 var audio = _audio.PlayPvs(_arrivalSound, uid);
+        // RMC14 _audio.SetGridAudio(audio);
 
         if (TryComp<FTLDestinationComponent>(uid, out var dest))
         {
@@ -561,12 +568,14 @@ public sealed partial class ShuttleSystem
 
         var ftlEvent = new FTLCompletedEvent(uid, _mapSystem.GetMap(mapId));
         RaiseLocalEvent(uid, ref ftlEvent, true);
+        _dropship.RaiseUpdate(uid);
     }
 
     private void UpdateFTLCooldown(Entity<FTLComponent, ShuttleComponent> entity)
     {
         RemCompDeferred<FTLComponent>(entity);
         _console.RefreshShuttleConsoles(entity);
+        _dropship.RaiseUpdate(entity);
     }
 
     private void UpdateHyperspace()
@@ -969,16 +978,26 @@ public sealed partial class ShuttleSystem
         var aabbs = new List<Box2>(manager.Fixtures.Count);
         var tileSet = new List<(Vector2i, Tile)>();
 
+        var tiles = new HashSet<Vector2i>();
+        if (TryComp(uid, out MapGridComponent? shuttleGrid))
+        {
+            var enumerator = _mapSystem.GetAllTilesEnumerator(uid, shuttleGrid);
+            while (enumerator.MoveNext(out var tile))
+            {
+                tiles.Add(tile.Value.GridIndices);
+            }
+        }
+
         foreach (var fixture in manager.Fixtures.Values)
         {
             if (!fixture.Hard)
                 continue;
 
-            var aabb = fixture.Shape.ComputeAABB(transform, 0);
+            var aabb = _physics.GetWorldAABB(uid, xform: xform);
 
             // Shift it slightly
             // Create a small border around it.
-            aabb = aabb.Enlarged(0.2f);
+            aabb = aabb.Enlarged(-1f);
             aabbs.Add(aabb);
 
             // Handle clearing biome stuff as relevant.
@@ -1010,12 +1029,20 @@ public sealed partial class ShuttleSystem
 
                 if (_bodyQuery.TryGetComponent(ent, out var mob))
                 {
+                    var position = _transform.GetMapCoordinates(ent);
+                    var diff = position.Position - aabb.Center;
+                    if (!tiles.Contains(diff.Floored()))
+                        continue;
+
                     _logger.Add(LogType.Gib, LogImpact.Extreme, $"{ToPrettyString(ent):player} got gibbed by the shuttle" +
                                                                 $" {ToPrettyString(uid)} arriving from FTL at {xform.Coordinates:coordinates}");
                     var gibs = _bobby.GibBody(ent, body: mob);
                     _immuneEnts.UnionWith(gibs);
                     continue;
                 }
+
+                if (HasComp<AreaComponent>(ent))
+                    continue;
 
                 QueueDel(ent);
             }

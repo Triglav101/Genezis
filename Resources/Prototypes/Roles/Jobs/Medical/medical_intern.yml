@@ -1,4 +1,5 @@
 ﻿- type: job
+  parent: CMJobBase
   id: MedicalIntern
   name: job-name-intern
   description: job-description-intern

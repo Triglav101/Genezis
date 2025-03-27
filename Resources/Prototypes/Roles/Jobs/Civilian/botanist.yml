@@ -1,4 +1,5 @@
 - type: job
+  parent: CMJobBase
   id: Botanist
   name: job-name-botanist
   description: job-description-botanist
