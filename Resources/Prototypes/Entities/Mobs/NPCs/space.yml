@@ -185,6 +185,8 @@
     understands:
     - SpaceMob
     - Kangaroo
+  - type: CombatPower
+    factor: 1 # times more dangerous than a crew-member
 
 - type: entity
   id: MobKangarooSpaceSalvage
@@ -281,6 +283,8 @@
     color: "#4faffb"
   - type: NoSlip
   - type: IgnoreSpiderWeb
+  - type: CombatPower
+    factor: 1.5 # times more dangerous than a crew-member  
   - type: Speech
     speechVerb: Arachnid
     speechSounds: Arachnid

@@ -41,6 +41,18 @@ namespace Content.Shared.Doors.Components
         public bool AlarmAutoClose = true;
 
         /// <summary>
+        ///   Dangerous Fire was detected behind this door on the last check. Used to drive game director.
+        /// </summary>
+        [DataField("dangerFire")]
+        public bool DangerFire = false;
+
+        /// <summary>
+        ///   Dangerous Pressure was detected behind this door on the last check. Used to drive game director.
+        /// </summary>
+        [DataField("dangerPressure")]
+        public bool DangerPressure = false;
+
+        /// <summary>
         /// The cooldown duration before a firelock can automatically close due to a hazardous environment after it has
         /// been pried open. Measured in seconds.
         /// </summary>

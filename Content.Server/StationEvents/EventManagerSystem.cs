@@ -33,30 +33,19 @@ public sealed class EventManagerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Randomly runs a valid event.
+    ///   Randomly runs a valid event.
     /// </summary>
-    [Obsolete("use overload taking EnityTableSelector instead or risk unexpected results")]
     public void RunRandomEvent()
     {
-        // SS220 Проверка на отключенные случаные события в текущем пресете
-        if (GameTicker.CurrentPreset != null && GameTicker.CurrentPreset.DisableRandomEvents)
-        {
-            var errStr = Loc.GetString("station-event-system-run-random-event-disablerandevents");
-            Log.Error(errStr);
-            return;
-        }
-        // SS220 Проверка на отключенные случаные события в текущем пресете
-
         var randomEvent = PickRandomEvent();
 
         if (randomEvent == null)
         {
-            var errStr = Loc.GetString("station-event-system-run-random-event-no-valid-events");
-            Log.Error(errStr);
+            Log.Warning("No valid event was given");
             return;
         }
 
-        GameTicker.AddGameRule(randomEvent);
+        RunNamedEvent(randomEvent);
     }
 
     /// <summary>
@@ -136,7 +125,16 @@ public sealed class EventManagerSystem : EntitySystem
     }
 
     /// <summary>
-    /// Randomly picks a valid event.
+    ///   Runs a specific named event.
+    /// </summary>
+    public void RunNamedEvent(string eventId)
+    {
+        var ent = GameTicker.AddGameRule(eventId);
+        Log.Warning($"Running event {eventId} as entity {ent}");
+    }
+
+    /// <summary>
+    ///   Randomly picks a valid event.
     /// </summary>
     public string? PickRandomEvent()
     {
@@ -249,7 +247,7 @@ public sealed class EventManagerSystem : EntitySystem
         return TimeSpan.Zero;
     }
 
-    private bool CanRun(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
+    public bool CanRun(EntityPrototype prototype, StationEventComponent stationEvent, int playerCount, TimeSpan currentTime)
     {
         if (GameTicker.IsGameRuleActive(prototype.ID))
             return false;

@@ -435,10 +435,6 @@ public enum LogType
     /// </summary>
     ExplosionHit = 94,
 
-    //backmen
-    Transactions = 120,
-    Psionics = 121,
-
     /// <summary>
     /// A ghost warped to an entity through the ghost warp menu.
     /// </summary>
@@ -448,6 +444,12 @@ public enum LogType
     /// A player interacted with a PDA or its cartridge component
     /// </summary>
     PdaInteract = 96,
+
+    GameDirector = 97,
+
+    //backmen
+    Transactions = 120,
+    Psionics = 121,
 
     RMCMarineAnnounce = 10000,
     RMCXenoAnnounce = RMCMarineAnnounce + 1,

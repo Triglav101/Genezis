@@ -120,10 +120,14 @@
   - type: GuideHelp
     guides:
     - MinorAntagonists
+  - type: CombatPower
+    factor: 0.25 # only a fraction of a crew-member    
   - type: PotentialPsionic
   - type: Grammar
     attributes:
       gender: male
+  - type: CombatPower
+    factor: 2 # times more dangerous than a crew-member      
   - type: Sharp
   - type: TTS # Corvax-TTS
     voice: Npc1

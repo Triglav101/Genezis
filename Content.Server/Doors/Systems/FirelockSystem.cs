@@ -75,6 +75,11 @@ namespace Content.Server.Doors.Systems
                     _appearance.SetData(uid, DoorVisuals.ClosedLights, fire || pressure, appearance);
                     firelock.Temperature = fire;
                     firelock.Pressure = pressure;
+                    
+                    // Update stats for game director
+                    firelock.DangerFire = fire;
+                    firelock.DangerPressure = pressure;
+                    
                     Dirty(uid, firelock);
 
                     if (pointLightQuery.TryComp(uid, out var pointLight))

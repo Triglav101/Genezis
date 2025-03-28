@@ -32,7 +32,9 @@
         - AtmosphericTechnician
         - StationEngineer
         - TechnicalAssistant
-# Corvax-HiddenDesc-End
+  - type: Tag
+    tags:
+      - Hacking
 
 - type: entity
   parent: EmagUnlimited
@@ -41,3 +43,6 @@
   components:
   - type: LimitedCharges
   - type: AutoRecharge
+  - type: Tag
+    tags:
+      - Hacking
