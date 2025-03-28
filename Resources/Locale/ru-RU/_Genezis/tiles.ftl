@@ -1,0 +1,1 @@
+tiles-lattice-shield = щитовая решетка
