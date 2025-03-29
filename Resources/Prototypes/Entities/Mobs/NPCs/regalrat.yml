@@ -119,9 +119,7 @@
     - RegalRatNameTitle
   - type: GuideHelp
     guides:
-    - MinorAntagonists
-  - type: CombatPower
-    factor: 0.25 # only a fraction of a crew-member    
+    - MinorAntagonists 
   - type: PotentialPsionic
   - type: Grammar
     attributes:

@@ -88,12 +88,13 @@
         - proto: RipleyHarness
           cost: 3
           prob: 0.5
-        - proto: CargoCash1000
-        - proto: CargoCash10000
+        - proto: RPED
+        - proto: SpaceCash1000
+        - proto: SpaceCash10000
           cost: 10
-        - proto: CargoCash2500
+        - proto: SpaceCash2500
           cost: 3
-        - proto: CargoCash5000
+        - proto: SpaceCash5000
           cost: 5
         - proto: TechnologyDiskRare
           cost: 5
@@ -102,11 +103,13 @@
         - proto: WaterTankHighCapacity
         - proto: WeldingFuelTankHighCapacity
           cost: 3
-        - proto: BluespacePillCanister # Backmen
-          cost: 1
         - proto: WeaponTeslaGun
           prob: 0.1
           cost: 2
+        - proto: ClothingEyesNightVisionGoggles
+          cost: 8
+        - proto: ClothingEyesGlassesThermal
+          cost: 8
 
 # Mob loot table
 
@@ -174,6 +177,13 @@
       proto: OreUranium
 
 - type: salvageLoot
+  id: OreBananium
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: OreBananium
+
+- type: salvageLoot
   id: OreDiamond
   guaranteed: true
   loots:
@@ -186,3 +196,17 @@
   loots:
     - !type:BiomeMarkerLoot
       proto: OreArtifactFragment
+
+- type: salvageLoot
+  id: OreBluespace
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: OreBluespace
+
+- type: salvageLoot
+  id: OreNormality
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: OreNormality
