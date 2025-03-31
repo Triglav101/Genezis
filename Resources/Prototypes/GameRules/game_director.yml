@@ -9,7 +9,6 @@
       storyBeats:
     - type: AnomalyMetric
     - type: CombatMetric
-    - type: DoorMetric
     - type: FoodMetric
     - type: PuddleMetric
 

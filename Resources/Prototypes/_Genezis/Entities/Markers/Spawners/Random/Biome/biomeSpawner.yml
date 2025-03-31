@@ -1,6 +1,6 @@
 - type: entity
   id: N14BaseBiomeSpawner
-  name: создатель биомов
+  name: спавнер биома
   abstract: true
   placement:
     mode: SnapgridCenter
@@ -20,7 +20,7 @@
 - type: entity
   id: N14BiomeSpawnerWasteland
   parent: N14BaseBiomeSpawner
-  suffix: Wasteland
+  suffix: Пустошь
   components:
   - type: Sprite
     layers:
@@ -32,7 +32,7 @@
 - type: entity
   id: N14BiomeSpawnerCaves
   parent: N14BaseBiomeSpawner
-  suffix: Caves
+  suffix: Странные пещеры
   components:
   - type: Sprite
     layers:
@@ -40,3 +40,15 @@
       - state: frame
   - type: CP14BiomeSpawner
     biome: N14CavesGeneric
+
+- type: entity
+  id: BiomeSpawnerNormalCaves
+  parent: N14BaseBiomeSpawner
+  suffix: Обычные пещеры
+  components:
+  - type: Sprite
+    layers:
+      - state: cave
+      - state: frame
+  - type: CP14BiomeSpawner
+    biome: Caves    

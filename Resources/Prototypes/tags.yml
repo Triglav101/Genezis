@@ -31,6 +31,21 @@
   id: Disposal
 
 - type: Tag
+  id: JunkPile
+
+- type: Tag
+  id: Sensor
+
+- type: Tag
+  id: Mainboard
+
+- type: Tag
+  id: GunFrame
+
+- type: Tag
+  id: GearSmall
+
+- type: Tag
   id: Arrow
 
 - type: Tag

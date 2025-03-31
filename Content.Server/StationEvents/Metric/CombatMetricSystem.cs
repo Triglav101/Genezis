@@ -43,13 +43,13 @@ public sealed class CombatMetricSystem : ChaosMetricSystem<CombatMetricComponent
         var tagsQ = GetEntityQuery<TagComponent>();
         var allTags = new HashSet<string>();
 
-        foreach (var item in _inventory.GetHandOrInventoryEntities(uid))
-        {
-            if (tagsQ.TryGetComponent(uid, out var tags))
-            {
-                allTags.UnionWith((IEnumerable<string>)tags.Tags);
-            }
-        }
+        //foreach (var item in _inventory.GetHandOrInventoryEntities(uid))
+        //{
+        //    if (tagsQ.TryGetComponent(uid, out var tags))
+        //    {
+        //        allTags.UnionWith(tags.Tags);
+        //    }
+        //}
 
         foreach (var key in allTags)
         {

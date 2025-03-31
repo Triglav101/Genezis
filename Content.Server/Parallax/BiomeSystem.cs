@@ -10,7 +10,6 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Shared.Atmos;
 using Content.Shared.Decals;
-using Content.Shared.Ghost;
 using Content.Shared.Gravity;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Layers;
@@ -40,7 +39,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     [Dependency] private readonly IConsoleHost _console = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IParallelManager _parallel = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly AtmosphereSystem _atmos = default!;
@@ -52,7 +50,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
     private EntityQuery<BiomeComponent> _biomeQuery;
     private EntityQuery<FixturesComponent> _fixturesQuery;
-    private EntityQuery<GhostComponent> _ghostQuery;
     private EntityQuery<TransformComponent> _xformQuery;
 
     private readonly HashSet<EntityUid> _handledEntities = new();
@@ -83,7 +80,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         Log.Level = LogLevel.Debug;
         _biomeQuery = GetEntityQuery<BiomeComponent>();
         _fixturesQuery = GetEntityQuery<FixturesComponent>();
-        _ghostQuery = GetEntityQuery<GhostComponent>();
         _xformQuery = GetEntityQuery<TransformComponent>();
         SubscribeLocalEvent<BiomeComponent, MapInitEvent>(OnBiomeMapInit);
         SubscribeLocalEvent<FTLStartedEvent>(OnFTLStarted);
@@ -123,24 +119,23 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             SetSeed(uid, component, _random.Next());
         }
 
-        if (_proto.TryIndex(component.Template, out var biome))
-            SetTemplate(uid, component, biome);
-
         var xform = Transform(uid);
         var mapId = xform.MapID;
 
-        if (mapId != MapId.Nullspace && HasComp<MapGridComponent>(uid))
+        if (mapId != MapId.Nullspace && TryComp(uid, out MapGridComponent? mapGrid))
         {
             var setTiles = new List<(Vector2i Index, Tile tile)>();
 
-            foreach (var grid in _mapManager.GetAllGrids(mapId))
+            foreach (var grid in _mapManager.GetAllMapGrids(mapId))
             {
-                if (!_fixturesQuery.TryGetComponent(grid.Owner, out var fixtures))
+                var gridUid = grid.Owner;
+
+                if (!_fixturesQuery.TryGetComponent(gridUid, out var fixtures))
                     continue;
 
                 // Don't want shuttles flying around now do we.
-                _shuttles.Disable(grid.Owner);
-                var pTransform = _physics.GetPhysicsTransform(grid.Owner);
+                _shuttles.Disable(gridUid);
+                var pTransform = _physics.GetPhysicsTransform(gridUid);
 
                 foreach (var fixture in fixtures.Fixtures.Values)
                 {
@@ -154,15 +149,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 }
             }
         }
-    }
-
-    public void SetEnabled(Entity<BiomeComponent?> ent, bool enabled = true)
-    {
-        if (!Resolve(ent, ref ent.Comp) || ent.Comp.Enabled == enabled)
-            return;
-
-        ent.Comp.Enabled = enabled;
-        Dirty(ent, ent.Comp);
     }
 
     public void SetSeed(EntityUid uid, BiomeComponent component, int seed, bool dirty = true)
@@ -318,11 +304,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         }
     }
 
-    private bool CanLoad(EntityUid uid)
-    {
-        return !_ghostQuery.HasComp(uid);
-    }
-
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -340,8 +321,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             if (_xformQuery.TryGetComponent(pSession.AttachedEntity, out var xform) &&
                 _handledEntities.Add(pSession.AttachedEntity.Value) &&
                  _biomeQuery.TryGetComponent(xform.MapUid, out var biome) &&
-                biome.Enabled &&
-                CanLoad(pSession.AttachedEntity.Value))
+                biome.Enabled)
             {
                 var worldPos = _transform.GetWorldPosition(xform);
                 AddChunksInRange(biome, worldPos);
@@ -358,8 +338,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 if (!_handledEntities.Add(viewer) ||
                     !_xformQuery.TryGetComponent(viewer, out xform) ||
                     !_biomeQuery.TryGetComponent(xform.MapUid, out biome) ||
-                    !biome.Enabled ||
-                    !CanLoad(viewer))
+                    !biome.Enabled)
                 {
                     continue;
                 }
@@ -633,14 +612,14 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             var groupSize = rand.Next(layerProto.MinGroupSize, layerProto.MaxGroupSize + 1);
 
             // While we have remaining tiles keep iterating
-            while (groupSize > 0 && remainingTiles.Count > 0)
+            while (groupSize >= 0 && remainingTiles.Count > 0)
             {
                 var startNode = rand.PickAndTake(remainingTiles);
                 frontier.Clear();
                 frontier.Add(startNode);
 
                 // This essentially may lead to a vein being split in multiple areas but the count matters more than position.
-                while (frontier.Count > 0 && groupSize > 0)
+                while (frontier.Count > 0 && groupSize >= 0)
                 {
                     // Need to pick a random index so we don't just get straight lines of ores.
                     var frontierIndex = rand.Next(frontier.Count);
@@ -653,6 +632,9 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                     {
                         for (var y = -1; y <= 1; y++)
                         {
+                            if (x != 0 && y != 0)
+                                continue;
+
                             var neighbor = new Vector2i(node.X + x, node.Y + y);
 
                             if (frontier.Contains(neighbor) || !remainingTiles.Contains(neighbor))
@@ -815,7 +797,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                 // At least for now unless we do lookups or smth, only work with anchoring.
                 if (_xformQuery.TryGetComponent(ent, out var xform) && !xform.Anchored)
                 {
-                    _transform.AnchorEntity((ent, xform), (gridUid, grid), indices);
+                    _transform.AnchorEntity(ent, xform, gridUid, grid, indices);
                 }
 
                 loadedEntities.Add(ent, indices);
@@ -876,12 +858,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
         foreach (var chunk in component.LoadedChunks)
         {
-            // start-backmen: Shipwrecked
-            var ev = new Backmen.Shipwrecked.Biome.UnLoadChunkEvent(chunk);
-            RaiseLocalEvent(gridUid, ev);
-            if(ev.Cancelled)
-                continue;
-            // end-backmen: Shipwrecked
             if (active.Contains(chunk) || !component.LoadedChunks.Remove(chunk))
                 continue;
 
@@ -978,7 +954,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             }
         }
 
-        _mapSystem.SetTiles(gridUid, grid, tiles);
+        grid.SetTiles(tiles);
         tiles.Clear();
         component.LoadedChunks.Remove(chunk);
 
@@ -997,7 +973,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Creates a simple planet setup for a map.
     /// </summary>
-    public void EnsurePlanet(EntityUid mapUid, BiomeTemplatePrototype biomeTemplate, int? seed = null, MetaDataComponent? metadata = null, Color? mapLight = null)
+    public void EnsurePlanet(EntityUid mapUid, BiomeTemplatePrototype biomeTemplate, int? seed = null, MetaDataComponent? metadata = null)
     {
         if (!Resolve(mapUid, ref metadata))
             return;
@@ -1022,7 +998,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         // Lava: #A34931
 
         var light = EnsureComp<MapLightComponent>(mapUid);
-        light.AmbientLightColor = mapLight ?? Color.FromHex("#D8B059");
+        light.AmbientLightColor = Color.FromHex("#D8B059");
         Dirty(mapUid, light, metadata);
 
         var moles = new float[Atmospherics.AdjustedNumberOfGases];

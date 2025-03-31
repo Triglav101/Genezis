@@ -84,6 +84,12 @@ public sealed partial class StationEventComponent : Component
     public TimeSpan? EndTime;
 
     /// <summary>
+    /// How long after being added does the event start
+    /// </summary>
+    [DataField("startDelay")]
+    public TimeSpan StartDelay = TimeSpan.Zero;
+
+    /// <summary>
     /// If false, the event won't trigger during ongoing evacuation.
     /// </summary>
     [DataField]

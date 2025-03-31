@@ -20,10 +20,28 @@
   id: SheetPlasma
 
 - type: Tag
+  id: JunkItem
+
+- type: Tag
   id: LaserBolt
 
 - type: Tag
   id: BulletBolt
+
+- type: Tag
+  id: Deathclaw
+
+- type: Tag
+  id: Gear
+
+- type: Tag
+  id: WeaponParts3
+
+- type: Tag
+  id: WonderGlue
+
+- type: Tag
+  id: N14AdvancedFrame
 
 - type: Tag
   id: KineticBolt

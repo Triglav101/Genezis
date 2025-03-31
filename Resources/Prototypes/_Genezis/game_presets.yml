@@ -12,6 +12,9 @@
   rules:
     - WageScheduler
     - CMDistressSignal
+    - CombatDynamic
+    - CalmDynamic
+    - Traitor    
   # supportedMaps: GenezisDefaultMapPool
   # forceMap: true
 
@@ -31,36 +34,45 @@
   supportedMaps: GenezisShipwreckedPool
   # forceMap: true 
 
-- type: gamePreset
-  id: CalmDynamic
-  alias:
-    - calm
-    - dynamic
-    - calmdynamic
-  name: calm-title
-  description: calm-description
-  showInVote: false
-  rules:
-    - CalmDynamic
+# - type: gamePreset
+#   id: CalmDynamic
+#   alias:
+#     - calm
+#     - dynamic
+#     - calmdynamic
+#   name: calm-title
+#   description: calm-description
+#   showInVote: false
+#   rules:
+#     - CalmDynamic
+
+# - type: gamePreset
+#   id: CombatDynamic
+#   alias:
+#     - combat
+#     - combatdynamic
+#   name: combat-title
+#   description: combat-description
+#   showInVote: false
+#   rules:
+#     - CombatDynamic
+#     - CalmDynamic
+
+# - type: gamePreset
+#   id: TraitorDynamic
+#   alias:
+#     - traitordynamic
+#   name: traitor-title
+#   description: traitor-description
+#   showInVote: false
+#   rules:
+#     - Traitor
+#     - CombatDynamic
 
 - type: gamePreset
-  id: CombatDynamic
-  alias:
-    - combat
-    - combatdynamic
-  name: combat-title
-  description: combat-description
+  id: Waves
+  name: Vault Wave Defense
+  description: Defend the vault from waves of increasingly difficult attackers.
   showInVote: false
   rules:
-    - CombatDynamic
-
-- type: gamePreset
-  id: TraitorDynamic
-  alias:
-    - traitordynamic
-  name: traitor-title
-  description: traitor-description
-  showInVote: false
-  rules:
-    - Traitor
-    - CombatDynamic
+    - Waves

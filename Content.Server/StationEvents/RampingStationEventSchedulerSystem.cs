@@ -49,16 +49,16 @@ public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingS
         while (query.MoveNext(out var uid, out var scheduler, out var gameRule))
         {
             if (!GameTicker.IsGameRuleActive(uid, gameRule))
-                continue;
+                return;
 
             if (scheduler.TimeUntilNextEvent > 0f)
             {
                 scheduler.TimeUntilNextEvent -= frameTime;
-                continue;
+                return;
             }
 
             PickNextEventTime(uid, scheduler);
-            _event.RunRandomEvent(scheduler.ScheduledGameRules);
+            _event.RunRandomEvent();
         }
     }
 

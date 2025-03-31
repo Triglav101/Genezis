@@ -33,5 +33,5 @@ public sealed partial class BiomeDecalLayer : IBiomeWorldLayer
     public List<string> Decals = new();
 
     [DataField("color")]
-    public Color Color = Color.White;    
+    public Color Color = Color.White;
 }
