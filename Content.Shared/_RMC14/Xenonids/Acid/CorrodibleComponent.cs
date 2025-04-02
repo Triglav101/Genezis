@@ -14,5 +14,8 @@ public sealed partial class CorrodibleComponent : Component
     public TimeSpan TimeToApply = TimeSpan.FromSeconds(4);
 
     [DataField, AutoNetworkedField]
-    public bool Structure = false;
+    public bool Structure = true;
+
+    [DataField, AutoNetworkedField]
+    public float MeltTimeMult = 1;    
 }

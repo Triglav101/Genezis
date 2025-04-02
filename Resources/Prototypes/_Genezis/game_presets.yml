@@ -5,16 +5,15 @@
     - Основа генезиса
   name: Основа генезиса
   description: Основной пресет, выполните приказ от совета Триглава и попытайтесь выжить.
-  showInVote: true
+  showInVote: false
   # isMiniGame: true  
-  minPlayers: 20
+  # minPlayers: 20
   # maxPlayers: 80
   rules:
     - WageScheduler
     - CMDistressSignal
     - CombatDynamic
-    - CalmDynamic
-    - Traitor    
+    - CalmDynamic  
   # supportedMaps: GenezisDefaultMapPool
   # forceMap: true
 
@@ -25,54 +24,21 @@
     - Падение генезис
   name: Неудачная операция
   description: Дополнительный пресет, ваш шаттл был подбит и теперь вы терпете крушение на поверхности планеты.
-  showInVote: true
+  showInVote: false
   # isMiniGame: true
   minPlayers: 1
   maxPlayers: 20
   rules:
     - Shipwrecked
   supportedMaps: GenezisShipwreckedPool
-  # forceMap: true 
-
-# - type: gamePreset
-#   id: CalmDynamic
-#   alias:
-#     - calm
-#     - dynamic
-#     - calmdynamic
-#   name: calm-title
-#   description: calm-description
-#   showInVote: false
-#   rules:
-#     - CalmDynamic
-
-# - type: gamePreset
-#   id: CombatDynamic
-#   alias:
-#     - combat
-#     - combatdynamic
-#   name: combat-title
-#   description: combat-description
-#   showInVote: false
-#   rules:
-#     - CombatDynamic
-#     - CalmDynamic
-
-# - type: gamePreset
-#   id: TraitorDynamic
-#   alias:
-#     - traitordynamic
-#   name: traitor-title
-#   description: traitor-description
-#   showInVote: false
-#   rules:
-#     - Traitor
-#     - CombatDynamic
+  forceMap: true 
 
 - type: gamePreset
-  id: Waves
-  name: Vault Wave Defense
+  id: GenezisWaves
+  name: Оборона генезис
   description: Defend the vault from waves of increasingly difficult attackers.
-  showInVote: false
+  showInVote: true
   rules:
     - Waves
+  supportedMaps: GenezisWavesPool
+  forceMap: true    

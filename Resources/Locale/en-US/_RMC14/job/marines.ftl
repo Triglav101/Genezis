@@ -33,3 +33,5 @@ cm-job-name-combat-tech = Боевой техник
 cm-job-description-combat-tech = Стройте или разбирайте укрепления, запрашивайте помощь стройбата если нужно.
 cm-job-prefix-combat-tech = БТ
 CMJobCombatTech = Боевой техник
+
+rmc-job-name-spotter = Наблюдатель

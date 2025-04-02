@@ -459,13 +459,12 @@ public abstract class SharedCMAutomatedVendorSystem : EntitySystem
                             continue;
 
                         vendorEntry.Amount -= GetBoxRemoveAmount(entry);
-                        entry.Amount--;
+                        Dirty(vendor);
+                        AmountUpdated(vendor, vendorEntry);
                         foundEntry = true;
                         break;
                     }
 
-                    if (foundEntry)
-                        break;
                 }
 
                 if (foundEntry)

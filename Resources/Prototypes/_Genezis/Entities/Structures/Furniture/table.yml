@@ -471,9 +471,6 @@
     sprite: _Nuclear14/Structures/Furniture/Tables/metalgrate.rsi
   - type: Icon
     sprite: _Nuclear14/Structures/Furniture/Tables/metalgrate.rsi
-  - type: Construction
-    graph: N14TableMetalGrateRecipes
-    node: start
 
 - type: entity
   id: N14TableWoodSettler
@@ -485,9 +482,6 @@
     sprite: _Nuclear14/Structures/Furniture/Tables/table_settler.rsi
   - type: Icon
     sprite: _Nuclear14/Structures/Furniture/Tables/table_settler.rsi
-  - type: Construction
-    graph: N14TableRecipes
-    node: start
 
 # - type: entity
   # id: N14TableWoodenBuilt
@@ -510,6 +504,3 @@
     sprite: _Nuclear14/Structures/Furniture/Tables/barcounter.rsi
   - type: Icon
     sprite: _Nuclear14/Structures/Furniture/Tables/barcounter.rsi
-  - type: Construction
-    graph: N14TableCounterBarRecipes
-    node: start

@@ -1,17 +1,21 @@
 ﻿- type: entity
   parent: CMBaseWeaponSMG
-  name: nailgun
+  name: гвоздемет
   id: WeaponNailgun
-  description: A carpentry tool, used to drive nails into tough surfaces. Of course, if there isn't anything there, that's just a very sharp nail launching at high velocity...
-  suffix: Filled
+  description: Инструмент используемый для забивания гвоздей в прочные поверхности. Этот гвоздомет был доработан и теперь им можно стрелять.
+  suffix: Заряжен
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/SMGs/nailgun.rsi
     layers:
     - state: base
       map: [ "enum.GunVisualLayers.Base" ]
-    - state: mag-0
+    - state: mag-4
       map: [ "enum.GunVisualLayers.Mag" ]
+  - type: MagazineVisuals
+    magState: mag
+    steps: 5
+    zeroVisible: true
   - type: Clothing
     sprite: _RMC14/Objects/Weapons/Guns/SMGs/nailgun.rsi
   - type: Item
@@ -68,8 +72,8 @@
 - type: entity
   parent: BaseMagazineRifle
   id: RMCMagazineSMGNailgun
-  name: "nailgun magazine (7x45mm)"
-  description: "A large magazine of oversized plasteel nails. Unfortunately, the production cost of those nail makes them ill-affordable for most military projects, and only some specific construction projects requires them."
+  name: магазин для гвоздемета(7x45mm)
+  description: Большой магазин крупногабаритных пластальевых гвоздей. К сожалению, стоимость производства этих гвоздей делает их недоступными для большинства военных объектов.
   components:
   - type: Tag
     tags:
@@ -87,11 +91,11 @@
     layers:
     - state: base
       map: ["enum.GunVisualLayers.Base"]
-    - state: mag-1
+    - state: mag-6
       map: ["enum.GunVisualLayers.Mag"]
   - type: MagazineVisuals
     magState: mag
-    steps: 2
+    steps: 7
     zeroVisible: false
     zeroOnlyOnEmpty: true
   - type: Appearance
@@ -99,7 +103,7 @@
 - type: entity
   parent: CMCartridgeSMGBase
   id: RMCCartridge7x45mm
-  name: nail (7x45mm)
+  name: гвоздь (7x45mm)
   components:
   - type: Tag
     tags:

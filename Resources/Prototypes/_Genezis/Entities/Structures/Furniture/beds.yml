@@ -8,9 +8,6 @@
     noRot: false
     sprite: _Nuclear14/Structures/Furniture/bedsandchairs.rsi
     state: bed
-  - type: Construction
-    graph: N14Bed
-    node: bed
   - type: Transform
     anchored: false
     noRot: false
@@ -47,9 +44,6 @@
   components:
   - type: Sprite
     state: bed_wood
-  - type: Construction
-    graph: N14Bed
-    node: bedwood
 
 - type: entity
   parent: N14Bed
@@ -115,9 +109,6 @@
       position: Down
       rotation: -90
       buckleOffset: "0.05,-0.10"
-    - type: Construction
-      graph: N14Bed
-      node: bedroll
 
 - type: entity
   parent: N14Bedroll
@@ -135,9 +126,6 @@
   components:
   - type: Sprite
     state: mattress0
-  - type: Construction
-    graph: N14Bed
-    node: mattress
 
 - type: entity
   parent: N14Bed

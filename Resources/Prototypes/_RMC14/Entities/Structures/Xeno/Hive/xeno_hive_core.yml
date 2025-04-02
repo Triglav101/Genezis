@@ -150,6 +150,7 @@
     spawns: XenoHiveWeedsCluster
     level: 3
     blockOtherWeeds: true
+    spreadsOnSemiWeedable: true
   - type: GhostRole
     name: roles-lesser-drone-name
     description: roles-lesser-drone-description
