@@ -31,5 +31,4 @@
   icon: JobIconBorg
   supervisors: job-supervisors-AI
   jobEntity: PlayerBorgBattery
-  startingGear: RobotGear # backmen
   applyTraits: false

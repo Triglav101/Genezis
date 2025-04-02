@@ -20,6 +20,18 @@
   id: SheetPlasma
 
 - type: Tag
+  id: WallMount
+
+- type: Tag
+  id: Item
+
+- type: Tag
+  id: DisposalTube
+
+- type: Tag
+  id: Construction
+
+- type: Tag
   id: JunkItem
 
 - type: Tag

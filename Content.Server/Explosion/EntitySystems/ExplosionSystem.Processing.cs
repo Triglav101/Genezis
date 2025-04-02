@@ -28,6 +28,7 @@ namespace Content.Server.Explosion.EntitySystems;
 public sealed partial class ExplosionSystem
 {
     [Dependency] private readonly FlammableSystem _flammableSystem = default!;
+    private HashSet<EntityUid> _processedForDeletion = new();
 
     /// <summary>
     ///     Used to limit explosion processing time. See <see cref="MaxProcessingTime"/>.
@@ -87,6 +88,7 @@ public sealed partial class ExplosionSystem
     /// </summary>
     public override void Update(float frameTime)
     {
+        _processedForDeletion.Clear();
         if (_activeExplosion == null && _explosionQueue.Count == 0)
             // nothing to do
             return;
@@ -209,6 +211,7 @@ public sealed partial class ExplosionSystem
         DamageSpecifier damage,
         MapCoordinates epicenter,
         HashSet<EntityUid> processed,
+        ExplosionPrototype type,
         string id,
         float? fireStacks,
         EntityUid? cause)
@@ -230,7 +233,7 @@ public sealed partial class ExplosionSystem
         // process those entities
         foreach (var (uid, xform) in list)
         {
-            ProcessEntity(uid, epicenter, damage, throwForce, id, xform, fireStacks, cause);
+            ProcessEntity(uid, epicenter, damage, throwForce, type, id, xform, fireStacks, cause);
         }
 
         // start-backmen: protect system
@@ -247,7 +250,7 @@ public sealed partial class ExplosionSystem
         foreach (var entity in _anchored)
         {
             processed.Add(entity);
-            ProcessEntity(entity, epicenter, damage, throwForce, id, null, fireStacks, cause);
+            ProcessEntity(entity, epicenter, damage, throwForce, type, id, null, fireStacks, cause);
         }
 
         // Walls and reinforced walls will break into girders. These girders will also be considered turf-blocking for
@@ -283,7 +286,7 @@ public sealed partial class ExplosionSystem
         {
             // Here we only throw, no dealing damage. Containers n such might drop their entities after being destroyed, but
             // they should handle their own damage pass-through, with their own damage reduction calculation.
-            ProcessEntity(uid, epicenter, null, throwForce, id, xform, null, cause);
+            ProcessEntity(uid, epicenter, null, throwForce, type, id, xform, null, cause);
         }
 
         return !tileBlocked;
@@ -318,6 +321,7 @@ public sealed partial class ExplosionSystem
         DamageSpecifier damage,
         MapCoordinates epicenter,
         HashSet<EntityUid> processed,
+        ExplosionPrototype type,
         string id,
         float? fireStacks,
         EntityUid? cause)
@@ -336,7 +340,7 @@ public sealed partial class ExplosionSystem
         foreach (var (uid, xform) in state.Item1)
         {
             processed.Add(uid);
-            ProcessEntity(uid, epicenter, damage, throwForce, id, xform, fireStacks, cause);
+            ProcessEntity(uid, epicenter, damage, throwForce, type, id, xform, fireStacks, cause);
         }
 
         if (throwForce <= 0)
@@ -350,7 +354,7 @@ public sealed partial class ExplosionSystem
 
         foreach (var (uid, xform) in list)
         {
-            ProcessEntity(uid, epicenter, null, throwForce, id, xform, fireStacks, cause);
+            ProcessEntity(uid, epicenter, null, throwForce, type, id, xform, fireStacks, cause);
         }
     }
 
@@ -446,11 +450,13 @@ public sealed partial class ExplosionSystem
         MapCoordinates epicenter,
         DamageSpecifier? originalDamage,
         float throwForce,
+        ExplosionPrototype type,
         string id,
         TransformComponent? xform,
         float? fireStacksOnIgnite,
         EntityUid? cause)
     {
+        var isNuclear = type.ID == "Nuclear";
         if (originalDamage != null)
         {
             GetEntitiesToDamage(uid, originalDamage, id);
@@ -470,9 +476,45 @@ public sealed partial class ExplosionSystem
 
                 }
 
-                // TODO EXPLOSIONS turn explosions into entities, and pass the the entity in as the damage origin.
-                _damageableSystem.TryChangeDamage(entity, damage, ignoreResistances: true);
+                if (isNuclear)
+                {
 
+                    if (_processedForDeletion.Contains(entity) || EntityManager.IsQueuedForDeletion(entity))
+                    {
+                        goto deletedSkip;
+                    }
+
+                    if (_tagQuery.TryGetComponent(entity, out var tagComp))
+                    {
+                            var blacklistSkip = false;
+                            foreach (var tag in type.blacklistedTags)
+                            {
+                                if (_tagSystem.HasAnyTag(tagComp, tag))
+                                {
+                                    //Logger.Info($"[Explosion] Skipping entity {ToPrettyString(entity)} due to blacklisted tag: {tag}");
+                                    _processedForDeletion.Add(entity);
+                                    blacklistSkip = true;
+                                    break;
+                                }
+                            }
+
+                            if (blacklistSkip)
+                            continue;
+
+                            foreach (var tag in type.deleteTags)
+                            {
+                                if (_tagSystem.HasAnyTag(tagComp, tag) && !_container.IsEntityInContainer(entity))
+                                {
+                                    //Logger.Info($"[Explosion] Deleting entity {ToPrettyString(entity)} with tag {tag}");
+                                    _processedForDeletion.Add(entity);
+                                    EntityManager.QueueDeleteEntity(entity);
+                                    break;
+                                }
+                            }
+                    }
+                }
+                    // TODO EXPLOSIONS turn explosions into entities, and pass the the entity in as the damage origin.
+                    _damageableSystem.TryChangeDamage(entity, damage, ignoreResistances: true);
             }
         }
 
@@ -506,6 +548,7 @@ public sealed partial class ExplosionSystem
                 _projectileQuery,
                 throwForce);
         }
+        deletedSkip: ;
     }
 
     /// <summary>
@@ -872,6 +915,7 @@ sealed class Explosion
                     _currentDamage,
                     Epicenter,
                     ProcessedEntities,
+                    ExplosionType,
                     ExplosionType.ID,
                     ExplosionType.FireStacks,
                     Cause);
@@ -891,6 +935,7 @@ sealed class Explosion
                     _currentDamage,
                     Epicenter,
                     ProcessedEntities,
+                    ExplosionType,
                     ExplosionType.ID,
                     ExplosionType.FireStacks,
                     Cause);

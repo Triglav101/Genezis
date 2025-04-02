@@ -20,6 +20,8 @@ using Content.Shared.Projectiles;
 using Content.Shared.Throwing;
 using Content.Shared.Explosion.Components;
 using Content.Shared.Explosion.EntitySystems;
+using Content.Shared.Tag;
+using Robust.Server.Containers;
 using Robust.Server.GameStates;
 using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
@@ -55,10 +57,13 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly SharedMapSystem _map = default!;
+    [Dependency] private readonly ContainerSystem _container = default!;
+    [Dependency] private readonly TagSystem _tagSystem = default!;
 
     private EntityQuery<FlammableComponent> _flammableQuery;
     private EntityQuery<PhysicsComponent> _physicsQuery;
     private EntityQuery<ProjectileComponent> _projectileQuery;
+    private EntityQuery<TagComponent> _tagQuery;
 
     /// <summary>
     ///     "Tile-size" for space when there are no nearby grids to use as a reference.
@@ -81,6 +86,7 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
     public override void Initialize()
     {
         base.Initialize();
+        _tagQuery = GetEntityQuery<TagComponent>();
 
         DebugTools.Assert(_prototypeManager.HasIndex<ExplosionPrototype>(DefaultExplosionPrototypeId));
 
