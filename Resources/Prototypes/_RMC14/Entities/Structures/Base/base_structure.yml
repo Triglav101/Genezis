@@ -124,6 +124,8 @@
     isCorrodible: true
     structure: true
     meltTimeMult: 3
+  - type: Penetratable
+    stoppingPower: 2    
   - type: Clickable
   - type: RMCWallExplosionDeletable
   - type: DestroyedByExplosionType

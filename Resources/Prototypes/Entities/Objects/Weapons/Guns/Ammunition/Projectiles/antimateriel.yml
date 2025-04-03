@@ -2,12 +2,13 @@
   categories: [ HideSpawnMenu ]
   parent: BaseBullet
   id: BulletAntiMateriel
-  name: bullet (.60 anti-materiel)
+  name: пуля (.60 анти-материальная)
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 40
         Structural: 30
+    penetrationScore: 3    
   - type: StaminaDamageOnCollide
     damage: 35

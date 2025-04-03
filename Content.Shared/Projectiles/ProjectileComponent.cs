@@ -109,4 +109,7 @@ public sealed partial class ProjectileComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public float? MaxFixedRange;
+
+    [DataField]
+    public int PenetrationScore;    
 }

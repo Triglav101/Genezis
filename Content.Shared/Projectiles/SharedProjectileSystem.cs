@@ -1,6 +1,7 @@
 using System.Numerics;
 using Content.Shared._RMC14.Projectiles.Penetration;
 using Content.Shared._RMC14.Weapons.Ranged.Prediction;
+using Content.Shared._Genezis.Penetration;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Camera;
 using Content.Shared.Damage;
@@ -20,6 +21,7 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
+using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
@@ -41,10 +43,14 @@ public abstract partial class SharedProjectileSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
     [Dependency] private readonly SharedGunSystem _guns = default!;
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
+
+    private EntityQuery<PenetratableComponent> _penetratableQuery;
 
     public override void Initialize()
     {
         base.Initialize();
+        _penetratableQuery = GetEntityQuery<PenetratableComponent>();
 
         SubscribeLocalEvent<ProjectileComponent, StartCollideEvent>(OnStartCollide);
         SubscribeLocalEvent<ProjectileComponent, PreventCollideEvent>(PreventCollision);
@@ -178,14 +184,22 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             // }
         }
 
-        component.ProjectileSpent = true;
-        Dirty(uid, component);
+        if (component.PenetrationScore > 0
+            && _penetratableQuery.TryGetComponent(target, out var penetratable)
+            && _random.Next(component.PenetrationScore + penetratable.StoppingPower) >= penetratable.StoppingPower)
+        {
+            component.DamagedEntity = component.PenetrationScore < penetratable.StoppingPower;
+
+            component.PenetrationScore -= penetratable.StoppingPower;
+        }
+        else
+            component.DamagedEntity = true;
 
         // RMC14
         var additionalHits = new AfterProjectileHitEvent(projectile, target);
         RaiseLocalEvent(uid, ref additionalHits);
 
-        if (!predicted && component.DeleteOnCollide && (_net.IsServer || IsClientSide(uid)))
+        if (!predicted && component.DeleteOnCollide && component.DamagedEntity && (_net.IsServer || IsClientSide(uid)))
             QueueDel(uid);
 
         else if (_net.IsServer && component.DeleteOnCollide)

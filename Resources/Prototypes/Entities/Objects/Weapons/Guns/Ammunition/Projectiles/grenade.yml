@@ -12,6 +12,7 @@
     damage:
       types:
         Blunt: 4
+    penetrationScore: 1    
   - type: StaminaDamageOnCollide
     damage: 55
   - type: TimedDespawn
@@ -31,6 +32,7 @@
     damage:
       types:
         Piercing: 45
+    penetrationScore: 1    
   - type: TimedDespawn
     lifetime: 0.25
 
