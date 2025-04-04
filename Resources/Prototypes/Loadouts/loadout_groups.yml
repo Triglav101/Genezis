@@ -140,6 +140,7 @@
   name: loadout-group-captain-neck
   minLimit: 0
   loadouts:
+  - CaptainEpaulettes
   - CaptainCloak
   - CaptainCloakFormal
   - CaptainMantle

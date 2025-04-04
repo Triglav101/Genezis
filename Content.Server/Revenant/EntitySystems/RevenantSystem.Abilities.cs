@@ -371,8 +371,6 @@ public sealed partial class RevenantSystem
                 _whitelistSystem.IsBlacklistPass(component.MalfunctionBlacklist, ent))
                 continue;
 
-            _emag.DoEmagEffect(uid, ent); //it does not emag itself. adorable.
-
             // ADT Revenant malfunction for IPC
             if (_status.TryAddStatusEffect<SeeingStaticComponent>(ent, "SeeingStatic", TimeSpan.FromSeconds(15), true))
                 _status.TryAddStatusEffect<SlowedDownComponent>(ent, "SlowedDown", TimeSpan.FromSeconds(15), true);

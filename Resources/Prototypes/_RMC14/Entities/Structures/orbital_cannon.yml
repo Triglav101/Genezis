@@ -1,7 +1,7 @@
 ﻿- type: entity
   id: RMCOrbitalCannon
-  name: orbital cannon
-  description: "The UNMC Orbital Cannon System. Used for shooting large targets on the planet that is orbited. It accelerates its payload with solid fuel for devastating results upon impact."
+  name: орбитальное орудие
+  description: Орбитальная пушечная система Триглава. Используется для обстрела целей на планете, находящейся на орбите.
   placement:
     mode: SnapgridCenter
   components:
@@ -52,6 +52,7 @@
   - type: Sprite
     sprite: _RMC14/Structures/almayer_props.rsi
     state: ob_fuel
+    drawdepth: SmallObjects
   - type: Clickable
   - type: InteractionOutline
   - type: PowerLoaderGrabbable

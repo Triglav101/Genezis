@@ -114,12 +114,6 @@ public sealed class TechAnomalySystem : EntitySystem
             var sink = _random.Pick(sinks);
             sinks.Remove(sink);
 
-            if (_random.Prob(tech.Comp.EmagSupercritProbability))
-            {
-                _emag.DoEmagEffect(tech, source);
-                _emag.DoEmagEffect(tech, sink);
-            }
-
             CreateNewLink(tech, source, sink);
         }
     }

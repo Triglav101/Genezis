@@ -9,11 +9,13 @@ namespace Content.Client._RMC14.Buckle;
 
 public sealed class RMCBuckleVisualsSystem : EntitySystem
 {
+    [Dependency] private readonly XenoVisualizerSystem _xenoVisualizer = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<BuckleComponent, BuckledEvent>(OnBuckled, after: [typeof(BuckleSystem)]);
         SubscribeLocalEvent<BuckleComponent, UnbuckledEvent>(OnUnbuckled, after: [typeof(BuckleSystem)]);
 
+        SubscribeLocalEvent<BuckleComponent, AfterAutoHandleStateEvent>(OnBuckleState);
         SubscribeLocalEvent<RMCBuckleDrawDepthComponent, GetDrawDepthEvent>(OnGetDrawDepth, after: [typeof(XenoVisualizerSystem)]);
     }
 
@@ -40,6 +42,11 @@ public sealed class RMCBuckleVisualsSystem : EntitySystem
 #pragma warning restore RA0002
         Dirty(ent);
     }
+
+    private void OnBuckleState(Entity<BuckleComponent> ent, ref AfterAutoHandleStateEvent args)
+     {
+         _xenoVisualizer.UpdateDrawDepth(ent.Owner);
+     }
 
     private void OnGetDrawDepth(Entity<RMCBuckleDrawDepthComponent> ent, ref GetDrawDepthEvent args)
     {

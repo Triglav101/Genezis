@@ -1,9 +1,8 @@
 using Content.Server.Chat.Managers;
+using Content.Server.Chat.Systems;
 using Content.Server.Hands.Systems;
-using Content.Server.Popups;
 using Content.Server.Radio;
 using Content.Server.Speech;
-using Content.Server.Chat.Systems;
 using Content.Server.Speech.Components;
 using Content.Shared._RMC14.Communications;
 using Content.Shared._RMC14.Hands;
@@ -11,12 +10,12 @@ using Content.Shared._RMC14.Radio;
 using Content.Shared._RMC14.Rules;
 using Content.Shared._RMC14.Telephone;
 using Content.Shared._RMC14.Xenonids;
+using Content.Shared.Backmen.Chat;
 using Content.Shared.Chat;
 using Content.Shared.Coordinates;
 using Robust.Server.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using Content.Shared.Backmen.Chat;
 
 namespace Content.Server._RMC14.Telephone;
 
@@ -26,7 +25,7 @@ public sealed class RMCTelephoneSystem : SharedRMCTelephoneSystem
     [Dependency] private readonly IChatManager _chatManager = default!;
     [Dependency] private readonly CommunicationsTowerSystem _communicationsTower = default!;
     [Dependency] private readonly HandsSystem _hands = default!;
-    [Dependency] private readonly CMHandsSystem _rmcHands = default!;
+    [Dependency] private readonly RMCHandsSystem _rmcHands = default!;
     [Dependency] private readonly RMCPlanetSystem _rmcPlanet = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
 
@@ -121,10 +120,10 @@ public sealed class RMCTelephoneSystem : SharedRMCTelephoneSystem
     {
         if (TryComp<RotaryPhoneBackpackComponent>(ev.Receiving, out var comp))
         {
-            _chat.TrySendInGameICMessage(ev.Receiving, "звонит энергично!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
+            _chat.TrySendInGameICMessage(ev.Receiving, "rings vigorously!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
         }else
         {
-            _chat.TrySendInGameICMessage(ev.Receiving, "рация звонит энергично!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
+            _chat.TrySendInGameICMessage(ev.Receiving, "phone rings vigorously!", InGameICChatType.Emote, false, ignoreActionBlocker: true);
         }
     }
 }

@@ -197,6 +197,7 @@ binds:
 - function: OpenCharacterMenu
   type: State
   key: C
+  mod1: Shift  
 - function: OpenEmotesMenu
   type: State
   key: Y
@@ -651,3 +652,6 @@ binds:
 - function: RMCPickUpDroppedItems
   type: State
   key: R
+- function: RMCInteractWithOtherHand
+  type: State
+  key: C

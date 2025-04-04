@@ -120,8 +120,7 @@
       components:
       - Xeno
   - type: Anchorable
-    flags:
-    - None
+    flags: None
 
 - type: entity
   parent: RMCMedilathe

@@ -64,14 +64,6 @@ namespace Content.Server.Voting.Managers
             {
                 DirtyCanCallVoteAll();
             });
-
-            foreach (var kvp in _voteTypesToEnableCVars)
-            {
-                _cfg.OnValueChanged(kvp.Value, _ =>
-                {
-                    DirtyCanCallVoteAll();
-                });
-            }
         }
 
         private void ReceiveVoteMenu(MsgVoteMenu message)
@@ -344,9 +336,6 @@ namespace Content.Server.Voting.Managers
 
             // If voting is disabled, block votes.
             if (!_cfg.GetCVar(CCVars.VoteEnabled))
-                return false;
-            // Specific standard vote types can be disabled with cvars.
-            if (voteType != null && _voteTypesToEnableCVars.TryGetValue(voteType.Value, out var cvar) && !_cfg.GetCVar(cvar))
                 return false;
 
             // Cannot start vote if vote is already active (as non-admin).

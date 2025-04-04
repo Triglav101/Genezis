@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ClothingNeckBase, BaseCommandContraband]
+  id: ClothingNeckEpaulettesCap
+  name: погоны главнокомандующего
+  description: Выдаются при посвящении в звание Советом Триглава.
+  components:
+  - type: Sprite
+    sprite: Clothing/Neck/mantles/capepaulettes.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/mantles/capepaulettes.rsi

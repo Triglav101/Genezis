@@ -53701,13 +53701,6 @@ entities:
     - type: Transform
       pos: 104.289696,-110.3083
       parent: 1
-- proto: PlushieLizardMirrored
-  entities:
-  - uid: 2326
-    components:
-    - type: Transform
-      pos: 4.4797134,-161.4341
-      parent: 1
 - proto: PlushieRainbowCarp
   entities:
   - uid: 2327

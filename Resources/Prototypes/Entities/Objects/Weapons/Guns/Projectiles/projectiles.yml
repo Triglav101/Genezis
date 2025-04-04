@@ -53,7 +53,6 @@
   abstract: true
   components:
   - type: Reflective
-  - type: FlyBySound
   - type: Clickable
   - type: Sprite
     noRot: false
@@ -75,15 +74,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: &flybyfixture
-        shape: !type:PhysShapeCircle
-          radius: 1.5
-        layer:
-        - Impassable
-        - MidImpassable
-        - HighImpassable
-        - LowImpassable
-        hard: False
   - type: Projectile
     impactEffect: BulletImpactEffect
     damage:
@@ -93,6 +83,7 @@
       path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: TimedDespawn
     lifetime: 10
+  - type: LagCompensation
 
 - type: entity
   id: BaseBulletTrigger # Trigger-on-collide bullets
@@ -115,7 +106,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
 
 - type: entity
   id: BaseBulletPractice
@@ -152,7 +142,7 @@
 
 - type: entity
   id: BaseBulletAP
-  name: base bullet armor-piercing
+  name: base bullet AP
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
@@ -211,7 +201,6 @@
         mask:
           - Impassable
           - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: Projectile
     damage:
@@ -254,10 +243,9 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
-    damage: 30
+    damage: 33
   - type: Projectile
     impactEffect: BulletImpactEffectDisabler
     damage:
@@ -294,7 +282,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
     damage: 1
@@ -330,7 +317,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
 #   soundHit:  Waiting on serv3
     damage:
@@ -372,7 +358,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     #   soundHit:  Waiting on serv3
     impactEffect: BulletImpactEffectDisabler
@@ -425,11 +410,11 @@
     impactEffect: BulletImpactEffectKinetic
     damage:
       types:
-        Blunt: 15
-        Structural: 15
+        Blunt: 25
+        Structural: 30
   # Short lifespan
   - type: TimedDespawn
-    lifetime: 0.170 # ~4 tiles of range.
+    lifetime: 0.4
   - type: GatheringProjectile
 
 - type: entity
@@ -494,29 +479,6 @@
     lifetime: 0.4
 
 - type: entity
-  id: BulletSpike
-  name: spike
-  parent: BaseBulletHighVelocity
-  categories: [ HideSpawnMenu ]
-  description:
-  components:
-    - type: Sprite
-      netsync: false
-      noRot: false
-      sprite: Objects/Weapons/Guns/Projectiles/spike.rsi
-      layers:
-        - state: spike
-          shader: unshaded
-    - type: Projectile
-      impactEffect: BulletImpactEffectKinetic
-      damage:
-        types:
-          Piercing: 19
-    # Short lifespan
-    - type: TimedDespawn
-      lifetime: 1
-
-- type: entity
   parent: BaseBullet
   id: AnomalousParticleDelta
   name: delta particles
@@ -546,7 +508,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     damage:
       types:
@@ -901,25 +862,6 @@
   - type: VaporVisuals
 
 - type: entity
-  id: BulletSplashAcid
-  name: flesh acid spit
-  parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
-  components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/flesh_toxic.rsi
-      layers:
-        - state: flesh_toxic
-    - type: Projectile
-      damage:
-        types:
-          Caustic: 5
-    - type: SplashOnTrigger
-      splashReagents:
-        - ReagentId: FleshAcid
-          Quantity: 30
-
-- type: entity
   id: BulletCannonBall
   name: cannonball
   parent: BaseBulletTrigger
@@ -976,40 +918,6 @@
             - HighImpassable
     - type: GrapplingProjectile
 
-#BackmenCultOfFlash-start
-- type: entity
-  id: BaseBulletHighVelocity
-  name: base bullet high-velocity
-  parent: BaseBullet
-  categories: [ HideSpawnMenu ]
-  components:
-    - type: Projectile
-      damage:
-        types:
-          Piercing: 17
-#BackmenCultOfFlash-end
-
-- type: entity
-  id: BulletRobotBall
-  name: rocket
-  parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    layers:
-      - state: ball
-  - type: ExplodeOnTrigger
-  - type: Explosive
-    explosionType: DemolitionCharge
-    maxIntensity: 9
-    intensitySlope: 3
-    totalIntensity: 10
-    maxTileBreak: 0
-  - type: PointLight
-    radius: 1
-    color: orange
-    energy: 0.5
 - type: entity
   name : disabler bolt smg
   id: BulletDisablerSmg
@@ -1040,7 +948,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
     damage: 15
@@ -1082,7 +989,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Ammo
 
 - type: entity
@@ -1191,7 +1097,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: Projectile
     impactEffect: BulletImpactEffectOrangeDisabler
