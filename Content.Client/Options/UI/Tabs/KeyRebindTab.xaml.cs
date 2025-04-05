@@ -186,8 +186,9 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(CMKeyFunctions.CMHolsterTertiary);
             AddButton(CMKeyFunctions.CMHolsterQuaternary);
             AddButton(CMKeyFunctions.RMCPickUpDroppedItems);
+            AddButton(CMKeyFunctions.RMCInteractWithOtherHand);
 
-            AddHeader("Монстры Триглава");
+            AddHeader("Монстры планеты");
             AddButton(CMKeyFunctions.CMXenoWideSwing);
 
 
