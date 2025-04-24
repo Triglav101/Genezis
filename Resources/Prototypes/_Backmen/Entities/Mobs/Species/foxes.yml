@@ -1,6 +1,6 @@
 - type: entity
   save: false
-  name: Urist McFox
+  name: Урист МакТаяран
   parent: BaseMobHuman
   id: BaseMobHumanoidFox
   abstract: true
@@ -71,11 +71,11 @@
 
 - type: entity
   save: false
-  name: Urist McHands
+  name: Урист МакТаяран
   parent: MobHumanDummy
   id: MobHumanoidFoxDummy
   categories: [ HideSpawnMenu ]
-  description: A dummy fox meant to be used in character setup.
+  description: Фиктивный таяран, предназначенный для использования при настройке персонажа.
   components:
   - type: HumanoidAppearance
     species: HumanoidFoxes

@@ -1,6 +1,6 @@
 - type: entity
   save: false
-  name: Urist McFluff
+  name: Урист МакХарибда
   parent: BaseMobSpeciesOrganic
   id: BaseMobMoth
   abstract: true
@@ -73,6 +73,7 @@
       250: 0.4
   - type: Sprite # sprite again because we want different layer ordering
     noRot: true
+    scale: 1.2, 1.2    
     drawdepth: Mobs
     layers:
       - map: [ "enum.HumanoidVisualLayers.Chest" ]
