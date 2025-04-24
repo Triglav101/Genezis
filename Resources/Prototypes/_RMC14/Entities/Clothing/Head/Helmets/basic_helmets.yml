@@ -88,6 +88,7 @@
       - Xeno
   - type: Appearance
   - type: HelmetAccessoryHolder
+  - type: RockableItem
 
 - type: entity
   parent: RMCHelmetBase
@@ -95,7 +96,8 @@
   abstract: true
   components:
   - type: CMArmor
-    armor: 20
+    melee: 20
+    bullet: 20
     explosionArmor: 10
   - type: RMCBulkyArmor
   - type: OverwatchCamera
@@ -109,6 +111,7 @@
       sprite: _RMC14/Objects/Clothing/Head/Helmets/helmet_overlays.rsi
       state: sql-helmet
   - type: CycleableVisor
+  - type: RockableItem
 
 - type: entity
   id: RMCFoldableHelmetBase
@@ -125,6 +128,7 @@
     - HeadSide
     unfoldedHideLayers: []
   - type: HideLayerClothing
+  - type: RockableItem
 
 # riot
 - type: entity
@@ -138,9 +142,11 @@
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Helmets/riot.rsi
   - type: CMArmor
-    armor: 20 # 30 melee, 10 bullet
+    melee: 30
+    bullet: 10
     explosionArmor: 0
   - type: CMHardArmor
+  - type: RockableItem
 
 - type: entity
   parent: ArmorHelmetRiot
@@ -155,3 +161,4 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/old_riot.rsi
     equipDelay: 2
     unequipDelay: 2
+  - type: RockableItem

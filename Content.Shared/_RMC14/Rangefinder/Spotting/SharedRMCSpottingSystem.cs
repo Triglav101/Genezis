@@ -53,10 +53,10 @@ public abstract partial class SharedRMCSpottingSystem : EntitySystem
     /// </summary>
     private void OnTargetingFinished(Entity<SpottingComponent> ent, ref TargetingFinishedEvent args)
     {
-        if (!TryComp(ent, out TargetingAltComponent? targeting))
+        if(!TryComp(ent, out TargetingAltComponent? targeting))
             return;
 
-        _targeting.StopTargeting(ent, args.Target, targeting);
+        _targeting.StopTargeting((ent, targeting), args.Target);
     }
 
     /// <summary>

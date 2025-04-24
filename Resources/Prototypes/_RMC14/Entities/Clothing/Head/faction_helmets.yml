@@ -12,6 +12,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Helmets/marsoc.rsi
   - type: ItemCamouflage
     camouflageVariations: { }
+  - type: RockableItem
 
 # Dutch's Dozen
 - type: entity

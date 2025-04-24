@@ -11,6 +11,7 @@
   - type: Tag
     tags:
     - ClothMade
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -28,6 +29,7 @@
       Snow: _RMC14/Objects/Clothing/Head/Hats/beret/snow.rsi
       Classic: _RMC14/Objects/Clothing/Head/Hats/beret/classic.rsi
       Urban: _RMC14/Objects/Clothing/Head/Hats/beret/urban.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -38,6 +40,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_red.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_red.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -48,6 +51,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_tan.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_tan.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -59,6 +63,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_engi.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_engi.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -70,6 +75,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_wo.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_wo.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -88,6 +94,7 @@
       Snow: _RMC14/Objects/Clothing/Head/Hats/CO/beret/snow.rsi
       Classic: _RMC14/Objects/Clothing/Head/Hats/CO/beret/classic.rsi
       Urban: _RMC14/Objects/Clothing/Head/Hats/CO/beret/urban.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -99,6 +106,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_black.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_black.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -110,6 +118,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_white.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_white.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -121,6 +130,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_ltcol.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_ltcol.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -132,6 +142,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_col.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/beret_col.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -143,6 +154,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_green.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/beret_green.rsi
+  - type: RockableItem
 
 # Caps
 - type: entity
@@ -183,6 +195,7 @@
       components:
       - HelmetAccessory
   - type: HelmetAccessoryHolder
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapMP
@@ -194,6 +207,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/warden.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/warden.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapMP
@@ -205,6 +219,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/cargo_cap.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapMP
@@ -216,6 +231,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapMP
@@ -248,6 +264,7 @@
       Snow: _RMC14/Objects/Clothing/Head/Hats/cap/snow.rsi
       Classic: _RMC14/Objects/Clothing/Head/Hats/cap/classic.rsi
       Urban: _RMC14/Objects/Clothing/Head/Hats/cap/urban.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadCapFlippable
@@ -266,6 +283,7 @@
       Snow: _RMC14/Objects/Clothing/Head/Hats/CO/cap/snow.rsi
       Classic: _RMC14/Objects/Clothing/Head/Hats/CO/cap/classic.rsi
       Urban: _RMC14/Objects/Clothing/Head/Hats/CO/cap/urban.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -276,6 +294,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/formal_black.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/formal_black.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -286,6 +305,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/formal_white.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/CO/formal_white.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -297,6 +317,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/drill_hat.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/drill_hat.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadCapFlippable
@@ -316,6 +337,7 @@
       Snow: _RMC14/Objects/Clothing/Head/Hats/cap_officer/snow.rsi
       Classic: _RMC14/Objects/Clothing/Head/Hats/cap_officer/classic.rsi
       Urban: _RMC14/Objects/Clothing/Head/Hats/cap_officer/urban.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -327,6 +349,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_formal.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_formal.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -338,6 +361,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_service.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/cap_peaked_service.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCap
@@ -349,6 +373,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/cmo_cap.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/cmo_cap.rsi
+  - type: RockableItem
 
 # surgical caps
 - type: entity
@@ -361,6 +386,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/blue.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/blue.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapSurgBlue
@@ -371,6 +397,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/green.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/green.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapSurgBlue
@@ -381,6 +408,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/purple.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/purple.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadCapSurgBlue
@@ -391,6 +419,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/orange.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SurgicalCap/orange.rsi
+  - type: RockableItem
 
 # Dress blues
 - type: entity
@@ -403,6 +432,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/DressBlues/enlisted.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/DressBlues/enlisted.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -414,6 +444,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/DressBlues/officer.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/DressBlues/officer.rsi
+  - type: RockableItem
 
 # The squad beret
 - type: entity
@@ -436,6 +467,7 @@
       SquadEcho: RMCHeadBeretSquadEcho
       SquadFoxtrot: RMCHeadBeretSquadFoxtrot
       SquadIntel: RMCHeadBeretSquadIntel
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -448,6 +480,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/alpha.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/alpha.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadBeretSquadAlpha
@@ -459,6 +492,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/bravo.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/bravo.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadBeretSquadAlpha
@@ -470,6 +504,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/charlie.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/charlie.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadBeretSquadAlpha
@@ -481,6 +516,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/delta.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/delta.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadBeretSquadAlpha
@@ -503,6 +539,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/foxtrot.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/foxtrot.rsi
+  - type: RockableItem
 
 - type: entity
   parent: RMCHeadBeretSquadAlpha
@@ -514,6 +551,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/intel.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/SquadBeret/intel.rsi
+  - type: RockableItem
 
 - type: entity
   parent: CMHeadBeret
@@ -525,3 +563,4 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/pvciberet.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/pvciberet.rsi
+  - type: RockableItem

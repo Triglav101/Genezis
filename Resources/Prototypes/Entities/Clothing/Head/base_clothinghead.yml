@@ -24,6 +24,7 @@
     tags:
       - ClothMade
       - WhitelistChameleon
+  - type: RockableItem
 
 - type: entity
   abstract: true

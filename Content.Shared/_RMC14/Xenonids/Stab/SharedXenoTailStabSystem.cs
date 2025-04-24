@@ -183,17 +183,13 @@ public abstract class SharedXenoTailStabSystem : EntitySystem
                     RaiseLocalEvent(hit, attackedEv);
 
                     var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEv.BonusDamage, hitEvent.ModifiersList);
-                    var change = _damageable.TryChangeDamage(hit, modifiedDamage, origin: stab);
+                    var change = _damageable.TryChangeDamage(hit, modifiedDamage, origin: stab , tool: stab);
 
                     if (change?.GetTotal() > FixedPoint2.Zero)
                         _colorFlash.RaiseEffect(Color.Red, new List<EntityUid> { hit }, filter);
 
                     if (stab.Comp.InjectNeuro)
                     {
-
-                        if (HasComp<NeurotoxinImmunityComponent>(hit))
-                            continue;
-
                         if (!TryComp<NeurotoxinInjectorComponent>(stab, out var neuroTox))
                            continue;
 

@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingEyesBase
   id: CMGlassesSecurity
-  name: security HUD-glasses
+  name: HUD интерфейс отдела контроля
   description: Sunglasses wired up with the best nano-tech the Marines can muster out on the frontier. Displays information about any person you decree worthy of your gaze.
   components:
   - type: Item
@@ -399,9 +399,9 @@
 - type: entity
   parent: ClothingEyesGlassesCheapSunglasses
   id: RMCSunglasses
-  suffix: RMC
-  name: sunglasses
-  description: Generic off-brand eyewear, used to help provide rudimentary eye cover.
+  suffix: Триглав
+  name: солнечные очки
+  description: Солнцезащитные очки с большими линзами для защиты глаз от солнца.
   components:
   - type: Item
     storedRotation: 0
@@ -415,9 +415,9 @@
 - type: entity
   parent: ClothingEyesEyepatch
   id: RMCEyepatch
-  suffix: RMC
+  suffix: Триглав
   name: повязка на глаз
-  description: Once worn by swashbucklers of old, now more commonly associated with a figure of legend. They say he was big AND a boss. Impressive no? Don't let the MPs see you wearing this non-regulation attire.
+  description: Скрывает особенности вашего тела.
   components:
   - type: Item
     storedRotation: 0
@@ -489,16 +489,15 @@
   - type: ItemToggle
     activated: true
   - type: ToggleClothing
-    action: RMCActionToggleWeldingGoggles
+    action: ActionToggleWeldingMask
   - type: ComponentToggler
     components:
+    - type: IngestionBlocker
+    - type: FlashImmunity
+    - type: IdentityBlocker
     - type: EyeProtection
-    # - type: SightRestrictionItem
-    #   restriction:
-    #     impairFull: 3.0
-    #     impairPartial: 2.0
-    #     alphaOuter: 1.0
-    #     alphaInner: 0.0    
+    - type: VisionDarkener
+      strength: 6
   - type: RMCItemToggleClothingVisuals
   - type: GenericVisualizer
     visuals:

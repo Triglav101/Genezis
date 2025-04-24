@@ -72,7 +72,26 @@
     - map: [ "targetedDirectionIntense" ]
       sprite: _RMC14/Effects/targeted.rsi
       state: sniper_lockon_intense_direction
-      visible: false      
+      visible: false
+  - type: ShitRockable # You can set groups, but be aware that internally they are treated as equal damage in all types within the group i.e 3 Brute becomes 1 blunt 1 slash 1 pierce ...
+    slotThresholds:
+    - slots: EYES
+      damageThreshold:
+        types:
+          Blunt: 5
+    - slots: HEAD
+      damageThreshold:
+        types:
+          Blunt: 10
+    - slots: EARS
+      damageThreshold:
+        types:
+          Blunt: 5
+    - slots: FEET
+      damageThreshold:
+        types:
+          Blunt: 100 # yo, that guys dead!
+    # the spider's extra pockets should probably be rockable, but under the hood theyre just flagged as normal pockets, so I dont think theres an easy way to do that and not also make their pockets into sieves.            
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:
@@ -288,6 +307,7 @@
         Brute: -0.07
   - type: Fingerprint
   - type: Blindable
+  - type: DarkenedVision  
   # Other
   - type: Temperature
     AtmosTemperatureTransferEfficiency: 0.5  

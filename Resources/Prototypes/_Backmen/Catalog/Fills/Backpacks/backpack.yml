@@ -236,15 +236,6 @@
           amount: 2
         - id: SpetsnazMedipen
           amount: 3
-        - id: WeaponDominatorNT
-        - id: MagazinePistol345
-          amount: 3
-        - id: WeaponPulseRifleAP12
-        - id: MagazinePulseRifle
-          amount: 9
-        - id: WeaponShotgunAA12
-        - id: MagazineShotgunMagnum12
-          amount: 6
 
 - type: entity
   categories: [ HideSpawnMenu ]
