@@ -45,7 +45,7 @@ public abstract class SharedCMAutomatedVendorSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly SharedRMCMapSystem _rmcMap = default!;
+    [Dependency] private readonly RMCMapSystem _rmcMap = default!;
     [Dependency] private readonly SkillsSystem _skills = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedWebbingSystem _webbing = default!;
@@ -388,12 +388,6 @@ public abstract class SharedCMAutomatedVendorSystem : EntitySystem
                 while (specVendors.MoveNext(out var vendorId, out _))
                 {
                     var specVendorComponent = EnsureComp<RMCVendorSpecialistComponent>(vendorId);
-                    foreach (var linkedEntry in args.LinkedEntries)
-                    {
-                        specVendorComponent.GlobalSharedVends.TryGetValue(linkedEntry, out var linkedCount);
-                        maxAmongVendors += linkedCount;
-                    }
-
                     if (specVendorComponent.GlobalSharedVends.TryGetValue(args.Entry, out vendCount))
                     {
                         if (vendCount > maxAmongVendors)
@@ -465,12 +459,13 @@ public abstract class SharedCMAutomatedVendorSystem : EntitySystem
                             continue;
 
                         vendorEntry.Amount -= GetBoxRemoveAmount(entry);
-                        Dirty(vendor);
-                        AmountUpdated(vendor, vendorEntry);
+                        entry.Amount--;
                         foundEntry = true;
                         break;
                     }
 
+                    if (foundEntry)
+                        break;
                 }
 
                 if (foundEntry)

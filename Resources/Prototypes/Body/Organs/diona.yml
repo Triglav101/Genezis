@@ -27,7 +27,7 @@
 
 - type: entity
   id: OrganDionaBrain
-  parent: [BaseDionaOrgan, OrganHumanBrain]
+  parent: BaseHumanOrganUnGibbable
   name: brain
   description: "The central hub of a diona's pseudo-neurological activity, its root-like tendrils search for its former body."
   components:

@@ -36,9 +36,9 @@ public sealed partial class DiseaseEffectSystem
         }
 
         var repairableComponent = EnsureComp<RepairableComponent>(ent);
-        repairableComponent.AllowSelfRepair = true;
-        repairableComponent.SelfRepairPenalty = 0.45f;
-        repairableComponent.FuelCost = 10;
+        repairableComponent.AllowSelfRepair = false;
+        repairableComponent.SelfRepairPenalty = 3f;
+        repairableComponent.FuelCost = 50;
         repairableComponent.DoAfterDelay = 8;
 
         _disease.CureDisease(ent, args.Disease);
@@ -46,7 +46,6 @@ public sealed partial class DiseaseEffectSystem
         {
             _appearanceSystem.SetSex(ent, Sex.Female, true, appearanceComponent);
             _appearanceSystem.SetSkinColor(ent, Color.Red, true, true, appearanceComponent);
-            //_appearanceSystem.SetTTSVoice(ent, "Baya", appearanceComponent);
             if (appearanceComponent.MarkingSet.Markings.TryGetValue(MarkingCategories.Tail, out var tails))
             {
                 foreach (var marking in tails.ToArray())
@@ -63,6 +62,7 @@ public sealed partial class DiseaseEffectSystem
                 }
             }
 
+            _appearanceSystem.AddMarking(ent, "LongEarsWide", Color.Red, true, true, appearanceComponent);
             _appearanceSystem.AddMarking(ent, "MothAntennasFeathery", Color.Red, true, true, appearanceComponent);
             _appearanceSystem.AddMarking(ent, "TailSuccubus", Color.Red, true, true, appearanceComponent);
             appearanceComponent.Age = 1;

@@ -35,6 +35,21 @@
       Urban: _RMC14/Objects/Clothing/Back/Backpacks/Marines/sniper_smock/snow-urban-desert.rsi
 
 - type: entity
+  parent: RMCSatchelLightpack
+  id: RMCSatchelLightpackFilledRoyal
+  suffix: Filled, Royal
+  components:
+  - type: StorageFill
+    contents:
+    - id: CMFirstAidKitFilled
+    - id: RMCPowerCellSmartgun
+    - id: RMCMagazineSmartGunHT
+      amount: 2
+    - id: RMCPacketGrenadeIncendiaryFilled # TODO RMC14 R2175
+    - id: CMPacketGrenadeHighExplosiveFilled # TODO RMC14 R2175
+    - id: CMPackFlare
+
+- type: entity
   parent: CMSatchel
   id: RMCBackpackScout
   name: M68 thermal cloak

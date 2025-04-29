@@ -5,6 +5,7 @@
   - CMXenoFlammable
   - RMCXenoSpeechSounds
   - RMCXenoCommendationReceiver
+  - RMCXenoMobCollision
   id: CMXenoSentinel
   name: Sentinel
   description: A slithery, spitting kind of alien.
@@ -87,7 +88,3 @@
     spray: XenoAcidSprayTrapWeak
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.1
-  - type: RMCSurgeryXenoHeart
-    item: RMCOrganXenoHeartT1
-  - type: Bloodstream
-    bloodReagent: [RMCXenoBlood, RMCPlasmaNeurotoxin]    

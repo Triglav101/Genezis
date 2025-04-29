@@ -1,6 +1,6 @@
+using Content.Server._RMC14.Rules;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
-using Content.Server.AlertLevel;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
 using Content.Server.Database;
@@ -19,6 +19,7 @@ using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Console;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -49,7 +50,8 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IServerPreferencesManager _prefsManager = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly ChatSystem _chatSystem = default!;
-        [Dependency] private readonly MapLoaderSystem _map = default!;
+        [Dependency] private readonly MapLoaderSystem _loader = default!;
+        [Dependency] private readonly SharedMapSystem _map = default!;
         [Dependency] private readonly GhostSystem _ghost = default!;
         [Dependency] private readonly SharedMindSystem _mind = default!;
         [Dependency] private readonly PlayTimeTrackingSystem _playTimeTrackings = default!;
@@ -63,7 +65,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly MetaDataSystem _metaData = default!;
         [Dependency] private readonly SharedRoleSystem _roles = default!;
         [Dependency] private readonly ServerDbEntryManager _dbEntryManager = default!;
-        [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
+        [Dependency] private readonly CMDistressSignalRuleSystem _distressSignal = default!;
 
         [ViewVariables] private bool _initialized;
         [ViewVariables] private bool _postInitialized;

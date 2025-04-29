@@ -30,14 +30,13 @@ public sealed partial class BiomeComponent : Component
     public List<IBiomeLayer> Layers = new();
 
     /// <summary>
-    /// Templates to use for <see cref="Layers"/>. Optional as this can be set elsewhere.
+    /// Templates to use for <see cref="Layers"/>.
+    /// If this is set on mapinit, it will fill out layers automatically.
+    /// If not set, use <c>BiomeSystem</c> to do it.
+    /// Prototype reloading will also use this.
     /// </summary>
-    /// <remarks>
-    /// This is really just here for prototype reload support.
-    /// </remarks>
-    [ViewVariables(VVAccess.ReadWrite),
-     DataField("template", customTypeSerializer: typeof(PrototypeIdSerializer<BiomeTemplatePrototype>))]
-    public string? Template;
+    [DataField]
+    public ProtoId<BiomeTemplatePrototype>? Template;
 
     /// <summary>
     /// If we've already generated a tile and couldn't deload it then we won't ever reload it in future.
@@ -72,7 +71,7 @@ public sealed partial class BiomeComponent : Component
     /// <summary>
     /// Track what markers we've loaded already to avoid double-loading.
     /// </summary>
-    [DataField("loadedMarkers", customTypeSerializer:typeof(PrototypeIdDictionarySerializer<HashSet<Vector2i>, BiomeMarkerLayerPrototype>))]
+    [DataField("loadedMarkers", customTypeSerializer: typeof(PrototypeIdDictionarySerializer<HashSet<Vector2i>, BiomeMarkerLayerPrototype>))]
     public Dictionary<string, HashSet<Vector2i>> LoadedMarkers = new();
 
     [DataField]

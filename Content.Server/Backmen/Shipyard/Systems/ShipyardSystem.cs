@@ -6,7 +6,6 @@ using Content.Server.Station.Systems;
 using Content.Shared.Backmen.Shipyard;
 using Content.Shared.GameTicking;
 using Robust.Server.GameObjects;
-using Robust.Server.Maps;
 using Robust.Shared.Map;
 using Content.Shared.Backmen.CCVar;
 using Robust.Shared.Configuration;
@@ -14,7 +13,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared.Backmen.Shipyard.Components;
 using Content.Shared.Backmen.Shipyard.Prototypes;
+using Robust.Shared.EntitySerialization;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map.Components;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Backmen.Shipyard.Systems;
 
@@ -91,20 +93,20 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             return false;
         }
 
-        var price = _pricing.AppraiseGrid((EntityUid) shuttleGrid, null);
+        var price = _pricing.AppraiseGrid((EntityUid)shuttleGrid, null);
         var targetGrid = _station.GetLargestGrid(stationData);
 
 
         if (targetGrid == null) //how are we even here with no station grid
         {
-            _mapManager.DeleteGrid((EntityUid) shuttleGrid);
+            _mapManager.DeleteGrid((EntityUid)shuttleGrid);
             shuttle = null;
             return false;
         }
 
         _metaDataSystem.SetEntityName(shuttleGrid.Value, vessel.Name);
 
-        _sawmill.Info($"Shuttle {shuttlePath} was purchased at {ToPrettyString((EntityUid) stationUid)} for {price:f2}");
+        _sawmill.Info($"Shuttle {shuttlePath} was purchased at {ToPrettyString((EntityUid)stationUid)} for {price:f2}");
         //can do TryFTLDock later instead if we need to keep the shipyard map paused
         _shuttle.FTLToDock(shuttleGrid.Value, shuttle, targetGrid.Value);
         return true;
@@ -121,41 +123,15 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         if (ShipyardMap == null)
             return false;
 
-        var loadOptions = new MapLoadOptions()
-        {
-            Offset = new Vector2(500f + _shuttleIndex, 1f)
-        };
-
-        if (!_map.TryLoad(ShipyardMap.Value, shuttlePath, out var gridList, loadOptions))
+        if (!_map.TryLoadGrid(ShipyardMap.Value, new ResPath(shuttlePath), out var grid, offset: new Vector2(500f + _shuttleIndex, 1f)))
         {
             _sawmill.Error($"Unable to spawn shuttle {shuttlePath}");
             return false;
         }
 
-        _shuttleIndex += Comp<MapGridComponent>(gridList[0]).LocalAABB.Width + ShuttleSpawnBuffer;
+        _shuttleIndex += Comp<MapGridComponent>(grid.Value).LocalAABB.Width + ShuttleSpawnBuffer;
 
-        //only dealing with 1 grid at a time for now, until more is known about multi-grid drifting
-        if (gridList.Count != 1)
-        {
-            if (gridList.Count < 1)
-            {
-                _sawmill.Error($"Unable to spawn shuttle {shuttlePath}, no grid found in file");
-            }
-
-            if (gridList.Count > 1)
-            {
-                _sawmill.Error($"Unable to spawn shuttle {shuttlePath}, too many grids present in file");
-
-                foreach (var grid in gridList)
-                {
-                    _mapManager.DeleteGrid(grid);
-                }
-            }
-
-            return false;
-        }
-
-        shuttleGrid = gridList[0];
+        shuttleGrid = grid;
         return true;
     }
 

@@ -30,6 +30,8 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Robust.Shared.EntitySerialization;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
@@ -94,7 +96,7 @@ public sealed class ArrivalsSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new []{ typeof(SpawnPointSystem)}, after: new [] { typeof(ContainerSpawnPointSystem)});
+        SubscribeLocalEvent<PlayerSpawningEvent>(HandlePlayerSpawning, before: new[] { typeof(SpawnPointSystem) }, after: new[] { typeof(ContainerSpawnPointSystem) });
 
         SubscribeLocalEvent<StationArrivalsComponent, StationPostInitEvent>(OnStationPostInit);
 
@@ -514,26 +516,18 @@ public sealed class ArrivalsSystem : EntitySystem
 
     private void SetupArrivalsStation()
     {
-        // start-backmen: mini games
-        if (EntityManager.System<GameTicker>().CurrentPreset?.IsMiniGame ?? false)
-        {
+        var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
+        _mapSystem.CreateMap(out var mapId, runMapInit: false);
+        var mapUid = _mapSystem.GetMap(mapId);
+
+        if (!_loader.TryLoadGrid(mapId, path, out var grid))
             return;
-        }
-        // end-backmen: mini games
-        var mapUid = _mapSystem.CreateMap(out var mapId, false);
+
         _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
-        if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
-        {
-            return;
-        }
-
-        foreach (var id in uids)
-        {
-            EnsureComp<ArrivalsSourceComponent>(id);
-            EnsureComp<ProtectedGridComponent>(id);
-            EnsureComp<PreventPilotComponent>(id);
-        }
+        EnsureComp<ArrivalsSourceComponent>(grid.Value);
+        EnsureComp<ProtectedGridComponent>(grid.Value);
+        EnsureComp<PreventPilotComponent>(grid.Value);
 
         // Setup planet arrivals if relevant
         if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
@@ -608,9 +602,9 @@ public sealed class ArrivalsSystem : EntitySystem
         var dummpMapEntity = _mapSystem.CreateMap(out var dummyMapId);
 
         if (TryGetArrivals(out var arrivals) &&
-            _loader.TryLoad(dummyMapId, component.ShuttlePath.ToString(), out var shuttleUids))
+            _loader.TryLoadGrid(dummyMapId, component.ShuttlePath, out var shuttle))
         {
-            component.Shuttle = shuttleUids[0];
+            component.Shuttle = shuttle.Value;
             var shuttleComp = Comp<ShuttleComponent>(component.Shuttle);
             var arrivalsComp = EnsureComp<ArrivalsShuttleComponent>(component.Shuttle);
             arrivalsComp.Station = uid;

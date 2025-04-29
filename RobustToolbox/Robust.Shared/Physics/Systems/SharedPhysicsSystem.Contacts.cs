@@ -30,12 +30,12 @@
 using System;
 using System.Buffers;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using JetBrains.Annotations;
 using Microsoft.Extensions.ObjectPool;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Map;
 using Robust.Shared.Maths;
 using Robust.Shared.Physics.Collision;
 using Robust.Shared.Physics.Collision.Shapes;
@@ -113,10 +113,7 @@ public abstract partial class SharedPhysicsSystem
 #if DEBUG
             contact._debugPhysics = _debugPhysicsSystem;
 #endif
-            contact.Manifold = new Manifold
-            {
-                Points = new ManifoldPoint[2]
-            };
+            contact.Manifold = new Manifold();
 
             return contact;
         }
@@ -427,6 +424,12 @@ public abstract partial class SharedPhysicsSystem
             var xformA = _xformQuery.GetComponent(uidA);
             var xformB = _xformQuery.GetComponent(uidB);
 
+            if (xformA.MapID == MapId.Nullspace || xformB.MapID == MapId.Nullspace)
+            {
+                DestroyContact(contact);
+                continue;
+            }
+
             // Is this contact flagged for filtering?
             if ((contact.Flags & ContactFlags.Filter) != 0x0)
             {
@@ -616,6 +619,24 @@ public abstract partial class SharedPhysicsSystem
         ArrayPool<Contact>.Shared.Return(contacts);
         ArrayPool<ContactStatus>.Shared.Return(status);
         ArrayPool<Vector2>.Shared.Return(worldPoints);
+    }
+
+    private record struct UpdateTreesJob : IRobustJob
+    {
+        public IEntityManager EntManager;
+
+        public void Execute()
+        {
+            var query = EntManager.AllEntityQueryEnumerator<BroadphaseComponent>();
+
+            while (query.MoveNext(out var broadphase))
+            {
+                broadphase.DynamicTree.Rebuild(false);
+                broadphase.StaticTree.Rebuild(false);
+                broadphase.SundriesTree._b2Tree.Rebuild(false);
+                broadphase.StaticSundriesTree._b2Tree.Rebuild(false);
+            }
+        }
     }
 
     private void BuildManifolds(Contact[] contacts, int count, ContactStatus[] status, Vector2[] worldPoints)
@@ -809,10 +830,10 @@ public abstract partial class SharedPhysicsSystem
     /// Returns all of this entity's contacts.
     /// </summary>
     [Pure]
-    public ContactEnumerator GetContacts(Entity<FixturesComponent?> entity)
+    public ContactEnumerator GetContacts(Entity<FixturesComponent?> entity, bool includeDeleting = false)
     {
         _fixturesQuery.Resolve(entity.Owner, ref entity.Comp);
-        return new ContactEnumerator(entity.Comp);
+        return new ContactEnumerator(entity.Comp, includeDeleting);
     }
 }
 
@@ -823,8 +844,16 @@ public record struct ContactEnumerator
     private Dictionary<string, Fixture>.ValueCollection.Enumerator _fixtureEnumerator;
     private Dictionary<Fixture, Contact>.ValueCollection.Enumerator _contactEnumerator;
 
-    public ContactEnumerator(FixturesComponent? fixtures)
+    /// <summary>
+    /// Also include deleting contacts.
+    /// This typically includes the current contact if you're invoking this in the eventbus for an EndCollideEvent.
+    /// </summary>
+    public bool IncludeDeleting;
+
+    public ContactEnumerator(FixturesComponent? fixtures, bool includeDeleting = false)
     {
+        IncludeDeleting = includeDeleting;
+
         if (fixtures == null || fixtures.Fixtures.Count == 0)
         {
             this = Empty;
@@ -851,6 +880,10 @@ public record struct ContactEnumerator
         }
 
         contact = _contactEnumerator.Current;
+
+        if (!IncludeDeleting && contact.Deleting)
+            return MoveNext(out contact);
+
         return true;
     }
 }

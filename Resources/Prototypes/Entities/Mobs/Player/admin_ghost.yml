@@ -13,6 +13,7 @@
     - BypassInteractionRangeChecks
     - BypassDropChecks
     - NoConsoleSound
+    - AllowBiomeLoading    
   - type: Input
     context: "aghost"
   - type: Ghost

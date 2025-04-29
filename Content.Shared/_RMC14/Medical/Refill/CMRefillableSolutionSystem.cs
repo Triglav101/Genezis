@@ -17,7 +17,7 @@ public sealed class CMRefillableSolutionSystem : EntitySystem
 {
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedRMCMapSystem _rmcMap = default!;
+    [Dependency] private readonly RMCMapSystem _rmcMap = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
     [Dependency] private readonly SolutionTransferSystem _solutionTransfer = default!;
@@ -112,7 +112,7 @@ public sealed class CMRefillableSolutionSystem : EntitySystem
         }
 
         var volume = refillable.Value.Comp.Solution.AvailableVolume;
-        //_solutionTransfer.Transfer(null, ent, solutionEnt.Value, args.Entity, refillable.Value, volume);
+        _solutionTransfer.Transfer(null, ent, solutionEnt.Value, args.Entity, refillable.Value, volume);
     }
 
     private void OnRefillSolutionFromContainerOnStoreInserted(Entity<RMCRefillSolutionFromContainerOnStoreComponent> ent, ref EntInsertedIntoContainerMessage args)

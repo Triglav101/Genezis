@@ -1,7 +1,7 @@
 using Content.Client.GameTicking.Managers;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
-using LightCycleComponent = Content.Shared._Genezis.DayCycle.LightCycleComponent;
+using LightCycleComponent = Content.Shared._Genezis.DayCycle.GenezisLightCycleComponent;
 
 namespace Content.Client._Genezis.DayCycle
 {

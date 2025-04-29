@@ -29,6 +29,7 @@
     outputs:
     - CMFloorSteelPlanetEngine
   - type: RMCRefinable
+    amount: 2  
     spawn:
     - id: CMSheetMetal1
   - type: Material

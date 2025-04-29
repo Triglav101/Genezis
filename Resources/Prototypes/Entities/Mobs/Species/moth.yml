@@ -1,6 +1,6 @@
 - type: entity
   save: false
-  name: Урист МакХарибда
+  name: Урист МакЛучезарный
   parent: BaseMobSpeciesOrganic
   id: BaseMobMoth
   abstract: true

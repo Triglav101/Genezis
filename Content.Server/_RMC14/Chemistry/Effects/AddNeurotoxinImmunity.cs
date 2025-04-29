@@ -13,7 +13,6 @@ public sealed partial class AddNeurotoxinImmunity : EntityEffect
 
     public override void Effect(EntityEffectBaseArgs args)
     {
-        args.EntityManager.EnsureComponent<NeurotoxinImmunityComponent>(args.TargetEntity);
         args.EntityManager.RemoveComponent<NeurotoxinComponent>(args.TargetEntity);
     }
 }

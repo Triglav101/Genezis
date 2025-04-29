@@ -1,5 +1,4 @@
 using System;
-using System.Buffers;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -8,7 +7,6 @@ using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Maths;
@@ -77,6 +75,22 @@ namespace Robust.Shared.Physics.Systems
         {
             _contactJob.BroadphaseExpand = value;
             _broadphaseExpand = value;
+        }
+
+        public void Rebuild(BroadphaseComponent component, bool fullBuild)
+        {
+            component.StaticTree.Rebuild(fullBuild);
+            component.DynamicTree.Rebuild(fullBuild);
+            component.SundriesTree._b2Tree.Rebuild(fullBuild);
+            component.StaticSundriesTree._b2Tree.Rebuild(fullBuild);
+        }
+
+        public void RebuildBottomUp(BroadphaseComponent component)
+        {
+            component.StaticTree.RebuildBottomUp();
+            component.DynamicTree.RebuildBottomUp();
+            component.SundriesTree._b2Tree.RebuildBottomUp();
+            component.StaticSundriesTree._b2Tree.RebuildBottomUp();
         }
 
         #region Find Contacts
@@ -413,24 +427,34 @@ namespace Robust.Shared.Physics.Systems
             }, aabb, true);
         }
 
+        [Obsolete("Use Entity<T> variant")]
         public void RegenerateContacts(EntityUid uid, PhysicsComponent body, FixturesComponent? fixtures = null, TransformComponent? xform = null)
         {
-            _physicsSystem.DestroyContacts(body);
-            if (!Resolve(uid, ref xform, ref fixtures))
+            RegenerateContacts((uid, body, fixtures, xform));
+        }
+
+        public void RegenerateContacts(Entity<PhysicsComponent?, FixturesComponent?, TransformComponent?> entity)
+        {
+            if (!Resolve(entity.Owner, ref entity.Comp1))
                 return;
 
-            if (xform.MapUid == null)
+            _physicsSystem.DestroyContacts(entity.Comp1);
+
+            if (!Resolve(entity.Owner, ref entity.Comp2 , ref entity.Comp3))
                 return;
 
-            if (!_xformQuery.TryGetComponent(xform.Broadphase?.Uid, out var broadphase))
+            if (entity.Comp3.MapUid == null)
                 return;
 
-            _physicsSystem.SetAwake((uid, body), true);
+            if (!_xformQuery.TryGetComponent(entity.Comp3.Broadphase?.Uid, out var broadphase))
+                return;
+
+            _physicsSystem.SetAwake(entity!, true);
 
             var matrix = _transform.GetWorldMatrix(broadphase);
-            foreach (var fixture in fixtures.Fixtures.Values)
+            foreach (var fixture in entity.Comp2.Fixtures.Values)
             {
-                TouchProxies(xform.MapUid.Value, matrix, fixture);
+                TouchProxies(entity.Comp3.MapUid.Value, matrix, fixture);
             }
         }
 

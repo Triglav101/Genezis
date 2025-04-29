@@ -4,7 +4,7 @@ namespace Content.Shared._Genezis.DayCycle
 {
     [NetworkedComponent, RegisterComponent]
     [AutoGenerateComponentState]
-    public sealed partial class LightCycleComponent : Component
+    public sealed partial class GenezisLightCycleComponent : Component
     {
 
         public string? OriginalColor;

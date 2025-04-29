@@ -1,7 +1,7 @@
 ﻿- type: entity
   id: RMCOrbitalCannon
   name: орбитальное орудие
-  description: Орбитальная пушечная система Триглава. Используется для обстрела целей на планете, находящейся на орбите.
+  description: Орбитальная пушечная система Триглава. Используется для обстрела целей находящихся на планете.
   placement:
     mode: SnapgridCenter
   components:
@@ -40,7 +40,7 @@
 
 - type: entity
   id: RMCOrbitalCannonFuel
-  name: solid fuel
+  name: топливный бак для орбитального орудия
   placement:
     mode: SnapgridCenter
   components:
@@ -64,7 +64,7 @@
 - type: entity
   abstract: true
   id: RMCOrbitalCannonWarheadBase
-  name: orbital warhead
+  name: орбитальная бомба
   placement:
     mode: SnapgridCenter
   components:
@@ -76,6 +76,7 @@
   - type: Sprite
     sprite: _RMC14/Structures/almayer_props.rsi
     state: ob_warhead1
+    drawdepth: SmallObjects    
   - type: OrbitalCannonWarhead
   - type: Clickable
   - type: InteractionOutline
@@ -87,7 +88,7 @@
 - type: entity
   parent: RMCOrbitalCannonWarheadBase
   id: RMCOrbitalCannonWarheadExplosive
-  name: HE orbital warhead
+  name: противопехотная орбитальная бомба
   components:
   - type: Sprite
     state: ob_warhead_1
@@ -97,7 +98,7 @@
 - type: entity
   parent: RMCOrbitalCannonWarheadBase
   id: RMCOrbitalCannonWarheadIncendiary
-  name: incendiary orbital warhead
+  name: поджигающая орбитальная бомба
   components:
   - type: Sprite
     state: ob_warhead_2
@@ -107,7 +108,7 @@
 - type: entity
   parent: RMCOrbitalCannonWarheadBase
   id: RMCOrbitalCannonWarheadCluster
-  name: cluster orbital warhead
+  name: кластерная орбитальная бомба
   components:
   - type: Sprite
     state: ob_warhead_3
@@ -116,8 +117,8 @@
 
 - type: entity
   id: RMCOrbitalCannonWarheadSpawner
-  name: random orbital warhead
-  description: "This is a random orbital warhead."
+  name: случайная орбитальная бомба
+  description: "Спавнер случайной орбитальной бомбы."
   placement:
     mode: SnapgridCenter
   components:
@@ -133,8 +134,8 @@
 - type: entity
   parent: MarkerBase
   id: RMCOrbitalCannonExplosionExplosive
-  name: explosive OB explosion
-  suffix: FIRES AN OB!!!
+  name: спавнер взрыва орбитальной бомбы
+  suffix: Триглав 
   placement:
     mode: SnapgridCenter
   components:
@@ -161,8 +162,8 @@
 - type: entity
   parent: MarkerBase
   id: RMCOrbitalCannonExplosionIncendiary
-  name: incendiary OB explosion
-  suffix: FIRES AN OB!!!
+  name: спавнер взрыва поджигающей орбитальной бомбы
+  suffix: Триглав
   placement:
     mode: SnapgridCenter
   components:
@@ -181,8 +182,8 @@
 - type: entity
   parent: MarkerBase
   id: RMCOrbitalCannonExplosionCluster
-  name: cluster OB explosion
-  suffix: FIRES AN OB!!!
+  name: спавнер взрыва кластерной орбитальной бомбы
+  suffix: Триглав
   placement:
     mode: SnapgridCenter
   components:
@@ -203,8 +204,8 @@
 
 - type: entity
   id: RMCOrbitalCannonComputer
-  name: orbital cannon console
-  description: "The console controlling the orbital cannon loading systems."
+  name: консоль управления орбитальным орудием
+  description: "Консоль управления системами орбитального орудия."
   placement:
     mode: SnapgridCenter
   components:
@@ -226,8 +227,8 @@
 - type: entity
   parent: CMSeatBase
   id: RMCOrbitalCannonChair
-  name: seat
-  description: "A comfortable seat."
+  name: кресло
+  description: "Довольно удобное кресло."
   placement:
     mode: SnapgridCenter
   components:
@@ -243,8 +244,8 @@
 
 - type: entity
   id: RMCOrbitalCannonCableConnector
-  name: cannon cable connector
-  description: "A connector for the large cannon cables."
+  name: провода от орбитального орудия
+  description: "Куча проводов идущих от орбитального орудия."
   placement:
     mode: SnapgridCenter
   components:
@@ -269,8 +270,8 @@
 
 - type: entity
   id: RMCOrbitalCannonCable
-  name: cannon cables
-  description: "Some large cables."
+  name: кабеля
+  description: "Какие-то кабеля."
   placement:
     mode: SnapgridCenter
   components:

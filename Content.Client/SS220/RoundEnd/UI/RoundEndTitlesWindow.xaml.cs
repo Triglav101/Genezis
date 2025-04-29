@@ -79,8 +79,8 @@ public sealed partial class RoundEndTitlesWindow : BaseWindow
         string roundEnd,
         TimeSpan roundTimeSpan,
         int roundId,
-        PlayerInfo[] players,
-        SponsorInfo[] sponsors) : this()
+        PlayerInfo[] players) : this()
+    //SponsorInfo[] sponsors) : this()
     {
 
         RoundNumberLabel.Text = Loc.GetString("round-end-titles-round-id-template", ("roundId", roundId));

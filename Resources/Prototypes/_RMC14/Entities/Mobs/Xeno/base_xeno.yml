@@ -182,17 +182,13 @@
         shape:
           !type:PhysShapeCircle
           radius: 0.40
-        density: 185
+        density: 0
         layer:
         - BulletImpassable
-  - type: CMSurgeryTarget
-  - type: Body
-    prototype: Xenonid        
   - type: Xeno
+  - type: XenoRegen
   - type: UserInterface
     interfaces:
-      enum.CMSurgeryUIKey.Key:
-        type: CMSurgeryBui    
       enum.XenoEvolutionUIKey.Key:
         type: XenoEvolutionBui
       enum.XenoDevolveUIKey.Key:
@@ -347,7 +343,6 @@
     durationMultiplier: 0.666
   - type: RMCCanBeFultoned
   - type: CMArmor
-    explosionArmorStep: 10
   - type: CriticalGraceTime
   - type: RMCObstacleSlamming
   - type: Buckle
@@ -360,16 +355,11 @@
   - type: RMCBuckleDrawDepth
     buckleDepth: Mobs
   - type: RMCBuckleOffset
-    offset: 0, 0.5  
-  - type: Bloodstream
-    bloodReagent: [RMCXenoBlood]
-    bloodMaxVolume: 560
-    maxBleedAmount: 50
-    bleedReductionAmount: 5
-    bloodRefreshAmount: 5
-    bloodlossThreshold: 0 # TODO: no blood-loss damage for now
-    bloodlossDamage: {}
-    bloodlossHealDamage: {}
+    offset: 0, 0.5
+  - type: RMCArmorModifier
+  - type: RMCObstacleSlamCauserImmune
+  - type: RMCMobCollisionMass
+  - type: XenoRankNames
 
 - type: entity
   abstract: true
@@ -398,7 +388,7 @@
     autoAttack: true
     widePrimary: true
     altDisarm: true
-    angle: 60
+    angle: 0
     soundHit:
       collection: RCMXenoClaw
     animation: RMCWeaponArcXenoClaw
@@ -409,7 +399,7 @@
       path: /Audio/_RMC14/Weapons/alien_claw_swipe.ogg
       params:
         variation: 0.1
-        volume: -5        
+        volume: -5
   - type: Tackle
   - type: XenoClaws
 
@@ -460,6 +450,7 @@
       - XenoFruit
   - type: ParalyzeOnPullAttempt
   - type: FirePatter
+    stacks: -5
   - type: RMCHandEmotes
 
 - type: entity
@@ -470,6 +461,7 @@
     tailDamage:
       groups:
         Brute: 30
+    tailRange: 2.5
 
 - type: entity
   abstract: true
@@ -494,6 +486,14 @@
   components:
   - type: Speech
     speechSounds: Xenonid
+
+- type: entity
+  abstract: true
+  id: RMCXenoMobCollision
+  components:
+  - type: MobCollision
+    minimumSpeedModifier: 0.25
+  - type: RMCMobCollision
 
 - type: speechVerb
   id: Xeno

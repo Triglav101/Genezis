@@ -74,6 +74,15 @@
   tower: true
 
 - type: radioChannel
+  id: RoyalMarine
+  name: chat-radio-royal-marine
+  keycode: "q"
+  frequency: 1216
+  color: "#e3580e"
+  longRange: true
+  tower: true
+
+- type: radioChannel
   id: MarineJTAC
   name: chat-radio-marine-jtac
   keycode: "j" #j in CM13

@@ -38,6 +38,10 @@
                     <PanelContainer HorizontalAlignment="Left" Name="Center" VerticalAlignment="Center">
                         <BoxContainer Orientation="Vertical" HorizontalAlignment="Center"
                                       VerticalAlignment="Center" Margin="40 0 0 150">
+                            <!-- Genezis -->
+                            <Button Name="JoinXenoButton" Access="Public"
+                                Text="{Loc 'rmc-lobby-join-xeno'}"
+                                StyleClasses="ButtonBig" MinWidth="137" Visible="False" />                                      
                             <buttons:WhiteLobbyTextButton
                                 Name="ReadyButton"
                                 Access="Public"

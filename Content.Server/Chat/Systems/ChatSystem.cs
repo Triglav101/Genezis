@@ -49,6 +49,7 @@ using Content.Server._RMC14.Chat.Chat;
 using Content.Server._RMC14.Emote;
 using Content.Shared._RMC14.CCVar;
 using Content.Shared._RMC14.Xenonids;
+using Content.Server.Speech.Prototypes;
 
 namespace Content.Server.Chat.Systems;
 

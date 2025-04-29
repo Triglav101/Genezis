@@ -33,7 +33,6 @@ public sealed class MarineAnnounceSystem : SharedMarineAnnounceSystem
 
     public readonly SoundSpecifier DefaultAnnouncementSound = new SoundPathSpecifier("/Audio/_RMC14/Announcements/Marine/notice2.ogg");
     public readonly SoundSpecifier DefaultSquadSound = new SoundPathSpecifier("/Audio/_RMC14/Effects/tech_notification.ogg");
-    public readonly SoundSpecifier AresAnnouncementSound = new SoundPathSpecifier("/Audio/_RMC14/AI/announce.ogg");
 
     public override void Initialize()
     {
@@ -161,7 +160,7 @@ public sealed class MarineAnnounceSystem : SharedMarineAnnounceSystem
         message = Loc.GetString(announcement, ("message", FormattedMessage.EscapeText(message)));
 
         AnnounceToMarines(message, sound);
-        _adminLogs.Add(LogType.RMCMarineAnnounce, $"{ToPrettyString(source):player} Сообщение от суперкомпьютера: {message}");
+        _adminLogs.Add(LogType.RMCMarineAnnounce, $"{ToPrettyString(source):player} ARES announced message: {message}");
     }
 
     public override void AnnounceSquad(string message, EntProtoId<SquadTeamComponent> squad, SoundSpecifier? sound = null)

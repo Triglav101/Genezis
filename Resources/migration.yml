@@ -1204,3 +1204,6 @@ ClothingEyesGlassesMeson: RMCWeldingGoggles
 #Genezis
 RMCCableCoil: CableApcStack
 CMSpawnPointIntelOfficer: null
+
+# 2025-04-14
+PlantBag: RMCStoragePlantBag

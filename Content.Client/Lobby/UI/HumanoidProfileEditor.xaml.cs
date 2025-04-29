@@ -227,18 +227,6 @@ namespace Content.Client.Lobby.UI
 
             #endregion Gender
 
-            // Corvax-TTS-Start
-            #region Voice
-
-            if (configurationManager.GetCVar(CCCVars.TTSEnabled))
-            {
-                TTSContainer.Visible = true;
-                InitializeVoice();
-            }
-
-            #endregion
-            // Corvax-TTS-End
-
             InitializeBkm(); // backmen: antag
 
             RefreshSpecies();
@@ -716,11 +704,6 @@ namespace Content.Client.Lobby.UI
             _species.AddRange(_prototypeManager.EnumeratePrototypes<SpeciesPrototype>().Where(o => o.RoundStart));
             var speciesIds = _species.Select(o => o.ID).ToList();
 
-            // Corvax-Sponsors-Start
-            if (_sponsorsMgr != null)
-                _species = _species.Where(p => !p.SponsorOnly || _sponsorsMgr.GetClientPrototypes().Contains(p.ID)).ToList();
-            // Corvax-Sponsors-End
-
             for (var i = 0; i < _species.Count; i++)
             {
                 var name = Loc.GetString(_species[i].Name);
@@ -896,7 +879,6 @@ namespace Content.Client.Lobby.UI
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateMarkings();
-            UpdateTTSVoicesControls(); // Corvax-TTS
             UpdateHairPickers();
             UpdateCMarkingsHair();
             UpdateCMarkingsFacialHair();
@@ -1374,7 +1356,6 @@ namespace Content.Client.Lobby.UI
             }
 
             UpdateGenderControls();
-            UpdateTTSVoicesControls(); // Corvax-TTS
             Markings.SetSex(newSex);
             ReloadPreview();
         }

@@ -15,6 +15,7 @@ using Content.Shared.Explosion;
 using Content.Shared.FixedPoint;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
+using Content.Shared.Movement.Components;
 using Content.Shared.Preferences;
 using Content.Shared.Rounding;
 using Content.Shared.Weapons.Melee;
@@ -362,6 +363,20 @@ public sealed class CMArmorSystem : EntitySystem
         RaiseLocalEvent(user.Owner, ref ev);
 
         user.Comp.SpeedTier = ev.SpeedTier;
+
+        var speed = user.Comp.SpeedTier switch
+        {
+            "light" => 0.483f,
+            "medium" => 0.526f,
+            "heavy" => 0.565f,
+            _ => 0.35f,
+        };
+
+        if (!TryComp(user, out MobCollisionComponent? mobCollision))
+            return;
+
+        mobCollision.MinimumSpeedModifier = speed;
+        Dirty(user, mobCollision);        
     }
 
     private void OnRefreshArmorSpeedTier(Entity<RMCArmorSpeedTierComponent> armor, ref InventoryRelayedEvent<RefreshArmorSpeedTierEvent> args)

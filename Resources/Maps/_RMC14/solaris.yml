@@ -1,6 +1,17 @@
 meta:
-  format: 6
-  postmapinit: false
+  format: 7
+  category: Map
+  engineVersion: 248.0.2
+  forkId: ""
+  forkVersion: ""
+  time: 03/28/2025 23:31:21
+  entityCount: 39880
+maps:
+- 1
+grids:
+- 1
+orphans: []
+nullspace: []
 tilemap:
   0: Space
   2: CMFloorAsteroidFloor
@@ -230,7 +241,19 @@ entities:
     - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
-    - type: LoadedMap
+    - type: MapLight
+    - type: Roof
+      data: {}
+    - type: RMCWeatherCycle
+      minTimeBetweenEvents: 1200
+      weatherEvents:
+      - name: Duststorm
+        duration: 600
+        weatherType: RMCBigRedDust
+      - name: Sandstorm
+        duration: 360
+        weatherType: RMCBigRedSand
+    - type: RMCAmbientLightEffects
     - type: MapGrid
       chunks:
         0,0:
@@ -56752,6 +56775,23 @@ entities:
         -1,-211: RMCAreaSpace
         -1,-212: RMCAreaSpace
         -1,-213: RMCAreaSpace
+- proto: ArmorHelmetPMCRiot
+  entities:
+  - uid: 37350
+    components:
+    - type: Transform
+      pos: 64.5,-199.5
+      parent: 1
+  - uid: 38097
+    components:
+    - type: Transform
+      pos: 66.5,-180.5
+      parent: 1
+  - uid: 38160
+    components:
+    - type: Transform
+      pos: 50.5,-175.5
+      parent: 1
 - proto: BeachBall
   entities:
   - uid: 39855
@@ -57043,6 +57083,13 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: 163.5,-97.5
+      parent: 1
+- proto: Cigar
+  entities:
+  - uid: 38305
+    components:
+    - type: Transform
+      pos: 92.5,-97.5
       parent: 1
 - proto: ClosetL3Filled
   entities:
@@ -58863,26 +58910,6 @@ entities:
       parent: 1
 - proto: CMArmorRiot
   entities:
-  - uid: 18270
-    components:
-    - type: Transform
-      pos: 85.71875,-39.34375
-      parent: 1
-  - uid: 18271
-    components:
-    - type: Transform
-      pos: 83.25,-39.6875
-      parent: 1
-  - uid: 39026
-    components:
-    - type: Transform
-      pos: 85.25,-38.65625
-      parent: 1
-  - uid: 39027
-    components:
-    - type: Transform
-      pos: 87.125,-37.78125
-      parent: 1
   - uid: 39028
     components:
     - type: Transform
@@ -78004,7 +78031,7 @@ entities:
     - type: Transform
       pos: 100.5,-155.5
       parent: 1
-- proto: CMVendorMedical
+- proto: CMVendorMedicalAllAccess
   entities:
   - uid: 18587
     components:
@@ -190060,7 +190087,7 @@ entities:
       pos: 126.5,-167.5
       parent: 1
     - type: Door
-      secondsUntilStateChange: -10703.448
+      secondsUntilStateChange: -11491.493
       state: Opening
   - uid: 27915
     components:
@@ -199651,6 +199678,25 @@ entities:
     - type: Transform
       pos: 100.75,-38.5
       parent: 1
+- proto: RMCArmorM4RLight
+  entities:
+  - uid: 18600
+    components:
+    - type: Transform
+      pos: 87.151085,-37.882557
+      parent: 1
+- proto: RMCArmorM4RMedium
+  entities:
+  - uid: 18182
+    components:
+    - type: Transform
+      pos: 83.119835,-39.757557
+      parent: 1
+  - uid: 18271
+    components:
+    - type: Transform
+      pos: 85.86202,-38.79662
+      parent: 1
 - proto: RMCArmorVest
   entities:
   - uid: 39030
@@ -201009,12 +201055,39 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 77.5,-56.5
       parent: 1
+- proto: RMCBatonSlugHIRR
+  entities:
+  - uid: 38098
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 49.807865,-174.73834
+      parent: 1
+  - uid: 38102
+    components:
+    - type: Transform
+      rot: 3.141592653589793 rad
+      pos: 49.550053,-174.80865
+      parent: 1
+  - uid: 38161
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: 68.5,-201.5
+      parent: 1
 - proto: RMCBeltGrenade
   entities:
   - uid: 39175
     components:
     - type: Transform
       pos: 29.5,-166.5
+      parent: 1
+- proto: RMCBinoculars
+  entities:
+  - uid: 38200
+    components:
+    - type: Transform
+      pos: 101.5,-79.5
       parent: 1
 - proto: RMCBookcase
   entities:
@@ -201813,6 +201886,37 @@ entities:
       removedMasks: 20
     - type: PlaceableSurface
       isPlaceable: True
+  - uid: 39593
+    components:
+    - type: Transform
+      pos: 24.5,-192.5
+      parent: 1
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape: !type:PolygonShape
+            radius: 0.01
+            vertices:
+            - -0.4,-0.4
+            - 0.4,-0.4
+            - 0.4,0.29
+            - -0.4,0.29
+          mask:
+          - Impassable
+          - HighImpassable
+          - LowImpassable
+          layer:
+          - BulletImpassable
+          - Opaque
+          density: 50
+          hard: True
+          restitution: 0
+          friction: 0.4
+    - type: EntityStorage
+      open: True
+      removedMasks: 20
+    - type: PlaceableSurface
+      isPlaceable: True
 - proto: RMCCrateFoodPizza
   entities:
   - uid: 39306
@@ -202070,39 +202174,6 @@ entities:
     - type: Transform
       pos: 174.5,-31.5
       parent: 1
-- proto: RMCCrateWeldable
-  entities:
-  - uid: 39593
-    components:
-    - type: Transform
-      pos: 24.5,-192.5
-      parent: 1
-    - type: Fixtures
-      fixtures:
-        fix1:
-          shape: !type:PolygonShape
-            radius: 0.01
-            vertices:
-            - -0.4,-0.4
-            - 0.4,-0.4
-            - 0.4,0.29
-            - -0.4,0.29
-          mask:
-          - Impassable
-          - HighImpassable
-          - LowImpassable
-          layer:
-          - BulletImpassable
-          - Opaque
-          density: 50
-          hard: True
-          restitution: 0
-          friction: 0.4
-    - type: EntityStorage
-      open: True
-      removedMasks: 20
-    - type: PlaceableSurface
-      isPlaceable: True
 - proto: RMCCurtainMedical
   entities:
   - uid: 19171
@@ -202908,6 +202979,18 @@ entities:
     - type: Transform
       pos: 33.5,-7.5
       parent: 1
+- proto: RMCMagazineMar50LMG
+  entities:
+  - uid: 18623
+    components:
+    - type: Transform
+      pos: 63.5,-202.5
+      parent: 1
+  - uid: 18820
+    components:
+    - type: Transform
+      pos: 63.5,-203.5
+      parent: 1
 - proto: RMCMagazinePistolB92FS
   entities:
   - uid: 37163
@@ -202921,18 +203004,6 @@ entities:
     components:
     - type: Transform
       pos: 48.5,-176.625
-      parent: 1
-- proto: RMCMagazinePistolMK45
-  entities:
-  - uid: 18600
-    components:
-    - type: Transform
-      pos: 88.5,-32.5
-      parent: 1
-  - uid: 18620
-    components:
-    - type: Transform
-      pos: 88.28125,-32.71875
       parent: 1
 - proto: RMCMagazineRifleAR10
   entities:
@@ -202982,18 +203053,6 @@ entities:
     components:
     - type: Transform
       pos: 24.5,-192.5
-      parent: 1
-- proto: RMCMagazineRifleMAR40
-  entities:
-  - uid: 30369
-    components:
-    - type: Transform
-      pos: 63.5,-202.5
-      parent: 1
-  - uid: 31286
-    components:
-    - type: Transform
-      pos: 63.5,-203.5
       parent: 1
 - proto: RMCMagazineSMGNailgun
   entities:
@@ -203303,6 +203362,23 @@ entities:
       name: South Eastern Caves
     - type: Transform
       pos: 186.5,-178.5
+      parent: 1
+- proto: RMCMaskSWAT
+  entities:
+  - uid: 18270
+    components:
+    - type: Transform
+      pos: 81.92452,-39.804432
+      parent: 1
+  - uid: 38404
+    components:
+    - type: Transform
+      pos: 83.91671,-38.14037
+      parent: 1
+  - uid: 38405
+    components:
+    - type: Transform
+      pos: 86.588585,-40.132557
       parent: 1
 - proto: RMCNanoMed
   entities:
@@ -209225,6 +209301,18 @@ entities:
     - type: Transform
       pos: 102.5,-155.5
       parent: 1
+- proto: RMCSpeedLoader357Hollowpoint
+  entities:
+  - uid: 18620
+    components:
+    - type: Transform
+      pos: 88.456604,-32.60716
+      parent: 1
+  - uid: 18621
+    components:
+    - type: Transform
+      pos: 88.22223,-32.841534
+      parent: 1
 - proto: RMCSpoon
   entities:
   - uid: 39558
@@ -209867,6 +209955,20 @@ entities:
     - type: Transform
       pos: 12.5,-134.5
       parent: 1
+- proto: RMCWeaponBoltActionRifle
+  entities:
+  - uid: 29463
+    components:
+    - type: Transform
+      pos: 31.5,-185.5
+      parent: 1
+- proto: RMCWeaponMar50LMG
+  entities:
+  - uid: 30368
+    components:
+    - type: Transform
+      pos: 63.5,-202.5
+      parent: 1
 - proto: RMCWeaponPistolB92FS
   entities:
   - uid: 37148
@@ -209925,30 +210027,10 @@ entities:
       parent: 1
 - proto: RMCWeaponPistolMK45
   entities:
-  - uid: 18621
-    components:
-    - type: Transform
-      pos: 87.40625,-32.53125
-      parent: 1
-  - uid: 18623
-    components:
-    - type: Transform
-      pos: 87.65625,-32.84375
-      parent: 1
   - uid: 27616
     components:
     - type: Transform
       pos: 83.15625,-43.09375
-      parent: 1
-  - uid: 27901
-    components:
-    - type: Transform
-      pos: 79.71875,-63.90625
-      parent: 1
-  - uid: 30368
-    components:
-    - type: Transform
-      pos: 64.5,-198.5
       parent: 1
   - uid: 37165
     components:
@@ -209961,6 +210043,95 @@ entities:
     components:
     - type: Transform
       pos: 103.78125,-80.9375
+      parent: 1
+- proto: RMCWeaponRevolverSpearhead
+  entities:
+  - uid: 19063
+    components:
+    - type: Transform
+      pos: 87.65973,-32.747784
+      parent: 1
+  - uid: 19155
+    components:
+    - type: Transform
+      pos: 87.47223,-32.443096
+      parent: 1
+  - uid: 22651
+    components:
+    - type: Transform
+      pos: 79.74301,-63.94108
+      parent: 1
+  - uid: 27901
+    components:
+    - type: Transform
+      pos: 64.5,-198.5
+      parent: 1
+- proto: RMCWeaponShotgunHG3712
+  entities:
+  - uid: 18272
+    components:
+    - type: Transform
+      pos: 121.66005,-50.44043
+      parent: 1
+  - uid: 18274
+    components:
+    - type: Transform
+      pos: 115.595116,-77.53258
+      parent: 1
+  - uid: 30369
+    components:
+    - type: Transform
+      pos: 16.5,-170.5
+      parent: 1
+  - uid: 30370
+    components:
+    - type: Transform
+      pos: 85.644104,-34.36497
+      parent: 1
+  - uid: 31286
+    components:
+    - type: Transform
+      pos: 85.644104,-34.693096
+      parent: 1
+  - uid: 32861
+    components:
+    - type: Transform
+      pos: 85.813965,-62.644417
+      parent: 1
+  - uid: 36907
+    components:
+    - type: Transform
+      pos: 83.206604,-33.45091
+      parent: 1
+  - uid: 37263
+    components:
+    - type: Transform
+      pos: 73.5,-183.5
+      parent: 1
+  - uid: 37302
+    components:
+    - type: Transform
+      pos: 52.5,-172.5
+      parent: 1
+  - uid: 37500
+    components:
+    - type: Transform
+      pos: 28.5,-161.5
+      parent: 1
+  - uid: 37501
+    components:
+    - type: Transform
+      pos: 23.5,-188.5
+      parent: 1
+  - uid: 37529
+    components:
+    - type: Transform
+      pos: 21.5,-183.5
+      parent: 1
+  - uid: 37577
+    components:
+    - type: Transform
+      pos: 38.5,-167.5
       parent: 1
 - proto: RMCWindowFrameSolarisReinforced
   entities:
@@ -210005,6 +210176,13 @@ entities:
     components:
     - type: Transform
       pos: 59.5,-68.5
+      parent: 1
+- proto: RMCZippo
+  entities:
+  - uid: 38201
+    components:
+    - type: Transform
+      pos: 101.5,-80.5
       parent: 1
 - proto: Shovel
   entities:
@@ -211256,13 +211434,6 @@ entities:
     - type: Transform
       pos: 41.5,-194.5
       parent: 1
-- proto: WeaponRifleAR10
-  entities:
-  - uid: 37302
-    components:
-    - type: Transform
-      pos: 31.5,-185.5
-      parent: 1
 - proto: WeaponRifleM16
   entities:
   - uid: 30201
@@ -211287,106 +211458,12 @@ entities:
     - type: Transform
       pos: 74.5,-179.5
       parent: 1
-- proto: WeaponRifleMAR40
-  entities:
-  - uid: 30370
-    components:
-    - type: Transform
-      pos: 63.5,-202.5
-      parent: 1
-    - type: ContainerContainer
-      containers:
-        gun_magazine: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        gun_chamber: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        rmc-aslot-barrel: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
-        rmc-aslot-rail: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
-        rmc-aslot-underbarrel: !type:ContainerSlot
-          showEnts: False
-          occludes: False
-          ent: null
 - proto: WeaponShotgunM42A2
   entities:
-  - uid: 18182
-    components:
-    - type: Transform
-      pos: 16.5,-170.5
-      parent: 1
-  - uid: 18272
-    components:
-    - type: Transform
-      pos: 121.53125,-50.40625
-      parent: 1
-  - uid: 18274
-    components:
-    - type: Transform
-      pos: 115.5,-77.5
-      parent: 1
-  - uid: 18820
-    components:
-    - type: Transform
-      pos: 85.5,-34.46875
-      parent: 1
-  - uid: 19063
-    components:
-    - type: Transform
-      pos: 85.5,-34.78125
-      parent: 1
-  - uid: 19155
-    components:
-    - type: Transform
-      pos: 85.75,-62.65625
-      parent: 1
-  - uid: 22651
-    components:
-    - type: Transform
-      pos: 83.25,-33.5
-      parent: 1
-  - uid: 29463
-    components:
-    - type: Transform
-      pos: 73.5,-183.5
-      parent: 1
-  - uid: 32861
-    components:
-    - type: Transform
-      pos: 52.5,-172.5
-      parent: 1
-  - uid: 36907
-    components:
-    - type: Transform
-      pos: 38.5,-167.5
-      parent: 1
-  - uid: 37350
-    components:
-    - type: Transform
-      pos: 28.5,-161.5
-      parent: 1
   - uid: 37613
     components:
     - type: Transform
       pos: 24.5,-38.5
-      parent: 1
-  - uid: 39086
-    components:
-    - type: Transform
-      pos: 23.5,-188.5
-      parent: 1
-  - uid: 39105
-    components:
-    - type: Transform
-      pos: 21.5,-183.5
       parent: 1
 - proto: WeaponShotgunM890
   entities:

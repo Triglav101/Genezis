@@ -94,7 +94,6 @@ public sealed class RoundEndSummaryUIController : UIController,
         if (message is null)
             return;
         var players = message.AllPlayersEndInfo;
-        var sponsors = message.Sponsors;
 
 #if DEBUG
         //if (IS_DEBUG_MODE)
@@ -123,7 +122,7 @@ public sealed class RoundEndSummaryUIController : UIController,
 #endif
 
         _titles = new RoundEndTitlesWindow(message.GamemodeTitle, message.RoundEndText,
-            message.RoundDuration, message.RoundId, players, sponsors);
+            message.RoundDuration, message.RoundId, players);
     }
 
     private void DebugRecreateTitles()

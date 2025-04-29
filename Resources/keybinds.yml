@@ -583,8 +583,6 @@ binds:
   type: State
   key: MouseRight
   canFocus: true
-
-
 - function: OpenLanguageMenu
   type: State
   key: L
@@ -655,3 +653,7 @@ binds:
 - function: RMCInteractWithOtherHand
   type: State
   key: C
+- function: RMCRest
+  type: State
+  key: R
+  mod1: Shift

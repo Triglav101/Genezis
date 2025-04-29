@@ -2,6 +2,7 @@
 using Content.Shared._RMC14.Xenonids.Construction;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 
@@ -29,10 +30,10 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
     protected override void Open()
     {
         base.Open();        
-        _window = new XenoChooseStructureWindow();
-        _window.OnClose += Close;
 
+        _window = this.CreateWindow<XenoChooseStructureWindow>();
         _buttons.Clear();
+
         var group = new ButtonGroup();
         if (EntMan.TryGetComponent(Owner, out XenoConstructionComponent? xeno))
         {
@@ -47,7 +48,7 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
 
                 var name = structure.Name;
                 if (_xenoConstruction.GetStructurePlasmaCost(structureId) is { } cost)
-                    name += $" ({cost} plasma)";
+                    name += $" ({cost} плазмы)";
 
                 control.Set(name, _sprite.Frame0(structure));
                 control.Button.OnPressed += _ => SendPredictedMessage(new XenoChooseStructureBuiMsg(structureId));
@@ -58,13 +59,6 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
         }
 
         Refresh();
-        _window.OpenCentered();
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-            _window?.Dispose();
     }
 
     public void Refresh()

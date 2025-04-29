@@ -44,7 +44,7 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
 
     protected override void Open()
     {
-        base.Open();        
+        base.Open();
         if (Window != null)
             return;
 
@@ -114,7 +114,7 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
                 int Sorting(OverwatchMarine marine)
                 {
                     if (squad.Leader == marine.Id)
-                         return 1000;
+                        return 1000;
 
                     if (marine.Role is not { } role)
                         return 0;
@@ -184,9 +184,9 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
                 }
 
                 monitor.Longitude.OnValueChanged +=
-                    args => SendPredictedMessage(new OverwatchConsoleSupplyDropLongitudeBuiMsg((int) args.Value));
+                    args => SendPredictedMessage(new OverwatchConsoleSupplyDropLongitudeBuiMsg((int)args.Value));
                 monitor.Latitude.OnValueChanged +=
-                    args => SendPredictedMessage(new OverwatchConsoleSupplyDropLatitudeBuiMsg((int) args.Value));
+                    args => SendPredictedMessage(new OverwatchConsoleSupplyDropLatitudeBuiMsg((int)args.Value));
                 monitor.LaunchButton.OnPressed +=
                     _ => SendPredictedMessage(new OverwatchConsoleSupplyDropLaunchBuiMsg());
                 monitor.SaveButton.OnPressed +=
@@ -201,9 +201,9 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
                 monitor.OrbitalLongitude.Value = console.OrbitalCoordinates.X;
                 monitor.OrbitalLatitude.Value = console.OrbitalCoordinates.Y;
                 monitor.OrbitalLongitude.OnValueChanged +=
-                    args => SendPredictedMessage(new OverwatchConsoleOrbitalLongitudeBuiMsg((int) args.Value));
+                    args => SendPredictedMessage(new OverwatchConsoleOrbitalLongitudeBuiMsg((int)args.Value));
                 monitor.OrbitalLatitude.OnValueChanged +=
-                    args => SendPredictedMessage(new OverwatchConsoleOrbitalLatitudeBuiMsg((int) args.Value));
+                    args => SendPredictedMessage(new OverwatchConsoleOrbitalLatitudeBuiMsg((int)args.Value));
                 monitor.OrbitalFireButton.OnPressed +=
                     _ => SendPredictedMessage(new OverwatchConsoleOrbitalLaunchBuiMsg());
                 monitor.OrbitalSaveButton.OnPressed +=
@@ -234,8 +234,16 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
                 var canSupplyDrop = EntMan.HasComponent<SupplyDropComputerComponent>(Owner) && squad.CanSupplyDrop;
                 TabContainer.SetTabVisible(monitor.SupplyDrop, canSupplyDrop);
 
-                monitor.MessageSquadContainer.Visible = EntMan.TryGetComponent(Owner, out OverwatchConsoleComponent? overwatch) &&
-                                                        overwatch.CanMessageSquad;
+                if (EntMan.TryGetComponent(Owner, out OverwatchConsoleComponent? overwatch))
+                {
+                    TabContainer.SetTabVisible(monitor.OrbitalBombardment, overwatch.CanOrbitalBombardment);
+                    monitor.MessageSquadContainer.Visible = overwatch.CanMessageSquad;
+                }
+                else
+                {
+                    TabContainer.SetTabVisible(monitor.OrbitalBombardment, false);
+                    monitor.MessageSquadContainer.Visible = false;
+                }
 
                 _squadViews[squad.Id] = monitor;
                 Window.SquadViewContainer.AddChild(monitor);
@@ -374,7 +382,7 @@ public sealed class OverwatchConsoleBui : RMCPopOutBui<OverwatchConsoleWindow>
                     };
 
                     promoteButton.OnPressed += _ =>
-                        SendPredictedMessage(new OverwatchConsolePromoteLeaderBuiMsg(marine.Id));
+                        SendPredictedMessage(new OverwatchConsolePromoteLeaderBuiMsg(marine.Id, squad.LeaderIcon));
 
                     var hide = CreatePanel(50);
                     hideButton.Margin = margin;

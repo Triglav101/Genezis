@@ -6,6 +6,7 @@
   - CMXenoFlammable
   - RMCXenoSpeechSounds
   - RMCXenoCommendationReceiver
+  - RMCXenoMobCollision
   id: CMXenoHivelordBase
   name: Hivelord
   description: A builder of really big hives.
@@ -91,8 +92,6 @@
       state: hivelord
   - type: XenoInhands
     prefix: hivelord
-  - type: Bloodstream
-    bloodReagent: [RMCXenoBlood, RMCPlasmaPurple, RMCPlasmaPheromone]
 
 - type: entity
   parent: CMXenoHivelordBase
@@ -141,8 +140,6 @@
     - CMXenoHivelordResinWhisperer
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.2
-  - type: RMCSurgeryXenoHeart
-    item: RMCOrganXenoHeartT2
 
 - type: entity
   parent: CMXenoHivelordBase

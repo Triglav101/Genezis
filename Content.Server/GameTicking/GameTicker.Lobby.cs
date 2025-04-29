@@ -52,28 +52,18 @@ namespace Content.Server.GameTicking
             var readyCount = _playerGameStatuses.Values.Count(x => x == PlayerGameStatus.ReadyToPlay);
 
             var stationNames = new StringBuilder();
-            var alertLevels = new StringBuilder();
             var query =
                 EntityQueryEnumerator<StationJobsComponent, StationSpawningComponent, MetaDataComponent>();
 
             var foundOne = false;
 
-            while (query.MoveNext(out var stationUid, out _, out _, out var meta))
+            while (query.MoveNext(out _, out _, out var meta))
             {
                 foundOne = true;
                 if (stationNames.Length > 0)
-                        stationNames.Append('\n');
+                    stationNames.Append('\n');
 
                 stationNames.Append(meta.EntityName);
-
-                var level = _alertLevel.GetLevel(stationUid);
-                if (level != string.Empty)
-                {
-                    if (alertLevels.Length > 0)
-                        alertLevels.Append('\n');
-
-                    alertLevels.Append(level);
-                }                
             }
 
             if (!foundOne)
@@ -82,6 +72,8 @@ namespace Content.Server.GameTicking
                                     Loc.GetString("game-ticker-no-map-selected"));
             }
 
+            var planetName = _distressSignal.SelectedPlanetMapName ??
+                Loc.GetString("game-ticker-no-map-selected");
             var gmTitle = Loc.GetString(preset.ModeTitle);
             var desc = Loc.GetString(preset.Description);
             return Loc.GetString(
@@ -91,8 +83,8 @@ namespace Content.Server.GameTicking
                 ("roundId", RoundId),
                 ("playerCount", playerCount),
                 ("readyCount", readyCount),
+                ("planetName", planetName),
                 ("mapName", stationNames.ToString()),
-                ("alertLevel", alertLevels.ToString()),
                 ("gmTitle", gmTitle),
                 ("desc", desc));
         }
@@ -118,7 +110,7 @@ namespace Content.Server.GameTicking
 
         private TickerLobbyInfoEvent GetInfoMsg()
         {
-            return new (GetInfoText());
+            return new(GetInfoText());
         }
 
         private void UpdateLateJoinStatus()
@@ -161,9 +153,6 @@ namespace Content.Server.GameTicking
 
         public void ToggleReadyAll(bool ready)
         {
-            if(RunLevel != GameRunLevel.PreRoundLobby){
-                return;
-            }
             var status = ready ? PlayerGameStatus.ReadyToPlay : PlayerGameStatus.NotReadyToPlay;
             foreach (var playerUserId in _playerGameStatuses.Keys)
             {
@@ -176,10 +165,6 @@ namespace Content.Server.GameTicking
 
         public void ToggleReady(ICommonSession player, bool ready)
         {
-            if(RunLevel != GameRunLevel.PreRoundLobby){
-                return;
-            }
-
             if (!_playerGameStatuses.ContainsKey(player.UserId))
                 return;
 

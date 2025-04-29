@@ -46,9 +46,11 @@
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Grenades/flashbang.rsi
   - type: RMCStunOnTrigger
-    range: 7
-  - type: FlashOnTrigger
-    range: 7
+    filters:
+    - stun: 2.5
+      whitelist:
+        skills:
+          RMCSkillPolice: 2
   - type: SoundOnTrigger
     sound:
       path: "/Audio/Effects/flash_bang.ogg"
@@ -202,7 +204,7 @@
   - type: Tag
     tags:
     - Grenade
-    - LauncherCompatibleGrenade    
+    - LauncherCompatibleGrenade
   - type: Ammo
   - type: ClusterLimitHits
   - type: CMExplosionEffect
@@ -350,7 +352,7 @@
 
 - type: Tag
   id: RMCGrenadeHEDP
- 
+
 - type: Tag
   id: RMCGrenadeHEFA
 

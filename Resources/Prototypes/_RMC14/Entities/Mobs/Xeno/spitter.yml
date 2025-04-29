@@ -5,6 +5,7 @@
   - CMXenoFlammable
   - RMCXenoSpeechSounds
   - RMCXenoCommendationReceiver
+  - RMCXenoMobCollision
   id: CMXenoSpitter
   name: Spitter
   description: A gross, oozing alien of some kind.
@@ -105,7 +106,3 @@
   - type: AcidTrap
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.2
-  - type: RMCSurgeryXenoHeart
-    item: RMCOrganXenoHeartT2
-  - type: Bloodstream
-    bloodReagent: [RMCXenoBlood, RMCPlasmaNeurotoxin]    

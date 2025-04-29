@@ -1,5 +1,5 @@
 using Content.Server.GameTicking;
-using LightCycleComponent = Content.Shared._Genezis.DayCycle.LightCycleComponent;
+using LightCycleComponent = Content.Shared._Genezis.DayCycle.GenezisLightCycleComponent;
 
 namespace Content.Server._Genezis.DayCycle
 {

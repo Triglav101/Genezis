@@ -1,6 +1,6 @@
 - type: species
   id: Moth
-  name: Харибда
+  name: Лучезарный
   roundStart: true
   prototype: MobMoth
   sprites: MobMothSprites

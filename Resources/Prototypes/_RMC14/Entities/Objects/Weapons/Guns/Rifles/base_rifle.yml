@@ -81,6 +81,15 @@
   - type: GunGroupPenalty
 
 - type: entity
+  abstract: true
+  id: RMCBaseWeaponMagazineVisuals
+  components:
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+
+- type: entity
   parent: BaseMagazineRifle
   id: CMMagazineRifleBase
   abstract: true

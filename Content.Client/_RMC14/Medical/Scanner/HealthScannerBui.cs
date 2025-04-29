@@ -18,6 +18,7 @@ using Content.Shared.Temperature;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -50,7 +51,7 @@ public sealed class HealthScannerBui : BoundUserInterface
 
     protected override void Open()
     {
-        base.Open();        
+        base.Open();
         if (State is HealthScannerBuiState state)
             UpdateState(state);
     }
@@ -65,8 +66,8 @@ public sealed class HealthScannerBui : BoundUserInterface
     {
         if (_window == null)
         {
-            _window = new HealthScannerWindow { Title = "Health Scan" };
-            _window.OnClose += Close;
+            _window = this.CreateWindow<HealthScannerWindow>();
+            _window.Title = "Графический интерфейс";
         }
 
         if (_entities.GetEntity(uiState.Target) is not { Valid: true } target)
@@ -74,7 +75,7 @@ public sealed class HealthScannerBui : BoundUserInterface
 
         _lastTarget = uiState.Target;
 
-        _window.PatientLabel.Text = $"Patient: {Identity.Name(target, _entities, _player.LocalEntity)}";
+        _window.PatientLabel.Text = $"Пациент: {Identity.Name(target, _entities, _player.LocalEntity)}";
 
         var thresholdsSystem = _entities.System<MobThresholdSystem>();
         if (!_entities.TryGetComponent(target, out DamageableComponent? damageable))
@@ -86,10 +87,10 @@ public sealed class HealthScannerBui : BoundUserInterface
         }
 
         var ent = new Entity<DamageableComponent>(target, damageable);
-        AddGroup(ent, _window.BruteLabel, Color.FromHex("#DF3E3E"), "Brute");
-        AddGroup(ent, _window.BurnLabel, Color.FromHex("#FFB833"), "Burn");
-        AddGroup(ent, _window.ToxinLabel, Color.FromHex("#25CA4C"), "Toxin");
-        AddGroup(ent, _window.OxygenLabel, Color.FromHex("#2E93DE"), "Airloss", "Oxygen");
+        AddGroup(ent, _window.BruteLabel, Color.FromHex("#DF3E3E"), "Ушибы");
+        AddGroup(ent, _window.BurnLabel, Color.FromHex("#FFB833"), "Ожоги");
+        AddGroup(ent, _window.ToxinLabel, Color.FromHex("#25CA4C"), "Токсины");
+        AddGroup(ent, _window.OxygenLabel, Color.FromHex("#2E93DE"), "Нехватка кислорода", "Кислород");
 
         if (thresholdsSystem.TryGetIncapThreshold(target, out var threshold))
         {
@@ -101,7 +102,7 @@ public sealed class HealthScannerBui : BoundUserInterface
             {
                 _window.HealthBar.Value = 100;
                 _window.HealthBar.ModulateSelfOverride = Color.Red;
-                _window.HealthBarText.Text = "Permanently deceased";
+                _window.HealthBarText.Text = "Окончательно мёртв";
             }
             else
             {
@@ -116,7 +117,7 @@ public sealed class HealthScannerBui : BoundUserInterface
 
                 var healthString = MathHelper.CloseTo(healthValue, 100) ? "100%" : $"{healthValue:F2}%";
 
-                _window.HealthBarText.Text = $"{healthString} healthy";
+                _window.HealthBarText.Text = $"{healthString} здоров";
             }
         }
 
@@ -179,13 +180,13 @@ public sealed class HealthScannerBui : BoundUserInterface
             }
         }
 
-        _window.UnknownReagentsLabel.SetMarkupPermissive($"[color=white][italic]Unknown reagents detected.[/italic][/color]");
+        _window.UnknownReagentsLabel.SetMarkupPermissive($"[color=white][italic]Обнаружены неизвестные реагенты.[/italic][/color]");
         _window.UnknownChemicalsPanel.Visible = anyUnknown;
         _window.ChemicalContentsLabel.Visible = anyChemicals;
         _window.ChemicalContentsSeparator.Visible = anyChemicals;
         _window.ChemicalsContainer.Visible = anyChemicals;
 
-        _window.BloodTypeLabel.Text = "Blood:";
+        _window.BloodTypeLabel.Text = "Кровь:";
         var bloodMsg = new FormattedMessage();
         bloodMsg.PushColor(Color.FromHex("#25B732"));
 
@@ -196,7 +197,7 @@ public sealed class HealthScannerBui : BoundUserInterface
         _window.BloodAmountLabel.SetMessage(bloodMsg);
 
         if (uiState.Bleeding)
-            _window.Bleeding.SetMarkup(" [bold][color=#DF3E3E]\\[Bleeding\\][/color][/bold]");
+            _window.Bleeding.SetMarkup(" [bold][color=#DF3E3E]\\[Кровотечение\\][/color][/bold]");
         else
             _window.Bleeding.SetMessage(string.Empty);
 
@@ -209,7 +210,7 @@ public sealed class HealthScannerBui : BoundUserInterface
         }
         else
         {
-            temperatureMsg.AddText("None");
+            temperatureMsg.AddText("Нет");
         }
 
         _window.BodyTemperatureLabel.SetMessage(temperatureMsg);
@@ -244,13 +245,5 @@ public sealed class HealthScannerBui : BoundUserInterface
 
         msg.Pop();
         label.SetMessage(msg);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        if (disposing)
-            _window?.Dispose();
     }
 }

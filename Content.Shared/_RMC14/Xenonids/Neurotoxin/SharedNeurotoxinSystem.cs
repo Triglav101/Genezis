@@ -60,7 +60,7 @@ public abstract class SharedNeurotoxinSystem : EntitySystem
 
     private void OnProjectileHit(Entity<NeurotoxinInjectorComponent> ent, ref ProjectileHitEvent args)
     {
-        if (!HasComp<MarineComponent>(args.Target) || HasComp<NeurotoxinImmunityComponent>(args.Target))
+        if (!HasComp<MarineComponent>(args.Target))
             return;
 
         if (!ent.Comp.AffectsDead && _mobState.IsDead(args.Target))
@@ -117,9 +117,6 @@ public abstract class SharedNeurotoxinSystem : EntitySystem
                     continue;
                 }
 
-                if (HasComp<NeurotoxinImmunityComponent>(marine))
-                    continue;
-
                 if (!EnsureComp<NeurotoxinComponent>(marine, out var builtNeurotoxin))
                 {
                     builtNeurotoxin.LastMessage = time;
@@ -146,7 +143,7 @@ public abstract class SharedNeurotoxinSystem : EntitySystem
         {
             neuro.NeurotoxinAmount -= frameTime * neuro.DepletionPerSecond;
 
-            if (neuro.NeurotoxinAmount <= 0 || HasComp<NeurotoxinImmunityComponent>(uid))
+            if(neuro.NeurotoxinAmount <= 0)
             {
                 RemCompDeferred<NeurotoxinComponent>(uid);
                 continue;

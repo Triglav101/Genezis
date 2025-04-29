@@ -1,9 +1,9 @@
 - type: entity
   save: false
-  name: Urist McRat
+  name: Урист МакСкавен
   parent: CMBaseMobSpeciesOrganic
   id: CMMobRodentia
-  suffix: RMC14
+  suffix: Триглав
   components:
   - type: HumanoidAppearance
     species: Rodentia
@@ -97,11 +97,11 @@
 
 - type: entity
   save: false
-  name: Rodentia Dummy
+  name: Кукла Скавен
   parent: BaseSpeciesDummy
   id: MobRodentiaDummy
   categories: [ HideSpawnMenu ]
-  description: A dummy rodentia meant to be used in character setup.
+  description: Кукла существа из рода Скавенов, используется для редактора персонажей.
   components:
   - type: HumanoidAppearance
     species: Rodentia

@@ -6,6 +6,7 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Markdown.Mapping;
 using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Timing;
+using Robust.Shared.Audio;
 
 namespace Content.Shared.GameTicking
 {
@@ -18,9 +19,9 @@ namespace Content.Shared.GameTicking
         // But this is easier, and at least it isn't hardcoded.
         //TODO: Move these, they really belong in StationJobsSystem or a cvar.
         [ValidatePrototypeId<JobPrototype>]
-        public const string FallbackOverflowJob = "Passenger";
+        public const string FallbackOverflowJob = "CMRifleman";
 
-        public const string FallbackOverflowJobName = "job-name-passenger";
+        public const string FallbackOverflowJobName = "cm-job-name-rifleman";
 
         // TODO network.
         // Probably most useful for replays, round end info, and probably things like lobby menus.
@@ -41,7 +42,10 @@ namespace Content.Shared.GameTicking
 
         private void OnRecordingStart(MappingDataNode metadata, List<object> events)
         {
-            metadata["roundId"] = new ValueDataNode(RoundId.ToString());
+            if (RoundId != 0)
+            {
+                metadata["roundId"] = new ValueDataNode(RoundId.ToString());
+            }
         }
 
         public TimeSpan RoundDuration()
@@ -172,10 +176,7 @@ namespace Content.Shared.GameTicking
             // SS220 Round End Titles end
             public string[] JobPrototypes;
 
-            // SS220 Round End Titles begin
-            //[DataField, NonSerialized]
-            [DataField]
-            // SS220 Round End Titles end
+            [DataField, NonSerialized]
             public string[] AntagPrototypes;
 
             public NetEntity? PlayerNetEntity;
@@ -211,12 +212,11 @@ namespace Content.Shared.GameTicking
         public int RoundId { get; }
         public int PlayerCount { get; }
         public RoundEndPlayerInfo[] AllPlayersEndInfo { get; }
-        public RoundEndSponsorInfo[] Sponsors { get; } // SS220 Round End Titles
 
         /// <summary>
         /// Sound gets networked due to how entity lifecycle works between client / server and to avoid clipping.
         /// </summary>
-        public string? RestartSound;
+        public ResolvedSoundSpecifier? RestartSound;
 
         public RoundEndMessageEvent(
             string gamemodeTitle,
@@ -224,9 +224,7 @@ namespace Content.Shared.GameTicking
             TimeSpan roundDuration,
             int roundId,
             int playerCount,
-            RoundEndPlayerInfo[] allPlayersEndInfo,
-            RoundEndSponsorInfo[] sponsors, // SS220 Round End Titles
-            string? restartSound)
+            RoundEndPlayerInfo[] allPlayersEndInfo)
         {
             GamemodeTitle = gamemodeTitle;
             RoundEndText = roundEndText;
@@ -234,8 +232,6 @@ namespace Content.Shared.GameTicking
             RoundId = roundId;
             PlayerCount = playerCount;
             AllPlayersEndInfo = allPlayersEndInfo;
-            Sponsors = sponsors; // SS220 Round End Titles
-            RestartSound = restartSound;
         }
     }
 

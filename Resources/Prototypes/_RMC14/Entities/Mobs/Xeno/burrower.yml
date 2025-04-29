@@ -5,6 +5,7 @@
   - CMXenoFlammable
   - RMCXenoSpeechSounds
   - RMCXenoCommendationReceiver
+  - RMCXenoMobCollision
   id: CMXenoBurrower
   name: Burrower
   description: A beefy alien with sharp claws.
@@ -112,7 +113,3 @@
     - HiveRecoveryNodeXenoConstructionNode
   - type: IntelRecoverCorpseObjectiveOnDeath
     value: 0.2
-  - type: RMCSurgeryXenoHeart
-    item: RMCOrganXenoHeartT2
-  - type: Bloodstream
-    bloodReagent: [RMCXenoBlood, RMCPlasmaPurple]    

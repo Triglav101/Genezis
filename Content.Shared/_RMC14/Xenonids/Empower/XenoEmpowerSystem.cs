@@ -191,7 +191,7 @@ public sealed class XenoEmpowerSystem : EntitySystem
 
         _rmcPulling.TryStopAllPullsFromAndOn(args.Hit);
 
-        var damage = _damagable.TryChangeDamage(args.Hit, xeno.Comp.LeapDamage);
+        var damage = _damagable.TryChangeDamage(args.Hit, xeno.Comp.LeapDamage, origin: xeno, tool: xeno);
         if (damage?.GetTotal() > FixedPoint2.Zero)
         {
             var filter = Filter.Pvs(args.Hit, entityManager: EntityManager).RemoveWhereAttachedEntity(o => o == xeno.Owner);
@@ -208,7 +208,6 @@ public sealed class XenoEmpowerSystem : EntitySystem
         var diff = target.Position - origin.Position;
         diff = diff.Normalized() * xeno.Comp.FlingDistance;
 
-        EnsureComp<RMCObstacleSlamImmuneComponent>(args.Hit);
         _throwing.TryThrow(args.Hit, diff, 10);
     }
 

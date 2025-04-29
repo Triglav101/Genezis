@@ -53,7 +53,7 @@ public sealed class SharedXenoConstructReinforceSystem : EntitySystem
 
     private void OnReinforceBeforeExplode(Entity<XenoConstructReinforceComponent> ent, ref BeforeExplodeEvent args)
     {
-        //ReduceDamage(ent, ref args.Damage);
+
     }
 
     private void OnReinforceDamageModify(Entity<XenoConstructReinforceComponent> ent, ref DamageModifyEvent args)

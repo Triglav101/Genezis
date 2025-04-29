@@ -1,4 +1,4 @@
-﻿using Robust.Shared.GameStates;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._RMC14.Xenonids.Acid;
 
@@ -14,8 +14,8 @@ public sealed partial class CorrodibleComponent : Component
     public TimeSpan TimeToApply = TimeSpan.FromSeconds(4);
 
     [DataField, AutoNetworkedField]
-    public bool Structure = true;
+    public bool Structure = false;
 
     [DataField, AutoNetworkedField]
-    public float MeltTimeMult = 1;    
+    public float MeltTimeMult = 1;
 }

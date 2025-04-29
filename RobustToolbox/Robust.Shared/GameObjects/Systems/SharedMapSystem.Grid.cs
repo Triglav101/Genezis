@@ -162,7 +162,7 @@ public abstract partial class SharedMapSystem
 
         if (TryComp<GridTreeComponent>(xform.MapUid, out var gridTree))
         {
-            gridTree.Tree.MoveProxy(component.MapProxy, in aabb, Vector2.Zero);
+            gridTree.Tree.MoveProxy(component.MapProxy, in aabb);
         }
 
         if (TryComp<MovedGridsComponent>(xform.MapUid, out var movedGrids))
@@ -187,7 +187,7 @@ public abstract partial class SharedMapSystem
 
         if (TryComp<GridTreeComponent>(xform.MapUid, out var gridTree))
         {
-            gridTree.Tree.MoveProxy(component.MapProxy, in aabb, Vector2.Zero);
+            gridTree.Tree.MoveProxy(component.MapProxy, in aabb);
         }
 
         if (TryComp<MovedGridsComponent>(xform.MapUid, out var movedGrids))
@@ -309,10 +309,11 @@ public abstract partial class SharedMapSystem
         ChunkDatum data)
     {
         var counter = 0;
+        var gridEnt = new Entity<MapGridComponent>(uid, component);
 
         if (data.IsDeleted())
         {
-            if (!component.Chunks.TryGetValue(index, out var deletedChunk))
+            if (!component.Chunks.Remove(index, out var deletedChunk))
                 return;
 
             // Deleted chunks still need to raise tile-changed events.
@@ -326,15 +327,19 @@ public abstract partial class SharedMapSystem
 
                     var gridIndices = deletedChunk.ChunkTileToGridTile((x, y));
                     var newTileRef = new TileRef(uid, gridIndices, Tile.Empty);
-                    _mapInternal.RaiseOnTileChanged(newTileRef, oldTile, index);
+                    _mapInternal.RaiseOnTileChanged(gridEnt, newTileRef, oldTile, index);
                 }
             }
 
-            component.Chunks.Remove(index);
+            deletedChunk.CachedBounds = Box2i.Empty;
+            deletedChunk.SuppressCollisionRegeneration = false;
             return;
         }
 
         var chunk = GetOrAddChunk(uid, component, index);
+        chunk.Fixtures.Clear();
+        chunk.Fixtures.UnionWith(data.Fixtures);
+
         chunk.SuppressCollisionRegeneration = true;
         DebugTools.Assert(data.TileData.Any(x => !x.IsEmpty));
         DebugTools.Assert(data.TileData.Length == component.ChunkSize * component.ChunkSize);
@@ -348,18 +353,14 @@ public abstract partial class SharedMapSystem
 
                 var gridIndices = chunk.ChunkTileToGridTile((x, y));
                 var newTileRef = new TileRef(uid, gridIndices, tile);
-                _mapInternal.RaiseOnTileChanged(newTileRef, oldTile, index);
+                _mapInternal.RaiseOnTileChanged(gridEnt, newTileRef, oldTile, index);
             }
         }
 
+        DebugTools.Assert(chunk.Fixtures.SetEquals(data.Fixtures));
+
         // These should never refer to the same object
         DebugTools.AssertNotEqual(chunk.Fixtures, data.Fixtures);
-
-        if (!chunk.Fixtures.SetEquals(data.Fixtures))
-        {
-            chunk.Fixtures.Clear();
-            chunk.Fixtures.UnionWith(data.Fixtures);
-        }
 
         chunk.CachedBounds = data.CachedBounds!.Value;
         chunk.SuppressCollisionRegeneration = false;
@@ -512,7 +513,7 @@ public abstract partial class SharedMapSystem
 
             if (TryComp<GridTreeComponent>(xform.MapUid, out var gridTree))
             {
-                var proxy = gridTree.Tree.CreateProxy(in aabb, (uid, _fixturesQuery.Comp(uid), component));
+                var proxy = gridTree.Tree.CreateProxy(in aabb, uint.MaxValue, (uid, _fixturesQuery.Comp(uid), component));
                 DebugTools.Assert(component.MapProxy == DynamicTree.Proxy.Free);
                 component.MapProxy = proxy;
             }
@@ -566,7 +567,7 @@ public abstract partial class SharedMapSystem
 
         if (TryComp<GridTreeComponent>(xform.MapUid, out var gridTree))
         {
-            var proxy = gridTree.Tree.CreateProxy(in aabb, (uid, _fixturesQuery.Comp(uid), grid));
+            var proxy = gridTree.Tree.CreateProxy(in aabb, uint.MaxValue, (uid, _fixturesQuery.Comp(uid), grid));
             DebugTools.Assert(grid.MapProxy == DynamicTree.Proxy.Free);
             grid.MapProxy = proxy;
         }
@@ -1618,7 +1619,7 @@ public abstract partial class SharedMapSystem
         if (!MapManager.SuppressOnTileChanged)
         {
             var newTileRef = new TileRef(uid, gridTile, newTile);
-            _mapInternal.RaiseOnTileChanged(newTileRef, oldTile, mapChunk.Indices);
+            _mapInternal.RaiseOnTileChanged((uid, grid), newTileRef, oldTile, mapChunk.Indices);
         }
 
         if (shapeChanged && !mapChunk.SuppressCollisionRegeneration)

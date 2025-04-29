@@ -13,6 +13,7 @@
       - !type:EqualHealthChange
         damage:
         - Toxin: -1
+        - Genetic: -1 # TODO RMC14 remove once other meds are in for genetic damage        
       - !type:HealthChange
         conditions:
         - !type:ReagentThreshold
@@ -294,7 +295,7 @@
   desc: reagent-desc-cmepinephrine
   color: "#6bd43c"
   overdose: 10.5
-  worksOnTheDead: true
+  worksAfterDefibrillation: true
   metabolisms:
     Medicine:
       metabolismRate: 0.2

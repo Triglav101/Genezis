@@ -9,6 +9,7 @@ namespace Content.Shared.Eye
         None   = 0,
         Normal = 1 << 0,
         Ghost  = 1 << 1,
+        Xeno = 1 << 15,        
         PsionicInvisibility = 1 << 2, // backmen: psionic,
         DarkSwapInvisibility = 1 << 3, // backmen: shadowkin
         PhantomVessel = 2 << 1, // ADT Phantom

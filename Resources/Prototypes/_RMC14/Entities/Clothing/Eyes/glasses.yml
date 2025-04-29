@@ -280,7 +280,7 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesBallisticPurple
-  name: Фиолетовые баллистические военныеочки
+  name: Фиолетовые баллистические военные очки
   description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих фиолетовые дневные линзы.
   components:
   - type: Sprite
@@ -295,8 +295,8 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesBallisticYellow # TODO prescription variant
-  name: yellow marine ballistic goggles
-  description: Standard issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This one has yellow colored day lenses.
+  name: желтые баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих желтые дневные линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/yellow_ballistic_goggles.rsi
@@ -310,8 +310,8 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesBallisticPolarizedBlue # TODO prescription variant
-  name: M1A1 marine polarized ballistic goggles
-  description: Newer issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This version has larger polarized lenses.
+  name: Поляризованные баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие поляризованные линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
@@ -325,8 +325,8 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesBallisticPolarizedOrange # TODO prescription variant
-  name: M1A1 marine polarized ballistic goggles
-  description: Newer issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This version has larger polarized lenses.
+  name: Поляризованные баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие поляризованные линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_polarized_ballistic_goggles.rsi
@@ -340,8 +340,8 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesM1A1Ballistic # TODO prescription variant
-  name: M1A1 marine ballistic goggles
-  description: Newer issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This version has larger lenses.
+  name: Баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles.rsi
@@ -355,14 +355,14 @@
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesPrescriptionBallistic # TODO make this actually prescription
-  name: prescription marine ballistic goggles
-  description: Standard issue UNMC goggles. Mostly used to decorate one's helmet. Contains prescription lenses in case you weren't sure if they were lame or not.
+  name: Рецептурные баллистические военные очки
+  description: Стандартные очки UNMC. В основном используются для украшения шлема. Они были-бы классными, если вы не были уверены, насколько они отстойные.
 
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesM1A1BallisticBlue # TODO prescription variant
-  name: blue marine ballistic goggles
-  description: Standard issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This one has blue colored day lenses.
+  name: Синие баллистические военные очки
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии синие линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles_blue.rsi
@@ -376,8 +376,8 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCGogglesBallisticSquad
-  name: Advanced ballistic goggles
-  description: Cutting edge UNMC goggles. Advanced polymers and expensive nanotechnology allow the goggles to link with the wearer's armor and change the color of the lenses to match their squad designation. The lenses are invisible when worn by the unworthy.
+  name: Продвинутые баллистические очки
+  description: Передовые очки Триглава. Современные полимеры и дорогая нанотехнология позволяют очкам соединяться с броней владельца и менять цвет линз в соответствии с обозначением семейства. Линзы становятся невидимыми, когда их носит недостойный.
   components:
   - type: Item
     storedRotation: 0

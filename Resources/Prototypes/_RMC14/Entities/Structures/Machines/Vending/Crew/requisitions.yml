@@ -401,12 +401,15 @@
     - name: Magazine Boxes
       hasBoxes: true
       entries:
-#      - name: Magazine Box (M10 x 22)
-#        box: RMCMagazine10
-#      - name: Magazine Box (Ext M10 x 14)
-#        box: RMCMagazineExtended10
-#      - name: Magazine Box (Drum M10 x 12)
-#        box: RMCMagazineDrum10
+      - id: RMCBoxMagazinePistolM13
+        name: Magazine Box (M13 x 22)
+        box: RMCMagazinePistolM13
+      - id: RMCBoxMagazinePistolM13Ext
+        name: Magazine Box (Ext M13 x 14)
+        box: RMCMagazinePistolM13Ext
+      - id: RMCBoxMagazinePistolM13Drum
+        name: Magazine Box (Drum M13 x 12)
+        box: RMCMagazinePistolM13Drum
       - id: RMCBoxMagazineSMGM63
         name: Magazine Box (M63 x 12)
         box: CMMagazineSMGM63

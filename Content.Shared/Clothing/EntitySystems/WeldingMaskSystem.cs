@@ -27,9 +27,5 @@ public sealed class WeldingMaskSystem : EntitySystem
         if (args.User is not { } user) return;
 
         _darkenedVision.UpdateVisionDarkening(user);
-
-        // update identity
-        var ev = new WearerMaskToggledEvent(IsToggled: args.Activated);
-        RaiseLocalEvent(user, ref ev);
     }
 }

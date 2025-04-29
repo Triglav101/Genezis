@@ -1,3 +1,4 @@
+using Content.Shared._RMC14.Standing;
 using Content.Shared.Backmen.Standing;
 using Content.Shared.Inventory;
 using Content.Shared.Movement.Components;
@@ -46,6 +47,21 @@ namespace Content.Shared.Movement.Systems
                 sprintSpeedModifier = Math.Min(sprintSpeedModifier, layingDown.SpeedModify);
             }
             // end-backmen: layingdows
+
+
+            // start-RMC14: rest
+            if (TryComp(uid, out RMCRestComponent? rest) && rest.Resting)
+            {
+                var walk = rest.RestingSpeed;
+                if (ev.WalkSpeedModifier != 0)
+                    walk = rest.RestingSpeed / ev.WalkSpeedModifier;
+
+                var sprint = rest.RestingSpeed;
+                if (ev.SprintSpeedModifier != 0)
+                    sprint = rest.RestingSpeed / ev.SprintSpeedModifier;
+
+                ev.ModifySpeed(walk, sprint);
+            }
 
             if (MathHelper.CloseTo(walkSpeedModifier, move.WalkSpeedModifier) &&
                 MathHelper.CloseTo(sprintSpeedModifier, move.SprintSpeedModifier))
