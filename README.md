@@ -1,74 +1,27 @@
-[<img src="https://imagizer.imageshack.com/img923/7392/pIWR7b.png" alt="ASF" width="989" align="center">](https://github.com/Rxup/space-station-14)
+<p align="center"> <img alt="Space Station 14" width="880" height="300" src="https://github.com/Lordartez/Genezis/blob/master/Resources/Textures/Logo/logo.png" /></p>
 
----
+Space Station 14 это ремейк SS13, который работает на собственном движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox), написанном на C#.
 
-Backmen&Ataraxia - это форк [Space Wizards](https://github.com/space-wizards/space-station-14), ориентирующийся на идеи [СтароTG](https://github.com/tgstation/tgstation) и [Shiptest](https://github.com/shiptest-ss13/Shiptest) из Space Station 13, включая в это свои собственные идеи.
-
-Space Station 14 - это ремейк SS13, который работает на собственном движке [Robust Toolbox](https://github.com/space-wizards/Robust-Toolbox), написанном на C#.
+Это репозиторий для сервера "Проект Генезис", сборка сделана на основе русскоязычного сервера по Space Station 14 (Backman).
 
 ## Ссылки
 
-[<img src="https://i.imgur.com/XiS9QP5.png" alt="ASF" width="150" align="left">](https://github.com/AtaraxiaSpaceFoundation)
-**Ataraxia Space Foundation**<br>Специализируемся на разработке этого билда.
+[Наш Discord](https://discord.gg/RxNJGMMJ) | [Наша Вики](https://wiki.backmen.ru) | [Steam](https://store.steampowered.com/app/1255460/Space_Station_14/) | [Клиент без Steam](https://spacestation14.io/about/nightlies/) | [Основной репозиторий](https://github.com/space-wizards/space-station-14)
 
-[<img src="https://i.imgur.com/xMzKtYK.png" alt="Discord" width="150" align="left">](https://discord.gg/ss-14-backmen-ru-1053200453829132298)
-**Discord Server**<br>В космосе вас никто не услышит.
+## Документация
 
-[<img src="https://imagizer.imageshack.com/img922/4959/8KTh9r.png" alt="Wiki" width="150" align="left">](https://wiki.backmen.ru)
-**Wiki**<br>Что за блобы и с чем их едят?
+На официальном сайте с [документацией](https://docs.spacestation14.io/) имеется вся необходимая информация о контенте SS14, движке, дизайне игры и многом другом. Также имеется много информации для начинающих разработчиков.
 
-## Сборка
-
-Следуйте гайду от [Space Wizards](https://docs.spacestation14.com/en/general-development/setup/setting-up-a-development-environment.html) по настройке рабочей среды, но учитывайте, что репозитории отличаются друг от друга и некоторые вещи могут отличаться.
-Ниже перечислены скрипты и методы облегчающие работу с билдом.
-
-### Windows
-
-> 1. Склонируйте данный репозиторий.
-> 2. Запустите `git submodule update --init --recursive` в командной строке, чтобы скачать движок игры.
-> 3. Запускайте `Scripts/bat/buildAllDebug.bat` после любых изменений в коде проекта.
-> 4. Запустите `Scripts/bat/runQuickAll.bat`, чтобы запустить клиент и сервер.
-> 5. Подключитесь к локальному серверу и играйте.
-
-### Linux
-
-> 1. Склонируйте данный репозиторий.
-> 2. Запустите `git submodule update --init --recursive` в командной строке, чтобы скачать движок игры.
-> 3. Запускайте `Scripts/sh/buildAllDebug.sh` после любых изменений в коде проекта.
-> 4. Запустите `Scripts/sh/runQuickAll.sh`, чтобы запустить клиент и сервер.
-> 5. Подключитесь к локальному серверу и играйте.
-
-### MacOS
-
-> Предположительно, также, как и на Линуксе, сами разберётесь.
-
----
-
-## GptChat
-
-```toml
-[gpt]
-enabled = true
-api = "https://gigachat.devices.sberbank.ru/api/v1/"
-model = "GigaChat"
-token = ""
-giga_token = "ВСТАВИТЬ СЮДА СЕКРЕТНЫЙ КЛЮЧ"
-```
-
-[Токен](https://developers.sber.ru/portal/products/gigachat-api)
- запрашивается автоматически по секретному ключу и автоматически обновляется.
-
----
+## Активность проекта
+<!---
+ТУТ ИЗМЕНИТЬ НА СВОЁ АПИ С САЙТА repobeats.axiom.co  СЕЙЧАС ЭТО СТАТИСТИКА МОЕГО РЕПОЗИТОРИЯ!!!!!!!!!!!!!!!!!!!!
+--->
+![Alt](https://repobeats.axiom.co/api/embed/0673e9d52d57f04d262699080b0f5935f8a5936d.svg "Repobeats analytics image")
 
 ## Лицензия
 
-Содержимое, добавленное в этот репозиторий после коммита 254687f3d1d1a02aa9dba61d7c114c73dc8e4754 (`17 June 2024 12:00:00 UTC`), распространяется по лицензии GNU Affero General Public License версии 3.0, если не указано иное.
-См. [LICENSE-AGPLv3](./LICENSE-AGPLv3.txt).
+Весь код репозитория лицензирован под [AGPLv3](https://github.com/Rxup/space-station-14/blob/master/LICENSE-AGPLv3.TXT).
 
-Содержимое, добавленное в этот репозиторий до коммита 254687f3d1d1a02aa9dba61d7c114c73dc8e4754 (`17 June 2024 12:00:00 UTC`) распространяется по лицензии MIT, если не указано иное.
-См. [LICENSE-MIT](./LICENSE-MIT.TXT).
+Большинство ассетов лицензированы под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Ассеты имеют свою лицензию и авторские права в файле метаданных. [Пример](https://github.com/space-syndicate/space-station-14/blob/master/Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
-Большинство ресурсов лицензировано под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Лицензия и авторские права на ресурсах указаны в файле метаданных.
-[Example](./Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
-
-Обратите внимание, что некоторые активы лицензированы под некоммерческой [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) или аналогичной некоммерческой лицензией и должны быть удалены, если вы хотите использовать этот проект в коммерческих целях.
+Обратите внимание, что некоторые ассеты лицензированы на некоммерческой основе [CC-BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/) или аналогичной некоммерческой лицензией, и их необходимо удалить, если вы хотите использовать этот проект в коммерческих целях.
