@@ -435,8 +435,8 @@ public sealed partial class ChangelingSystem : EntitySystem
         {
             Name = metadata.EntityName,
             DNA = dna.DNA,
-            Appearance = (target,appearance),
-            TTS = appearance.Voice
+            Appearance = (target,appearance)
+            //TTS = appearance.Voice
         };
 
         if (fingerprint.Fingerprint != null)
@@ -631,7 +631,7 @@ public sealed partial class ChangelingSystem : EntitySystem
         UpdateBiomass(uid, comp, 0);
 
         // make their blood unreal
-        _blood.ChangeBloodReagent(uid, "BloodChangeling");
+        _blood.ChangeBloodReagent(uid, ["BloodChangeling"]);
     }
 
     private void OnMobStateChange(EntityUid uid, ChangelingComponent comp, ref MobStateChangedEvent args)

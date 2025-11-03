@@ -33,3 +33,22 @@
   parent: [ClothingEyesEyepatch, ClothingHeadEyeBaseFlipped]
   id: ClothingEyesEyepatchFlipped
   suffix: flipped
+
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesWeldingGoggles
+  name: старые сварочные очки
+  description: Помогает защитить глаза от яркой сварки.
+  components:
+    - type: Sprite
+      sprite: Clothing/Eyes/Glasses/welding.rsi
+    - type: Clothing
+      sprite: Clothing/Eyes/Glasses/welding.rsi
+    - type: IdentityBlocker
+      coverage: EYES
+    - type: FlashImmunity
+    - type: EyeProtection
+    - type: VisionDarkener
+      strength: 3
+    - type: StaticPrice
+      price: 8

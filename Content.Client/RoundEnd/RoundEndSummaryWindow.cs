@@ -19,7 +19,7 @@ namespace Content.Client.RoundEnd
         {
             _entityManager = entityManager;
 
-            MinSize = SetSize = new Vector2(520, 580);
+            MinSize = SetSize = new Vector2(0, 0);
 
             Title = Loc.GetString("round-end-summary-window-title");
 
@@ -63,7 +63,7 @@ namespace Content.Client.RoundEnd
             var gamemodeMessage = new FormattedMessage();
             gamemodeMessage.AddMarkupOrThrow(Loc.GetString("round-end-summary-window-round-id-label", ("roundId", roundId)));
             gamemodeMessage.AddText(" ");
-            gamemodeMessage.AddMarkupOrThrow(Loc.GetString("round-end-summary-window-gamemode-name-label", ("gamemode", gamemode)));
+            // gamemodeMessage.AddMarkupOrThrow(Loc.GetString("round-end-summary-window-gamemode-name-label", ("gamemode", gamemode)));
             gamemodeLabel.SetMessage(gamemodeMessage);
             roundEndSummaryContainer.AddChild(gamemodeLabel);
 
@@ -130,7 +130,7 @@ namespace Content.Client.RoundEnd
                         {
                             OverrideDirection = Direction.South,
                             VerticalAlignment = VAlignment.Center,
-                            SetSize = new Vector2(32, 32),
+                            SetSize = new Vector2(0, 0),
                             VerticalExpand = true,
                         });
                 }

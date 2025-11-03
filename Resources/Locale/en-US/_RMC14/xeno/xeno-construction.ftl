@@ -14,6 +14,7 @@ rmc-xeno-construction-no-map-resin-hole = The ground isn't solid
 rmc-xeno-construction-must-have-weeds-resin-hole = Resin holes must be built on weeds.
 rmc-xeno-construction-blocked-resin-hole = There's something built here already.
 rmc-xeno-construction-similar-too-close-resin-hole = There are other resin holes nearby!
+rmc-xeno-construction-dead-body = Тело в пути.
 
 cm-xeno-construction-resin-hole-burned-down = We sense one of our Hive's {$type} traps at {$location} has been burnt!
 cm-xeno-construction-resin-hole-destroyed = We sense one of our Hive's {$type} traps at {$location} has been destroyed!

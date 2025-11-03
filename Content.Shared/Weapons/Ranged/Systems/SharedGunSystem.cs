@@ -208,6 +208,21 @@ public abstract partial class SharedGunSystem : EntitySystem
         EntityManager.DirtyField(uid, gun, nameof(GunComponent.ShotCounter));
     }
 
+    // RMC14 Needed to check if the attempted shot actually shot any projectiles.
+    /// <summary>
+    /// Attempts to shoot at the target coordinates. Resets the shot counter after every shot.
+    /// </summary>
+    /// <returns>Returns a list containing all successfully shot projectiles, returns null if no projectiles have been shot</returns>
+    public List<EntityUid>? AttemptShoot(Entity<GunComponent> ent, EntityUid user, EntityCoordinates coordinates)
+    {
+        ent.Comp.ShootCoordinates = coordinates;
+        var projectiles = AttemptShoot(user, ent, ent);
+        ent.Comp.ShotCounter = 0;
+        EntityManager.DirtyField(ent.Owner, ent.Comp, nameof(GunComponent.ShotCounter));
+
+        return projectiles;
+    }
+
     /// <summary>
     /// Attempts to shoot at the target coordinates. Resets the shot counter after every shot.
     /// </summary>
@@ -400,26 +415,14 @@ public abstract partial class SharedGunSystem : EntitySystem
             }
         }
 
-        void CleanupClient()
-        {
-            foreach (var (ent, _) in ev.Ammo)
-            {
-                if (ent == null)
-                    continue;
-
-                if (_netManager.IsServer || IsClientSide(ent.Value))
-                    Del(ent);
-            }
-        }
-
-        if (!Timing.IsFirstTimePredicted)
-        {
-            CleanupClient();
-            return null;
-        }
-
         // Shoot confirmed - sounds also played here in case it's invalid (e.g. cartridge already spent).
-        var projectiles = Shoot(gunUid, gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out var userImpulse, user, throwItems: attemptEv.ThrowItems, predictedProjectiles, userSession);
+        List<EntityUid>? projectiles = null;
+        var userImpulse = false;
+        if (Timing.IsFirstTimePredicted)
+        {
+            projectiles = Shoot(gunUid, gun, ev.Ammo, fromCoordinates, toCoordinates.Value, out userImpulse, user, throwItems: attemptEv.ThrowItems, predictedProjectiles, userSession);
+        }
+
         var shotEv = new GunShotEvent(user, ev.Ammo, fromCoordinates, toCoordinates.Value);
         RaiseLocalEvent(gunUid, ref shotEv);
 
@@ -429,8 +432,14 @@ public abstract partial class SharedGunSystem : EntitySystem
                 CauseImpulse(fromCoordinates, toCoordinates.Value, user, userPhysics);
         }
 
-        DirtyField(gunUid, gun, nameof(GunComponent.BurstActivated));
-        Dirty(gunUid, gun);
+        foreach (var (ent, _) in ev.Ammo)
+        {
+            if (ent == null)
+                continue;
+
+            if (IsClientSide(ent.Value))
+                Del(ent);
+        }
         return projectiles;
     }
 
@@ -742,6 +751,7 @@ public abstract partial class SharedGunSystem : EntitySystem
             Audio.PlayPredicted(gun.SoundGunshotModified, gunUid, user);
         }
 
+        Logs.Add(LogType.RMCGunShot, LogImpact.Low, $"{ToPrettyString(user)} shot {ToPrettyString(gunUid)} with {shotProjectiles.Count} projectiles aiming at {toCoordinates}.");
         return shotProjectiles;
     }
 

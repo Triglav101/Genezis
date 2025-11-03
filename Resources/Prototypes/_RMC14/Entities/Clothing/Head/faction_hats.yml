@@ -9,6 +9,7 @@
     sprite: _RMC14/Objects/Clothing/Head/Hats/bureau_cap.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Head/Hats/bureau_cap.rsi
+  - type: RockableItem
 
 # Provost
 - type: entity

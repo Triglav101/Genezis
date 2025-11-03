@@ -21,6 +21,9 @@ public sealed partial class FoldableComponent : Component
     [DataField]
     public LocId UnfoldVerbText = "unfold-verb";
 
+    [DataField, AutoNetworkedField]
+    public bool FitIntoEntityStorage;
+
     [DataField]
     public LocId FoldVerbText = "fold-verb";
 }

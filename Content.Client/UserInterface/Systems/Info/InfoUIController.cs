@@ -17,7 +17,7 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly ILogManager _logMan = default!;
 
-    public RulesPopup? _rulesPopup;
+    public RulesPopup? RulesPopup;
     private RulesAndInfoWindow? _infoWindow;
     private ISawmill _sawmill = default!;
 
@@ -35,7 +35,7 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         _sawmill = _logMan.GetSawmill("rules");
         _netManager.RegisterNetMessage<RulesAcceptedMessage>();
         _netManager.RegisterNetMessage<SendRulesInformationMessage>(OnRulesInformationMessage);
-#if DEBUG
+
         _consoleHost.RegisterCommand("fuckrules",
             "",
             "",
@@ -43,7 +43,6 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         {
             OnAcceptPressed();
         });
-#endif
     }
 
     private void OnRulesInformationMessage(SendRulesInformationMessage message)
@@ -63,20 +62,20 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         _infoWindow = null;
     }
 
-    public void ShowRules(float time)
+    private void ShowRules(float time)
     {
-        if (_rulesPopup != null)
+        if (RulesPopup != null)
             return;
 
-        _rulesPopup = new RulesPopup
+        RulesPopup = new RulesPopup
         {
             Timer = time
         };
 
-        _rulesPopup.OnQuitPressed += OnQuitPressed;
-        _rulesPopup.OnAcceptPressed += OnAcceptPressed;
-        UIManager.WindowRoot.AddChild(_rulesPopup);
-        LayoutContainer.SetAnchorPreset(_rulesPopup, LayoutContainer.LayoutPreset.Wide);
+        RulesPopup.OnQuitPressed += OnQuitPressed;
+        RulesPopup.OnAcceptPressed += OnAcceptPressed;
+        UIManager.WindowRoot.AddChild(RulesPopup);
+        LayoutContainer.SetAnchorPreset(RulesPopup, LayoutContainer.LayoutPreset.Wide);
     }
 
     private void OnQuitPressed()
@@ -84,12 +83,12 @@ public sealed class InfoUIController : UIController, IOnStateExited<GameplayStat
         _consoleHost.ExecuteCommand("quit");
     }
 
-    public void OnAcceptPressed()
+    private void OnAcceptPressed()
     {
         _netManager.ClientSendMessage(new RulesAcceptedMessage());
 
-        _rulesPopup?.Orphan();
-        _rulesPopup = null;
+        RulesPopup?.Orphan();
+        RulesPopup = null;
         Accepted?.Invoke();
     }
 

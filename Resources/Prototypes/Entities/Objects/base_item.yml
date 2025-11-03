@@ -42,6 +42,7 @@
     noRot: false
   - type: Pullable
   - type: DamageExaminable
+  - type: DespawnItem # Genezis
 
 - type: entity
   name: "storage item"

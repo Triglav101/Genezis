@@ -1,9 +1,9 @@
-﻿rmc-ob-fuel-instructions = Warhead Fuel Requirements:
+﻿rmc-ob-fuel-instructions = Требуемое количество топлива для запуска боеголовок:
   {$requirements}
-rmc-ob-fuel-requirement = {$warhead}: {$fuel} Fuel blocks.
-rmc-ob-warning-one = The sky erupts into flames to the {$direction}!
-rmc-ob-warning-above-one = The sky erupts into flames right above you!
-rmc-ob-warning-two = The sky roars louder to the {$direction}!
-rmc-ob-warning-above-two = The sky roars louder right above you!
-rmc-ob-warning-three = OH GOD THE SKY WILL EXPLODE!!!
-rmc-ob-warning-above-three = YOU SHOULDN'T BE HERE!
+rmc-ob-fuel-requirement = {$warhead}: {$fuel} канистр топлива.
+rmc-ob-warning-one = Что-то пронеслось быстро в направлении {$direction}!
+rmc-ob-warning-above-one = Вам кажется, что что-то не так...
+rmc-ob-warning-two = Шум становится громче в направлении {$direction}
+rmc-ob-warning-above-two = Вы слышите оглушающий шум над вами!
+rmc-ob-warning-three = О боже, этот шум исходит от снаряда орбитальной пушки...
+rmc-ob-warning-above-three = Этот шум... исходит от снаряда орбитальной пушки... он летит на вас!!!

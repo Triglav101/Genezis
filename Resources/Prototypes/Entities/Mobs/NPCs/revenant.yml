@@ -23,8 +23,6 @@
   - type: Damageable
     damageContainer: ManifestedSpirit
     damageModifierSet: ManifestedSpirit
-  - type: TTS # Corvax-TTS
-    voice: Kelthuzad
   - type: NoSlip
   - type: Eye
     drawFov: false
@@ -73,6 +71,7 @@
   - type: Store
     categories:
     - RevenantAbilities
+    - RevenantInstantEffects
     currencyWhitelist:
     - StolenEssence
   - type: RandomMetadata
@@ -96,3 +95,8 @@
   - type: Reactive
     groups:
       Acidic: [Touch]
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological
+  - type: ShowHealthIcons
+  - type: OuijaBoardUser

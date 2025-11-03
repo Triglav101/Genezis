@@ -19,6 +19,7 @@
       steps:
       - tool: Anchoring
         doAfter: 2
+        duplicateConditions: All
 
     - to: windowChigusa
       completed:
@@ -45,9 +46,8 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing
 
 # Hangar
 
@@ -72,6 +72,7 @@
       steps:
       - tool: Anchoring
         doAfter: 2
+        duplicateConditions: All
 
     - to: windowHangar
       completed:
@@ -98,9 +99,8 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing
 
 # Bunker
 
@@ -125,6 +125,7 @@
       steps:
       - tool: Anchoring
         doAfter: 2
+        duplicateConditions: All
 
     - to: windowBunker
       completed:
@@ -151,6 +152,5 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing

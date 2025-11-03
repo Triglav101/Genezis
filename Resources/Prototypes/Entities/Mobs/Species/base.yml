@@ -19,7 +19,6 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-#    - map: ["jumpsuit"]
     - map: ["enum.HumanoidVisualLayers.LFoot"]
     - map: ["enum.HumanoidVisualLayers.RFoot"]
     - map: ["jumpsuit"]
@@ -29,10 +28,11 @@
     - map: [ "shoes" ]
     - map: [ "ears" ]
     - map: [ "outerClothing" ]
+    - map: [ "enum.SquadArmorLayers.Armor" ]
+    - map: ["enum.WebbingVisualLayers.Base"]    
     - map: [ "eyes" ]
     - map: [ "belt" ]
     - map: [ "id" ]
-    - map: [ "neck" ]
     - map: [ "back" ]
     - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
     - map: [ "enum.HumanoidVisualLayers.Hair" ]
@@ -40,7 +40,9 @@
     - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
     - map: [ "enum.HumanoidVisualLayers.Tail" ]
     - map: [ "mask" ]
+    - map: [ "neck" ] # RMC14 re-arrange neck slot    
     - map: [ "head" ]
+    - map: [ "enum.SquadArmorLayers.Helmet" ]    
     - map: [ "pocket1" ]
     - map: [ "pocket2" ]
     - map: ["enum.HumanoidVisualLayers.Handcuffs"]
@@ -52,6 +54,44 @@
       sprite: "Effects/creampie.rsi"
       state: "creampie_human"
       visible: false
+    - map: [ "acided" ]
+    - map: [ "hooked" ]
+      sprite: "_RMC14/Effects/xeno_spray_acid.rsi"
+      state: hooked
+      visible: false
+    - map: [ "enum.NewPlayerLayers.Layer" ]
+      visible: false
+    - map: [ "focused" ]
+      sprite: _RMC14/Interface/xeno_hud.rsi
+      state: hudeye
+      visible: false
+    - map: [ "targetedDirection" ]
+      sprite: _RMC14/Effects/targeted.rsi
+      state: sniper_lockon_direction
+      visible: false
+    - map: [ "targetedDirectionIntense" ]
+      sprite: _RMC14/Effects/targeted.rsi
+      state: sniper_lockon_intense_direction
+      visible: false
+  - type: ShitRockable # You can set groups, but be aware that internally they are treated as equal damage in all types within the group i.e 3 Brute becomes 1 blunt 1 slash 1 pierce ...
+    slotThresholds:
+    - slots: EYES
+      damageThreshold:
+        types:
+          Blunt: 5
+    - slots: HEAD
+      damageThreshold:
+        types:
+          Blunt: 10
+    - slots: EARS
+      damageThreshold:
+        types:
+          Blunt: 5
+    - slots: FEET
+      damageThreshold:
+        types:
+          Blunt: 100 # yo, that guys dead!
+    # the spider's extra pockets should probably be rockable, but under the hood theyre just flagged as normal pockets, so I dont think theres an easy way to do that and not also make their pockets into sieves.            
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:
@@ -137,13 +177,17 @@
     - PsionicsDisabled
     - PsionicallyInsulated
     - SeeAll
+    - Blinded
     - Flashed
+    - Dazed
     - RadiationProtection
     - Drowsiness
     - Adrenaline
+    - ADTHallucinations    
   - type: Body
     prototype: Human
     requiredLegs: 2
+  - type: CritDeathSounds    
   - type: Identity
   - type: IdExaminable
   - type: Hands
@@ -194,8 +238,8 @@
         type: StrippableBoundUserInterface
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
-      enum.SurgeryUIKey.Key: # backmen: surgery
-        type: SurgeryBui
+      # enum.SurgeryUIKey.Key: # backmen: surgery
+      #   type: SurgeryBui
   - type: Puller
   - type: Speech
     speechSounds: Alto
@@ -231,7 +275,8 @@
     - TauCetiBasic
   - type: Immersive # backmen: immersive
   - type: Targeting # backmen: surgery
-  - type: SurgeryTarget # backmen: surgery
+  # - type: SurgeryTarget # backmen: surgery
+  - type: ExaminableCharacter # Backmen
 
 - type: entity
   save: false
@@ -263,8 +308,10 @@
         Brute: -0.07
   - type: Fingerprint
   - type: Blindable
+  - type: DarkenedVision  
   # Other
   - type: Temperature
+    AtmosTemperatureTransferEfficiency: 0.5  
     heatDamageThreshold: 325
     coldDamageThreshold: 260
     currentTemperature: 310.15
@@ -288,6 +335,8 @@
     shiveringHeatRegulation: 2000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
+    visuallySweats: true
+    visuallyShivers: true    
   - type: EyeClosing
   - type: Perishable
     rotAfter: 2400
@@ -296,6 +345,9 @@
     spawned:
       - id: FoodMeat
         amount: 5
+      - id: HeadSkeleton
+      - id: MaterialBones1
+        amount: 4        
   - type: Respirator
     damage:
       types:
@@ -350,6 +402,7 @@
   - type: Woundable
   - type: Marine
   - type: RMCSuitLight
+  - type: RMCCanBeFultoned
   - type: HolocardState
   - type: MeleeWeapon
     soundHit:
@@ -360,7 +413,7 @@
     damage:
       types:
         Blunt: 5
-  - type: CMSurgeryTarget
+  - type: CMSurgeryTarget        
   - type: UserInterface
     interfaces:
       enum.VoiceMaskUIKey.Key:
@@ -370,7 +423,7 @@
       enum.StrippingUiKey.Key:
         type: StrippableBoundUserInterface
       enum.CMSurgeryUIKey.Key:
-        type: CMSurgeryBui
+        type: CMSurgeryBui        
       enum.HolocardChangeUIKey.Key:
         type: HolocardChangeBoundUserInterface
         interactionRange: 0
@@ -470,6 +523,35 @@
             sprite: _RMC14/Effects/xeno_spray_acid.rsi
             state: human_acid_enhanced
             visible: true
+            enum.TargetedVisuals.Targeted:
+        targeted:
+          None:
+            visible: false
+          Spotted:
+            sprite: _RMC14/Effects/targeted.rsi
+            state: spotter_lockon
+            visible: true
+          Targeted:
+            sprite: _RMC14/Effects/targeted.rsi
+            state: sniper_lockon
+            visible: true
+          TargetedIntense:
+            sprite: _RMC14/Effects/targeted.rsi
+            state: sniper_lockon_intense
+            visible: true
+      enum.TargetedVisuals.TargetedDirection:
+        targetedDirection:
+          True: { visible: true}
+          False: { visible: false}
+      enum.TargetedVisuals.TargetedDirectionIntense:
+        targetedDirectionIntense:
+          True: { visible: true }
+          False: { visible: false }
+      enum.FocusedVisuals.Focused:
+        focused:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Spottable              
   - type: ActiveInputMover
   - type: DropItemsOnRest
   - type: UserBlockShootingInsideContainers
@@ -501,6 +583,34 @@
       - Xeno
   - type: RMCPickupDroppedItems
   - type: CommendationReceiver
+  - type: RMCSpeciesSlowdownModifier
+    slowMultiplier: 0.66
+    superSlowMultiplier: 0.33
+  - type: RMCHandEmotes
+  - type: RMCBuckleDrawDepth
+  - type: RMCObstacleSlamming
+  - type: AllowPullWhileDeadAndInfected
+  - type: DamageOnPulledWhileCrit
+    damage:
+      types:
+        Asphyxiation: 1.6
+    pullerWhitelist:
+      components:
+      - Xeno # TODO RMC14 not allied xenos
+  - type: IgnoreInteractionRange
+    whitelist:
+      components:
+      - OverwatchConsole
+      tags:
+      - RMCDropshipEnginePoint
+    range: 2
+  - type: RMCArmorModifier
+    meleeArmorModifier: 5
+  - type: RMCObstacleSlamCauserImmune
+  - type: MobCollision
+  - type: RMCMobCollision
+  - type: RMCRest
+
 
 - type: entity
   save: false

@@ -31,6 +31,7 @@ public sealed class RMCTeleporterViewerOverlay : Overlay
     private readonly EntityQuery<RMCTeleporterViewerComponent> _teleporterViewerQuery;
     private readonly EntityQuery<TileFireComponent> _tileFireQuery;
     private readonly EntityQuery<TransformComponent> _transformQuery;
+    private readonly EntityQuery<XenoComponent> _xenoQuery;
 
     private readonly List<(Entity<SpriteComponent> Ent, Vector2 Position, Angle Rotation)> _toDraw = new();
 
@@ -52,6 +53,7 @@ public sealed class RMCTeleporterViewerOverlay : Overlay
         _teleporterViewerQuery = _entity.GetEntityQuery<RMCTeleporterViewerComponent>();
         _tileFireQuery = _entity.GetEntityQuery<TileFireComponent>();
         _transformQuery = _entity.GetEntityQuery<TransformComponent>();
+        _xenoQuery = _entity.GetEntityQuery<XenoComponent>();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -88,6 +90,7 @@ public sealed class RMCTeleporterViewerOverlay : Overlay
                         continue;
 
                     if (viewerContactTransform.Anchored &&
+                        !_xenoQuery.HasComp(viewerContact) &&
                         !_tileFireQuery.HasComp(viewerContact))
                     {
                         continue;

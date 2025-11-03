@@ -48,6 +48,7 @@
       - type: NpcFactionMember
         factions:
           - CentralCommand
+      - type: PhantomTyranyTarget # ADT Phantom
 
 - type: startingGear
   id: HoSGear

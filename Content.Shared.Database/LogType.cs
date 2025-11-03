@@ -391,6 +391,7 @@ public enum LogType
     /// Tiles related interactions.
     /// </summary>
     Tile = 86,
+
     /// <summary>
     /// A client has sent too many chat messages recently and is temporarily blocked from sending more.
     /// </summary>
@@ -410,6 +411,7 @@ public enum LogType
     /// A player had a refund at the "store".
     /// </summary>
     StoreRefund = 90,
+
     /// <summary>
     /// User was rate-limited for some spam action.
     /// </summary>
@@ -417,24 +419,21 @@ public enum LogType
     /// This is a default value used by <c>PlayerRateLimitManager</c>, though users can use different log types.
     /// </remarks>
     RateLimited = 91,
+
     /// <summary>
     /// A player did an item-use interaction of an item they were holding onto another object.
     /// </summary>
     InteractUsing = 92,
+
     /// <summary>
     /// Storage & entity-storage related interactions
     /// </summary>
     Storage = 93,
+
     /// <summary>
     /// A player got hit by an explosion and was dealt damage.
     /// </summary>
     ExplosionHit = 94,
-
-
-    //backmen
-    Transactions = 120,
-    Psionics = 121,
-
 
     /// <summary>
     /// A ghost warped to an entity through the ghost warp menu.
@@ -445,6 +444,12 @@ public enum LogType
     /// A player interacted with a PDA or its cartridge component
     /// </summary>
     PdaInteract = 96,
+
+    GameDirector = 97,
+
+    //backmen
+    Transactions = 120,
+    Psionics = 121,
 
     RMCMarineAnnounce = 10000,
     RMCXenoAnnounce = RMCMarineAnnounce + 1,
@@ -474,4 +479,6 @@ public enum LogType
     RMCSquadCreated = RMCMarineAnnounce + 25,
     RMCFireteam = RMCMarineAnnounce + 26,
     RMCAlertLevel = RMCMarineAnnounce + 27,
+    RMCSpawnJob = RMCMarineAnnounce + 28,
+    RMCGunShot = RMCMarineAnnounce + 29,
 }

@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Client.Actions;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared.Actions;
@@ -32,6 +32,12 @@ public sealed class XenoActionSystem : EntitySystem
         if (!TryComp(player, out XenoComponent? xeno))
             return;
 
+        foreach (var (_, actionId) in xeno.Actions)
+        {
+            if (!actionId.IsValid())
+                return;
+        }
+
         _sortedEnt = player;
 
         var actions = new List<Entity<BaseActionComponent>>();
@@ -40,11 +46,23 @@ public sealed class XenoActionSystem : EntitySystem
             actions.Add(action);
         }
 
+        var xenoActions = xeno.Actions.Values.ToList();
+        actions.Sort((a, b) =>
+        {
+            var aXeno = xenoActions.FindIndex(e => e == a.Owner);
+            var bXeno = xenoActions.FindIndex(e => e == b.Owner);
+            if (aXeno != -1 && bXeno != -1)
+                return aXeno - bXeno;
+
+            return ActionComparer((a, a), (b, b));
+        });
+
         var assignments = new List<SlotAssignment>();
         for (var i = 0; i < actions.Count; i++)
         {
             assignments.Add(new SlotAssignment(0, (byte) i, actions[i]));
         }
-;
+
+        _actions.SetAssignments(assignments);
     }
 }

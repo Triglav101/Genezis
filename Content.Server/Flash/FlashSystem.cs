@@ -1,21 +1,21 @@
 using System.Linq;
 using Content.Server.Flash.Components;
-using Content.Shared.Flash.Components;
 using Content.Server.Light.EntitySystems;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.Charges.Components;
 using Content.Shared.Charges.Systems;
+using Content.Shared.Examine;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Flash;
+using Content.Shared.Flash.Components;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
+using Content.Shared.StatusEffect;
 using Content.Shared.Tag;
 using Content.Shared.Traits.Assorted;
 using Content.Shared.Weapons.Melee.Events;
-using Content.Shared.StatusEffect;
-using Content.Shared.Examine;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
@@ -107,7 +107,7 @@ namespace Content.Server.Flash
             return true;
         }
 
-        public void Flash(EntityUid target,
+        public override bool Flash(EntityUid target,
             EntityUid? user,
             EntityUid? used,
             float flashDuration,
@@ -120,11 +120,11 @@ namespace Content.Server.Flash
             RaiseLocalEvent(target, attempt, true);
 
             if (attempt.Cancelled)
-                return;
+                return false;
 
             // don't paralyze, slowdown or convert to rev if the target is immune to flashes
             if (!_statusEffectsSystem.TryAddStatusEffect<FlashedComponent>(target, FlashedKey, TimeSpan.FromSeconds(flashDuration / 1000f), true))
-                return;
+                return false;
 
             if (stunDuration != null)
             {
@@ -150,6 +150,8 @@ namespace Content.Server.Flash
                 if (used != null)
                     RaiseLocalEvent(used.Value, ref ev);
             }
+            
+            return true;
         }
 
         public override void FlashArea(Entity<FlashComponent?> source, EntityUid? user, float range, float duration, float slowTo = 0.8f, bool displayPopup = false, float probability = 1f, SoundSpecifier? sound = null)

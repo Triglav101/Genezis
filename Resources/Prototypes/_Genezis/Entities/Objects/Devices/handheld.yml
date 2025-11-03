@@ -73,3 +73,40 @@
   id: HandheldMechAnalyzerUnpowered
   parent: BaseHandheldMechAnalyzer
   suffix: Handheld, Unpowered
+
+
+# Ghost radio
+ 
+- type: entity
+  id: ADTGhostRadioUnpowered
+  parent: BaseItem
+  name: сломанное радио
+  description: Просто помехи...
+  components:
+  - type: Sprite
+    sprite: /Textures/Objects/Devices/communication.rsi
+    state: old-radio
+  - type: Appearance
+  - type: GhostRadio
+    enabled: false
+  - type: ToggleableLightVisuals
+    spriteLayer: radio
+  - type: ItemToggle
+ 
+- type: entity
+  id: ADTGhostRadio
+  parent: [ ADTGhostRadioUnpowered, PowerCellSlotMediumItem ]
+  suffix: Powered
+  components:
+  - type: PowerCellDraw
+    drawRate: 1
+ 
+- type: entity
+  id: ADTGhostRadioEmtpy
+  parent: [ ADTGhostRadio ]
+  suffix: Empty
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default

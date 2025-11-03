@@ -1,13 +1,13 @@
 - type: job
+  parent: CMJobBase
   id: BlueShield
-  name: job-name-blueshield
-  description: job-description-blueshield
+  name: Телохранитель
+  description: Перед принятием сотрудников в отдел Гризли они должны доказать свою готовность к жертвенности. Таких сотрудников делают телохранителями и отправляют для защиты важных сотрудников Триглава.
   playTimeTracker: JobBlueShield
   canBeAntag: false
   requireAdminNotify: true
   joinNotifyCrew: true
-  whitelisted: true
-  discordRequired: true
+  whitelisted: false
   requirements:
     - !type:RoleTimeRequirement
       role: JobHeadOfSecurity
@@ -61,8 +61,7 @@
     back: ClothingBackpackSatchelLeather
     neck: CombatKnifeSpetsnaz
     belt: ClothingBeltSecurityCentComSecurity
-    pocket1: WeaponPistolUCS
-    pocket2: RadioBlueShieldSupplyPod
+    pocket1: RadioBlueShieldSupplyPod
   storage:
     back:
     - BlueShieldSetLoadouts

@@ -1,13 +1,10 @@
 using Content.Shared.Administration.Logs;
-using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
-using Robust.Shared.Network;
-using Robust.Shared.Player;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 
@@ -74,9 +71,10 @@ public sealed class SolutionTransferSystem : EntitySystem
         // Add specific transfer verbs according to the container's size
         var priority = 0;
         var user = args.User;
-        foreach (var amount in DefaultTransferAmounts)
+        var amounts = ent.Comp.TransferAmounts ?? DefaultTransferAmounts;
+        foreach (var amount in amounts)
         {
-          if (amount < comp.MinimumTransferAmount || amount > comp.MaximumTransferAmount)
+            if (amount < comp.MinimumTransferAmount || amount > comp.MaximumTransferAmount)
                 continue;
 
             AlternativeVerb verb = new();
@@ -101,7 +99,7 @@ public sealed class SolutionTransferSystem : EntitySystem
 
     private void OnAfterInteract(Entity<SolutionTransferComponent> ent, ref AfterInteractEvent args)
     {
-        if (!args.CanReach || args.Target is not {} target)
+        if (!args.CanReach || args.Target is not { } target)
             return;
 
         var (uid, comp) = ent;
@@ -116,7 +114,7 @@ public sealed class SolutionTransferSystem : EntitySystem
             var transferAmount = comp.TransferAmount; // This is the player-configurable transfer amount of "uid," not the target reagent tank.
 
             // if the receiver has a smaller transfer limit, use that instead
-            if (refill?.MaxRefill is {} maxRefill)
+            if (refill?.MaxRefill is { } maxRefill)
                 transferAmount = FixedPoint2.Min(transferAmount, maxRefill);
 
             var transferred = Transfer(args.User, target, targetSoln.Value, uid, ownerSoln.Value, transferAmount);
@@ -141,7 +139,7 @@ public sealed class SolutionTransferSystem : EntitySystem
         {
             var transferAmount = comp.TransferAmount;
 
-            if (targetRefill?.MaxRefill is {} maxRefill)
+            if (targetRefill?.MaxRefill is { } maxRefill)
                 transferAmount = FixedPoint2.Min(transferAmount, maxRefill);
 
             var transferred = Transfer(args.User, uid, ownerSoln.Value, target, targetSoln.Value, transferAmount);
@@ -158,18 +156,18 @@ public sealed class SolutionTransferSystem : EntitySystem
     /// Transfer from a solution to another, allowing either entity to cancel it and show a popup.
     /// </summary>
     /// <returns>The actual amount transferred.</returns>
-    public FixedPoint2 Transfer(EntityUid user,
+    public FixedPoint2 Transfer(EntityUid? user,
         EntityUid sourceEntity,
         Entity<SolutionComponent> source,
         EntityUid targetEntity,
         Entity<SolutionComponent> target,
         FixedPoint2 amount)
     {
-        var transferAttempt = new SolutionTransferAttemptEvent(sourceEntity, targetEntity);
+        var transferAttempt = new SolutionTransferAttemptEvent(sourceEntity, source, targetEntity, target);
 
         // Check if the source is cancelling the transfer
         RaiseLocalEvent(sourceEntity, ref transferAttempt);
-        if (transferAttempt.CancelReason is {} reason)
+        if (transferAttempt.CancelReason is { } reason)
         {
             _popup.PopupClient(reason, sourceEntity, user);
             return FixedPoint2.Zero;
@@ -184,7 +182,7 @@ public sealed class SolutionTransferSystem : EntitySystem
 
         // Check if the target is cancelling the transfer
         RaiseLocalEvent(targetEntity, ref transferAttempt);
-        if (transferAttempt.CancelReason is {} targetReason)
+        if (transferAttempt.CancelReason is { } targetReason)
         {
             _popup.PopupClient(targetReason, targetEntity, user);
             return FixedPoint2.Zero;
@@ -218,7 +216,7 @@ public sealed class SolutionTransferSystem : EntitySystem
 /// To not mispredict this should always be cancelled in shared code and not server or client.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, string? CancelReason = null)
+public record struct SolutionTransferAttemptEvent(EntityUid From, Entity<SolutionComponent> FromSolution, EntityUid To, Entity<SolutionComponent> ToSolution, string? CancelReason = null)
 {
     /// <summary>
     /// Cancels the transfer.
@@ -233,4 +231,4 @@ public record struct SolutionTransferAttemptEvent(EntityUid From, EntityUid To, 
 /// Raised on the target entity when a non-zero amount of solution gets transferred.
 /// </summary>
 [ByRefEvent]
-public record struct SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid User, FixedPoint2 Amount);
+public record struct SolutionTransferredEvent(EntityUid From, EntityUid To, EntityUid? User, FixedPoint2 Amount);

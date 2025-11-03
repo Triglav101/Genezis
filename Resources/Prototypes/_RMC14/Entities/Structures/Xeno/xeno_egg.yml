@@ -1,8 +1,8 @@
 ﻿- type: entity
   parent: BaseItem
   id: XenoEgg
-  name: egg
-  description: It looks like a weird egg.
+  name: яйцо
+  description: Боже, какое же оно уродливое.
   placement:
     mode: SnapgridCenter
     snap:
@@ -84,13 +84,21 @@
   - type: RequireProjectileTarget
   - type: XenoInhandSprite
     stateName: egg
+  - type: Extractable
+    grindableSolutionName: egg
+  - type: SolutionContainerManager
+    solutions:
+      egg:
+        reagents:
+        - ReagentId: RMCPlasmaEgg
+          Quantity: 60
 
 - type: entity
   parent: BaseItem
   categories: [ HideSpawnMenu ]
   id: XenoEggDestroyed
-  name: egg
-  description: A mess of... something.
+  name: яйцо
+  description: Куча... чего-то.
   placement:
     mode: SnapgridCenter
     snap:

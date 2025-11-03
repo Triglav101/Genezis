@@ -30,7 +30,6 @@ BulletAntiMaterial: BulletAntiMateriel
 # 2023-05-10
 FoodCondimentBottleSmallHotsauce: FoodCondimentBottleHotsauce
 FoodBakedCookieFortune: FoodSnackCookieFortune
-GunSafeSubMachineGunVector: GunSafeSubMachineGunDrozd
 
 # 2023-05-24
 AMEController: AmeController
@@ -330,10 +329,6 @@ Observationskit: null
 # 2024-02-26
 CrateBaseWeldable: CrateGenericSteel
 
-
-# 2024-09-03 Backmen
-WeaponTaser: WeaponDominatorNT
-
 # 2024-03-05
 BookBotanicalTextbook: BookRandomStory
 BookEscalation: BookRandomStory
@@ -564,7 +559,7 @@ CMCrateMagazineM42AIncendiary: RMCCrateMagazineM96SIncendiary
 CMMagazineSniperM42A: CMMagazineSniperM96S
 CMMagazineSniperM42AIncendiary: CMMagazineSniperM96SIncendiary
 CMMagazineSniperM42AFlak: CMMagazineSniperM96SFlak
-CMMagazineSniperM42AAntiMateriel: CMMagazineSniperM96SAntiMateriel
+CMMagazineSniperM42AAntiMateriel: RMCMagazineSniperXM43E1AntiMateriel
 CMM42ASniperRifle: CMM96SSniperRifle
 CMDrinkCanSoutClassico: CMDrinkCanBobdaClassic
 CMDrinkCanSoutCherryo: CMDrinkCanBobdaCherry
@@ -745,12 +740,12 @@ CMPouchSling: RMCPouchSling
 CMGroundsideOperationsConsole: RMCGroundsideOperationsConsole
 
 # 2024-08-08
-ToolboxEmergency: RMCToolboxEmergency
-ToolboxEmergencyFilled: RMCToolboxEmergencyFilled
-ToolboxElectrical: RMCToolboxElectrical
-ToolboxElectricalFilled: RMCToolboxElectricalFilled
-ToolboxMechanical: RMCToolboxMechanical
-ToolboxMechanicalFilled: RMCToolboxMechanicalFilled
+# ToolboxEmergency: RMCToolboxEmergency
+# ToolboxEmergencyFilled: RMCToolboxEmergencyFilled
+# ToolboxElectrical: RMCToolboxElectrical
+# ToolboxElectricalFilled: RMCToolboxElectricalFilled
+# ToolboxMechanical: RMCToolboxMechanical
+# ToolboxMechanicalFilled: RMCToolboxMechanicalFilled
 Bucket: RMCBucket
 CMBucket: RMCBucket
 
@@ -845,7 +840,7 @@ CMBoxMRE: RMCBoxMRE
 CMBoxPackFlare: RMCBoxPackFlare
 CMCrateBase: RMCCrateBase
 CMCrateLarge: RMCCrateLarge
-CMCrateWeldable: RMCCrateWeldable
+CMCrateWeldable: RMCCrateBase
 CMCrateAlpha: RMCCrateAlpha
 CMCrateBravo: RMCCrateBravo
 CMCrateCharlie: RMCCrateCharlie
@@ -906,7 +901,7 @@ PowerCellHyper: RMCPowerCellHyper
 PowerCellHyperPrinted: RMCPowerCellHyperEmpty
 UnfinishedMachineFrame: CMMachineFrameUnfinished
 MachineFrame: CMMachineFrame
-Autolathe: CMAutolathe
+# Autolathe: CMAutolathe
 Paper: CMPaper
 Pen: CMPen
 LuxuryPen: CMPenFountain
@@ -968,12 +963,12 @@ Crowbar: CMCrowbar
 CrowbarRed: CMCrowbarRed
 
 # 2024-10-15
+CMDispenserChem : RMCChemDispenserGround
 RMCDispenserChemEmpty: RMCChemDispenserGround
 RMCDispenserChem: RMCChemDispenserGround
 
 # 2024-08-28 backmen
 SpawnPointStationAI: PlayerStationAi
-WeaponTurretLaserNanoTrasenAI: WeaponTurretSyndicateBroken
 
 # 2024-08-22
 ComputerShuttleSalvage: null
@@ -1008,14 +1003,6 @@ BlueprintFlare: null
 
 # 2024-10-04
 BaseAdvancedPen: Pen
-
-# 2024-10-04 backmen
-GunSafeRifleLecter: GunSafeRifleAR18
-GunSafeSubMachineGunDrozd: GunSafeSubMachineGunVector
-GunSafeShotgunEnforcer: GunSafeShotgunShotgun39
-GunSafeShotgunKammerer: GunSafeShotgunTrenchgun
-GunSafeSubMachineGunWt550: GunSafeSubMachineGunMP5
-GunSafeLaserCarbine: GunSafeLaserCarbineUEG
 
 # 2024-10-05 - Corvax
 SheetPrinter: SheetPaper
@@ -1179,5 +1166,44 @@ RMCCrateBoxMagazineM44RevolverMarksman: RMCCrateBoxMagazineRevolverM44Marksman
 # 2025-01-19
 RMCCrateM54C: RMCCrateM54CMK1
 
+# 2025-02-10
+BulletRifle5.56x45mm: BulletRifle556x45mm
+CMBulletPistol.22mm: CMBulletPistol22mm
+CMCartridgePistol.22mm: CMCartridgePistol22mm
+
+# 2025-02-12
+RMCAreaSavannahPumpStarboard Quarter: RMCAreaSavannahPumpStarboardQuarter
+
+# 2025-02-21
+RMCWindowFrameHybrisaEngigReinforced: RMCWindowFrameHybrisaEngiReinforced
+RMCWindowHybrisaResearchlReinforced: RMCWindowHybrisaResearchReinforced
+
+# 2025-02-25
+CMAirlockGlassRequisitionsLocked: CMAirlockRequisitionsLocked
+
+# 2025-02-26
+RMCAreaLv759IndoorsWeyyuOffice: RMCAreaLv759IndoorsWeyaOffice
+RMCAreaLv759IndoorsWeyyuOfficeHallway: RMCAreaLv759IndoorsWeyaOfficeHallway
+RMCAreaLv759IndoorsWeyyuOfficeFloor: RMCAreaLv759IndoorsWeyaOfficeFloor
+RMCAreaLv759IndoorsWeyyuOfficeBreakroom: RMCAreaLv759IndoorsWeyaOfficeBreakroom
+RMCAreaLv759IndoorsWeyyuOfficeVip: RMCAreaLv759IndoorsWeyaOfficeVip
+RMCAreaLv759IndoorsWeyyuOfficePressroom: RMCAreaLv759IndoorsWeyaOfficePressroom
+RMCAreaLv759IndoorsWeyyuOfficeSupervisor: RMCAreaLv759IndoorsWeyaOfficeSupervisor
+
+# 2025-03-14
+RMCCrateWeldable: RMCCrateBase
+
+# 2025-03-01
+RMCHeadsetDistressFreelancer: RMCHeadsetDistressDukes
+RMCEncryptionKeyFreelancer: RMCEncryptionKeyDukes
+
+# 2024-12-22
+ClothingHeadHatWelding: RMCWeldingMask
+ClothingEyesGlassesMeson: RMCWeldingGoggles
+
 #Genezis
 RMCCableCoil: CableApcStack
+CMSpawnPointIntelOfficer: null
+
+# 2025-04-14
+PlantBag: RMCStoragePlantBag

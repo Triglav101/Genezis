@@ -1,4 +1,4 @@
-using Content.Shared.Alert;
+﻿using Content.Shared.Alert;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -7,7 +7,7 @@ namespace Content.Shared._RMC14.NightVision;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 [Access(typeof(SharedNightVisionSystem))]
-public sealed partial class NightVisiontypeComponent : Component
+public sealed partial class NightVisionComponent : Component
 {
     [DataField]
     public ProtoId<AlertPrototype>? Alert;

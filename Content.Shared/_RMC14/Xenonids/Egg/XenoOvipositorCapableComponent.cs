@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -21,5 +21,8 @@ public sealed partial class XenoOvipositorCapableComponent : Component
     public Vector2 Offset = new(-1, -1);
 
     [DataField, AutoNetworkedField]
-    public EntProtoId[] ActionIds = ["ActionXenoLeader", "ActionXenoHeal"];
+    public EntProtoId[] ActionIds = ["ActionXenoLeader", "ActionXenoHeal", "ActionXenoQueenEye"];
+
+    [DataField, AutoNetworkedField]
+    public Dictionary<EntProtoId, EntityUid> Actions = new();
 }

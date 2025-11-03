@@ -25,7 +25,7 @@
         path: "/Textures/Backmen/Parallaxes/Lighthouse.png"
       slowness: 0.94
       scale: 1,1
-      scrolling: "-0.006, -0.004"
+      scrolling: "-0.006, -0.066"
 
 - type: parallax
   id: PebbleStation

@@ -34,4 +34,8 @@ public sealed partial class RoleLoadoutPrototype : IPrototype
     /// </summary>
     [DataField]
     public int? Points;
+
+
+    [DataField]
+    public string[]? AllowedExtras;
 }

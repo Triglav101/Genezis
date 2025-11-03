@@ -148,5 +148,6 @@ public enum SpeciesNaming : byte
     FirstDashFirst,
     XnoY, //backmen: oni
     TheFirstofLast,
+    LastFirst,        // this is for Rodentia    
     FirstDashLast, // Parkstation-IPC
 }

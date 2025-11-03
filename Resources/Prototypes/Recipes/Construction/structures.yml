@@ -815,6 +815,23 @@
     - !type:TileNotBlocked
 
 - type: construction
+  name: турникет
+  id: Turnstile
+  graph: Turnstile
+  startNode: start
+  targetNode: turnstile
+  category: construction-category-structures
+  description: Механическая дверь, обеспечивающая односторонний доступ.
+  icon:
+    sprite: Structures/Doors/turnstile.rsi
+    state: turnstile
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
   name: shutter
   id: Shutters
   graph: Shutters

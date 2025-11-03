@@ -1,13 +1,14 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Numerics;
 using System.Text;
+using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Dropship;
 using Content.Shared._RMC14.Explosion;
-using Content.Shared._RMC14.Map;
 using Content.Shared._RMC14.Marines.Announce;
 using Content.Shared._RMC14.Marines.HyperSleep;
 using Content.Shared._RMC14.Power;
 using Content.Shared._RMC14.Xenonids.Announce;
+using Content.Shared.Audio;
 using Content.Shared.CCVar;
 using Content.Shared.Coordinates;
 using Content.Shared.Doors;
@@ -17,41 +18,46 @@ using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
+using Content.Shared.Prying.Components;
 using Content.Shared.UserInterface;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Shared._RMC14.Evacuation;
 
 public abstract class SharedEvacuationSystem : EntitySystem
 {
+    [Dependency] private readonly SharedAmbientSoundSystem _ambientSound = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AreaSystem _area = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedDoorSystem _door = default!;
     [Dependency] private readonly SharedHyperSleepChamberSystem _hyperSleep = default!;
+    [Dependency] private readonly MapLoaderSystem _mapLoader = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedMarineAnnounceSystem _marineAnnounce = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedRMCExplosionSystem _rmcExplosion = default!;
-    [Dependency] private readonly SharedRMCMapSystem _rmcMap = default!;
     [Dependency] private readonly SharedRMCPowerSystem _rmcPower = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedXenoAnnounceSystem _xenoAnnounce = default!;
 
+    private EntityQuery<AreaComponent> _areaQuery;
     private EntityQuery<DoorComponent> _doorQuery;
     private EntityQuery<MobStateComponent> _mobStateQuery;
 
@@ -60,6 +66,7 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
     public override void Initialize()
     {
+        _areaQuery = GetEntityQuery<AreaComponent>();
         _doorQuery = GetEntityQuery<DoorComponent>();
         _mobStateQuery = GetEntityQuery<MobStateComponent>();
 
@@ -73,6 +80,7 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
         SubscribeLocalEvent<EvacuationDoorComponent, BeforeDoorOpenedEvent>(OnEvacuationDoorBeforeOpened);
         SubscribeLocalEvent<EvacuationDoorComponent, BeforeDoorClosedEvent>(OnEvacuationDoorBeforeClosed);
+        SubscribeLocalEvent<EvacuationDoorComponent, BeforePryEvent>(OnEvacuationDoorBeforePry);
 
         SubscribeLocalEvent<EvacuationComputerComponent, ExaminedEvent>(OnEvacuationComputerExamined);
         SubscribeLocalEvent<EvacuationComputerComponent, ActivatableUIOpenAttemptEvent>(OnEvacuationComputerUIOpenAttempt);
@@ -96,7 +104,8 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
     private void OnDropshipHijackLanded(ref DropshipHijackLandedEvent ev)
     {
-        EnsureComp<EvacuationProgressComponent>(ev.Map);
+        var evacuationProgress = EnsureComp<EvacuationProgressComponent>(ev.Map);
+        evacuationProgress.DropShipCrashed = true;
 
         var doors = EntityQueryEnumerator<EvacuationDoorComponent>();
         while (doors.MoveNext(out var uid, out var door))
@@ -165,20 +174,25 @@ public abstract class SharedEvacuationSystem : EntitySystem
         if (_net.IsClient)
             return;
 
+        if (!_config.GetCVar(CCVars.GridFill))
+            return;
+
         if (_map == null)
         {
             _mapSystem.CreateMap(out var mapId);
             _map = mapId;
         }
 
-        var matrix = Matrix3x2.CreateTranslation(_index * 50, _index * 50);
+        var offset = new Vector2(_index * 50, _index * 50);
         _index++;
 
-        _rmcMap.TryLoad(_map.Value, spawn.ToString(), out var grids, matrix);
-        if (grids == null || grids.Count == 0)
+        if (!_mapSystem.MapExists(_map) ||
+            !_mapLoader.TryLoadGrid(_map.Value, spawn, out var result, offset: offset))
+        {
             return;
+        }
 
-        var grid = grids[0];
+        var grid = result.Value;
         var xform = Transform(ent);
         var coordinates = _transform.GetMapCoordinates(ent, xform);
         coordinates = coordinates.Offset(ent.Comp.Offset);
@@ -206,6 +220,12 @@ public abstract class SharedEvacuationSystem : EntitySystem
     {
         if (ent.Comp.Locked)
             args.PerformCollisionCheck = false;
+    }
+
+    private void OnEvacuationDoorBeforePry(Entity<EvacuationDoorComponent> ent, ref BeforePryEvent args)
+    {
+        if (ent.Comp.Locked)
+            args.Cancelled = true;
     }
 
     private void OnEvacuationComputerExamined(Entity<EvacuationComputerComponent> ent, ref ExaminedEvent args)
@@ -374,37 +394,61 @@ public abstract class SharedEvacuationSystem : EntitySystem
         }
     }
 
+    private void SetPumpAmbience()
+    {
+        var pumps = EntityQueryEnumerator<EvacuationPumpComponent>();
+        while (pumps.MoveNext(out var uid, out var pump))
+        {
+            _ambientSound.SetSound(uid, pump.ActiveSound);
+        }
+    }
+
+    private IEnumerable<EntityUid> GetEvacuationAreas(EntityCoordinates coordinates)
+    {
+        if (!_area.TryGetAllAreas(coordinates, out var areaGrid))
+            yield break;
+
+        foreach (var areaId in areaGrid.Value.Comp.AreaEntities.Values)
+        {
+            if (!_areaQuery.TryComp(areaId, out var area) ||
+                !area.HijackEvacuationArea)
+            {
+                continue;
+            }
+
+            yield return areaId;
+        }
+    }
+
     private bool IsAreaPumpPowered(EntityUid area)
     {
         return _rmcPower.IsAreaPowered(area, RMCPowerChannel.Equipment);
     }
 
-    public void ToggleEvacuation(SoundSpecifier? startSound, SoundSpecifier? cancelSound)
+    public void ToggleEvacuation(SoundSpecifier? startSound, SoundSpecifier? cancelSound, EntityUid? map)
     {
-        var query = EntityQueryEnumerator<EvacuationProgressComponent>();
-        while (query.MoveNext(out var uid, out var progress))
+        DebugTools.Assert(map != null);
+
+        var progress = EnsureComp<EvacuationProgressComponent>(map.Value);
+
+        progress.Enabled = !progress.Enabled;
+        Dirty(map.Value, progress);
+
+        if (progress.Enabled)
         {
-            progress.Enabled = !progress.Enabled;
-            Dirty(uid, progress);
-
-            if (progress.Enabled)
-            {
-                _marineAnnounce.AnnounceARES(
-                    null,
-                    "Attention. Emergency. All personnel must evacuate immediately.",
-                    startSound
-                );
-                var ev = new EvacuationEnabledEvent();
-                RaiseLocalEvent(uid, ref ev, true);
-            }
-            else
-            {
-                _marineAnnounce.AnnounceARES(null, "Evacuation has been cancelled.", cancelSound);
-                var ev = new EvacuationDisabledEvent();
-                RaiseLocalEvent(uid, ref ev, true);
-            }
-
-            break;
+            _marineAnnounce.AnnounceARES(
+                null,
+                "Attention. Emergency. All personnel must evacuate immediately.",
+                startSound
+            );
+            var ev = new EvacuationEnabledEvent();
+            RaiseLocalEvent(map.Value, ref ev, true);
+        }
+        else
+        {
+            _marineAnnounce.AnnounceARES(null, "Evacuation has been cancelled.", cancelSound);
+            var ev = new EvacuationDisabledEvent();
+            RaiseLocalEvent(map.Value, ref ev, true);
         }
     }
 
@@ -456,11 +500,27 @@ public abstract class SharedEvacuationSystem : EntitySystem
         var query = EntityQueryEnumerator<EvacuationProgressComponent>();
         while (query.MoveNext(out var uid, out var progress))
         {
+            //Only start fueling once the dropship has crashed into the Almayer
+            if (!progress.DropShipCrashed)
+                return;
+
             if (!progress.StartAnnounced)
             {
                 progress.StartAnnounced = true;
                 SetPumpAppearance(EvacuationPumpVisuals.Empty);
+                SetPumpAmbience();
 
+                var areas = new StringBuilder();
+                foreach (var areaId in GetEvacuationAreas(uid.ToCoordinates()))
+                {
+                    var powered = IsAreaPumpPowered(areaId);
+                    var line = $"[{Name(areaId)}] - [{(powered ? "Online" : "Offline")}]";
+                    areas.AppendLine(line);
+                }
+
+                areas.Append(
+                    "Due to low orbit, extra fuel is required for non-surface evacuations.\nMaintain fueling functionality for optimal evacuation conditions.");
+                _marineAnnounce.AnnounceARES(null, areas.ToString());
             }
 
             if (progress.NextUpdate > time)
@@ -471,6 +531,37 @@ public abstract class SharedEvacuationSystem : EntitySystem
 
             double progressAdd = 0;
             double progressMultiply = 1;
+            foreach (var areaId in GetEvacuationAreas(uid.ToCoordinates()))
+            {
+                if (!_areaQuery.TryComp(areaId, out var area) ||
+                    !area.HijackEvacuationArea)
+                {
+                    continue;
+                }
+
+                var powered = IsAreaPumpPowered(areaId);
+                if (progress.LastPower.TryGetValue(areaId, out var lastPower) &&
+                    lastPower != powered)
+                {
+                    _marineAnnounce.AnnounceARES(null, $"{Name(areaId)} - [{(powered ? "Online" : "Offline")}]");
+                }
+
+                progress.LastPower[areaId] = powered;
+                if (!powered)
+                    continue;
+
+                switch (area.HijackEvacuationType)
+                {
+                    case AreaHijackEvacuationType.Add:
+                        progressAdd += area.HijackEvacuationWeight;
+                        break;
+                    case AreaHijackEvacuationType.Multiply:
+                        progressMultiply += area.HijackEvacuationWeight;
+                        break;
+                    default:
+                        continue;
+                }
+            }
 
             progress.Progress = Math.Min(progress.Required, progress.Progress + progressAdd * progressMultiply);
 
@@ -536,7 +627,7 @@ public abstract class SharedEvacuationSystem : EntitySystem
                     if (offAreas.Length == 0)
                         marineAnnounce += " All fueling areas operational.";
                     else
-                        marineAnnounce += $"To increase speed, restore power to the following areas: {offAreas}";
+                        marineAnnounce += $" To increase speed, restore power to the following areas: {offAreas}";
 
                     _marineAnnounce.AnnounceARES(null, marineAnnounce);
 

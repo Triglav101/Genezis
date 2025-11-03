@@ -25,6 +25,9 @@ public enum CollisionGroup
     // Y dis door passable when all the others impassable / collision.
     DoorPassable       = 1 << 8, // 256 Allows door to close over top, Like blast doors over conveyors for disposals rooms/cargo.
     BlobImpassable     = 1 << 9, // 512 Blob Tiles
+
+    // RMC14
+    MobCollision = 1 << 24,    
     BarbedBarricade = 1 << 25,
     BarricadeImpassable = 1 << 26,
     XenoProjectileImpassable = 1 << 27,

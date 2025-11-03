@@ -24,6 +24,7 @@
                                              Text="Launch" Disabled="True" />
                 </BoxContainer>
             </BoxContainer>
+            <cc:HSeparator Color="#02E74E" />
             <BoxContainer Name="DestinationsContainer" Access="Public" Orientation="Vertical"
                           Margin="5" />
             <BoxContainer Name="ProgressBarContainer" Access="Public" Orientation="Vertical"
@@ -39,6 +40,7 @@
                                          BorderColor="#02E74E" BorderThickness="1"
                                          Text="Lockdown" />
             </BoxContainer>
+            <cc:HSeparator Color="#02E74E" />
         </BoxContainer>
     </PanelContainer>
 </controls:DropshipNavigationWindow>

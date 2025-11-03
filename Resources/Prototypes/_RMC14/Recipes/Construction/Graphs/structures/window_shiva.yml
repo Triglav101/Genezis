@@ -19,6 +19,7 @@
       steps:
       - tool: Anchoring
         doAfter: 2
+        duplicateConditions: All
 
     - to: windowShiva
       completed:
@@ -45,6 +46,5 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing

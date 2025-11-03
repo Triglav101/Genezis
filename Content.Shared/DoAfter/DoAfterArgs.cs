@@ -18,6 +18,12 @@ public sealed partial class DoAfterArgs
     public NetEntity NetUser;
 
     /// <summary>
+    ///     If do_after stops when the target moves (if there is a target)
+    /// </summary>
+    [DataField("breakOnTargetMove")]
+    public bool BreakOnTargetMove;
+
+    /// <summary>
     ///     How long does the do_after require to complete
     /// </summary>
     [DataField(required: true)]
@@ -33,6 +39,12 @@ public sealed partial class DoAfterArgs
     public NetEntity? NetTarget;
 
     /// <summary>
+    ///     If do_after stops when the user moves
+    /// </summary>
+    [DataField("breakOnUserMove")]
+    public bool BreakOnUserMove;
+
+    /// <summary>
     ///     Entity used by the User on the Target.
     /// </summary>
     [NonSerialized]
@@ -46,6 +58,13 @@ public sealed partial class DoAfterArgs
     /// </summary>
     [DataField]
     public bool Hidden;
+
+    /// <summary>
+    /// RMC14
+    /// Whether the progress bar for this DoAfter should be visible regardless of other conditions.
+    /// </summary>
+    [DataField]
+    public bool ForceVisible;
 
     #region Event options
     /// <summary>
@@ -261,6 +280,8 @@ public sealed partial class DoAfterArgs
         BreakOnHandChange = other.BreakOnHandChange;
         BreakOnDropItem = other.BreakOnDropItem;
         BreakOnMove = other.BreakOnMove;
+        BreakOnTargetMove = other.BreakOnTargetMove;
+        BreakOnUserMove = other.BreakOnUserMove;
         BreakOnWeightlessMove = other.BreakOnWeightlessMove;
         MovementThreshold = other.MovementThreshold;
         DistanceThreshold = other.DistanceThreshold;
@@ -271,6 +292,7 @@ public sealed partial class DoAfterArgs
         BlockDuplicate = other.BlockDuplicate;
         CancelDuplicate = other.CancelDuplicate;
         DuplicateCondition = other.DuplicateCondition;
+        ForceVisible = other.ForceVisible;
 
         // Networked
         NetUser = other.NetUser;

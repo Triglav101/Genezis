@@ -1,2 +1,2 @@
-﻿hud-chatbox-channel-MentorChat = Mentor Chat
-hud-chatbox-select-channel-Mentor = Mentor
+﻿hud-chatbox-channel-MentorChat = Ментор чат
+hud-chatbox-select-channel-Mentor = Ментор

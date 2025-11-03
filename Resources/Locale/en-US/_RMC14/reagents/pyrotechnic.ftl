@@ -1,2 +1,14 @@
-reagent-name-rmcphoron = Phoron
-reagent-desc-rmcphoron = A special form of metallic plasma that is not found on Earth. While phoron is highly flammable and extremely toxic, its high energy density makes it one of the best solid fuel alternatives. Liquid phoron is often used for research purposes and in the medical industry a catalyst to many advanced chemicals.
+reagent-name-rmcphoron = Форон
+reagent-desc-rmcphoron = Особая форма металлической плазмы, которая запрещена в большей части галактики. Хотя форон легко воспламеняется и чрезвычайно токсичен, его высокая плотность энергии делает его одной из лучших альтернатив твердому топливу. Жидкий форон часто используется в исследовательских целях и военной промышлености Триглава.
+
+reagent-name-rmcnapalmut = СНТ-напаловое топливо
+reagent-desc-rmcnapalmut = Известен как сверхгустое нафталиновое топливо, липкий горючий жидкий химикат, обычно используемый в огнеметах.
+
+reagent-name-rmcnapalex = Напалм "EX"
+reagent-desc-rmcnapalex = Липкое горючее жидкое химическое вещество, состоящее из комбинации редких и опасных реагентов, которое способно проникать сквозь любую броню и горит очень горячо.
+
+reagent-name-rmcnapalx = Напалм "X"
+reagent-desc-rmcnapalx = Липкое горючее жидкое химическое вещество, которое горит очень-очень горячо.
+
+reagent-name-rmcnapalb = Напалм "B"
+reagent-desc-rmcnapalb = Особая разновидность напалма, которая не способна хорошо прилипать к чему-либо, но рассеивается на большой площади, медленно сгорая. Состав вступает в реакцию с неорганическими материалами, воспламеняя их и нанося серьезные повреждения.

@@ -1,8 +1,9 @@
-using Content.Client._RMC14.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Shared._RMC14.Xenonids.Watch;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
+using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 using static Robust.Client.UserInterface.Controls.LineEdit;
 
@@ -25,6 +26,7 @@ public sealed class XenoWatchBui : BoundUserInterface
 
     protected override void Open()
     {
+        base.Open();
         EnsureWindow();
     }
 
@@ -48,15 +50,10 @@ public sealed class XenoWatchBui : BoundUserInterface
 
             var control = new XenoChoiceControl();
             control.Set(xeno.Name, texture);
+            control.Button.OnPressed += _ => SendPredictedMessage(new XenoWatchBuiMsg(xeno.Entity));
 
             _window.XenoContainer.AddChild(control);
         }
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-            _window?.Dispose();
     }
 
     private XenoWatchWindow EnsureWindow()
@@ -64,10 +61,8 @@ public sealed class XenoWatchBui : BoundUserInterface
         if (_window != null)
             return _window;
 
-        _window = new XenoWatchWindow();
-        _window.OnClose += Close;
+        _window = this.CreateWindow<XenoWatchWindow>();
         _window.SearchBar.OnTextChanged += OnSearchBarChanged;
-        _window.OpenCentered();
         return _window;
     }
 
@@ -83,6 +78,8 @@ public sealed class XenoWatchBui : BoundUserInterface
 
             if (string.IsNullOrWhiteSpace(args.Text))
                 control.Visible = true;
+            else
+                control.Visible = control.NameLabel.GetMessage()?.Contains(args.Text, StringComparison.OrdinalIgnoreCase) ?? false;
         }
     }
 }

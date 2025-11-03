@@ -118,7 +118,8 @@ public abstract class SharedBiomeSystem : EntitySystem
             // Check if the tile is from meta layer, otherwise fall back to default layers.
             if (layer is BiomeMetaLayer meta)
             {
-                if (TryGetBiomeTile(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out tile))
+                if (TryGetTile(indices, ProtoManager.Index<BiomeTemplatePrototype>(meta.Template).Layers, seed, grid, out tile))
+                    //CP14 bandage - replaced from TryGetBiomeTile (not working for biomespawner)
                 {
                     return true;
                 }
@@ -129,7 +130,7 @@ public abstract class SharedBiomeSystem : EntitySystem
             if (layer is not BiomeTileLayer tileLayer)
                 continue;
 
-            if (TryGetTile(indices, noiseCopy, tileLayer.Invert, tileLayer.Threshold, ProtoManager.Index<ContentTileDefinition>(tileLayer.Tile), tileLayer.Variants, out tile))
+            if (TryGetTile(indices, noiseCopy, tileLayer.Invert, tileLayer.Threshold, ProtoManager.Index(tileLayer.Tile), tileLayer.Flags, tileLayer.Variants, out tile))
             {
                 return true;
             }
@@ -142,7 +143,7 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// <summary>
     /// Gets the underlying biome tile, ignoring any existing tile that may be there.
     /// </summary>
-    private bool TryGetTile(Vector2i indices, FastNoiseLite noise, bool invert, float threshold, ContentTileDefinition tileDef, List<byte>? variants, [NotNullWhen(true)] out Tile? tile)
+    private bool TryGetTile(Vector2i indices, FastNoiseLite noise, bool invert, float threshold, ContentTileDefinition tileDef, byte tileFlags, List<byte>? variants, [NotNullWhen(true)] out Tile? tile)
     {
         var found = noise.GetNoise(indices.X, indices.Y);
         found = invert ? found * -1 : found;
@@ -163,7 +164,7 @@ public abstract class SharedBiomeSystem : EntitySystem
             variant = _tile.PickVariant(tileDef, (int) variantValue);
         }
 
-        tile = new Tile(tileDef.TileId, 0, variant);
+        tile = new Tile(tileDef.TileId, flags: tileFlags, variant);
         return true;
     }
 
@@ -246,7 +247,7 @@ public abstract class SharedBiomeSystem : EntitySystem
     /// Tries to get the relevant decals for this tile.
     /// </summary>
     public bool TryGetDecals(Vector2i indices, List<IBiomeLayer> layers, int seed, MapGridComponent grid,
-        [NotNullWhen(true)] out List<(string ID, Vector2 Position)>? decals)
+        [NotNullWhen(true)] out List<(string ID, Vector2 Position, Color Color)>? decals)
     {
         if (!TryGetBiomeTile(indices, layers, seed, grid, out var tileRef))
         {
@@ -301,7 +302,7 @@ public abstract class SharedBiomeSystem : EntitySystem
                 return false;
             }
 
-            decals = new List<(string ID, Vector2 Position)>();
+            decals = new List<(string ID, Vector2 Position, Color Color)>();
 
             for (var x = 0; x < decalLayer.Divisions; x++)
             {
@@ -314,7 +315,7 @@ public abstract class SharedBiomeSystem : EntitySystem
                     if (decalValue < decalLayer.Threshold)
                         continue;
 
-                    decals.Add((Pick(decalLayer.Decals, (noiseCopy.GetNoise(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f), index));
+                    decals.Add((Pick(decalLayer.Decals, (noiseCopy.GetNoise(indices.X, indices.Y, x + y * decalLayer.Divisions) + 1f) / 2f), index, decalLayer.Color));
                 }
             }
 

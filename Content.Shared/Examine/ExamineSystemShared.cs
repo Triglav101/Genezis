@@ -1,9 +1,8 @@
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Text;
+using Content.Shared._RMC14.Xenonids.Eye;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Ghost;
+using Content.Shared._Goobstation.Examine; // Goobstation Change
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -24,6 +23,9 @@ namespace Content.Shared.Examine
         [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
         [Dependency] protected readonly MobStateSystem MobStateSystem = default!;
 
+        // RMC14
+        [Dependency] private readonly QueenEyeSystem _queenEye = default!;
+
         public const float MaxRaycastRange = 100;
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace Content.Shared.Examine
         public const float DeadExamineRange = 0.75f;
 
         public const float ExamineRange = 16f;
-        protected const float ExamineDetailsRange = 3f;
+        protected const float ExamineDetailsRange = 8f;
 
         protected const float ExamineBlurrinessMult = 2.5f;
 
@@ -120,6 +122,12 @@ namespace Content.Shared.Examine
             // Do target InRangeUnoccluded which has different checks.
             if (examined != null)
             {
+                if (TryComp(examiner, out QueenEyeActionComponent? queen) &&
+                    queen.Eye != null)
+                {
+                    return _queenEye.CanSeeTarget((examiner, queen), examined.Value);
+                }
+
                 return InRangeUnOccluded(
                     examiner,
                     examined.Value,
@@ -284,6 +292,10 @@ namespace Content.Shared.Examine
 
             var newMessage = examinedEvent.GetTotalMessage();
 
+
+            // Goobstation Change: I dont seem to have a way to get the event of examination to happen after EVERYTHING else, so fuck it.
+            var examineCompletedEvent = new ExamineCompletedEvent(newMessage, entity, examiner.Value);
+            RaiseLocalEvent(entity, examineCompletedEvent);
             // pop color tag
             newMessage.Pop();
 

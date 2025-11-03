@@ -13,5 +13,5 @@
     shoes: ClothingShoesColorBlack
     mask: ClothingMaskGas
     gloves: ClothingHandsGlovesColorYellowBudget
-  inhand:
-    - WeaponSniperMosinAI
+  # inhand:
+  #   - WeaponSniperMosinAI

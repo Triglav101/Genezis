@@ -23,12 +23,10 @@
   - Boxer
   - Chaplain
   - Chef
-  - Clown
   - HeadOfPersonnel
   - Janitor
   - Lawyer
   - Librarian
-  - Mime
   - Musician
   - Passenger
   - Reporter
@@ -57,6 +55,7 @@
   - SpecialOperationsOfficer #Backmen-ERTRoles
   editorHidden: true
   weight: 120
+  lightColor: "#387195" # SS220 Round End Titles
 
 - type: department
   id: Command
@@ -85,6 +84,7 @@
   - DeathSquad
   primary: false
   weight: 100
+  lightColor: "#2c60f8" # SS220 Round End Titles
 
 - type: department
   id: Engineering
@@ -149,7 +149,7 @@
   name: department-Silicon
   description: department-Silicon-description
   color: "#D381C9"
-  editorHidden: true
+  editorHidden: false
   roles:
   - Borg
   - StationAi
@@ -170,3 +170,4 @@
   - Pilot # Corvax-Pilot
   accountNumber: 1322  #backmen: currency
   primary: false
+  roundEndTitlesHidden: true # SS220 Round End Titles

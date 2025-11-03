@@ -49,3 +49,7 @@ gun-revolver-insert = Inserted
 gun-revolver-spin = Spin revolver
 gun-revolver-spun = Spun
 gun-speedloader-empty = Speedloader empty
+
+# RequiresDualWieldComponent
+dual-wield-component-requires = Это оружие используется в паре, возьми еще одно такое.
+gun-requires-dual-wield-component-examine = Чтобы стрелять из этого оружия, его нужно держать с другим подобным оружием.

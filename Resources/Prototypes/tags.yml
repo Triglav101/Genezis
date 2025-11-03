@@ -1,6 +1,9 @@
 # PUT YOUR TAGS IN ALPHABETICAL ORDER
 
 - type: Tag
+  id: FitInTeleporterConsole
+
+- type: Tag
   id: AirAlarm
 
 - type: Tag
@@ -22,10 +25,43 @@
   id: AppraisalTool
 
 - type: Tag
+  id: AllowBiomeLoading # Entities with this tag will load terrain, even if a ghost.
+
+- type: Tag
+  id: Cable
+
+- type: Tag
+  id: Disposal
+
+- type: Tag
+  id: JunkPile
+
+- type: Tag
+  id: Sensor
+
+- type: Tag
+  id: Mainboard
+
+- type: Tag
+  id: GunFrame
+
+- type: Tag
+  id: GearSmall
+
+- type: Tag
   id: Arrow
 
 - type: Tag
+  id: Maints
+
+- type: Tag
+  id: HardsuitSpatio
+
+- type: Tag
   id: ArtifactFragment
+
+- type: Tag # Eating fix tag
+  id: VoxFood
 
 - type: Tag
   id: ATVKeys

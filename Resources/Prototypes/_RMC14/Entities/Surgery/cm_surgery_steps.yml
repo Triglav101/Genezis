@@ -8,7 +8,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepOpenIncisionScalpel
-  name: Cut with a scalpel
+  name: Сделать надрез скальпелем
   components:
   - type: CMSurgeryStep
     tool:
@@ -25,7 +25,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepClampBleeders
-  name: Clamp the bleeders
+  name: Зажать кровотечение
   components:
   - type: CMSurgeryStep
     tool:
@@ -40,7 +40,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepRetractSkin
-  name: Retract the skin
+  name: Растянуть кожу
   components:
   - type: CMSurgeryStep
     tool:
@@ -54,7 +54,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepSawBones
-  name: Saw through bones
+  name: Распилить кости
   components:
   - type: CMSurgeryStep
     tool:
@@ -69,7 +69,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepPriseOpenBones
-  name: Prise the bones open
+  name: Вскрыть кости
   components:
   - type: CMSurgeryStep
     tool:
@@ -83,7 +83,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepCutLarvaRoots
-  name: Cut larva roots
+  name: Обрезать наросты паразита
   components:
   - type: CMSurgeryStep
     skill: 2
@@ -98,7 +98,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepRemoveLarva
-  name: Remove larva
+  name: Удалить паразита
   components:
   - type: CMSurgeryStep
     skill: 2
@@ -115,7 +115,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepCloseBones
-  name: Close bones
+  name: Вернуть на место кости
   components:
   - type: CMSurgeryStep
     tool:
@@ -129,7 +129,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepMendRibcage
-  name: Mend ribcage
+  name: Вправить грудную клетку
   components:
   - type: CMSurgeryStep
     tool:
@@ -143,7 +143,7 @@
 - type: entity
   parent: CMSurgeryStepBase
   id: CMSurgeryStepCloseIncision
-  name: Close incision
+  name: Закрыть разрез
   components:
   - type: CMSurgeryStep
     tool:
@@ -156,3 +156,64 @@
     sprite: _RMC14/Objects/Medical/Surgery/cautery.rsi
     state: cautery
   - type: CMSurgeryStepEmoteEffect
+
+- type: entity
+  parent: CMSurgeryStepBase
+  id: RMCSurgeryCutExoskeleton
+  name: Распилить экзоскелет
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMBoneSaw
+    add:
+    - type: RMCXenoOpen
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/saw.rsi
+    state: saw
+
+- type: entity
+  parent: CMSurgeryStepBase
+  id: RMCSurgeryOpenExoskeleton
+  name: Вскрыть экзоскелет
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMRetractor
+    add:
+    - type: RMCXenoPryed
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/retractor.rsi
+    state: retractor
+
+- type: entity
+  parent: CMSurgeryStepBase
+  id: RMCSurgerySevereXenoConnections
+  name: Разрезать артерии
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMScalpel
+    add:
+    - type: RMCXenoCut
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/scalpel.rsi
+    state: scalpel
+
+- type: entity
+  parent: CMSurgeryStepBase
+  id: RMCSurgeryRemoveXenoOrgan
+  name: Достать сердце монстра
+  components:
+  - type: CMSurgeryStep
+    skill: 2
+    tool:
+    - type: CMHemostat
+    add:
+    - type: RMCXenoRemoved
+  - type: Sprite
+    sprite: _RMC14/Objects/Medical/Surgery/hemostat.rsi
+    state: hemostat
+  - type: RMCSurgeryStepXenoHeartEffect

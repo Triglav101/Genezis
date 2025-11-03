@@ -74,6 +74,15 @@
   tower: true
 
 - type: radioChannel
+  id: RoyalMarine
+  name: chat-radio-royal-marine
+  keycode: "q"
+  frequency: 1216
+  color: "#e3580e"
+  longRange: true
+  tower: true
+
+- type: radioChannel
   id: MarineJTAC
   name: chat-radio-marine-jtac
   keycode: "j" #j in CM13
@@ -170,6 +179,15 @@
   keycode: "l"
   frequency: 1220
   color: "#1b748c"
+  longRange: true
+  tower: true
+
+- type: radioChannel
+  id: Provost
+  name: chat-radio-provost
+  keycode: "r"
+  frequency: 1473
+  color: "#9b0612"
   longRange: true
   tower: true
 

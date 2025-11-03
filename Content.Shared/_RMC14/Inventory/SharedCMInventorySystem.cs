@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared._RMC14.Input;
 using Content.Shared.Administration.Logs;
@@ -396,7 +396,7 @@ public abstract class SharedCMInventorySystem : EntitySystem
         Unholster(user, startIndex, choose);
     }
 
-    private void Holster(EntityUid user, EntityUid item)
+    public bool Holster(EntityUid user, EntityUid item, bool act = true)
     {
         // TODO RMC14 try uniform-attached weapon and ammo holsters first
         var validSlots = new List<HolsterSlot>();
@@ -443,6 +443,13 @@ public abstract class SharedCMInventorySystem : EntitySystem
                     continue;
                 }
 
+                // If holster has StorageComponent
+                // And item can be inserted
+                if (HasComp<StorageComponent>(clothing) &&
+                    _storage.CanInsert(clothing, item, user, out _))
+                {
+                    validSlots.Add(new HolsterSlot(priority, true, null, clothing, null));
+                }
             }
             priority++;
         }
@@ -454,15 +461,25 @@ public abstract class SharedCMInventorySystem : EntitySystem
             // Try equip to inventory slot
             if (!slot.IsHolster &&
                 slot.Slot != null &&
-                _inventory.TryEquip(user, item, slot.Slot.ID, true, checkDoafter: true))
-                return;
+                _inventory.CanEquip(user, item, slot.Slot.ID, out _))
+            {
+                if (act)
+                    _inventory.TryEquip(user, item, slot.Slot.ID, true, checkDoafter: true);
+
+                return true;
+            }
 
             // Try insert into ItemSlot-based holster
             if (slot.ItemSlot != null &&
-                _itemSlots.TryInsert(slot.Ent, slot.ItemSlot, item, user, excludeUserAudio: true))
+                _itemSlots.CanInsert(slot.Ent, item, user, slot.ItemSlot))
             {
-                _adminLog.Add(LogType.RMCHolster, $"{ToPrettyString(user)} holstered {ToPrettyString(item)}");
-                return;
+                if (act)
+                {
+                    _itemSlots.TryInsert(slot.Ent, slot.ItemSlot, item, user, excludeUserAudio: true);
+                    _adminLog.Add(LogType.RMCHolster, $"{ToPrettyString(user)} holstered {ToPrettyString(item)}");
+                }
+
+                return true;
             }
 
             // Try insert into Storage-based holster
@@ -470,16 +487,27 @@ public abstract class SharedCMInventorySystem : EntitySystem
                 TryComp(slot.Ent, out StorageComponent? storage) &&
                 TryComp(slot.Ent, out CMHolsterComponent? holster) &&
                 !holster.Contents.Contains(item) &&
-                _hands.TryDrop(user, item) &&
-                _storage.Insert(slot.Ent, item, out _, user, storage, playSound: false))
+                _hands.CanDrop(user, item) &&
+                _storage.CanInsert(slot.Ent, item, user, out _, storage))
             {
-                _audio.PlayPredicted(holster.InsertSound, item, user);
-                _adminLog.Add(LogType.RMCHolster, $"{ToPrettyString(user)} holstered {ToPrettyString(item)}");
-                return;
+                if (act && _hands.TryDrop(user, item))
+                {
+                    _storage.Insert(slot.Ent, item, out _, user, storage, playSound: false);
+                    _audio.PlayPredicted(holster.InsertSound, item, user);
+                    _adminLog.Add(LogType.RMCHolster, $"{ToPrettyString(user)} holstered {ToPrettyString(item)}");
+                }
+
+                return true;
             }
         }
 
         _popup.PopupClient(Loc.GetString("cm-inventory-unable-equip"), user, user, PopupType.SmallCaution);
+        return false;
+    }
+
+    public bool CanHolster(EntityUid user, EntityUid item)
+    {
+        return Holster(user, item, false);
     }
 
     private readonly record struct HolsterSlot(
@@ -546,6 +574,8 @@ public abstract class SharedCMInventorySystem : EntitySystem
 
         if (slots.Count == 0)
             return false;
+
+        slots.Sort(ItemSlotsSystem.SortEmpty);
 
         itemSlot = slots[0];
         return true;

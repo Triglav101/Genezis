@@ -12,58 +12,23 @@ namespace Xilium.CefGlue
 
     public static unsafe class CefRuntime
     {
-        private static readonly CefRuntimePlatform _platform;
+        private static readonly CefRuntimePlatform _platform = DetectPlatform();
 
         private static bool _loaded;
         private static bool _initialized;
 
-        static CefRuntime()
-        {
-            _platform = DetectPlatform();
-        }
-
         #region Platform Detection
         private static CefRuntimePlatform DetectPlatform()
         {
-            var platformId = Environment.OSVersion.Platform;
-
-            if (platformId == PlatformID.MacOSX)
+            if (OperatingSystem.IsWindows())
+                return CefRuntimePlatform.Windows;
+            if (OperatingSystem.IsLinux())
+                return CefRuntimePlatform.Linux;
+            if (OperatingSystem.IsMacOS())
                 return CefRuntimePlatform.MacOS;
 
-            int p = (int)platformId;
-            if ((p == 4) || (p == 128))
-                return IsRunningOnMac() ? CefRuntimePlatform.MacOS : CefRuntimePlatform.Linux;
-
-            return CefRuntimePlatform.Windows;
+            throw new InvalidOperationException("Unsupported operating system.");
         }
-
-        //From Managed.Windows.Forms/XplatUI
-        private static bool IsRunningOnMac()
-        {
-            IntPtr buf = IntPtr.Zero;
-            try
-            {
-                buf = Marshal.AllocHGlobal(8192);
-                // This is a hacktastic way of getting sysname from uname ()
-                if (uname(buf) == 0)
-                {
-                    string? os = Marshal.PtrToStringAnsi(buf);
-                    if (os == "Darwin")
-                        return true;
-                }
-            }
-            catch { }
-            finally
-            {
-                if (buf != IntPtr.Zero)
-                    Marshal.FreeHGlobal(buf);
-            }
-
-            return false;
-        }
-
-        [DllImport("libc")]
-        private static extern int uname(IntPtr buf);
 
         public static CefRuntimePlatform Platform
         {
@@ -233,7 +198,8 @@ namespace Xilium.CefGlue
                 }
                 else
                 {
-                    throw ExceptionBuilder.CefRuntimeFailedToInitialize();
+                    var code = libcef.get_exit_code();
+                    throw ExceptionBuilder.CefRuntimeFailedToInitialize(code);
                 }
             }
             finally
@@ -241,6 +207,20 @@ namespace Xilium.CefGlue
                 CefMainArgs.Free(n_main_args);
                 CefSettings.Free(n_settings);
             }
+        }
+
+        ///
+        /// This function can optionally be called on the main application thread after
+        /// CefInitialize to retrieve the initialization exit code. When CefInitialize
+        /// returns true the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
+        /// Otherwise, see cef_resultcode_t for possible exit code values including
+        /// browser process initialization errors and normal early exit conditions (such
+        /// as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
+        /// relaunch behavior).
+        ///
+        public static int GetExitCode()
+        {
+            return libcef.get_exit_code();
         }
 
         [Obsolete("Use Initialize(CefMainArgs,CefSettings,CefApp,IntPtr) overload instead.")]

@@ -1,0 +1,71 @@
+- type: entity
+  id: OrganScavenStomach
+  parent: OrganAnimalStomach
+  name: скавенский желудок
+  description: "Синий скавенский желудок, от него исходит запах гнили."
+  components:
+  - type: Organ
+  - type: Sprite
+    Sprite: Mobs/Species/Human/organs.rsi
+  - type: Item
+    size: Small
+    heldPrefix: stomach
+  - type: SolutionContainerManager
+    solutions:
+      stomach:
+        maxVol: 50
+      food:
+        maxVol: 5
+        reagents:
+        - ReagentId: UncookedAnimalProteins
+          Quantity: 5
+  - type: Stomach
+    specialDigestible:
+      tags:
+      - Trash
+      - Fruit
+      - ReptilianFood
+      - Meat
+      - Pill
+      - Crayon
+      - Paper
+      - VoxFood
+      - Vegetable
+
+- type: entity
+  id: OrganScavenLiver
+  parent: OrganAnimalLiver
+  name: печень
+  description: "Синяя и выглядит огнеопасно."
+  components:
+  - type: Sprite
+    state: liver
+  - type: Item
+    size: Small
+    heldPrefix: liver
+  - type: Metabolizer # The liver metabolizes certain chemicals only, like alcohol.
+    maxReagents: 1
+    metabolizerTypes: [Vox]
+    groups:
+    - id: Alcohol
+      rateModifier: 0.1 # removes alcohol very slowly along with the stomach removing it as a drink
+
+- type: entity
+  id: OrganScavenHeart
+  parent: BaseAnimalOrgan
+  name: сердце
+  description: "Странное синие сердце скавена"
+  components:
+  - type: Sprite
+    state: heart-on
+  - type: Item
+    size: Small
+    heldPrefix: heart
+  - type: Metabolizer
+    updateInterval: 1.5
+    maxReagents: 2
+    metabolizerTypes: [Vox]
+    groups:
+    - id: Medicine
+    - id: Poison
+    - id: Narcotic

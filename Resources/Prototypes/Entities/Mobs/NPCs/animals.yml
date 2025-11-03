@@ -365,7 +365,7 @@
       Dead:
         Base: cockroach_dead
   - type: Bloodstream
-    bloodReagent: InsectBlood
+    bloodReagent: [InsectBlood]
     bloodMaxVolume: 20
   - type: Food
   - type: FlavorProfile
@@ -402,6 +402,7 @@
       behaviors:
       - !type:GibBehavior
         gibContents: Skip
+        recursive: false
   - type: NonSpreaderZombie
   - type: SentienceTarget
     flavorKind: station-event-random-sentience-flavor-organic
@@ -524,7 +525,7 @@
     damageContainer: Biological
     damageModifierSet: Moth
   - type: Bloodstream
-    bloodReagent: InsectBlood
+    bloodReagent: [InsectBlood]
   - type: Respirator
     damage:
       types:
@@ -970,7 +971,7 @@
     - Crab
   - type: Bloodstream
     bloodMaxVolume: 50
-    bloodReagent: CopperBlood
+    bloodReagent: [CopperBlood]
   - type: Tag
     tags:
     - VimPilot
@@ -1882,6 +1883,17 @@
       enum.SurgeryUIKey.Key:
         type: SurgeryBui
   # end-backmen: surgery
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Blunt
+        damage: 100
+      behaviors:
+      - !type:GibBehavior
+        gibContents: Skip
+        recursive: false
+
 
 - type: entity
   parent: MobMouse
@@ -2000,7 +2012,7 @@
   - type: RadiationSource
     intensity: 0.3
   - type: Bloodstream
-    bloodReagent: UnstableMutagen
+    bloodReagent: [UnstableMutagen]
   - type: SolutionContainerManager
     solutions:
       food:
@@ -2520,7 +2532,7 @@
   - type: IgnoreSpiderWeb
   - type: Bloodstream
     bloodMaxVolume: 150
-    bloodReagent: CopperBlood
+    bloodReagent: [CopperBlood]
   - type: Speech
     speechVerb: Arachnid
     speechSounds: Arachnid
@@ -2680,7 +2692,7 @@
       speechVerb: Cluwne
     - type: Bloodstream
       bloodMaxVolume: 150
-      bloodReagent: Laughter
+      bloodReagent: [Laughter]
 
 - type: entity
   name: wizard spider
@@ -3019,7 +3031,7 @@
     attributes:
       gender: epicene
   - type: Bloodstream
-    bloodReagent: DemonsBlood
+    bloodReagent: [DemonsBlood]
   - type: Damageable
     damageContainer: BiologicalMetaphysical
     damageModifierSet: Infernal
@@ -3675,7 +3687,7 @@
     speciesId: cat
     templateId: pet
   - type: Bloodstream
-    bloodReagent: Sap
+    bloodReagent: [Sap]
     bloodMaxVolume: 60
   - type: DamageStateVisuals
     states:

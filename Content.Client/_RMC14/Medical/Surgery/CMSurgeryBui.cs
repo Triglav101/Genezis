@@ -1,12 +1,11 @@
-using Content.Client.Xenonids.UI;
+﻿using Content.Client.Xenonids.UI;
 using Content.Client.Administration.UI.CustomControls;
 using Content.Shared._RMC14.Medical.Surgery;
 using Content.Shared.Body.Part;
-using Content.Shared.Rotation;
-using Content.Shared.Standing;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
+using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Control;
@@ -35,6 +34,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
 
     protected override void Open()
     {
+        base.Open();        
         _system.OnRefresh += () =>
         {
             UpdateDisabledPanel();
@@ -51,23 +51,13 @@ public sealed class CMSurgeryBui : BoundUserInterface
             Update(s);
     }
 
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        if (disposing)
-            _window?.Dispose();
-
-        _system.OnRefresh -= RefreshUI;
-    }
-
     private void Update(CMSurgeryBuiState state)
     {
         if (_window == null)
         {
-            _window = new CMSurgeryWindow();
-            _window.OnClose += Close;
-            _window.Title = "Surgery";
+            _window = this.CreateWindow<CMSurgeryWindow>();
+            _window.OnClose += () => _system.OnRefresh -= RefreshUI;
+            _window.Title = Loc.GetString("surgery-ui-window-title");
 
             _window.PartsButton.OnPressed += _ =>
             {
@@ -163,6 +153,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
             var partButton = new XenoChoiceControl();
 
             partButton.Set(partName, null);
+            partButton.Button.OnPressed += _ => OnPartPressed(netPart, surgeries);
 
             _window.Parts.AddChild(partButton);
 
@@ -201,7 +192,9 @@ public sealed class CMSurgeryBui : BoundUserInterface
         stepName.AddText(_entities.GetComponent<MetaDataComponent>(step).EntityName);
 
         var stepButton = new CMSurgeryStepButton { Step = step };
+        stepButton.Button.OnPressed += _ => SendMessage(new CMSurgeryStepChosenBuiMsg(netPart, surgeryId, stepId));
 
+        _window.Steps.AddChild(stepButton);
     }
 
     private void OnSurgeryPressed(Entity<CMSurgeryComponent> surgery, NetEntity netPart, EntProtoId surgeryId)
@@ -217,7 +210,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
         if (surgery.Comp.Requirement is { } requirementId && _system.GetSingleton(requirementId) is { } requirement)
         {
             var label = new XenoChoiceControl();
-
+            label.Button.OnPressed += _ =>
             {
                 _previousSurgeries.Add(surgeryId);
 
@@ -227,11 +220,11 @@ public sealed class CMSurgeryBui : BoundUserInterface
 
             var msg = new FormattedMessage();
             var surgeryName = _entities.GetComponent<MetaDataComponent>(requirement).EntityName;
-            msg.AddMarkupOrThrow($"[bold]Requires: {surgeryName}[/bold]");
+            msg.AddMarkup($"[bold]{Loc.GetString("surgery-ui-window-require")}: {surgeryName}[/bold]");
             label.Set(msg, null);
 
             _window.Steps.AddChild(label);
-            _window.Steps.AddChild(new HSeparator {Margin = new Thickness(0, 0, 0, 1) });
+            _window.Steps.AddChild(new HSeparator { Color = Color.FromHex("#4972A1"), Margin = new Thickness(0, 0, 0, 1) });
         }
 
         foreach (var stepId in surgery.Comp.Steps)
@@ -279,6 +272,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
             var surgeryButton = new XenoChoiceControl();
             surgeryButton.Set(surgery.Name, null);
 
+            surgeryButton.Button.OnPressed += _ => OnSurgeryPressed(surgery.Ent, netPart, surgery.Id);
             _window.Surgeries.AddChild(surgeryButton);
         }
 
@@ -299,6 +293,8 @@ public sealed class CMSurgeryBui : BoundUserInterface
         var i = 0;
         foreach (var child in _window.Steps.Children)
         {
+            if (child is not CMSurgeryStepButton stepButton)
+                continue;
 
             var status = StepStatus.Incomplete;
             if (next == null)
@@ -318,8 +314,45 @@ public sealed class CMSurgeryBui : BoundUserInterface
                 status = StepStatus.Complete;
             }
 
-            var stepName = new FormattedMessage();
+            stepButton.Button.Disabled = status != StepStatus.Next;
 
+            var stepName = new FormattedMessage();
+            stepName.AddText(_entities.GetComponent<MetaDataComponent>(stepButton.Step).EntityName);
+
+            if (status == StepStatus.Complete)
+            {
+                stepButton.Button.Modulate = Color.Green;
+            }
+            else
+            {
+                stepButton.Button.Modulate = Color.White;
+                if (_player.LocalEntity is { } player &&
+                    !_system.CanPerformStep(player, Owner, part.PartType, stepButton.Step, false, out var popup, out var reason, out _))
+                {
+                    stepButton.ToolTip = popup;
+                    stepButton.Button.Disabled = true;
+
+                    switch (reason)
+                    {
+                        case StepInvalidReason.MissingSkills:
+                            stepName.AddMarkupOrThrow(" [color=red]Вы недостаточно натренированны для этого.[/color]");
+                            break;
+                        case StepInvalidReason.NeedsOperatingTable:
+                            stepName.AddMarkupOrThrow(" [color=red]Пациент должен быть на операционном столе.[/color]");
+                            break;
+                        case StepInvalidReason.Armor:
+                            stepName.AddMarkupOrThrow(" [color=red]Для начала уберите броню![/color]");
+                            break;
+                        case StepInvalidReason.MissingTool:
+                            stepName.AddMarkupOrThrow(" [color=red]Нет нужных инструментов.[/color]");
+                            break;
+                    }
+                }
+            }
+
+            var texture = _entities.GetComponentOrNull<SpriteComponent>(stepButton.Step)?.Icon?.Default;
+            stepButton.Set(stepName, texture);
+            i++;
         }
 
         UpdateDisabledPanel();
@@ -340,7 +373,7 @@ public sealed class CMSurgeryBui : BoundUserInterface
         _window.DisabledPanel.Visible = true;
 
         var text = new FormattedMessage();
-        text.AddMarkupOrThrow("[color=red][font size=16]They need to be lying down![/font][/color]");
+        text.AddMarkupOrThrow("[color=red][font size=16]Пациент должен лежать![/font][/color]");
         _window.DisabledLabel.SetMessage(text);
         _window.DisabledPanel.MouseFilter = MouseFilterMode.Stop;
     }
@@ -364,15 +397,15 @@ public sealed class CMSurgeryBui : BoundUserInterface
         if (_entities.TryGetComponent(_part, out MetaDataComponent? partMeta) &&
             _entities.TryGetComponent(_surgery?.Ent, out MetaDataComponent? surgeryMeta))
         {
-            _window.Title = $"Surgery - {partMeta.EntityName}, {surgeryMeta.EntityName}";
+            _window.Title = $"Операция - {partMeta.EntityName}, {surgeryMeta.EntityName}";
         }
         else if (partMeta != null)
         {
-            _window.Title = $"Surgery - {partMeta.EntityName}";
+            _window.Title = $"Операция - {partMeta.EntityName}";
         }
         else
         {
-            _window.Title = "Surgery";
+            _window.Title = "Операция";
         }
     }
 
@@ -380,13 +413,13 @@ public sealed class CMSurgeryBui : BoundUserInterface
     {
         Parts,
         Surgeries,
-        Steps
+        Steps,
     }
 
     private enum StepStatus
     {
         Next,
         Complete,
-        Incomplete
+        Incomplete,
     }
 }

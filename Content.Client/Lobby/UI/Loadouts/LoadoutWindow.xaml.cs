@@ -11,7 +11,7 @@ using Robust.Shared.Random;
 namespace Content.Client.Lobby.UI.Loadouts;
 
 [GenerateTypedNameReferences]
-public sealed partial class LoadoutWindow : FancyWindow
+public sealed partial class LoadoutWindow : BaseLoadoutWindow
 {
     public event Action<ProtoId<LoadoutGroupPrototype>, ProtoId<LoadoutPrototype>>? OnLoadoutPressed;
     public event Action<ProtoId<LoadoutGroupPrototype>, ProtoId<LoadoutPrototype>>? OnLoadoutUnpressed;

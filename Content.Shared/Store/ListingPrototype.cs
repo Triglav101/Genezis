@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.Actions;
 using Content.Shared.FixedPoint;
 using Content.Shared.Store.Components;
@@ -30,6 +31,7 @@ public partial class ListingData : IEquatable<ListingData>
         other.Icon,
         other.Priority,
         other.ProductEntity,
+        other.ProductEntityTable,
         other.ProductAction,
         other.ProductUpgradeId,
         other.ProductActionEntity,
@@ -55,6 +57,7 @@ public partial class ListingData : IEquatable<ListingData>
         SpriteSpecifier? icon,
         int priority,
         EntProtoId? productEntity,
+        EntityTableSelector? productEntityTable,        
         EntProtoId? productAction,
         ProtoId<ListingPrototype>? productUpgradeId,
         EntityUid? productActionEntity,
@@ -76,6 +79,7 @@ public partial class ListingData : IEquatable<ListingData>
         Icon = icon;
         Priority = priority;
         ProductEntity = productEntity;
+        ProductEntityTable = productEntityTable;        
         ProductAction = productAction;
         ProductUpgradeId = productUpgradeId;
         ProductActionEntity = productActionEntity;
@@ -152,6 +156,12 @@ public partial class ListingData : IEquatable<ListingData>
     public EntProtoId? ProductEntity;
 
     /// <summary>
+    /// The entity table that is picked from when the listing is purchased.
+    /// </summary>
+    [DataField]
+    public EntityTableSelector? ProductEntityTable;
+
+    /// <summary>
     /// The action that is given when the listing is purchased.
     /// </summary>
     [DataField]
@@ -177,8 +187,8 @@ public partial class ListingData : IEquatable<ListingData>
     [DataField]
     public object? ProductEvent;
 
-    [DataField("raiseProductEventOnUser")]
-    public bool RaiseProductEventOnUser;
+    [DataField("raiseOnBuyer")]
+     public bool RaiseProductEventOnUser = false;    // adt типо
 
     /// <summary>
     /// used internally for tracking how many times an item was purchased.
@@ -246,7 +256,7 @@ public partial class ListingData : IEquatable<ListingData>
     /// DON'T BE DUMB AND MODIFY THE PROTOTYPES
     /// </summary>
     /// <returns>A unique copy of the listing data.</returns>
-    /*public object Clone()
+    public object Clone()
     {
         return new ListingData
         {
@@ -254,7 +264,7 @@ public partial class ListingData : IEquatable<ListingData>
             Name = Name,
             Description = Description,
             Categories = Categories,
-            Cost = Cost,
+            //Cost = Cost,
             Conditions = Conditions,
             Icon = Icon,
             Priority = Priority,
@@ -263,11 +273,12 @@ public partial class ListingData : IEquatable<ListingData>
             ProductUpgradeId = ProductUpgradeId,
             ProductActionEntity = ProductActionEntity,
             ProductEvent = ProductEvent,
+            RaiseProductEventOnUser = RaiseProductEventOnUser,  // ADT fix
             PurchaseAmount = PurchaseAmount,
             RestockTime = RestockTime,
-            RaiseProductEventOnUser = RaiseProductEventOnUser // backmen: vampires
+            //RaiseProductEventOnUser = RaiseProductEventOnUser // backmen: vampires
         };
-    }*/
+    }
 }
 
 /// <summary>
@@ -318,6 +329,7 @@ public sealed partial class ListingDataWithCostModifiers : ListingData
             listingData.Icon,
             listingData.Priority,
             listingData.ProductEntity,
+            listingData.ProductEntityTable,            
             listingData.ProductAction,
             listingData.ProductUpgradeId,
             listingData.ProductActionEntity,

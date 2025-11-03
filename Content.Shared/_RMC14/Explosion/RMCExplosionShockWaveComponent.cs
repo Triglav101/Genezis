@@ -5,7 +5,7 @@ namespace Content.Shared._RMC14.Explosion.Components
     [RegisterComponent, NetworkedComponent]
     [AutoGenerateComponentState]
     [Access(typeof(SharedRMCExplosionSystem))]
-    public sealed partial class RMCExplosionShockComponent : Component
+    public sealed partial class RMCExplosionShockWaveComponent : Component
     {
         /// <summary>
         ///     The rate at which the wave fades, lower values means it's active for longer.

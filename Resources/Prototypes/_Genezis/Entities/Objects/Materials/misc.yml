@@ -1,0 +1,27 @@
+- type: entity
+  id: ADTPhantomEctoplasm
+  parent: BaseItem
+  name: эктоплазма
+  description: Вещество из которого состоят нематериальные формы жизни.
+  components:
+  - type: Item
+    storedRotation: -90
+  - type: Sprite
+    sprite: ADT/Objects/Misc/ectoplasm.rsi
+    layers:
+    - state: icon
+  - type: Appearance
+  - type: Tag
+    tags:
+    - PhantomEctoplasm
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      Ectoplasm: 100
+  - type: Stack
+    stackType: Ectoplasm
+    count: 1
+  - type: PointLight
+    color: Cyan
+    radius: 1.5
+    softness: 3

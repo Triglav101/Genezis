@@ -29,6 +29,9 @@
         acts: ["Destruction"]
   - type: Appearance
   - type: AnimationPlayer
+  - type: Tag
+    tags:
+      - Grenade  
   - type: GenericVisualizer
     visuals:
       enum.Trigger.TriggerVisuals.VisualState:
@@ -58,6 +61,9 @@
         volume: 5
     initialBeepDelay: 0
     beepInterval: 2 # 2 beeps total (at 0 and 2)
+  - type: Tag
+    tags:
+    - Grenade
 
 - type: entity
   name: flashbang

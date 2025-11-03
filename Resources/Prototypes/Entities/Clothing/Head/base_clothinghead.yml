@@ -10,7 +10,7 @@
     state: icon
   - type: Item
     size: Small
-    storedRotation: -90
+    storedRotation: 0 #Genesis
   - type: Food
     requiresSpecialDigestion: true
   - type: SolutionContainerManager
@@ -24,6 +24,7 @@
     tags:
       - ClothMade
       - WhitelistChameleon
+  - type: RockableItem
 
 - type: entity
   abstract: true

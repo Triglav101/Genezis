@@ -1,4 +1,4 @@
-rmc-medevac-toggle-beacon-verb = Toggle medevac
+rmc-medevac-toggle-beacon-verb = Переключить медэвак
 
 rmc-medevac-area-not-cas = INVALID TARGET: stretcher must be visible from high altitude.
 rmc-medevac-activate-beacon = Stretcher beacon is now active.

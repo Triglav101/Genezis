@@ -1,14 +1,13 @@
 using System.Linq;
+//using Content.Client._RMC14.LinkAccount;
 using Content.Client.Guidebook;
-using Content.Client.Corvax.TTS;
 using Content.Client.Humanoid;
 using Content.Client.Inventory;
 using Content.Client.Lobby.UI;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.Station;
-using Content.Shared._RMC14.Armor;
-using Content.Corvax.Interfaces.Client;
 using Content.Corvax.Interfaces.Shared;
+using Content.Shared._RMC14.Armor;
 using Content.Shared.CCVar;
 using Content.Shared.Clothing;
 using Content.Shared.GameTicking;
@@ -18,7 +17,9 @@ using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
 using Content.Shared.Roles;
+using Content.Shared.Silicons.StationAi;
 using Content.Shared.Traits;
+using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Client.ResourceManagement;
 using Robust.Client.State;
@@ -31,7 +32,7 @@ using Robust.Shared.Utility;
 
 namespace Content.Client.Lobby;
 
-public sealed partial class LobbyUIController : UIController, IOnStateEntered<LobbyState>, IOnStateExited<LobbyState>
+public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState>, IOnStateExited<LobbyState>
 {
     [Dependency] private readonly IClientPreferencesManager _preferencesManager = default!;
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
@@ -43,6 +44,9 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     [Dependency] private readonly IStateManager _stateManager = default!;
     [Dependency] private readonly JobRequirementsManager _requirements = default!;
     [Dependency] private readonly MarkingManager _markings = default!;
+    [Dependency] private readonly IDynamicTypeFactory _factory = default!;
+    [Dependency] private readonly IEntityManager _entMan = default!;
+    //[Dependency] private readonly LinkAccountManager _linkAccount = default!;
     [Dependency] private readonly ISharedSponsorsManager _clientSponsorsManager = default!;
     [UISystemDependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
     [UISystemDependency] private readonly ClientInventorySystem _inventory = default!;
@@ -82,6 +86,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         _configurationManager.OnValueChanged(CCVars.GameRoleTimers, _ => RefreshProfileEditor());
 
         _configurationManager.OnValueChanged(CCVars.GameRoleWhitelist, _ => RefreshProfileEditor());
+
+        //_linkAccount.Updated += RefreshProfileEditor;
     }
 
     private LobbyCharacterPreviewPanel? GetLobbyPreview()
@@ -169,7 +175,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         var (characterGui, profileEditor) = EnsureGui();
         characterGui.ReloadCharacterPickers();
         profileEditor.SetProfile(
-            (HumanoidCharacterProfile?) _preferencesManager.Preferences?.SelectedCharacter,
+            (HumanoidCharacterProfile?)_preferencesManager.Preferences?.SelectedCharacter,
             _preferencesManager.Preferences?.SelectedCharacterIndex);
     }
 
@@ -201,6 +207,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         _profileEditor?.RefreshAntags();
         _profileEditor?.RefreshJobs();
         _profileEditor?.RefreshLoadouts();
+        //_profileEditor?.RefreshRMC(_linkAccount.Tier);
     }
 
     private void SaveProfile()
@@ -279,11 +286,12 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
             _resourceCache,
             _requirements,
             _markings,
+            _factory,
             _clientSponsorsManager);
 
         _profileEditor.OnOpenGuidebook += _guide.OpenHelp;
 
-        _characterSetup = new CharacterSetupGui(_profileEditor);
+        _characterSetup = new CharacterSetupGui(EntityManager, _prototypeManager, _resourceCache, _preferencesManager, _profileEditor);
 
         _characterSetup.CloseButton.OnPressed += _ =>
         {
@@ -373,6 +381,8 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
                 _spawn.EquipStartingGear(uid, loadoutProto);
             }
         }
+
+        _spawn.ApplyLoadoutExtras(uid, roleLoadout);
     }
 
     /// <summary>
@@ -435,9 +445,14 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         if (!_prototypeManager.TryIndex(job.StartingGear, out var gear))
             return;
 
+        _prototypeManager.TryIndex(job.DummyStartingGear, out var dummyGear);
+
         foreach (var slot in slots)
         {
             var itemType = ((IEquipmentLoadout)gear).GetGear(slot.Name);
+
+            if (itemType == string.Empty && dummyGear != null)
+                itemType = ((IEquipmentLoadout)dummyGear).GetGear(slot.Name);
 
             if (_inventory.TryUnequip(dummy, slot.Name, out var unequippedItem, silent: true, force: true, reparent: false))
             {
@@ -452,7 +467,7 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
                 {
                     var variantItemProtoId = _armorSystem.GetArmorVariant((item, variantComponent), profile.ArmorPreference);
                     var variantItem = EntityManager.SpawnEntity(variantItemProtoId, MapCoordinates.Nullspace);
-                    _inventory.TryEquip(dummy, item, slot.Name, true, true);
+                    _inventory.TryEquip(dummy, variantItem, slot.Name, true, true);
                     EntityManager.QueueDeleteEntity(item);
 
                     continue;
@@ -469,19 +484,24 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
     public EntityUid LoadProfileEntity(HumanoidCharacterProfile? humanoid, JobPrototype? job, bool jobClothes)
     {
         EntityUid dummyEnt;
-
         EntProtoId? previewEntity = null;
         if (humanoid != null && jobClothes)
         {
             job ??= GetPreferredJob(humanoid);
-
             previewEntity = job.JobPreviewEntity ?? (EntProtoId?)job?.JobEntity;
         }
-
         if (previewEntity != null)
         {
             // Special type like borg or AI, do not spawn a human just spawn the entity.
             dummyEnt = EntityManager.SpawnEntity(previewEntity, MapCoordinates.Nullspace);
+
+            // Applying loadout extras to dummy
+            if (_prototypeManager.HasIndex<RoleLoadoutPrototype>(LoadoutSystem.GetJobPrototype(job?.ID)))
+            {
+                var loadout = humanoid?.GetLoadoutOrDefault(LoadoutSystem.GetJobPrototype(job?.ID), _playerManager.LocalSession, humanoid.Species, EntityManager, _prototypeManager);
+                if (loadout != null)
+                    _spawn.ApplyLoadoutExtras(dummyEnt, loadout);
+            }
             return dummyEnt;
         }
         else if (humanoid is not null)
@@ -493,39 +513,20 @@ public sealed partial class LobbyUIController : UIController, IOnStateEntered<Lo
         {
             dummyEnt = EntityManager.SpawnEntity(_prototypeManager.Index<SpeciesPrototype>(SharedHumanoidAppearanceSystem.DefaultSpecies).DollPrototype, MapCoordinates.Nullspace);
         }
-
         _humanoid.LoadProfile(dummyEnt, humanoid);
-
-        if (humanoid != null)
+        if (humanoid != null && jobClothes)
         {
             DebugTools.Assert(job != null);
-
             GiveDummyJobClothes(dummyEnt, humanoid, job);
-
             if (_prototypeManager.HasIndex<RoleLoadoutPrototype>(LoadoutSystem.GetJobPrototype(job.ID)))
             {
                 var loadout = humanoid.GetLoadoutOrDefault(LoadoutSystem.GetJobPrototype(job.ID), _playerManager.LocalSession, humanoid.Species, EntityManager, _prototypeManager);
-
-                //backmen-clothing: start
-                IReadOnlyList<string> groupsToShow = ["Werx", "Niz", "Socks"]; //consts
-                if (!jobClothes)
-                {
-                    foreach (var loadoutsKey in loadout.SelectedLoadouts.Keys)
-                    {
-                        if (groupsToShow.Contains(loadoutsKey.Id))
-                        {
-                            loadout.SelectedLoadouts.Remove(loadoutsKey);
-                        }
-                    }
-                }
-                //backmen-clothing: end
-
                 GiveDummyLoadout(dummyEnt, loadout);
             }
         }
 
         return dummyEnt;
-    }
 
-    #endregion
+    }
 }
+    #endregion

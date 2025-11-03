@@ -119,11 +119,13 @@
     - RegalRatNameTitle
   - type: GuideHelp
     guides:
-    - MinorAntagonists
+    - MinorAntagonists 
   - type: PotentialPsionic
   - type: Grammar
     attributes:
       gender: male
+  - type: CombatPower
+    factor: 2 # times more dangerous than a crew-member      
   - type: Sharp
   - type: TTS # Corvax-TTS
     voice: Npc1

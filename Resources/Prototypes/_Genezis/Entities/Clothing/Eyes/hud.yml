@@ -289,3 +289,15 @@
   parent: [ClothingEyesEyepatchHudDiag, ClothingHeadEyeBaseFlipped]
   id: ClothingEyesEyepatchHudDiagFlipped
   name: diagnostic hud eyepatch
+
+- type: entity
+  parent: ClothingEyesBase
+  id: ADTClothingEyesHudPhantom
+  name: визор остаточной души
+  description: Позволяет видеть существ, что вступали в контакт с эктоплазматическими формами жизни.
+  components:
+  - type: Sprite
+    sprite: ADT/Clothing/Eyes/HUD/phantom_hud.rsi
+  - type: Clothing
+    sprite: ADT/Clothing/Eyes/HUD/phantom_hud.rsi
+  - type: ShowHauntedIcons

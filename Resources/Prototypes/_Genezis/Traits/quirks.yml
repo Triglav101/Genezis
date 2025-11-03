@@ -1,0 +1,8 @@
+- type: trait
+  id: ADTPotentialPoltergeist
+  name: trait-poltergeist-name
+  description: trait-poltergeist-desc
+  category: Quirks
+  components:
+    - type: PotentialPoltergeist
+

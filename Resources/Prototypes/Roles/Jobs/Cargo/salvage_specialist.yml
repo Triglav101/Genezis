@@ -1,7 +1,8 @@
 - type: job
+  parent: CMJobBase
   id: SalvageSpecialist
   name: job-name-salvagespec
-  description: job-description-salvagespec
+  description: Вы с обломками на ты, что на замле, что в космосе. Копайтесь на полях битвы или же ищите ценности в космосе.
   playTimeTracker: JobSalvageSpecialist
   requirements:
     - !type:DepartmentTimeRequirement

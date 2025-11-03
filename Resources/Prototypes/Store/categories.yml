@@ -98,6 +98,13 @@
 - type: storeCategory
   id: RevenantAbilities
   name: store-category-abilities
+  priority: 1
+
+# ADT revenant
+- type: storeCategory
+  id: RevenantInstantEffects
+  name: store-category-inst-effects
+  priority: 2
 
 #flesh cultist
 - type: storeCategory

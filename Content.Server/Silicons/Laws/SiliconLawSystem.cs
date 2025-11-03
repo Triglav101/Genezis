@@ -53,7 +53,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         SubscribeLocalEvent<SiliconLawProviderComponent, IonStormLawsEvent>(OnIonStormLaws);
         SubscribeLocalEvent<SiliconLawProviderComponent, MindAddedMessage>(OnLawProviderMindAdded);
         SubscribeLocalEvent<SiliconLawProviderComponent, MindRemovedMessage>(OnLawProviderMindRemoved);
-        SubscribeLocalEvent<SiliconLawProviderComponent, GotEmaggedEvent>(OnEmagLawsAdded);
+        SubscribeLocalEvent<SiliconLawProviderComponent, SiliconEmaggedEvent>(OnEmagLawsAdded);
     }
 
     private void OnMapInit(EntityUid uid, SiliconLawBoundComponent component, MapInitEvent args)
@@ -153,9 +153,8 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         }
     }
 
-    private void OnEmagLawsAdded(EntityUid uid, SiliconLawProviderComponent component, ref GotEmaggedEvent args)
+    private void OnEmagLawsAdded(EntityUid uid, SiliconLawProviderComponent component, ref SiliconEmaggedEvent args)
     {
-
         if (component.Lawset == null)
             component.Lawset = GetLawset(component.Laws);
 
@@ -165,7 +164,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
         // Add the first emag law before the others
         component.Lawset?.Laws.Insert(0, new SiliconLaw
         {
-            LawString = Loc.GetString("law-emag-custom", ("name", Name(args.UserUid)), ("title", Loc.GetString(component.Lawset.ObeysTo))),
+            LawString = Loc.GetString("law-emag-custom", ("name", Name(args.user)), ("title", Loc.GetString(component.Lawset.ObeysTo))),
             Order = 0
         });
 
@@ -175,20 +174,6 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
             LawString = Loc.GetString("law-emag-secrecy", ("faction", Loc.GetString(component.Lawset.ObeysTo))),
             Order = component.Lawset.Laws.Max(law => law.Order) + 1
         });
-    }
-
-    protected override void OnGotEmagged(EntityUid uid, EmagSiliconLawComponent component, ref GotEmaggedEvent args)
-    {
-        if (component.RequireOpenPanel && TryComp<WiresPanelComponent>(uid, out var panel) && !panel.Open)
-            return;
-
-        base.OnGotEmagged(uid, component, ref args);
-        NotifyLawsChanged(uid, component.EmaggedSound);
-        if(_mind.TryGetMind(uid, out var mindId, out _))
-            EnsureSubvertedSiliconRole(mindId);
-
-        _stunSystem.TryParalyze(uid, component.StunTime, true);
-
     }
 
     private void EnsureSubvertedSiliconRole(EntityUid mindId)
@@ -316,6 +301,19 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
     {
         if (!TryComp<SiliconLawProviderComponent>(target, out var component))
             return;
+
+        if (component.Lawset == null)
+            component.Lawset = new SiliconLawset();
+
+        component.Lawset.Laws = newLaws;
+        NotifyLawsChanged(target, cue);
+    }
+
+    public void SetLaws(ProtoId<SiliconLawsetPrototype> proto, EntityUid target, SoundSpecifier? cue = null)
+    {
+        if (!TryComp<SiliconLawProviderComponent>(target, out var component))
+            return;
+        var newLaws = _prototype.Index(proto).Laws.Select(law => (SiliconLaw)_prototype.Index<SiliconLawPrototype>(law)).ToList();
 
         if (component.Lawset == null)
             component.Lawset = new SiliconLawset();

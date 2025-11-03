@@ -1,4 +1,5 @@
 - type: job
+  parent: CMJobBase
   id: Chaplain
   name: job-name-chaplain
   description: job-description-chaplain
@@ -13,6 +14,7 @@
   - !type:AddComponentSpecial
     components:
     - type: BibleUser #Lets them heal with bibles
+    - type: Chaplain  # ADT Chaplain    
   #start-backmen: currency
   minBankBalance: 150
   maxBankBalance: 250
@@ -30,3 +32,4 @@
     back:
     - Bible
     - RubberStampChaplain
+    - ADTEctoSword  # ADT Phantom

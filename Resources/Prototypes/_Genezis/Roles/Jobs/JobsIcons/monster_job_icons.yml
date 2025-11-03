@@ -1,0 +1,7 @@
+- type: jobIcon
+  parent: CMJobIconBase
+  id: CMJobIconMonster_meat
+  icon:
+    sprite: Genezis/Icons/jobicon_monster.rsi
+    state: planet_monster
+

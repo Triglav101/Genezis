@@ -1,4 +1,5 @@
 - type: flavor
-  id: bobda
+  id: trashy
   flavorType: Base
-  description: flavor-base-savory
+  description: flavor-base-trashy
+

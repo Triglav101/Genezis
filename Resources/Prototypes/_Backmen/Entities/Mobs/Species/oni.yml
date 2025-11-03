@@ -1,6 +1,6 @@
 - type: entity
   parent: BaseMobSpeciesOrganic
-  name: Урист МакОни
+  name: Урист МакОгрин
   id: MobOniBase
   abstract: true
   components:
@@ -52,8 +52,8 @@
 
 - type: entity
   save: false
-  name: Урист МакОни
+  name: Урист МакОгрин
   parent: MobHumanDummy
   id: MobOniDummy
   categories: [ HideSpawnMenu ]
-  description: Фиктивный Они, предназначенный для использования при настройке персонажа.
+  description: Фиктивный Огрин, предназначенный для использования при настройке персонажа.

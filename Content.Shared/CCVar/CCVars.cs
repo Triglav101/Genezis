@@ -31,6 +31,12 @@ public sealed partial class CCVars : CVars
         CVarDef.Create("debug.option_visualizer_test", false, CVar.CLIENTONLY);
 
     /// <summary>
+    /// URL of the Discord webhook which will relay station news acticles. If left empty, disables the webhook.
+    /// </summary>
+    public static readonly CVarDef<string> DiscordNewsWebhook =
+        CVarDef.Create("discord.news_webhook", "https://discord.com/api/webhooks/1343774716749549648/8mvHlwLgrrfNjDJ3u1Y4ghLlLgw_KDA7Obdz0Q4BE2Ozb2DGgHMUz-N4TXU4WDFtrhVV", CVar.SERVERONLY);
+
+    /// <summary>
     /// Set to true to disable parallel processing in the pow3r solver.
     /// </summary>
     public static readonly CVarDef<bool> DebugPow3rDisableParallel =

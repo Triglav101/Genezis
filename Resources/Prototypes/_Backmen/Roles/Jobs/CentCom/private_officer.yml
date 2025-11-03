@@ -1,7 +1,8 @@
 - type: job
+  parent: CMJobBase
   id: BKCCSecOfficer
-  name: job-name-centcomsecofficer
-  description: job-description-centcomsecofficer
+  name: Стража Триглава
+  description: Почетная стража Триглава. Сотрудники, что дали обет даже после смерти служить и защищать Совет Триглава.
   playTimeTracker: JobCentralCommandSecOfficer
   setPreference: true
   startingGear: CentComPrivateOfficerGear
@@ -58,12 +59,9 @@
     gloves: ClothingHandsGlovesCombat
     head: ClothingHeadHelmetCentcom
     outerClothing: ClothingOuterArmorCentcom
-    suitstorage: WeaponRifleFamas
     id: CentComPrivateOfficerPDA
     ears: ClothingHeadsetCentComCC
     belt: ClothingBeltSecuritySuper
-    pocket1: WeaponPistolG23
-    pocket2: MagazinePistol
   storage:
     back:
     - MedkitCombatFilled

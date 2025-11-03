@@ -1,7 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared._RMC14.CCVar;
 using Content.Shared._RMC14.GameStates;
+using Content.Shared._RMC14.Warps;
 using Content.Shared.Coordinates;
 using Content.Shared.GameTicking;
 using Content.Shared.Maps;
@@ -22,10 +23,12 @@ public sealed class AreaSystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly SharedRMCPvsSystem _rmcPvs = default!;
+    [Dependency] private readonly SharedRMCWarpSystem _rmcWarp = default!;
     [Dependency] private readonly ITileDefinitionManager _tile = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     private EntityQuery<AreaGridComponent> _areaGridQuery;
+    private EntityQuery<AreaLabelComponent> _areaLabelQuery;
     private EntityQuery<MapGridComponent> _mapGridQuery;
     private EntityQuery<MinimapColorComponent> _minimapColorQuery;
 
@@ -36,6 +39,7 @@ public sealed class AreaSystem : EntitySystem
     public override void Initialize()
     {
         _areaGridQuery = GetEntityQuery<AreaGridComponent>();
+        _areaLabelQuery = GetEntityQuery<AreaLabelComponent>();
         _mapGridQuery = GetEntityQuery<MapGridComponent>();
         _minimapColorQuery = GetEntityQuery<MinimapColorComponent>();
 
@@ -51,9 +55,21 @@ public sealed class AreaSystem : EntitySystem
         var areas = ent.Comp.Areas.Values.DistinctBy(a => a.Id);
         foreach (var area in areas)
         {
+            if (ent.Comp.AreaEntities.ContainsKey(area))
+            {
+                Log.Warning($"Duplicate area {area} found in entity {ToPrettyString(ent)}");
+                continue;
+            }
+
             var areaEnt = Spawn(area, MapCoordinates.Nullspace);
+            ent.Comp.AreaEntities[area] = areaEnt;
             _rmcPvs.AddGlobalOverride(areaEnt);
         }
+    }
+
+    public void ReplaceArea(AreaGridComponent areaGrid, Vector2i position, EntProtoId<AreaComponent> area)
+    {
+        areaGrid.Areas[position] = area;
     }
 
     public bool TryGetArea(
@@ -73,9 +89,14 @@ public sealed class AreaSystem : EntitySystem
         if (!_prototypes.TryIndex(areaProtoId, out areaPrototype))
             return false;
 
-#pragma warning disable CS8762
+        if (!grid.Comp2.AreaEntities.TryGetValue(areaProtoId, out var areaEnt) ||
+            !TryComp(areaEnt, out AreaComponent? areaComp))
+        {
+            return false;
+        }
+
+        area = (areaEnt, areaComp);
         return true;
-#pragma warning restore CS8762
     }
 
     public bool TryGetArea(
@@ -135,6 +156,28 @@ public sealed class AreaSystem : EntitySystem
         return area.Value.Comp.AvoidBioscan;
     }
 
+    public bool IsWeatherEnabled(Entity<MapGridComponent> grid, Vector2i indices)
+    {
+        if (!TryGetArea(grid, indices, out var area, out _))
+            return false;
+
+        if (IsRoofed(new EntityCoordinates(grid.Owner, indices), r => !r.Comp.CanMortar))
+            return false;
+
+        return area.Value.Comp.WeatherEnabled;
+    }
+
+    public bool IsLightBlocked(Entity<MapGridComponent> grid, Vector2i indices)
+    {
+        if (!TryGetArea(grid, indices, out var area, out _))
+            return false;
+
+        if (IsRoofed(new EntityCoordinates(grid.Owner, indices), r => !r.Comp.CanMortar))
+            return true;
+
+        return !area.Value.Comp.WeatherEnabled;
+    }
+
     public bool CanCAS(EntityCoordinates coordinates)
     {
         if (!TryGetArea(coordinates, out var area, out _))
@@ -183,6 +226,22 @@ public sealed class AreaSystem : EntitySystem
         return area.Value.Comp.OB;
     }
 
+    public bool CanFulton(EntityCoordinates coordinates)
+    {
+        if (!TryGetArea(coordinates, out var area, out _))
+            return false;
+
+        return area.Value.Comp.Fulton;
+    }
+
+    public bool CanLase(EntityCoordinates coordinates)
+    {
+        if (!TryGetArea(coordinates, out var area, out _))
+            return false;
+
+        return area.Value.Comp.Lasing;
+    }
+
     private bool IsRoofed(EntityCoordinates coordinates, Predicate<Entity<RoofingEntityComponent>> predicate)
     {
         var roofs = EntityQueryEnumerator<RoofingEntityComponent>();
@@ -205,6 +264,14 @@ public sealed class AreaSystem : EntitySystem
     {
         if (!TryGetArea(grid, indices, out var area, out _))
             return true;
+
+        if (area.Value.Comp.WeedKilling)
+        {
+            if (user != null)
+                _popup.PopupClient("This area is unsuited to host the hive!", user.Value, user.Value, PopupType.MediumCaution);
+
+            return false;
+        }
 
         if (area.Value.Comp.ResinAllowed)
             return true;
@@ -256,6 +323,9 @@ public sealed class AreaSystem : EntitySystem
                             areaGrid.Colors[pos] = minimapColor.Color;
                             found = true;
                         }
+
+                        if (_areaLabelQuery.HasComp(anchored))
+                            areaGrid.Labels[pos] = _rmcWarp.GetName(anchored.Value) ?? Name(anchored.Value);
                     }
 
                     if (found)

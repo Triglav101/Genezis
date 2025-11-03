@@ -1,1 +1,1 @@
-rmc-rank-component-examine = { CAPITALIZE(SUBJECT($user)) } holds the rank of [color=white]{ $rank }[/color].
+rmc-rank-component-examine = { CAPITALIZE(SUBJECT($user)) } имеет звание [color=white]{ $rank }[/color].

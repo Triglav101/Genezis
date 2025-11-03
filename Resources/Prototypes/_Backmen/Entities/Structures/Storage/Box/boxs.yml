@@ -122,10 +122,6 @@
   #     - id: WeaponRifleM16A4
   #       amount: 1
   #       maxAmount: 4
-  #     - id: WeaponRifleFamas
-  #       prob: 0.8
-  #       amount: 1
-  #       maxAmount: 2
   #     - id: WeaponRifleDragunov
   #       amount: 1
   #       maxAmount: 2

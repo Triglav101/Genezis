@@ -32,6 +32,7 @@ namespace Content.Server.Power.Components
                 _needsPower = value;
                 // Reset this so next tick will do a power update.
                 Recalculate = true;
+                PoweredLastUpdate = null;                
             }
         }
 
@@ -50,6 +51,7 @@ namespace Content.Server.Power.Components
 
         // TODO Is this needed? It forces a PowerChangedEvent when NeedsPower is toggled even if it changes to the same state.
         public bool Recalculate;
+        public bool? PoweredLastUpdate;
 
         [ViewVariables]
         public PowerState.Load NetworkLoad { get; } = new PowerState.Load

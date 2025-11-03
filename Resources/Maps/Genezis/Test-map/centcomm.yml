@@ -27171,13 +27171,6 @@ entities:
     - type: Transform
       pos: 10.5,30.5
       parent: 1668
-- proto: GunSafeSubMachineGunDrozd
-  entities:
-  - uid: 2923
-    components:
-    - type: Transform
-      pos: 8.5,30.5
-      parent: 1668
 - proto: Handcuffs
   entities:
   - uid: 3751

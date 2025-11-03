@@ -2,16 +2,64 @@
   id: PlasmaTank
 
 - type: Tag
+  id: Bomb
+
+- type: Tag
+  id: Hacking
+
+- type: Tag
+  id: Jetpack
+
+- type: Tag
+  id: Rifle
+
+- type: Tag
   id: CapBroadsword
 
 - type: Tag
   id: SheetPlasma
 
 - type: Tag
+  id: Bighorner
+
+- type: Tag
+  id: Capacitor2
+
+- type: Tag
+  id: WallMount
+
+- type: Tag
+  id: Item
+
+- type: Tag
+  id: DisposalTube
+
+- type: Tag
+  id: Construction
+
+- type: Tag
+  id: JunkItem
+
+- type: Tag
   id: LaserBolt
 
 - type: Tag
   id: BulletBolt
+
+- type: Tag
+  id: Deathclaw
+
+- type: Tag
+  id: Gear
+
+- type: Tag
+  id: WeaponParts3
+
+- type: Tag
+  id: WonderGlue
+
+- type: Tag
+  id: N14AdvancedFrame
 
 - type: Tag
   id: KineticBolt
@@ -21,6 +69,30 @@
 
 - type: Tag
   id: Mauler
+
+- type: Tag
+  id: TurretCompatibleWeapon # Used in the construction of sentry turrets
+
+- type: Tag
+  id: WeaponPistolDualetta
+
+- type: Tag
+  id: CMPillCanister
+
+- type: Tag
+  id: PhantomEctoplasm
+ 
+- type: Tag
+  id: PhantomEctoplasmBattery
+ 
+- type: Tag
+  id: PhantomEctoplasmPistolBattery
+ 
+- type: Tag
+  id: PhantomFreedom
+
+- type: Tag
+  id: ClarkeTreads
 
 - type: Tag
   id: ClarkePeripheralsControlModule
@@ -93,6 +165,18 @@
   id: VehicleKey
 ######
 
+- type: Tag
+  id: GunUpgradeDamage
+
+- type: Tag
+  id: GunUpgradeRange
+
+- type: Tag
+  id: GunUpgradeReloadSpeed
+
+- type: Tag
+  id: PKAUpgrade
+
 # ss220 shlepi
 - type: Tag
   id: ElWyccoAxe
@@ -152,67 +236,13 @@
   id: WeaponFlareGun
 
 - type: Tag
-  id: PillPacket
-
-- type: Tag
   id: IgnoreMelee
 
 - type: Tag
   id: NoInjectable
 
 - type: Tag
-  id: CMCartridge10x20mm
-
-- type: Tag
-  id: CMCartridgePistol9mm
-
-- type: Tag
-  id: CMCartridgePistol9mmAP
-
-- type: Tag
-  id: RMCCartridgeRevolver44
-
-- type: Tag
-  id: RCMCartridgePistol9mmSquashHead
-
-- type: Tag
-  id: CMCartridgeRifle10x24mm
-
-- type: Tag
-  id: RMCCartridgePistol45ACP
-
-- type: Tag
   id: CMMortarShell
-
-- type: Tag
-  id: CMBloodPack
-
-- type: Tag
-  id: CMGauze
-
-- type: Tag
-  id: CMOintment
-
-- type: Tag
-  id: CMFirstAidKit
-
-- type: Tag
-  id: CMSynthGraft
-
-- type: Tag
-  id: CMSurgicalLine
-
-- type: Tag
-  id: CMSurgicalCase
-
-- type: Tag
-  id: CMBurnKit
-
-- type: Tag
-  id: CMTraumaKit
-
-- type: Tag
-  id: Pouch
 
 - type: Tag
   id: DurandLArm
@@ -234,27 +264,6 @@
 
 - type: Tag
   id: CombatMech
-
-- type: Tag
-  id: LauncherCompatibleGrenade
-
-- type: Tag
-  id: CMAutoInjector
-
-- type: Tag
-  id: CMFlarePack
-
-- type: Tag
-  id: RMCSmartPistol
-
-- type: Tag
-  id: RMCSmartPistolHolster
-
-- type: Tag
-  id: RMCMK80
-
-- type: Tag
-  id: RMCRocketAmmo84mm
 
 - type: Tag
   id: NoPaint

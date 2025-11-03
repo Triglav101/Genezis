@@ -68,6 +68,11 @@ public partial class StatusIconData : IComparable<StatusIconData>
     [DataField]
     public int Offset = 0;
 
+    // ADT Status icons upd start
+     [DataField]
+     public bool VisibleToOwner = true;
+     // ADT Status icons upd end
+
     /// <summary>
     /// Sets if the icon should be rendered with or without the effect of lighting.
     /// </summary>

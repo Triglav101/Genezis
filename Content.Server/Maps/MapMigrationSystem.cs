@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using Robust.Server.GameObjects;
-using Robust.Server.Maps;
 using Robust.Shared.ContentPack;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map.Events;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Markdown;
@@ -35,7 +35,7 @@ public sealed class MapMigrationSystem : EntitySystem
         // Verify that all of the entries map to valid entity prototypes.
         foreach (var node in mappings.Values)
         {
-            var newId = ((ValueDataNode) node).Value;
+            var newId = ((ValueDataNode)node).Value;
             if (!string.IsNullOrEmpty(newId) && newId != "null")
                 DebugTools.Assert(_protoMan.HasIndex<EntityPrototype>(newId), $"{newId} is not an entity prototype.");
         }
@@ -55,7 +55,7 @@ public sealed class MapMigrationSystem : EntitySystem
         if (documents == null)
             return false;
 
-        mappings = (MappingDataNode) documents.Root;
+        mappings = (MappingDataNode)documents.Root;
         return true;
     }
 

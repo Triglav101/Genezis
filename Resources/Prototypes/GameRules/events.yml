@@ -38,6 +38,7 @@
     - id: ZombieOutbreak
     - id: LoneOpsSpawn
     - id: DerelictCyborgSpawn
+    - id: PhantomSpawn # ADT tweak phantom
 
 - type: entity
   id: BaseStationEvent
@@ -81,6 +82,8 @@
         volume: -4
     weight: 8
     duration: 35
+    chaos:
+      Anomaly: 100    
   - type: AnomalySpawnRule
 
 - type: entity
@@ -99,6 +102,8 @@
         volume: -4
     weight: 8
     duration: 35
+    chaos:
+      Anomaly: 40    
   - type: BluespaceArtifactRule
 
 - type: entity
@@ -110,6 +115,8 @@
     reoccurrenceDelay: 5
     earliestStart: 1
     duration: 1
+    chaos:
+      Anomaly: 40    
   - type: BluespaceLockerRule
 
 - type: entity
@@ -120,6 +127,8 @@
     weight: 7
     duration: 1
     minimumPlayers: 15
+    chaos:
+      Power: 100    
   - type: BreakerFlipRule
 
 - type: entity
@@ -167,6 +176,12 @@
     reoccurrenceDelay: 20
     minimumPlayers: 20
     duration: null
+    chaos:
+      Hostile: 20
+      Friend: 20
+      Combat: 40
+      Death: 100
+      Medical: 100    
   - type: SpaceSpawnRule
     spawnDistance: 0
   - type: AntagSpawner
@@ -244,6 +259,12 @@
     duration: 1
     earliestStart: 45
     minimumPlayers: 20
+    chaos:
+      Hostile: 20
+      Friend: 20
+      Combat: 40
+      Death: 100
+      Medical: 100    
   - type: RandomSpawnRule
     prototype: MobRevenant
 
@@ -262,6 +283,9 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
+    chaos:
+      Atmos: 100
+      Medical: 50  
     startAnnouncement: station-event-gas-leak-start-announcement
     startAudio:
       path: /Audio/Announcements/gasleak_start.ogg # Corvax-Announcements
@@ -284,6 +308,10 @@
     minimumPlayers: 15
     weight: 7
     duration: 240
+    chaos:
+      Hostile: 20
+      Friend: 20
+      Medical: 100    
   - type: KudzuGrowthRule
 
 - type: entity
@@ -300,6 +328,8 @@
         volume: -4
     duration: 60
     maxDuration: 120
+    chaos:
+      Power: 200    
   - type: PowerGridCheckRule
 
 - type: entity
@@ -316,6 +346,8 @@
         volume: -4
     duration: 120
     maxDuration: 240
+    chaos:
+      Friend: 20    
   - type: SolarFlareRule
     onlyJamHeadsets: true
     affectedChannels:
@@ -346,6 +378,8 @@
     minimumPlayers: 15
     weight: 5
     duration: 60
+    chaos:
+      Mess: 200    
   - type: VentClogRule
 
 - type: entity
@@ -360,6 +394,10 @@
     minimumPlayers: 15
     weight: 5
     duration: 60
+    chaos:
+      Hostile: 40
+      Friend: 20
+      Medical: 150 
   - type: VentCrittersRule
     entries:
     - id: MobAdultSlimesBlueAngry
@@ -433,6 +471,11 @@
     minimumPlayers: 40
     weight: 1 # Zombies was happening basically every single survival round, so now it's super rare
     duration: 1
+    chaos:
+      Hostile: 40
+      Friend: 60
+      Medical: 200
+      Death: 200    
   - type: ZombieRule
   - type: AntagSelection
     definitions:
@@ -471,6 +514,11 @@
     weight: 5.5
     minimumPlayers: 20
     duration: 1
+    chaos:
+      Hostile: 20
+      Friend: 40
+      Medical: 200
+      Death: 100    
   - type: RuleGrids
   - type: LoadMapRule
     mapPath: /Maps/Shuttles/ShuttleEvent/striker.yml

@@ -4,9 +4,9 @@
   id: RMCToolboxBase
   components:
   - type: Storage
-    maxItemSize: Small
+    maxItemSize: Normal
     grid:
-    - 0,0,13,1
+    - 0,0,13,3
   - type: FixedItemSizeStorage
   - type: EmitSoundOnPickup
     sound:

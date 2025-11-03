@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
+using Content.Shared._RMC14.Xenonids;
+using Content.Shared.ActionBlocker;
 using Content.Shared.Body.Components;
 using Content.Shared.Destructible;
 using Content.Shared.Foldable;
@@ -16,7 +18,6 @@ using Content.Shared.Tools.Systems;
 using Content.Shared.Verbs;
 using Content.Shared.Wall;
 using Content.Shared.Whitelist;
-using Content.Shared.ActionBlocker;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
@@ -183,7 +184,8 @@ public abstract class SharedEntityStorageSystem : EntitySystem
 
         if (component.Open)
         {
-            TryCloseStorage(target);
+            if (!HasComp<XenoComponent>(user))
+                TryCloseStorage(target);
         }
         else
         {
@@ -435,7 +437,7 @@ public abstract class SharedEntityStorageSystem : EntitySystem
         // law prevents it
         // 6. if this is an item, then mobs must only be eaten if some other component prevents
         // pick-up interactions while a mob is inside (e.g. foldable)
-        var attemptEvent = new InsertIntoEntityStorageAttemptEvent();
+        var attemptEvent = new InsertIntoEntityStorageAttemptEvent(container);
         RaiseLocalEvent(toInsert, ref attemptEvent);
         if (attemptEvent.Cancelled)
             return false;

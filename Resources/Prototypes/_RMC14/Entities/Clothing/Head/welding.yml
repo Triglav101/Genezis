@@ -1,0 +1,46 @@
+- type: entity
+  parent: ClothingHeadBase
+  id: RMCWeldingMask
+  name: сварочная маска
+  description: Обеспечивает защиту глаз от яркой сварки.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Head/welding.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Head/welding.rsi
+  - type: ItemToggle
+    activated: false
+    soundActivate:
+      path: /Audio/_RMC14/Handling/hud_on.ogg
+      params:
+        variation: 0.250
+    soundDeactivate:
+      path: /Audio/_RMC14/Handling/hud_off.ogg
+      params:
+        variation: 0.250
+  - type: ToggleClothing
+    action: RMCActionToggleWeldingMask
+  - type: ComponentToggler
+    components:
+    - type: EyeProtection
+    - type: SightRestrictionItem
+      restriction:
+        impairFull: 3.0
+        impairPartial: 2.0
+        alphaOuter: 1.0
+        alphaInner: 0.0
+  - type: RMCItemToggleClothingVisuals
+    prefix: up
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleVisuals.Toggled:
+        enum.ToggleVisuals.Layer:
+          True: {state: icon-up}
+          False: {state: icon}
+  - type: Appearance
+  - type: Tag
+    tags:
+    - RMCWeldingGoggle
+  - type: HideLayerClothing
+    slots:
+    - Snout

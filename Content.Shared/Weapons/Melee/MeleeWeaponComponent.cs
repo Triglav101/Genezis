@@ -61,6 +61,12 @@ public sealed partial class MeleeWeaponComponent : Component
     public float AttackRate = 1f;
 
     /// <summary>
+    ///     When power attacking, the swing speed (in attacks per second) is multiplied by this amount
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float HeavyRateModifier = 1f;
+
+    /// <summary>
     /// Are we currently holding down the mouse for an attack.
     /// Used so we can't just hold the mouse button and attack constantly.
     /// </summary>
@@ -134,7 +140,7 @@ public sealed partial class MeleeWeaponComponent : Component
     public Angle Angle = Angle.FromDegrees(60);
 
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
-    public EntProtoId Animation = "WeaponArcPunch";
+    public EntProtoId Animation = "WeaponArcThrust";
 
     [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
     public EntProtoId WideAnimation = "WeaponArcSlash";
@@ -143,12 +149,43 @@ public sealed partial class MeleeWeaponComponent : Component
     /// Rotation of the animation.
     /// 0 degrees means the top faces the attacker.
     /// </summary>
+
+    [DataField, AutoNetworkedField]
+    public Angle AnimationRotation = Angle.Zero;
+
     [ViewVariables(VVAccess.ReadWrite), DataField]
     public Angle WideAnimationRotation = Angle.Zero;
 
     [ViewVariables(VVAccess.ReadWrite), DataField]
     public bool SwingLeft;
 
+    [DataField, AutoNetworkedField]
+    public float HeavyStaminaCost = 0f;
+
+    [DataField, AutoNetworkedField]
+    public int MaxTargets = 5;
+
+    /// <summary>
+    /// ERRORGATE
+    /// How much stamina damage does the shove do to the target.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float ShoveStaminaDamage = 20f;
+
+    /// <summary>
+    /// ERRORGATE
+    /// How much stamina damage does the attacker take on shove.
+    /// If set higher than ShoveStaminaDamage the attacker can staminacrit first 1v1.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float ShoveStaminaCost = 25f;
+
+    /// <summary>
+    /// ERRORGATE
+    /// The physical force multiplier applied when moving the shove target.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public float ShoveForceMultiplier = 1f;
 
     // Sounds
 
@@ -184,6 +221,11 @@ public sealed partial class MeleeWeaponComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool MustBeEquippedToUse = false;
+
+    // WD EDIT START
+    [ViewVariables(VVAccess.ReadWrite), DataField, AutoNetworkedField]
+    public bool CanBeBlocked = true;
+    // WD EDIT END
 }
 
 /// <summary>

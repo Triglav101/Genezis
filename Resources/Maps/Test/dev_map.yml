@@ -7610,13 +7610,6 @@ entities:
     - type: Transform
       pos: -0.5,-3.5
       parent: 179
-- proto: WeaponEarthGovLaserRifle
-  entities:
-  - uid: 188
-    components:
-    - type: Transform
-      pos: -3.5226438,-0.45543313
-      parent: 179
 - proto: WeaponLauncherMultipleRocket
   entities:
   - uid: 671

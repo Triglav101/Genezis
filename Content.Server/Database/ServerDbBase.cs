@@ -50,9 +50,14 @@ namespace Content.Server.Database
                 .Include(p => p.Profiles).ThenInclude(h => h.Antags)
                 .Include(p => p.Profiles).ThenInclude(h => h.Traits)
                 .Include(p => p.Profiles)
+                     .ThenInclude(h => h.Loadouts)
+                     .ThenInclude(l => l.ExtraData)              
+                .Include(p => p.Profiles)
                     .ThenInclude(h => h.Loadouts)
                     .ThenInclude(l => l.Groups)
                     .ThenInclude(group => group.Loadouts)
+                .Include(p => p.Profiles).ThenInclude(p => p.NamedItems)
+                .Include(p => p.Profiles).ThenInclude(p => p.SquadPreference)
                 .AsSplitQuery()
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
 
@@ -101,6 +106,8 @@ namespace Content.Server.Database
                 .Include(p => p.Jobs)
                 .Include(p => p.Antags)
                 .Include(p => p.Traits)
+                .Include(p => p.Loadouts)
+                    .ThenInclude(l => l.ExtraData)             
                 .Include(p => p.Loadouts)
                     .ThenInclude(l => l.Groups)
                     .ThenInclude(group => group.Loadouts)
@@ -203,20 +210,13 @@ namespace Content.Server.Database
             var spawnPriority = (SpawnPriorityPreference) profile.SpawnPriority;
             var squadPreference = profile.SquadPreference?.Squad;
 
-            var armorPreference = ArmorPreference.Случайно;
+            var armorPreference = ArmorPreference.Random;
             if (Enum.TryParse<ArmorPreference>(profile.ArmorPreference, true, out var armorVal))
                 armorPreference = armorVal;
-
 
             var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
             if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
                 gender = genderVal;
-
-            // Corvax-TTS-Start
-            var voice = profile.Voice;
-            if (voice == String.Empty)
-                voice = SharedHumanoidAppearanceSystem.DefaultSexVoice[sex];
-            // Corvax-TTS-End
 
             // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
             var markingsRaw = profile.Markings?.Deserialize<List<string>>();
@@ -254,6 +254,12 @@ namespace Content.Server.Database
                     }
                 }
 
+                for (var i = 0; i < role.ExtraData.Count; i++)
+                {
+                    loadout.ExtraData.Add(role.ExtraData[i].Key, role.ExtraData[i].Value);
+                }
+
+
                 loadouts[role.RoleName] = loadout;
             }
 
@@ -261,7 +267,6 @@ namespace Content.Server.Database
                 profile.CharacterName,
                 profile.FlavorText,
                 profile.Species,
-                voice, // Corvax-TTS
                 profile.Age,
                 sex,
                 gender,
@@ -311,7 +316,6 @@ namespace Content.Server.Database
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
             profile.Species = humanoid.Species;
-            profile.Voice = humanoid.Voice; // Corvax-TTS
             profile.Age = humanoid.Age;
             profile.Sex = humanoid.Sex.ToString();
             profile.Gender = humanoid.Gender.ToString();
@@ -356,6 +360,11 @@ namespace Content.Server.Database
                     RoleName = role,
                 };
 
+                for (var i = 0; i < loadouts.ExtraData.Count; i++)
+                {
+                    dz.ExtraData.Add(new() { Key = loadouts.ExtraData.Keys.ElementAt(i), Value = loadouts.ExtraData.Values.ElementAt(i) });
+                }
+
                 foreach (var (group, groupLoadouts) in loadouts.SelectedLoadouts)
                 {
                     var profileGroup = new ProfileLoadoutGroup()
@@ -376,6 +385,7 @@ namespace Content.Server.Database
 
                 profile.Loadouts.Add(dz);
             }
+
             profile.NamedItems = new RMCNamedItems
             {
                 PrimaryGunName = humanoid.NamedItems.PrimaryGunName,
@@ -798,6 +808,20 @@ namespace Content.Server.Database
             existing.Flags = admin.Flags;
             existing.Title = admin.Title;
             existing.AdminRankId = admin.AdminRankId;
+            existing.Deadminned = admin.Deadminned;
+            existing.Suspended = admin.Suspended;
+
+            await db.DbContext.SaveChangesAsync(cancel);
+        }
+
+        public async Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel)
+        {
+            await using var db = await GetDb(cancel);
+
+            var adminRecord = db.DbContext.Admin.Where(a => a.UserId == userId);
+            await adminRecord.ExecuteUpdateAsync(
+                set => set.SetProperty(p => p.Deadminned, deadminned),
+                cancellationToken: cancel);
 
             await db.DbContext.SaveChangesAsync(cancel);
         }
@@ -1740,13 +1764,13 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
                 .ToListAsync(cancellationToken: cancel);
         }
 
-        public async Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job)
+        public async Task<bool> IsJobWhitelisted(Guid player, ProtoId<JobPrototype> job, CancellationToken cancel = default)
         {
-            await using var db = await GetDb();
+            await using var db = await GetDb(cancel);
             return await db.DbContext.RoleWhitelists
                 .Where(w => w.PlayerUserId == player)
                 .Where(w => w.RoleId == job.Id)
-                .AnyAsync();
+                .AnyAsync(cancel);
         }
 
         public async Task<bool> RemoveJobWhitelist(Guid player, ProtoId<JobPrototype> job)
@@ -1767,7 +1791,271 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
 
         #endregion
 
+        # region IPIntel
+
+        public async Task<bool> UpsertIPIntelCache(DateTime time, IPAddress ip, float score)
+        {
+            while (true)
+            {
+                try
+                {
+                    await using var db = await GetDb();
+
+                    var existing = await db.DbContext.IPIntelCache
+                        .Where(w => ip.Equals(w.Address))
+                        .SingleOrDefaultAsync();
+
+                    if (existing == null)
+                    {
+                        var newCache = new IPIntelCache
+                        {
+                            Time = time,
+                            Address = ip,
+                            Score = score,
+                        };
+                        db.DbContext.IPIntelCache.Add(newCache);
+                    }
+                    else
+                    {
+                        existing.Time = time;
+                        existing.Score = score;
+                    }
+
+                    await Task.Delay(5000);
+
+                    await db.DbContext.SaveChangesAsync();
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    _opsLog.Warning("IPIntel UPSERT failed with a db exception... retrying.");
+                }
+            }
+        }
+
+        public async Task<IPIntelCache?> GetIPIntelCache(IPAddress ip)
+        {
+            await using var db = await GetDb();
+
+            return await db.DbContext.IPIntelCache
+                .SingleOrDefaultAsync(w => ip.Equals(w.Address));
+        }
+
+        public async Task<bool> CleanIPIntelCache(TimeSpan range)
+        {
+            await using var db = await GetDb();
+
+            // Calculating this here cause otherwise sqlite whines.
+            var cutoffTime = DateTime.UtcNow.Subtract(range);
+
+            await db.DbContext.IPIntelCache
+                .Where(w => w.Time <= cutoffTime)
+                .ExecuteDeleteAsync();
+
+            await db.DbContext.SaveChangesAsync();
+            return true;
+        }
+
+        #endregion
+
         #region RMC14
+
+        public async Task<Guid?> GetLinkingCode(Guid player)
+        {
+            await using var db = await GetDb();
+            var linking = await db.DbContext.RMCLinkingCodes.FirstOrDefaultAsync(l => l.PlayerId == player);
+            return linking?.Code;
+        }
+
+        public async Task SetLinkingCode(Guid player, Guid code)
+        {
+            await using var db = await GetDb();
+            var linking = await db.DbContext.RMCLinkingCodes.FirstOrDefaultAsync(l => l.PlayerId == player);
+            if (linking == null)
+            {
+                linking = new RMCLinkingCodes { PlayerId = player };
+                db.DbContext.RMCLinkingCodes.Add(linking);
+            }
+
+            linking.Code = code;
+            linking.CreationTime = DateTime.UtcNow;
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> HasLinkedAccount(Guid player, CancellationToken cancel)
+        {
+            await using var db = await GetDb(cancel);
+            return await db.DbContext.RMCLinkedAccounts.AnyAsync(l => l.PlayerId == player, cancel);
+
+        }
+
+        public async Task<RMCPatron?> GetPatron(Guid player, CancellationToken cancel)
+        {
+            await using var db = await GetDb(cancel);
+            var patron = await db.DbContext.RMCPatrons
+                .Include(p => p.Tier)
+                .Include(p => p.LobbyMessage)
+                .Include(p => p.RoundEndMarineShoutout)
+                .Include(p => p.RoundEndXenoShoutout)
+                .FirstOrDefaultAsync(p => p.PlayerId == player, cancellationToken: cancel);
+            return patron;
+        }
+
+        public async Task<List<RMCPatron>> GetAllPatrons()
+        {
+            await using var db = await GetDb();
+            return await db.DbContext.RMCPatrons
+                .Include(p => p.Player)
+                .Include(p => p.Tier)
+                .ToListAsync();
+        }
+
+        public async Task SetGhostColor(Guid player, System.Drawing.Color? color)
+        {
+            await using var db = await GetDb();
+            var patron = await db.DbContext.RMCPatrons.FirstOrDefaultAsync(p => p.PlayerId == player);
+            if (patron == null)
+                return;
+
+            patron.GhostColor = color?.ToArgb();
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task SetLobbyMessage(Guid player, string message)
+        {
+            await using var db = await GetDb();
+            var msg = await db.DbContext.RMCPatronLobbyMessages
+                .Include(l => l.Patron)
+                .FirstOrDefaultAsync(p => p.PatronId == player);
+            msg ??= db.DbContext.RMCPatronLobbyMessages
+                .Add(new RMCPatronLobbyMessage
+                {
+                    PatronId = player,
+                    Message = message,
+                })
+                .Entity;
+            msg.Message = message;
+
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task SetMarineShoutout(Guid player, string name)
+        {
+            await using var db = await GetDb();
+            var msg = await db.DbContext.RMCPatronRoundEndMarineShoutouts
+                .Include(s => s.Patron)
+                .FirstOrDefaultAsync(p => p.PatronId == player);
+            msg ??= db.DbContext.RMCPatronRoundEndMarineShoutouts
+                .Add(new RMCPatronRoundEndMarineShoutout()
+                {
+                    PatronId = player,
+                    Name = name,
+                })
+                .Entity;
+            msg.Name = name;
+
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task SetXenoShoutout(Guid player, string name)
+        {
+            await using var db = await GetDb();
+            var msg = await db.DbContext.RMCPatronRoundEndXenoShoutouts
+                .Include(s => s.Patron)
+                .FirstOrDefaultAsync(p => p.PatronId == player);
+            msg ??= db.DbContext.RMCPatronRoundEndXenoShoutouts
+                .Add(new RMCPatronRoundEndXenoShoutout()
+                {
+                    PatronId = player,
+                    Name = name,
+                })
+                .Entity;
+            msg.Name = name;
+
+            await db.DbContext.SaveChangesAsync();
+        }
+
+        public async Task<(string Message, string User)?> GetRandomLobbyMessage()
+        {
+            // TODO RMC14 the random row is evaluated outside the DB, if we have that many patrons I guess we have better problems!
+            await using var db = await GetDb();
+            var messages = await db.DbContext.RMCPatronLobbyMessages
+                .Include(p => p.Patron)
+                .ThenInclude(p => p.Player)
+                .Where(p => p.Patron.Tier.LobbyMessage)
+                .Where(p => !string.IsNullOrWhiteSpace(p.Message))
+                .Select(p => new { p.Message, p.Patron.Player.LastSeenUserName })
+                .ToListAsync();
+
+            if (messages.Count == 0)
+                return null;
+
+            var random = messages[Random.Shared.Next(messages.Count)];
+            return (random.Message, random.LastSeenUserName);
+        }
+
+        public async Task<(string? Marine, string? Xeno)> GetRandomShoutout()
+        {
+            // TODO RMC14 the random row is evaluated outside the DB, if we have that many patrons I guess we have better problems!
+            await using var db = await GetDb();
+            var marineNames = await db.DbContext.RMCPatronRoundEndMarineShoutouts
+                .Include(p => p.Patron)
+                .Where(p => p.Patron.Tier.RoundEndShoutout)
+                .Where(p => !string.IsNullOrWhiteSpace(p.Name))
+                .Select(p => p.Name)
+                .ToListAsync();
+
+            var xenoNames = await db.DbContext.RMCPatronRoundEndXenoShoutouts
+                .Include(p => p.Patron)
+                .Where(p => p.Patron.Tier.RoundEndShoutout)
+                .Where(p => !string.IsNullOrWhiteSpace(p.Name))
+                .Select(p => p.Name)
+                .ToListAsync();
+
+            var marineName = marineNames.Count == 0 ? null : marineNames[Random.Shared.Next(marineNames.Count)];
+            var xenoName = xenoNames.Count == 0 ? null : xenoNames[Random.Shared.Next(xenoNames.Count)];
+            return (marineName, xenoName);
+        }
+
+        public async Task<List<string>> GetExcludedRoleTimers(Guid player, CancellationToken cancel)
+        {
+            await using var db = await GetDb(cancel);
+            return await db.DbContext.RMCRoleTimerExcludes
+                .Where(r => r.PlayerId == player)
+                .Select(r => r.Tracker)
+                .ToListAsync(cancel);
+        }
+
+        public async Task<bool> ExcludeRoleTimer(Guid player, string tracker)
+        {
+            await using var db = await GetDb();
+            var alreadyExcluded = await db.DbContext.RMCRoleTimerExcludes
+                .AnyAsync(r => r.PlayerId == player && r.Tracker == tracker);
+            if (alreadyExcluded)
+                return false;
+
+            db.DbContext.RMCRoleTimerExcludes.Add(new RMCRoleTimerExclude
+            {
+                PlayerId = player,
+                Tracker = tracker,
+            });
+            await db.DbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RemoveRoleTimerExclusion(Guid player, string tracker)
+        {
+            await using var db = await GetDb();
+            var exclusion = await db.DbContext.RMCRoleTimerExcludes
+                .FirstOrDefaultAsync(r => r.PlayerId == player && r.Tracker == tracker);
+            if (exclusion == null)
+                return false;
+
+            db.DbContext.RMCRoleTimerExcludes.Remove(exclusion);
+            await db.DbContext.SaveChangesAsync();
+            return true;
+        }
+
         public async Task AddCommendation(Guid giver,
             Guid receiver,
             string giverName,

@@ -6,11 +6,7 @@
   primary: true
   weight: -5
   roles:
-    - BKCCSecGavna
     - BKCCSecOfficer
-    - BKCCOperator
-    - BKCCOfficial
-    - BKCCCargo
     - BKCCAssistant
     - BKCCAdmiral
     - BlueShield

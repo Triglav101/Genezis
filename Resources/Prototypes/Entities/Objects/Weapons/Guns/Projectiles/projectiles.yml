@@ -17,6 +17,34 @@
       - HideContextMenu
   - type: AnimationPlayer
 
+- type: entity
+  parent: MuzzleFlashEffect
+  id: MuzzleFlashEffectOmnilaser
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: BelowMobs
+    offset: 0.15, 0
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+      state: omnilaser_flash
+
+- type: entity
+  parent: MuzzleFlashEffect
+  id: MuzzleFlashEffectHeavyLaser
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: BelowMobs
+    offset: 0.15, 0
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+      state: heavylaser_flash
+
 # One bullet to bring them all into the darkness and bind them
 - type: entity
   id: BaseBullet
@@ -25,7 +53,6 @@
   abstract: true
   components:
   - type: Reflective
-  - type: FlyBySound
   - type: Clickable
   - type: Sprite
     noRot: false
@@ -47,15 +74,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: &flybyfixture
-        shape: !type:PhysShapeCircle
-          radius: 1.5
-        layer:
-        - Impassable
-        - MidImpassable
-        - HighImpassable
-        - LowImpassable
-        hard: False
   - type: Projectile
     impactEffect: BulletImpactEffect
     damage:
@@ -65,6 +83,7 @@
       path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: TimedDespawn
     lifetime: 10
+  - type: LagCompensation
 
 - type: entity
   id: BaseBulletTrigger # Trigger-on-collide bullets
@@ -87,7 +106,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
 
 - type: entity
   id: BaseBulletPractice
@@ -124,7 +142,7 @@
 
 - type: entity
   id: BaseBulletAP
-  name: base bullet armor-piercing
+  name: base bullet AP
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
@@ -183,7 +201,6 @@
         mask:
           - Impassable
           - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: Projectile
     damage:
@@ -226,10 +243,9 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
-    damage: 30
+    damage: 33
   - type: Projectile
     impactEffect: BulletImpactEffectDisabler
     damage:
@@ -266,7 +282,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
     damage: 1
@@ -302,7 +317,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
 #   soundHit:  Waiting on serv3
     damage:
@@ -344,7 +358,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     #   soundHit:  Waiting on serv3
     impactEffect: BulletImpactEffectDisabler
@@ -466,29 +479,6 @@
     lifetime: 0.4
 
 - type: entity
-  id: BulletSpike
-  name: spike
-  parent: BaseBulletHighVelocity
-  categories: [ HideSpawnMenu ]
-  description:
-  components:
-    - type: Sprite
-      netsync: false
-      noRot: false
-      sprite: Objects/Weapons/Guns/Projectiles/spike.rsi
-      layers:
-        - state: spike
-          shader: unshaded
-    - type: Projectile
-      impactEffect: BulletImpactEffectKinetic
-      damage:
-        types:
-          Piercing: 19
-    # Short lifespan
-    - type: TimedDespawn
-      lifetime: 1
-
-- type: entity
   parent: BaseBullet
   id: AnomalousParticleDelta
   name: delta particles
@@ -518,7 +508,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     damage:
       types:
@@ -873,25 +862,6 @@
   - type: VaporVisuals
 
 - type: entity
-  id: BulletSplashAcid
-  name: flesh acid spit
-  parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
-  components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/flesh_toxic.rsi
-      layers:
-        - state: flesh_toxic
-    - type: Projectile
-      damage:
-        types:
-          Caustic: 5
-    - type: SplashOnTrigger
-      splashReagents:
-        - ReagentId: FleshAcid
-          Quantity: 30
-
-- type: entity
   id: BulletCannonBall
   name: cannonball
   parent: BaseBulletTrigger
@@ -948,40 +918,6 @@
             - HighImpassable
     - type: GrapplingProjectile
 
-#BackmenCultOfFlash-start
-- type: entity
-  id: BaseBulletHighVelocity
-  name: base bullet high-velocity
-  parent: BaseBullet
-  categories: [ HideSpawnMenu ]
-  components:
-    - type: Projectile
-      damage:
-        types:
-          Piercing: 17
-#BackmenCultOfFlash-end
-
-- type: entity
-  id: BulletRobotBall
-  name: rocket
-  parent: BaseBulletTrigger
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    layers:
-      - state: ball
-  - type: ExplodeOnTrigger
-  - type: Explosive
-    explosionType: DemolitionCharge
-    maxIntensity: 9
-    intensitySlope: 3
-    totalIntensity: 10
-    maxTileBreak: 0
-  - type: PointLight
-    radius: 1
-    color: orange
-    energy: 0.5
 - type: entity
   name : disabler bolt smg
   id: BulletDisablerSmg
@@ -1012,7 +948,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: StaminaDamageOnCollide
     damage: 15
@@ -1021,6 +956,80 @@
     damage:
       types:
         Heat: 2
+    soundHit:
+      collection: WeakHit
+    forceSound: true
+
+- type: entity
+  name : energy bolt
+  id: BulletEnergyTurretBase
+  parent: BaseBullet
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - Energy
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: heavylaser
+      shader: unshaded
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        hard: false
+        mask:
+        - Opaque
+  - type: Ammo
+
+- type: entity
+  name : laser bolt
+  id: BulletEnergyTurretLaser
+  parent: BulletEnergyTurretBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Ammo
+    muzzleFlash: MuzzleFlashEffectHeavyLaser
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: heavylaser
+      shader: unshaded
+  - type: Projectile
+    impactEffect: BulletImpactEffectOrangeDisabler
+    damage:
+      types:
+        Heat: 28
+
+- type: entity
+  name : disabler bolt
+  id: BulletEnergyTurretDisabler
+  parent: BulletEnergyTurretBase
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Ammo
+    muzzleFlash: MuzzleFlashEffectOmnilaser
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser
+      shader: unshaded
+  - type: StaminaDamageOnCollide
+    damage: 30
+  - type: Projectile
+    impactEffect: BulletImpactEffectDisabler
+    damage:
+      types:
+        Heat: 0
     soundHit:
       collection: WeakHit
     forceSound: true
@@ -1088,7 +1097,6 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: *flybyfixture
   - type: Ammo
   - type: Projectile
     impactEffect: BulletImpactEffectOrangeDisabler

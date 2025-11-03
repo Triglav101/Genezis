@@ -132,7 +132,7 @@ public sealed partial class ChangelingSystem : EntitySystem
 
         var dmg = new DamageSpecifier(_proto.Index(AbsorbedDamageGroup), 200);
         _damage.TryChangeDamage(target, dmg, false, false);
-        _blood.ChangeBloodReagent(target, "FerrochromicAcid");
+        _blood.ChangeBloodReagent(target, ["FerrochromicAcid"]);
         _blood.SpillAllSolutions(target);
 
         EnsureComp<AbsorbedComponent>(target);

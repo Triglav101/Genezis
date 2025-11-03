@@ -1,0 +1,29 @@
+﻿- type: construction
+  id: TinyFan
+  name: вентилятор
+  description: Крошечный вентилятор, выпускающий тонкий порыв воздуха
+  category: construction-category-utilities
+  graph: TinyFan
+  startNode: start
+  targetNode: tinyFan
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  icon:
+    sprite: Structures/Piping/Atmospherics/tinyfan.rsi
+    state: icon
+
+- type: construction
+  id: FloorDrain
+  name: дренаж
+  description: Стягивает лужи вокруг себя. Пригодится для выливания воды из ведер или для поддержания чистоты в помещениях
+  category: construction-category-utilities
+  graph: FloorDrain
+  startNode: start
+  targetNode: floorDrain
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  icon:
+    sprite: Objects/Specific/Janitorial/drain.rsi
+    state: icon

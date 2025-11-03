@@ -1,4 +1,5 @@
 ﻿- type: job
+  parent: CMJobBase
   id: TechnicalAssistant
   name: job-name-technical-assistant
   description: job-description-technical-assistant

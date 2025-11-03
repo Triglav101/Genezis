@@ -4,6 +4,7 @@
   weights:
     Dragon: 1
     Revenant: 1
+    Phantom: 1 # ADT phantom
 
 - type: ninjaHackingThreat
   id: Dragon

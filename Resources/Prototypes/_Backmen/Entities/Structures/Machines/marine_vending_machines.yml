@@ -386,8 +386,6 @@
     MagazinePistolHighCapacity: 20
     WeaponSubMachineGunUzi: 2
     MagazinePistolBoxSubMachineGun: 20
-    WeaponPistolDivet2: 2
-    WeaponPistolDivet: 2
     MagazinePistol345: 40
     WeaponEarthGovLaserMG: 5
     WeaponPistolDEagle: 5
@@ -446,8 +444,6 @@
 - type: vendingMachineInventory
   id: EGMCWeaponInventoryMarineOfficer
   startingInventory:
-    WeaponPistolDivet2: 5
-    WeaponPistolDivet: 5
     MagazinePistol345: 40
     WeaponRevolverMateba: 5
     SpeedLoaderMagnum: 20

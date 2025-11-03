@@ -30,6 +30,8 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: StructuralMetallic
+  - type: Penetratable
+    stoppingPower: 2    
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -50,6 +52,7 @@
   - type: RadiationBlocker
     resistance: 2
   - type: BlockWeather
+  - type: SunShadowCast
 
 - type: entity
   parent: BaseWall
@@ -641,6 +644,8 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: StructuralMetallicStrong
+  - type: Penetratable
+    stoppingPower: 3    
   - type: Destructible
     thresholds:
     - trigger:

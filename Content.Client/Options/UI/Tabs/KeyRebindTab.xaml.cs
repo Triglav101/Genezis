@@ -186,8 +186,10 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(CMKeyFunctions.CMHolsterTertiary);
             AddButton(CMKeyFunctions.CMHolsterQuaternary);
             AddButton(CMKeyFunctions.RMCPickUpDroppedItems);
+            AddButton(CMKeyFunctions.RMCInteractWithOtherHand);
+            AddButton(CMKeyFunctions.RMCRest);
 
-            AddHeader("Монстры Триглава");
+            AddHeader("Монстры планеты");
             AddButton(CMKeyFunctions.CMXenoWideSwing);
 
 
@@ -310,6 +312,9 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(EngineKeyFunctions.EditorRotateObject);
             AddButton(ContentKeyFunctions.EditorFlipObject);
             AddButton(ContentKeyFunctions.EditorCopyObject);
+            AddButton(ContentKeyFunctions.MappingEnablePick);
+             AddButton(ContentKeyFunctions.MappingEnableDecalPick);
+             AddButton(ContentKeyFunctions.MappingEnableDelete);
 
             AddHeader("ui-options-header-dev");
             AddButton(EngineKeyFunctions.ShowDebugConsole);

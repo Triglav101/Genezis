@@ -11,6 +11,7 @@
     damage:
       types:
         Piercing: 28
+    penetrationScore: 2
 
 - type: entity
   id: PelletShotgunBeanbag
@@ -41,6 +42,7 @@
     damage:
       types:
         Piercing: 10
+    penetrationScore: 2
 
 - type: entity
   id: PelletShotgunSpread
@@ -117,6 +119,7 @@
       types:
         Piercing: 3
         Slash: 3
+    penetrationScore: 1 
 
 - type: entity
   id: PelletShotgunImprovisedSpread
@@ -216,6 +219,7 @@
       types:
         Radiation: 5
         Piercing: 5
+    penetrationScore: 3
 
 - type: entity
   id: PelletShotgunUraniumSpread
@@ -244,6 +248,7 @@
       types:
         Piercing: 25
         Structural: 5
+    penetrationScore: 1
 
 - type: entity
   id: PelletGrapeshotSpread
@@ -274,6 +279,7 @@
     damage:
       types:
         Slash: 25
+    penetrationScore: 1
 
 - type: entity
   id: PelletGlassSpread

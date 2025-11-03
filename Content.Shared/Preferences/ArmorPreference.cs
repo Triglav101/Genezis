@@ -5,12 +5,12 @@ namespace Content.Shared.Preferences
     /// </summary>
     public enum ArmorPreference
     {
-        Случайно,
-        Подбитая,
-        Средняя,
-        Ребристая,
-        Разгрузка,
-        Тяжелая,
-        Легкая,
+        Random,
+        Padded,
+        Padless,
+        Ridged,
+        Carrier,
+        Skull,
+        Smooth,
     }
 }

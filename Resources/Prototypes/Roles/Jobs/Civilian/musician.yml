@@ -1,4 +1,5 @@
 - type: job
+  parent: CMJobBase
   id: Musician
   name: job-name-musician
   description: job-description-musician

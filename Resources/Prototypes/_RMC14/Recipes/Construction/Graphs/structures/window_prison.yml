@@ -19,6 +19,7 @@
       steps:
       - tool: Anchoring
         doAfter: 2
+        duplicateConditions: All
 
     - to: windowPrison
       completed:
@@ -56,9 +57,8 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing
 
   - node: windowPrisonReinforced
     entity: RMCWindowPrisonReinforced
@@ -74,6 +74,5 @@
       - !type:EntityAnchored {}
       steps:
       - tool: Screwing
-        doAfter: 2
       - tool: Prying
-        doAfter: 2
+      - tool: Screwing

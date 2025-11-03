@@ -1,4 +1,5 @@
 ﻿- type: job
+  parent: CMJobBase
   id: BKCCAdmiral
   name: job-name-centcomadmiral
   description: job-description-centcomadmiral

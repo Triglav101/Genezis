@@ -240,11 +240,11 @@
     state: box
   - type: Storage
     grid:
-    - 0,0,7,0
-    maxItemSize: Tiny
+    - 0,0,7,1
+    maxItemSize: Normal
   - type: Item
     sprite: Objects/Fun/crayons.rsi
-    size: Small
+    size: Normal
     heldPrefix: box
   - type: StorageFill
     contents:

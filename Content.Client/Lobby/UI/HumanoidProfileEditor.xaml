@@ -60,7 +60,7 @@
                                     <OptionButton Name="SquadPreferenceButton" HorizontalAlignment="Right" />
                                 </BoxContainer>
                                 <!-- Armor Preference -->
-                                <BoxContainer HorizontalExpand="True">
+                                <BoxContainer HorizontalExpand="True" Visible="False">
                                     <Label Text="{Loc 'humanoid-profile-editor-preferred-armor-label'}" />
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="ArmorPreferenceButton" HorizontalAlignment="Right" />

@@ -1,4 +1,4 @@
-﻿using Content.Corvax.Interfaces.Server;
+using Content.Corvax.Interfaces.Server;
 using Content.Corvax.Interfaces.Shared;
 using Content.Server.GameTicking;
 using Content.Server.Hands.Systems;
@@ -90,8 +90,7 @@ public sealed class LoadoutSystem : EntitySystem
             // Force equip to first valid clothes slot
             // Get occupied entity -> Insert to backpack -> Equip loadout entity
             if (_inventorySystem.TryGetSlotEntity(ev.Mob, firstSlotName, out var slotEntity) &&
-                _inventorySystem.TryGetSlotEntity(ev.Mob, BackpackSlotId, out var backEntity) &&
-                _storageSystem.CanInsert(backEntity.Value, slotEntity.Value, out _))
+                _inventorySystem.TryGetSlotEntity(ev.Mob, BackpackSlotId, out var backEntity))
             {
                 if(!_storageSystem.Insert(backEntity.Value, slotEntity.Value, out _, playSound: false))
                     continue;

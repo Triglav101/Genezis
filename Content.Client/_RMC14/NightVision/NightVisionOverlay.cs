@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Content.Shared._RMC14.NightVision;
 using Content.Shared._RMC14.Xenonids;
 using Robust.Client.GameObjects;
@@ -6,6 +6,7 @@ using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client._RMC14.NightVision;
 
@@ -13,12 +14,15 @@ public sealed class NightVisionOverlay : Overlay
 {
     [Dependency] private readonly IEntityManager _entity = default!;
     [Dependency] private readonly IPlayerManager _players = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
 
     private readonly ContainerSystem _container;
     private readonly TransformSystem _transform;
+    private readonly EntityQuery<XenoComponent> _xenoQuery;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
+    private readonly ShaderInstance _shader;
     private readonly List<NightVisionRenderEntry> _entries = new();
 
     public NightVisionOverlay()
@@ -27,10 +31,18 @@ public sealed class NightVisionOverlay : Overlay
 
         _container = _entity.System<ContainerSystem>();
         _transform = _entity.System<TransformSystem>();
+        _xenoQuery = _entity.GetEntityQuery<XenoComponent>();
+
+        _shader = _prototype.Index<ShaderPrototype>("RMCNightVision").Instance().Duplicate();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
     {
+        if (!_entity.TryGetComponent(_players.LocalEntity, out NightVisionComponent? nightVision) ||
+            nightVision.State == NightVisionState.Off)
+        {
+            return;
+        }
 
         var handle = args.WorldHandle;
         var eye = args.Viewport.Eye;
@@ -40,7 +52,11 @@ public sealed class NightVisionOverlay : Overlay
         var entities = _entity.EntityQueryEnumerator<RMCNightVisionVisibleComponent, SpriteComponent, TransformComponent>();
         while (entities.MoveNext(out var uid, out var visible, out var sprite, out var xform))
         {
-
+            _entries.Add(new NightVisionRenderEntry((uid, sprite, xform),
+                eye?.Position.MapId,
+                nightVision.SeeThroughContainers,
+                visible.Priority,
+                visible.Transparency));
         }
 
         _entries.Sort(SortPriority);
@@ -56,6 +72,20 @@ public sealed class NightVisionOverlay : Overlay
         }
 
         handle.SetTransform(Matrix3x2.Identity);
+
+        if (!nightVision.Green)
+            return;
+
+        if (ScreenTexture == null || args.Viewport.Eye == null)
+            return;
+
+        _shader.SetParameter("renderScale", args.Viewport.RenderScale * args.Viewport.Eye.Scale);
+        _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+
+        var worldHandle = args.WorldHandle;
+        worldHandle.UseShader(_shader);
+        worldHandle.DrawRect(args.WorldBounds, Color.White);
+        worldHandle.UseShader(null);
     }
 
     private static int SortPriority(NightVisionRenderEntry x, NightVisionRenderEntry y)
@@ -74,7 +104,7 @@ public sealed class NightVisionOverlay : Overlay
         if (xform.MapID != map)
             return;
 
-        var seeThrough = seeThroughContainers;
+        var seeThrough = seeThroughContainers && !_xenoQuery.HasComp(uid);
         if (!seeThrough && _container.IsEntityOrParentInContainer(uid, xform: xform))
             return;
 

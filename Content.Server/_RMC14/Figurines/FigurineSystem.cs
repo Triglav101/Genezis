@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
-using Content.Server._RMC14.LinkAccount;
+//using Content.Server._RMC14.LinkAccount;
 using Content.Server.GameTicking;
 using Content.Server.Hands.Systems;
 using Content.Server.Storage.EntitySystems;
@@ -23,6 +23,7 @@ public sealed class FigurineSystem : EntitySystem
     [Dependency] private readonly IComponentFactory _compFactory = default!;
     [Dependency] private readonly HandsSystem _hands = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
+    //[Dependency] private readonly LinkAccountManager _linkAccount = default!;
     [Dependency] private readonly IPrototypeManager _prototypes = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly StorageSystem _storage = default!;
@@ -42,12 +43,14 @@ public sealed class FigurineSystem : EntitySystem
         SubscribeNetworkEvent<FigurineImageEvent>(OnFigurineImage);
 #endif
 
+        //_linkAccount.PatronsReloaded += ReloadActiveFigurines;
         ReloadAllFigurines();
     }
 
     public override void Shutdown()
     {
         base.Shutdown();
+        //_linkAccount.PatronsReloaded -= ReloadActiveFigurines;
     }
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs ev)
@@ -100,6 +103,24 @@ public sealed class FigurineSystem : EntitySystem
     {
         _figurines.Clear();
 
+        //var available = _linkAccount.GetFigurines();
+        foreach (var (_, figurineId) in _allFigurines)
+        {
+            if (_prototypes.TryIndex(figurineId, out var figurine) &&
+                figurine.TryGetComponent(out PatronFigurineComponent? figurineComp, _compFactory))
+            {
+                if (!Guid.TryParse(figurineComp.Id, out var guid))
+                {
+                    Log.Error($"Invalid {figurineId} figurine ID found: {figurineComp.Id}");
+                    continue;
+                }
+
+                //if (!available.Contains(guid))
+                //    continue;
+
+                _figurines.Add(figurineId);
+            }
+        }
     }
 
     private void OnMapInit(Entity<RandomPatronFigurineSpawnerComponent> spawner, ref MapInitEvent args)

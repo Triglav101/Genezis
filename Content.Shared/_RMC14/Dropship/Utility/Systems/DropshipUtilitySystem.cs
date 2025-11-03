@@ -17,6 +17,7 @@ public sealed class DropshipUtilitySystem : EntitySystem
     [Dependency] private readonly SharedDropshipSystem _dropship = default!;
     [Dependency] private readonly SkillsSystem _skills = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedDropshipWeaponSystem _dropshipWeapon = default!;
 
     public override void Initialize()
     {
@@ -69,6 +70,12 @@ public sealed class DropshipUtilitySystem : EntitySystem
         {
             popup = Loc.GetString("rmc-dropship-utility-cooldown", ("utility", ent.Owner));
             return false;
+        }
+
+        if (_dropshipWeapon.CasDebug)
+        {
+            popup = null;
+            return true;
         }
 
         if (!TryComp(dropship, out FTLComponent? ftl) ||

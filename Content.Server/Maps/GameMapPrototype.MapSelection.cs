@@ -9,6 +9,11 @@ public sealed partial class GameMapPrototype
     public bool Fallback { get; private set; }
 
     /// <summary>
+    /// Turns out some of the map files are actually secretly grids. Excellent. I love map loading code.
+    /// </summary>
+    [DataField] public bool IsGrid;
+
+    /// <summary>
     /// Minimum players for the given map.
     /// </summary>
     [DataField("minPlayers", required: true)]

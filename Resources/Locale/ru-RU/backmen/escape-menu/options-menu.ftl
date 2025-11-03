@@ -6,3 +6,5 @@ ui-options-function-toggle-standing = Встать или лечь
 
 ui-options-function-look-up = Присмотреться/Прицелиться
 ui-options-function-hold-look-up = Удерживать клавишу для прицеливания
+
+ui-options-log-in-chat = Логировать действия в чат

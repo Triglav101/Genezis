@@ -20,6 +20,7 @@
     - alertType: Walking
     - category: Piloting
     - alertType: Corporeal
+    - alertType: RecentlyBlocked
     - alertType: Stun
     - category: Breathing # Vox gang not calling this oxygen
     - category: Pressure
@@ -29,6 +30,7 @@
     - category: Thirst
     - alertType: Magboots
     - alertType: Pacified
+    - alertType: Rooted
     - alertType: Offer #Ataraxia
 
 - type: entity

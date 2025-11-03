@@ -85,18 +85,21 @@ namespace Content.Shared.Chat
         /// </summary>
         Unspecified = 1 << 14,
 
+        /// <summary>
+        ///     Mentor chat
+        /// </summary>
+        MentorChat = 1 << 15,
 
         /// <summary>
         ///     Telepathic.
         /// </summary>
-        Telepathic = 1 << 15,
-
+        Telepathic = 2 << 1,
 
         /// <summary>
         ///     Channels considered to be IC.
         /// </summary>
         IC = Local | Whisper | Radio | Telepathic | Dead | Emotes | Damage | Visual | Notifications,
 
-        AdminRelated = Admin | AdminAlert | AdminChat,
+        AdminRelated = Admin | AdminAlert | AdminChat | MentorChat,
     }
 }

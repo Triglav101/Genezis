@@ -33,6 +33,9 @@
     slots:
     - suitstorage
 
+- type: Tag
+  id: PillPacket
+
 - type: entity
   parent: CMPacketPills
   id: CMPacketPillsTricordrazine

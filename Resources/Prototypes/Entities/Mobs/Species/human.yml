@@ -11,7 +11,7 @@
     state: full
   - type: Thirst
   - type: Butcherable
-    butcheringType: Spike
+    butcheringType: Knife
     spawned:
     - id: FoodMeatHuman
       amount: 5

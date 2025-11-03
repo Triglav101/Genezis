@@ -1,11 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared._RMC14.Areas;
-using Content.Shared._RMC14.Xenonids.Egg;
 using Content.Shared._RMC14.Xenonids.Hive;
 using Content.Shared.Actions;
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
+using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -21,6 +20,8 @@ public abstract partial class SharedXenoTunnelSystem : EntitySystem
     [Dependency] protected readonly AreaSystem Area = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedXenoHiveSystem _hive = default!;
 
     private readonly List<string> _greekLetters = new()
         {
@@ -43,15 +44,27 @@ public abstract partial class SharedXenoTunnelSystem : EntitySystem
 
     private void OnExamine(Entity<XenoTunnelComponent> xenoTunnel, ref ExaminedEvent args)
     {
-        if (!HasComp<XenoComponent>(args.Examiner))
+        if (!HasComp<XenoComponent>(args.Examiner) || !_hive.FromSameHive(args.Examiner, xenoTunnel.Owner))
+        {
+            LocId message = "rmc-xeno-construction-tunnel-examine-not-xeno-empty";
+
+            var container = _container.EnsureContainer<Container>(xenoTunnel, XenoTunnelComponent.ContainedMobsContainerId);
+            if (container.ContainedEntities.Count > 0)
+                message = "rmc-xeno-construction-tunnel-examine-not-xeno";
+
+            using (args.PushGroup(nameof(XenoTunnelComponent)))
+            {
+                args.PushMarkup(Loc.GetString(message));
+            }
             return;
+        }
 
         if (!TryGetHiveTunnelName(xenoTunnel, out var tunnelName))
         {
             return;
         }
 
-        using (args.PushGroup(nameof(XenoEggRetrieverComponent)))
+        using (args.PushGroup(nameof(XenoTunnelComponent)))
         {
             args.PushMarkup(Loc.GetString("rmc-xeno-construction-tunnel-examine", ("tunnelName", tunnelName)));
         }
@@ -66,7 +79,51 @@ public abstract partial class SharedXenoTunnelSystem : EntitySystem
             return false;
         }
 
+        var hiveTunnels = hive.Value.Comp.HiveTunnels;
+
+        foreach (var tunnel in hiveTunnels)
+        {
+            if (tunnel.Value == xenoTunnel.Owner)
+            {
+                tunnelName = tunnel.Key;
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    public bool TryPlaceTunnel(EntityUid associatedHiveEnt, string? name, EntityCoordinates buildLocation, [NotNullWhen(true)] out EntityUid? tunnelEnt)
+    {
+        tunnelEnt = null;
+        if (!TryComp(associatedHiveEnt, out HiveComponent? hiveComp))
+        {
+            return false;
+        }
+        var tunnels = hiveComp.HiveTunnels;
+
+        if (name is null)
+        {
+            var mapCoords = _transform.ToMapCoordinates(buildLocation.AlignWithClosestGridTile());
+            var areaName = Loc.GetString("rmc-xeno-construction-default-area-name");
+            var randomGreekLetter = _random.Pick(_greekLetters);
+            if (Area.TryGetArea(buildLocation, out _, out var areaProto))
+                areaName = areaProto.Name;
+
+            name = Loc.GetString("rmc-xeno-construction-default-tunnel-name", ("areaName", areaName), ("coordX", mapCoords.X), ("coordY", mapCoords.Y), ("greekLetter", randomGreekLetter));
+        }
+
+        if (tunnels.ContainsKey(name))
+        {
+            return false;
+        }
+
+        var newTunnel = Spawn(TunnelPrototypeId, buildLocation);
+        tunnelEnt = newTunnel;
+
+        Hive.SetHive(newTunnel, associatedHiveEnt);
+
+        return hiveComp.HiveTunnels.TryAdd(name, newTunnel);
     }
 }
 

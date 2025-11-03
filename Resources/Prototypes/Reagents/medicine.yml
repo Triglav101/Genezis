@@ -1179,7 +1179,7 @@
   physicalDesc: reagent-physical-desc-sickly
   flavor: acid
   color: "#b5e36d"
-  worksOnTheDead: true
+  worksAfterDefibrillation: true
   metabolisms:
     Medicine:
       effects:
@@ -1200,7 +1200,7 @@
   physicalDesc: reagent-physical-desc-necrotic
   flavor: medicine
   color: "#86a5bd"
-  worksOnTheDead: true
+  worksAfterDefibrillation: true
   plantMetabolism:
   - !type:PlantAdjustToxins
     amount: -5
@@ -1229,7 +1229,7 @@
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
   color: "#89f77f"
-  worksOnTheDead: true
+  worksAfterDefibrillation: true
   metabolisms:
     Medicine:
       effects:
@@ -1345,7 +1345,6 @@
       effects:
       - !type:Emote
         emote: Yawn
-        showInChat: true
         probability: 0.1
       - !type:GenericStatusEffect
         key: Drowsiness

@@ -33,6 +33,7 @@
   - type: FaxableObject
   - type: PaperVisuals
   - type: Flammable
+    intensity: 10    
     fireSpread: true
     alwaysCombustible: true
     damage:
@@ -200,6 +201,21 @@
     contentMargin: 16.0, 16.0, 16.0, 16.0
     headerImagePath: "/Textures/Interface/Paper/paper_heading_cargo_invoice.svg.96dpi.png"
     headerMargin: 0.0, 12.0, 0.0, 0.0
+
+- type: entity
+  id: PaperNanoTaskItem
+  parent: Paper
+  name: карточка с целями
+  description: Может быть вставлена в ваш ПДА для передачи целей.
+  components:
+  - type: Tag
+    tags:
+    - Document
+    - Trash
+    - Paper
+  - type: StaticPrice
+    price: 0
+  - type: NanoTaskPrinted
 
 - type: entity
   id: PaperCargoBountyManifest

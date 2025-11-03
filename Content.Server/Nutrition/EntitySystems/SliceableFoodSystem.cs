@@ -40,6 +40,12 @@ public sealed class SliceableFoodSystem : EntitySystem
         if (args.Handled)
             return;
 
+        // RMC14
+ #pragma warning disable RA0002
+         if (!CompOrNull<UtensilComponent>(args.Used)?.Types.HasFlag(UtensilType.Knife) ?? true)
+ #pragma warning restore RA0002
+             return;
+
         var doAfterArgs = new DoAfterArgs(EntityManager,
             args.User,
             entity.Comp.SliceTime,

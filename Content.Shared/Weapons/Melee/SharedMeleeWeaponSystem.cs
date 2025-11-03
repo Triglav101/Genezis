@@ -53,6 +53,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] private   readonly TagSystem               _tagSystem       = default!; // cats-shield
 
     private const int AttackMask = (int) (CollisionGroup.MobMask | CollisionGroup.Opaque);
+    private static readonly EntProtoId DisarmEffect = "RMCWeaponArcDisarm"; // RMC14
 
     /// <summary>
     /// Maximum amount of targets allowed for a wide-attack.
@@ -80,11 +81,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         SubscribeAllEvent<HeavyAttackEvent>(OnHeavyAttack);
         SubscribeAllEvent<LightAttackEvent>(OnLightAttack);
         SubscribeAllEvent<DisarmAttackEvent>(OnDisarmAttack);
+        SubscribeAllEvent<ShoveAttackEvent>(OnShoveAttack);
         SubscribeAllEvent<StopAttackEvent>(OnStopAttack);
 
 #if DEBUG
-        SubscribeLocalEvent<MeleeWeaponComponent,
-                            MapInitEvent>                   (OnMapInit);
+        SubscribeLocalEvent<MeleeWeaponComponent,MapInitEvent>(OnMapInit);
     }
 
     private void OnMapInit(EntityUid uid, MeleeWeaponComponent component, MapInitEvent args)
@@ -196,6 +197,21 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             || !TryGetWeapon(args.SenderSession.AttachedEntity.Value, out var weaponUid, out var weapon)
             || weaponUid != GetEntity(msg.Weapon))
             return;
+
+        AttemptAttack(args.SenderSession.AttachedEntity.Value, weaponUid, weapon, msg, args.SenderSession);
+    }
+
+    private void OnShoveAttack(ShoveAttackEvent msg, EntitySessionEventArgs args)
+    {
+        if (args.SenderSession.AttachedEntity == null)
+        {
+            return;
+        }
+
+        if (!TryGetWeapon(args.SenderSession.AttachedEntity.Value, out var weaponUid, out var weapon))
+        {
+            return;
+        }
 
         AttemptAttack(args.SenderSession.AttachedEntity.Value, weaponUid, weapon, msg, args.SenderSession);
     }
@@ -345,39 +361,42 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (!CombatMode.IsInCombatMode(user))
             return false;
 
-        EntityUid? target = null;
+        var fireRateSwingModifier = 1f;
+
         switch (attack)
         {
             case LightAttackEvent light:
-                if (light.Target != null && !TryGetEntity(light.Target, out target))
-                {
-                    // Target was lightly attacked & deleted.
-                    return false;
-                }
+                var lightTarget = GetEntity(light.Target);
 
-                if (!Blocker.CanAttack(user, target, (weaponUid, weapon)))
+                if (!Blocker.CanAttack(user, lightTarget, (weaponUid, weapon)))
                     return false;
 
                 // Can't self-attack if you're the weapon
-                if (weaponUid == target)
+                if (weaponUid == lightTarget)
                     return false;
 
                 break;
-            case DisarmAttackEvent disarm:
-                if (disarm.Target != null && !TryGetEntity(disarm.Target, out target))
-                {
-                    // Target was lightly attacked & deleted.
-                    return false;
-                }
+            case ShoveAttackEvent shove:
+                var shoveTarget = GetEntity(shove.Target);
 
-                if (!Blocker.CanAttack(user, target, (weaponUid, weapon), true))
+                if (!Blocker.CanAttack(user, shoveTarget, (weaponUid, weapon), true))
                     return false;
+                break;
+            case DisarmAttackEvent disarm:
+                var disarmTarget = GetEntity(disarm.Target);
+
+                if (!Blocker.CanAttack(user, disarmTarget, (weaponUid, weapon), true))
+                    return false;
+                break;
+            case HeavyAttackEvent:
+                fireRateSwingModifier *= weapon.HeavyRateModifier;
                 break;
             default:
                 if (!Blocker.CanAttack(user, weapon: (weaponUid, weapon)))
                     return false;
                 break;
         }
+
 
         // Windup time checked elsewhere.
         var fireRate = TimeSpan.FromSeconds(1f / GetAttackRate(weaponUid, user, weapon));
@@ -412,31 +431,33 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         // Attack confirmed
         for (var i = 0; i < swings; i++)
         {
-            string animation;
+            string animation = weapon.Animation;
+            animation = DisarmEffect; // RMC14 change disarm effect
+            Angle spriteRotation = weapon.AnimationRotation;
 
             switch (attack)
             {
                 case LightAttackEvent light:
                     DoLightAttack(user, light, weaponUid, weapon, session);
-                    animation = weapon.Animation;
                     break;
-                case DisarmAttackEvent disarm:
-                    if (!DoDisarm(user, disarm, weaponUid, weapon, session))
+                case ShoveAttackEvent shove:
+                    if (!DoShove(user, shove, weaponUid, weapon, session))
                         return false;
-
-                    animation = weapon.Animation;
+                    animation = "WeaponArcDisarm"; // ERRORGATE DISARM
                     break;
                 case HeavyAttackEvent heavy:
                     if (!DoHeavyAttack(user, heavy, weaponUid, weapon, session))
                         return false;
 
                     animation = weapon.WideAnimation;
+                    spriteRotation = weapon.WideAnimationRotation;
+
                     break;
                 default:
                     throw new NotImplementedException();
             }
 
-            DoLungeAnimation(user, weaponUid, weapon.Angle, GetCoordinates(attack.Coordinates).ToMap(EntityManager, TransformSystem), weapon.Range, animation);
+            DoLungeAnimation(user, weaponUid, weapon.Angle, GetCoordinates(attack.Coordinates).ToMap(EntityManager, TransformSystem), weapon.Range, animation, spriteRotation);
         }
 
         var attackEv = new MeleeAttackEvent(weaponUid);
@@ -514,6 +535,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         if (damageResult is {Empty: false})
         {
+            // Though it really feels like this should be a part of AttackedEvent, we can't do that because AttackedEvent is used to calculate the modifiedDamage.
+            // so, to pass the information to the target about how much damage it was delt, we make a new event just to pass that afterwards.
+            var shitRockedEvent = new ShitRockedEvent(meleeUid, user, targetXform.Coordinates, damageResult);
+            RaiseLocalEvent(target.Value, shitRockedEvent);
+
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
             {
@@ -666,6 +692,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
             if (damageResult != null && damageResult.GetTotal() > FixedPoint2.Zero)
             {
+                // Though it really feels like this should be a part of AttackedEvent, we can't do that because AttackedEvent is used to calculate the modifiedDamage.
+                // so, to pass the information to the target about how much damage it was delt, we make a new event just to pass that afterwards.
+                var shitRockedEvent = new ShitRockedEvent(meleeUid, user, GetCoordinates(ev.Coordinates), damageResult);
+                RaiseLocalEvent(entity, shitRockedEvent);
+
                 appliedDamage += damageResult;
 
                 if (meleeUid == user)
@@ -771,7 +802,27 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         return true;
     }
 
-    private void DoLungeAnimation(EntityUid user, EntityUid weapon, Angle angle, MapCoordinates coordinates, float length, string? animation)
+    protected virtual bool DoShove(EntityUid user, ShoveAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
+    {
+        var target = GetEntity(ev.Target);
+        var attacker = GetEntity(ev.Attacker);
+
+        if (target == null || attacker == null)
+            return false;
+
+        if (Deleted(target) || user == target)
+            return false;
+
+        if (!InRange(user, (EntityUid)target, component.Range, session))
+            return false;
+
+        // Play a sound to give instant feedback; same with playing the animations
+        _meleeSound.PlaySwingSound(user, meleeUid, component);
+
+        return true;
+    }
+
+    private void DoLungeAnimation(EntityUid user, EntityUid weapon, Angle angle, MapCoordinates coordinates, float length, string? animation, Angle spriteRotation)
     {
         // TODO: Assert that offset eyes are still okay.
         if (!TryComp(user, out TransformComponent? userXform))
@@ -792,10 +843,10 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (localPos.Length() > visualLength)
             localPos = localPos.Normalized() * visualLength;
 
-        DoLunge(user, weapon, angle, localPos, animation);
+        DoLunge(user, weapon, angle, localPos, animation, spriteRotation);
     }
 
-    public abstract void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true);
+    public abstract void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, Angle spriteRotation, bool predicted = true);
 
     /// <summary>
     /// Used to update the MeleeWeapon component on item toggle.

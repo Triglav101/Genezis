@@ -1,3 +1,4 @@
+﻿using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Dropship.Weapon;
 using Content.Shared._RMC14.Inventory;
 using Content.Shared._RMC14.Marines.Skills;
@@ -22,6 +23,7 @@ namespace Content.Shared._RMC14.Rangefinder;
 public sealed class RangefinderSystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AreaSystem _area = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedDropshipWeaponSystem _dropshipWeapon = default!;
@@ -74,6 +76,13 @@ public sealed class RangefinderSystem : EntitySystem
                 comp.SwitchModeUseDelay);
         }
 
+        if (comp.TargetDelay > TimeSpan.Zero)
+        {
+            _useDelay.SetLength(rangefinder.Owner,
+                comp.TargetDelay,
+                comp.TargetUseDelay);
+        }
+
         Dirty(rangefinder);
         UpdateAppearance(rangefinder);
     }
@@ -119,6 +128,13 @@ public sealed class RangefinderSystem : EntitySystem
         if (HasComp<ActiveLaserDesignatorComponent>(rangefinder))
         {
             msg = Loc.GetString("rmc-laser-designator-already-targeting");
+            _popup.PopupClient(msg, coordinates, user, PopupType.SmallCaution);
+            return;
+        }
+
+        if (!_area.CanCAS(coordinates) || (rangefinder.Comp.Mode == Designator && !_area.CanLase(coordinates)))
+        {
+            msg = Loc.GetString("rmc-laser-designator-not-cas");
             _popup.PopupClient(msg, coordinates, user, PopupType.SmallCaution);
             return;
         }
@@ -169,6 +185,8 @@ public sealed class RangefinderSystem : EntitySystem
                 position += offset;
 
             rangefinder.Comp.LastTarget = position;
+            rangefinder.Comp.LastCoords = mapCoords;
+
             Dirty(rangefinder);
 
             _ui.OpenUi(rangefinder.Owner, RangefinderUiKey.Key, args.User);
@@ -186,6 +204,7 @@ public sealed class RangefinderSystem : EntitySystem
         if (_squad.TryGetMemberSquad(user, out var squad))
             name = Loc.GetString("rmc-laser-designator-target-name-squad", ("squad", squad), ("id", id));
 
+        _dropshipWeapon.MakeDropshipTarget(targetEnt, abbreviation);
         _metaData.SetEntityName(targetEnt, name);
     }
 
@@ -229,6 +248,9 @@ public sealed class RangefinderSystem : EntitySystem
             return;
 
         var nextMode = rangefinder.Comp.Mode == RangefinderMode.Rangefinder ? Designator : RangefinderMode.Rangefinder;
+        if (nextMode == Designator && !rangefinder.Comp.CanDesignate)
+            return;
+
         args.Verbs.Add(new AlternativeVerb
         {
             Priority = 100,
@@ -296,10 +318,10 @@ public sealed class RangefinderSystem : EntitySystem
     {
         if (TryComp(rangefinder, out UseDelayComponent? useDelay))
         {
-            if (_useDelay.IsDelayed((rangefinder, useDelay)))
+            if (_useDelay.IsDelayed((rangefinder, useDelay), rangefinder.Comp.TargetUseDelay))
                 return;
 
-            _useDelay.TryResetDelay(rangefinder, component: useDelay);
+            _useDelay.TryResetDelay(rangefinder, component: useDelay, id: rangefinder.Comp.TargetUseDelay);
         }
 
         var ev = new LaserDesignatorDoAfterEvent(GetNetCoordinates(coordinates));

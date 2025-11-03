@@ -859,6 +859,38 @@ public sealed class GhostRoleSystem : EntitySystem
 
         SetMode(entity.Owner, ghostRoleProto, ghostRoleProto.Name, entity.Comp);
     }
+
+    public void SetAvailable(Entity<GhostRoleMobSpawnerComponent> spawner, int available)
+    {
+        if (spawner.Comp.AvailableTakeovers == available)
+            return;
+
+        spawner.Comp.AvailableTakeovers = available;
+        UpdateSpawner(spawner);
+    }
+
+    public void SetCurrent(Entity<GhostRoleMobSpawnerComponent> spawner, int current)
+    {
+        if (spawner.Comp.CurrentTakeovers == current)
+            return;
+
+        spawner.Comp.CurrentTakeovers = current;
+        UpdateSpawner(spawner);
+    }
+
+    private void UpdateSpawner(Entity<GhostRoleMobSpawnerComponent> spawner)
+    {
+        if (TryComp(spawner, out GhostRoleComponent? ghostRole))
+        {
+            ghostRole.Taken = spawner.Comp.CurrentTakeovers >= spawner.Comp.AvailableTakeovers;
+            if (ghostRole.Taken)
+                UnregisterGhostRole((spawner, ghostRole));
+            else
+                RegisterGhostRole((spawner, ghostRole));
+        }
+
+        UpdateAllEui();
+    }
 }
 
 [AnyCommand]

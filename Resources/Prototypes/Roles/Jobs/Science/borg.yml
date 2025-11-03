@@ -1,5 +1,6 @@
 # No idea why it's in sci but we ball.
 - type: job
+  parent: CMJobBase
   id: StationAi
   name: job-name-station-ai
   description: job-description-station-ai
@@ -14,8 +15,11 @@
   jobEntity: StationAiBrain
   jobPreviewEntity: PlayerStationAiPreview
   applyTraits: false
+  loadoutOverride: StationAILoadoutWindow
+  loadoutButtonText: Снаряжение
 
 - type: job
+  parent: CMJobBase
   id: Borg
   name: job-name-borg
   description: job-description-borg
@@ -25,7 +29,6 @@
       time: 144000 # 40 hrs
   canBeAntag: false
   icon: JobIconBorg
-  supervisors: job-supervisors-rd
+  supervisors: job-supervisors-AI
   jobEntity: PlayerBorgBattery
-  startingGear: RobotGear # backmen
   applyTraits: false

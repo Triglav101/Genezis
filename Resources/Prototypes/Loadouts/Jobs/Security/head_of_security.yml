@@ -80,13 +80,6 @@
   equipment:
     outerClothing: ClothingOuterWinterHoS
 
-# Pocket #Backmen
-
-- type: loadout
-  id: WeaponRevolverMatebaNew
-  equipment:
-    pocket1: WeaponRevolverMatebaNew
-
 # Pocket 2 #Backmen
 
 - type: loadout

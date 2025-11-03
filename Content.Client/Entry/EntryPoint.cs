@@ -1,9 +1,9 @@
+using Content.Client._RMC14.Explosion;
+using Content.Client._RMC14.Xenonids.Screech;
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.DebugMon;
-using Content.Client.Corvax.TTS;
-using Content.Client.Options;
 using Content.Client.Eui;
 using Content.Client.Fullscreen;
 using Content.Client.GameTicking.Managers;
@@ -20,7 +20,6 @@ using Content.Client.Radiation.Overlays;
 using Content.Client.Replay;
 using Content.Client.Screenshot;
 using Content.Client.Singularity;
-using Content.Client.Backmen.Explosion; // Ataraxia
 using Content.Client.Stylesheets;
 using Content.Client.Viewport;
 using Content.Client.Voting;
@@ -131,6 +130,8 @@ namespace Content.Client.Entry
             _prototypeManager.RegisterIgnore("alertLevels");
             _prototypeManager.RegisterIgnore("nukeopsRole");
             _prototypeManager.RegisterIgnore("stationGoal"); // Corvax-StationGoal
+            _prototypeManager.RegisterIgnore("story");
+            _prototypeManager.RegisterIgnore("storyBeat");
 
             // Begin Backmen: our ignored prototypes.
             _prototypeManager.RegisterIgnore("npcConversationTree");
@@ -178,7 +179,8 @@ namespace Content.Client.Entry
             _parallaxManager.LoadDefaultParallax();
 
             _overlayManager.AddOverlay(new SingularityOverlay());
-            _overlayManager.AddOverlay(new RMCExplosionShockWaveOverlay()); // Ataraxia
+            _overlayManager.AddOverlay(new RMCExplosionShockWaveOverlay());
+            _overlayManager.AddOverlay(new RMCXenoScreechShockWaveOverlay());
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
             _chatManager.Initialize();
             _clientPreferencesManager.Initialize();

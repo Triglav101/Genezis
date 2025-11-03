@@ -86,7 +86,7 @@ public sealed class XenoPlasmaSystem : EntitySystem
         {
             BreakOnMove = true,
             DistanceThreshold = args.Range,
-            TargetEffect = "RMCEffectHealBusy",
+            TargetEffect = "RMCEffectHealPlasma",
         };
 
         _doAfter.TryStartDoAfter(doAfter);
@@ -169,7 +169,7 @@ public sealed class XenoPlasmaSystem : EntitySystem
             var max = _alerts.GetMaxSeverity(xeno.Comp.Alert);
             var severity = max - ContentHelpers.RoundToLevels(level, xeno.Comp.MaxPlasma, max + 1);
             string? plasmaResourceMessage = (int)xeno.Comp.Plasma + " / " + xeno.Comp.MaxPlasma;
-            _alerts.ShowAlert(xeno, xeno.Comp.Alert, (short)severity);
+            _alerts.ShowAlert(xeno, xeno.Comp.Alert, (short)severity, dynamicMessage: plasmaResourceMessage);
         }
     }
 

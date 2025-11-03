@@ -361,6 +361,9 @@
       - FauxTileAstroSnow
       - OreBagOfHolding
       - DeviceQuantumSpinInverter
+      - PKAUpgradeDamage
+      - PKAUpgradeRange
+      - PKAUpgradeFireRate
       - EnergyDomeDirectionalTurtle
       - PowerCageHigh
       - PowerCageMedium
@@ -395,6 +398,18 @@
       - EnergyScalpel # Shitmed Change
       - EnergyCautery # Shitmed Change
       - AdvancedRetractor # Shitmed Change
+
+  # vv ADT Phantom vv
+      - GhostRadio
+      - OuijaBoard
+      - EctoRifle
+      - EctoPistol
+      - EctoBatterySmall
+      - EctoBattery
+      - PsiShield
+      - PhantomHud
+      - EctoShield
+    # ^^ ADT Phantom ^^      
   - type: EmagLatheRecipes
     emagDynamicRecipes:
       - BoxBeanbag
@@ -402,7 +417,6 @@
       - BoxShotgunUranium
       - BoxShellTranquilizer
       - ExplosivePayload
-      - WeaponLaserCarbine
       - WeaponLaserPistol
       - GrenadeBlast
       - GrenadeEMP
@@ -436,7 +450,6 @@
       - Truncheon
       - WeaponAdvancedLaser
       - WeaponLaserCannon
-      - WeaponLaserCarbine
       - WeaponXrayCannon
 
 - type: entity
@@ -896,9 +909,9 @@
       - WeaponDisabler
       - WeaponDisablerSMG
       - WeaponLaserCannon
-      - WeaponLaserCarbine
       - WeaponLaserPistol
       - WeaponLaserCarbinePractice
+      - Ram      
       - InsulativeHeadcage
       - ClothingHeadHelmetInsulated
       - ShellSoulbreaker

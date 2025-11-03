@@ -327,7 +327,7 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
-        _melee.DoLunge(user, used, Angle.Zero, localPos, null, false);
+        _melee.DoLunge(user, used, Angle.Zero, localPos, null, Angle.Zero, false);
 
         return true;
     }
@@ -345,12 +345,6 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
 
         foreach (var (footstepUid, comp) in footPrints)
         {
-            if (!_solutionContainerSystem.ResolveSolution(footstepUid, comp.SolutionName, ref comp.Solution, out var targetStepSolution) || targetStepSolution.Volume <= 0)
-                continue;
-
-            if (_puddleSystem.CanFullyEvaporate(targetStepSolution))
-                continue; // no spam
-
             var absorberSolution = absorberSoln.Comp.Solution;
             var available = absorberSolution.GetTotalPrototypeQuantity(PuddleSystem.EvaporationReagents);
 
@@ -364,19 +358,12 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
             var transferMax = absorber.PickupAmount;
             var transferAmount = available > transferMax ? transferMax : available;
 
-            var puddleSplit = targetStepSolution.SplitSolutionWithout(transferAmount, PuddleSystem.EvaporationReagents);
-            var absorberSplit = absorberSolution.SplitSolutionWithOnly(puddleSplit.Volume, PuddleSystem.EvaporationReagents);
-
             var transform = Transform(target);
             var gridUid = transform.GridUid;
             if (TryComp(gridUid, out MapGridComponent? mapGrid))
             {
                 var tileRef = _mapSystem.GetTileRef(gridUid.Value, mapGrid, transform.Coordinates);
-                _puddleSystem.DoTileReactions(tileRef, absorberSplit);
             }
-
-            _solutionContainerSystem.AddSolution(comp.Solution.Value, absorberSplit);
-            _solutionContainerSystem.AddSolution(absorberSoln, puddleSplit);
 
             if (!soundPlayed)
             {
@@ -392,7 +379,7 @@ public sealed class AbsorbentSystem : SharedAbsorbentSystem
         var localPos = Vector2.Transform(targetPos, _transform.GetInvWorldMatrix(userXform));
         localPos = userXform.LocalRotation.RotateVec(localPos);
 
-        _melee.DoLunge(user, used, Angle.Zero, localPos, null, false);
+        _melee.DoLunge(user, used, Angle.Zero, localPos, null, Angle.Zero, false);
         return true;
     }
     // BACKMEN EDIT END

@@ -38,19 +38,6 @@
       entity: WeaponRifleM28Tactical
 
 - type: constructionGraph
-  id: MP5Tactical
-  start: start
-  graph:
-    - node: start
-      edges:
-        - to: upgraded
-          steps:
-            - tag: UpgradeStation
-              doAfter: 2
-    - node: upgraded
-      entity: WeaponSubMachineGunMP5Tactical
-
-- type: constructionGraph
   id: VectorTactical
   start: start
   graph:

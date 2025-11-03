@@ -1,4 +1,5 @@
 using Robust.Shared.Audio;
+using Content.Server.StationEvents.Metric;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.StationEvents.Components;
@@ -83,8 +84,21 @@ public sealed partial class StationEventComponent : Component
     public TimeSpan? EndTime;
 
     /// <summary>
+    /// How long after being added does the event start
+    /// </summary>
+    [DataField("startDelay")]
+    public TimeSpan StartDelay = TimeSpan.Zero;
+
+    /// <summary>
     /// If false, the event won't trigger during ongoing evacuation.
     /// </summary>
     [DataField]
     public bool OccursDuringRoundEnd = true;
+
+    /// <summary>
+    ///   Expected Chaos changes when this event occurs.
+    ///   Used by the GameDirector, which picks an event expected to make the desired chaos changes.
+    /// </summary>
+    [DataField("chaos")]
+    public ChaosMetrics Chaos = new ChaosMetrics();
 }

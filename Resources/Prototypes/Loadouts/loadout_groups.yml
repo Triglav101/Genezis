@@ -140,6 +140,7 @@
   name: loadout-group-captain-neck
   minLimit: 0
   loadouts:
+  - CaptainEpaulettes
   - CaptainCloak
   - CaptainCloakFormal
   - CaptainMantle
@@ -1009,10 +1010,8 @@
   - WeaponPistolMk58
   - WeaponPistolG22
   - WeaponPistolACP14
-  - WeaponPistolG23
   - WeaponPistolM1911
   - WeaponPistolVP78
-  - WeaponRevolverMatebaNew
 
 - type: loadoutGroup #Backmen
   id: SecurityOfficerPocket2
@@ -1114,7 +1113,6 @@
   - WeaponPistolMk58
   - WeaponPistolG22
   - WeaponPistolACP14
-  - WeaponPistolG23
   - WeaponPistolM1911
 
 - type: loadoutGroup #Backmen

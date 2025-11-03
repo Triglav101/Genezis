@@ -67,6 +67,8 @@
   components:
   - type: Damageable
     damageContainer: Biological
+  - type: Penetratable
+    stoppingPower: 1  
   - type: Destructible
     thresholds:
     - trigger:
@@ -124,6 +126,7 @@
   - type: LightningTarget
     priority: 2
     lightningExplode: false
+  - type: DespawnDeadBody # Genezis  
 
 # Used for mobs that can enter combat mode and can attack.
 - type: entity
@@ -166,6 +169,8 @@
     shiveringHeatRegulation: 2000
     normalBodyTemperature: 310.15
     thermalRegulationTemperatureThreshold: 25
+    visuallySweats: true
+    visuallyShivers: true    
   - type: MovedByPressure
 
 # Used for mobs that require regular atmospheric conditions.

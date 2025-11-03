@@ -1,9 +1,11 @@
 - type: entity
   parent: ClothingEyesBase
   id: CMGlassesSecurity
-  name: security HUD-glasses
-  description: Sunglasses wired up with the best nano-tech the Marines can muster out on the frontier. Displays information about any person you decree worthy of your gaze.
+  name: HUD интерфейс отдела контроля
+  description: Солнцезащитные очки, оснащенные лучшими нанотехнологиями, которые морпехи могут собрать на границе. Отображает информацию о любом человеке, которого вы сочтете достойным вашего взгляда.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/security_glasses.rsi
   - type: Clothing
@@ -18,9 +20,11 @@
 - type: entity
   parent: [ ClothingEyesBase , ShowMedicalIcons ]
   id: CMGlassesM42ScoutSight
-  name: M96 scout sight
-  description: A headset and night vision sighting system for the M96 Scout Rifle. Allows highlighted imaging of surroundings.
+  name: Прицел разведчика M96
+  description: Гарнитура и система ночного видения для винтовки разведчика M96. Позволяет выделять изображения окружающей среды.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/m42_scoutsight.rsi
     layers:
@@ -40,9 +44,11 @@
 - type: entity
   parent: ClothingEyesHudMedical
   id: RMCGlassesM4SPRBattleSight
-  name: M4SPR Battle Sight
-  description: A headset and night vision sighting system for the M4SPR Custom Battle Rifle. Allows highlighted imaging of surroundings, as well as the ability to view the suit sensor health status readouts of other marines.
+  name: Боевой прицел M4SPR
+  description: Гарнитура и система ночного видения для боевой винтовки M4SPR Custom. Позволяет выделять изображения окружающей среды, а также просматривать показания датчиков здоровья костюмов других морпехов.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/m42_scoutsight.rsi
     layers:
@@ -62,9 +68,11 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCGlassesSmartGunSight
-  name: ML66A head mounted sight # TODO RMC14 meson tile vision see description below
-  description: A headset and goggles system for the ML66A Smart Gun. # TODO RMC14 Has a low-res short-range imager, allowing for view of terrain.
+  name: Нашлемный прицел ML66A
+  description: Система гарнитуры и очков для умного пулемета ML66A.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ml66a_sight.rsi
     layers:
@@ -90,9 +98,11 @@
 - type: entity
   parent: [ClothingEyesHudMedical, BaseToggleClothing]
   id: RMCGlassesMedicalHUDGlasses
-  name: medical HUD glasses
-  description: A heads-up display that scans the humanoids in view and provides accurate data about their health status.
+  name: HUD ХелсМейт
+  description: Дисплей, который сканирует гуманоидов в поле зрения и предоставляет точные данные об их состоянии здоровья.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/medicalhud.rsi
   - type: Clothing
@@ -136,10 +146,12 @@
 
 - type: entity
   parent: ClothingEyesBase
-  id: RMCGlassesMarineRpg # TODO make this actually prescription
-  name: Marine RPG glasses
-  description: The Corps may call them Regulation Prescription Glasses but you know them as Rut Prevention Glasses.
+  id: RMCGlassesMarineRpg
+  name: Очки морпеха РПГ
+  description: Корпус может называть их Регламентированными Предписанными Очками, но вы знаете их как Регулярные Предотвращающие Головняк.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/rpglasses.rsi
   - type: Clothing
@@ -147,13 +159,56 @@
     slots:
     - MASK
     - EYES
+
+- type: entity
+  parent: RMCGlassesMarineRpg
+  id: RMCGlassesBiMexYellow
+  name: Поляризованные очки БиМекс
+  description: Стильные, угловатые очки, разработанные для современного оператора.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_yellow_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_yellow_glasses.rsi
+
+- type: entity
+  parent: RMCGlassesBiMexYellow
+  id: RMCGlassesBiMexBronze
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_bronze_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_bronze_glasses.rsi
+
+- type: entity
+  parent: RMCGlassesMarineRpg
+  id: RMCGlassesBiMexBlack
+  name: Тактические очки БиМекс
+  description: Стильные, угловатые очки, разработанные для современного оператора.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_black_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bimex_black_glasses.rsi
+
+- type: entity
+  parent: RMCGlassesMarineRpg
+  id: RMCGlassesMarineRpgOld
+  name: Старые военные очки
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/old_rpg_glasses.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/old_rpg_glasses.rsi
 
 - type: entity
   parent: ClothingEyesBase
   id: RMCGogglesBallistic
-  name: marine ballistic goggles
-  description: Standard issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes.
+  name: Баллистические военные очки
+  description: Стандартные очки для военных. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles.rsi
   - type: Clothing
@@ -161,12 +216,16 @@
     slots:
     - MASK
     - EYES
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/ballistic_goggles.rsi
+      state: helmet
 
 - type: entity
   parent: RMCGogglesBallistic
-  id: RMCGogglesBallisticBlack # TODO prescription variant
-  name: black marine ballistic goggles
-  description: Standard issue USCM goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This one has black tinted lenses.
+  id: RMCGogglesBallisticBlack
+  name: Черные баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих черные тонированные линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/black_ballistic_goggles.rsi
@@ -175,38 +234,153 @@
 
 - type: entity
   parent: RMCGogglesBallistic
-  id: RMCGogglesBallisticOrange # TODO prescription variant
-  name: orange marine ballistic goggles
-  description: Standard issue USCM goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This one has amber colored day lenses.
+  id: RMCGogglesBallisticOrange
+  name: Оранжевые баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих янтарные дневные линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_ballistic_goggles.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_ballistic_goggles.rsi
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticRed
+  name: Красные баллистические военныеочки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих алые дневные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/red_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/red_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/red_ballistic_goggles.rsi
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticBlue
+  name: Синие баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих синие дневные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_ballistic_goggles.rsi
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticPurple
+  name: Фиолетовые баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих фиолетовые дневные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/purple_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/purple_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/purple_ballistic_
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticYellow # TODO prescription variant
+  name: желтые баллистические военные очки
+  description: Стандартные очки военного. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этих желтые дневные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/yellow_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/yellow_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/yellow_ballistic_goggles.rsi
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticPolarizedBlue # TODO prescription variant
+  name: Поляризованные баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие поляризованные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/blue_polarized_ballistic_goggles.rsi
+      state: helmet
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesBallisticPolarizedOrange # TODO prescription variant
+  name: Поляризованные баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие поляризованные линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_polarized_ballistic_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_polarized_ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/orange_polarized_ballistic_goggles.rsi
+      state: helmet
 
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesM1A1Ballistic # TODO prescription variant
-  name: M1A1 marine ballistic goggles
-  description: Newer issue UNMC goggles. While commonly found mounted atop M10 pattern helmets, they are also capable of preventing insects, dust, and other things from getting into one's eyes. This version has larger lenses.
+  name: Баллистические военные очки M1A1
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии большие линзы.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles.rsi
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles.rsi
+      state: helmet
 
 - type: entity
   parent: RMCGogglesBallistic
   id: RMCGogglesPrescriptionBallistic # TODO make this actually prescription
-  name: prescription marine ballistic goggles
-  description: Standard issue UNMC goggles. Mostly used to decorate one's helmet. Contains prescription lenses in case you weren't sure if they were lame or not.
+  name: Рецептурные баллистические военные очки
+  description: Стандартные очки UNMC. В основном используются для украшения шлема. Они были-бы классными, если вы не были уверены, насколько они отстойные.
+
+- type: entity
+  parent: RMCGogglesBallistic
+  id: RMCGogglesM1A1BallisticBlue # TODO prescription variant
+  name: Синие баллистические военные очки
+  description: Одна из самых новых версий военных очков. Хотя обычно их можно найти установленными на шлемах модели M10, они также способны предотвращать попадание насекомых, пыли и других предметов в глаза. У этой версии синие линзы.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles_blue.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles_blue.rsi
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/M1A1_Ballistic_goggles_blue.rsi
+      state: helmet
 
 - type: entity
   parent: ClothingEyesBase
   id: RMCGogglesBallisticSquad
-  name: Advanced ballistic goggles
-  description: Cutting edge UNMC goggles. Advanced polymers and expensive nanotechnology allow the goggles to link with the wearer's armor and change the color of the lenses to match their squad designation. The lenses are invisible when worn by the unworthy.
+  name: Продвинутые баллистические очки
+  description: Передовые очки Триглава. Современные полимеры и дорогая нанотехнология позволяют очкам соединяться с броней владельца и менять цвет линз в соответствии с обозначением семейства. Линзы становятся невидимыми, когда их носит недостойный.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/squad_ballistic_goggles.rsi
   - type: Clothing
@@ -225,10 +399,12 @@
 - type: entity
   parent: ClothingEyesGlassesCheapSunglasses
   id: RMCSunglasses
-  suffix: RMC
-  name: sunglasses
-  description: Generic off-brand eyewear, used to help provide rudimentary eye cover.
+  suffix: Триглав
+  name: солнечные очки
+  description: Солнцезащитные очки с большими линзами для защиты глаз от солнца.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/sunglasses.rsi
     slots:
@@ -239,10 +415,12 @@
 - type: entity
   parent: ClothingEyesEyepatch
   id: RMCEyepatch
-  suffix: RMC
-  name: eyepatch
-  description: Once worn by swashbucklers of old, now more commonly associated with a figure of legend. They say he was big AND a boss. Impressive no? Don't let the MPs see you wearing this non-regulation attire.
+  suffix: Триглав
+  name: повязка на глаз
+  description: Скрывает особенности вашего тела.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Clothing
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/eyepatch.rsi
     slots:
@@ -252,9 +430,11 @@
 - type: entity
   parent: RMCSunglasses
   id: RMCSunglassesBig
-  name: personal shades
-  description: These are an expensive pair of sunglasses. This brand is popular with marine foot sloggers because its patented mirror refraction has been said to offer protection from atomic flash, solar radiation, and targeting lasers. To top it all off, everyone seems to know a guy who knows a guy who knows a guy that had a laser pistol reflect off of his shades. # Part of description redacted for the glasses to be legally distinct
+  name: дорогие очки
+  description: Это просто дорогие солнцезащитные очки. 
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/bigsunglasses.rsi
   - type: Clothing
@@ -267,9 +447,11 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCGlassesAviators
-  name: aviator shades
-  description: A pair of tan tinted sunglasses. You can faintly hear 80's music playing while wearing these.
+  name: очки авиатор
+  description: Пара солнцезащитных очков с тонировкой. В них можно услышать музыку 80-х.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/aviators.rsi
   - type: Clothing
@@ -281,9 +463,11 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCHipsterGlasses
-  name: prescription glasses
-  description: Boring glasses, makes you look smart and potentially reputable.
+  name: очки
+  description: Скучные очки, заставляющие вас выглядеть умным и потенциально солидным.
   components:
+  - type: Item
+    storedRotation: 0
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/hipster.rsi
   - type: Clothing
@@ -295,8 +479,8 @@
 - type: entity
   parent: ClothingEyesBase
   id: RMCWeldingGoggles
-  name: welding goggles
-  description: Protects the eyes from welders, approved by the mad scientist association.
+  name: сварочные очки
+  description: Помогает защитить глаза от яркой сварки.
   components:
   - type: Sprite
     sprite: _RMC14/Objects/Clothing/Eyes/Glasses/welding_goggles.rsi
@@ -305,10 +489,15 @@
   - type: ItemToggle
     activated: true
   - type: ToggleClothing
-    action: RMCActionToggleWeldingGoggles
+    action: ActionToggleWeldingMask
   - type: ComponentToggler
     components:
+    - type: IngestionBlocker
+    - type: FlashImmunity
+    - type: IdentityBlocker
     - type: EyeProtection
+    - type: VisionDarkener
+      strength: 6
   - type: RMCItemToggleClothingVisuals
   - type: GenericVisualizer
     visuals:
@@ -322,6 +511,26 @@
     - RMCWeldingGoggle
   - type: Item
     storedRotation: 0
+  - type: HelmetAccessory
+    rsi:
+      sprite: _RMC14/Objects/Clothing/Eyes/Glasses/welding_goggles.rsi
+      state: helmet
 
 - type: Tag
   id: RMCWeldingGoggle
+
+- type: entity
+  parent: ClothingEyesBase
+  id: RMCGogglesKutjevo
+  name: очки с кутьево
+  description: Очки, используемые для защиты глаз рабочих на Кутьево. Очки с сертификатом N95Z.
+  components:
+  - type: Item
+    storedRotation: 0
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/kutjevo_goggles.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Eyes/Glasses/kutjevo_goggles.rsi
+    slots:
+    - MASK
+    - EYES

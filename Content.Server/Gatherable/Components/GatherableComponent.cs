@@ -36,4 +36,10 @@ public sealed partial class GatherableComponent : Component
     /// </summary>
     [DataField]
     public float GatherOffset = 0.3f;
+
+    /// <summary>
+    /// How long it takes to gather the item
+    /// </summary>
+    [DataField("gatherTime"), ViewVariables(VVAccess.ReadWrite)]
+    public int GatherTime = 1;    
 }

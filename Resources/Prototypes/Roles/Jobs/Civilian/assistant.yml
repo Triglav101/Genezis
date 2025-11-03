@@ -1,4 +1,5 @@
 - type: job
+  parent: CMJobBase
   id: Passenger
   name: job-name-passenger
   description: job-description-passenger

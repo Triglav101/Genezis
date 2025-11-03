@@ -18,6 +18,24 @@
 
 - type: entity
   parent: BaseItem
+  id: NanoTaskCartridge
+  name: картридж с программой "цели"
+  description: Программа, позволяющая вести список задач, которые необходимо выполнить.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-nav
+  - type: Cartridge
+    programName: nano-task-program-name
+    icon:
+      sprite: Interface/Misc/program_icons.rsi
+      state: nano_task
+  - type: UIFragment
+    ui: !type:NanoTaskUi
+  - type: NanoTaskCartridge
+
+- type: entity
+  parent: BaseItem
   id: NewsReaderCartridge
   name: news cartridge
   description: A program for reading news.

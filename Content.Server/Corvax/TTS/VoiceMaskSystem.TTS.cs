@@ -14,7 +14,7 @@ public partial class VoiceMaskSystem
 
     private void OnSpeakerVoiceTransform(EntityUid uid, VoiceMaskComponent component, TransformSpeakerVoiceEvent args)
     {
-        args.VoiceId = component.VoiceId;
+        //args.VoiceId = component.VoiceId;
     }
 
     private void OnChangeVoice(Entity<VoiceMaskComponent> entity, ref VoiceMaskChangeVoiceMessage msg)
@@ -22,7 +22,7 @@ public partial class VoiceMaskSystem
         if (msg.Voice is { } id && !_proto.HasIndex<TTSVoicePrototype>(id))
             return;
 
-        entity.Comp.VoiceId = msg.Voice;
+        //entity.Comp.VoiceId = msg.Voice;
 
         _popupSystem.PopupEntity(Loc.GetString("voice-mask-voice-popup-success"), entity);
 

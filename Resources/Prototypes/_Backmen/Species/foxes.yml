@@ -1,6 +1,6 @@
 - type: species
   id: HumanoidFoxes
-  name: species-name-foxes
+  name: Таяран
   roundStart: true
   prototype: MobHumanoidFox
   sprites: MobHumanoidFoxSprites

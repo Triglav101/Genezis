@@ -44,3 +44,7 @@ rmc-announcement-emergency-dropship-crash = [font size=14][bold][color=white]EME
 rmc-announcement-delta = [color=white][font size=16][bold]SELF-DESTRUCT SYSTEMS ACTIVE[/bold][/font][/color][color=red][font size=14][bold]
 
      DANGER, THE EMERGENCY DESTRUCT SYSTEM IS NOW ACTIVATED. PROCEED TO THE SELF-DESTRUCT CHAMBER FOR CONTROL ROD INSERTION.[/bold][/font][/color]
+
+rmc-announcement-ares-command = [color=#CECECE][font size=16][bold]ARES v3.2[/bold][/font][/color][color=red][font size=16]
+ 
+     {$message}[/font][/color]

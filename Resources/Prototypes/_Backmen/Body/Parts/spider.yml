@@ -38,9 +38,9 @@
   - type: Icon
     sprite: Objects/Consumable/Food/meat.rsi
     state: spiderleg
-  - type: BodyPart
-    partType: Leg
-    symmetry: Right
+  # - type: BodyPart
+  #   partType: Leg
+  #   symmetry: Right
   - type: MovementBodyPart #should actual spiders get a seperate part from ArachneClassic?
     walkSpeed : 2.7
     sprintSpeed : 4.5
@@ -57,9 +57,9 @@
   - type: Icon
     sprite: Objects/Consumable/Food/meat.rsi
     state: spiderleg
-  - type: BodyPart
-    partType: Leg
-    symmetry: Left
+  # - type: BodyPart
+  #   partType: Leg
+  #   symmetry: Left
   - type: MovementBodyPart #should actual spiders get a seperate part from ArachneClassic?
     walkSpeed : 2.7
     sprintSpeed : 4.5

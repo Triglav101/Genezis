@@ -205,6 +205,11 @@
   description: flavor-complex-ketchunaise
 
 - type: flavor
+  id: mechanism
+  flavorType: Complex
+  description: flavor-complex-mechanism
+
+- type: flavor
   id: nothing
   flavorType: Complex
   description: flavor-complex-nothing

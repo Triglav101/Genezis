@@ -62,6 +62,9 @@
       - id: SalvageHumanCorpse
         prob: 0.1
         # Interesting (1%)
+        #  - Medical
+      - id: NanomachinesMedipen
+        prob: 0.1        
         #  - Ammo
       - id: MagazineBoxMagnum
         prob: 0.01
@@ -86,8 +89,6 @@
       - id: Telecrystal10
         prob: 0.0001
       - id: WeaponRevolverPython
-        prob: 0.0001
-      - id: WeaponRevolverMatebaNew
         prob: 0.0001
 
 - type: entity

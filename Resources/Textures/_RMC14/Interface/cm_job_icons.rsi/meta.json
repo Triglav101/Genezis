@@ -41,6 +41,12 @@
       "name": "hudsquad_mp"
     },
     {
+      "name": "hudsquad_mortar"
+    },
+    {
+      "name": "hudsquad_load"
+    },
+    {
       "name": "hudsquad_mpcadet"
     },
     {
@@ -108,9 +114,6 @@
     },
     {
       "name": "hudsquad_tl"
-    },
-    {
-      "name": "hudsquad_rm"
     },
     {
       "name": "hudsquad_spec"

@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Marines.Announce;
+﻿using Content.Shared._RMC14.Marines.Announce;
 using Content.Shared._RMC14.Marines.ControlComputer;
 using Content.Shared._RMC14.Overwatch;
 using Content.Shared._RMC14.TacticalMap;
@@ -17,6 +17,7 @@ public sealed class MarineCommunicationsComputerBui(EntityUid owner, Enum uiKey)
 
     protected override void Open()
     {
+        base.Open();        
         if (_window != null)
             return;
 
@@ -71,7 +72,11 @@ public sealed class MarineCommunicationsComputerBui(EntityUid owner, Enum uiKey)
 
             foreach (var zone in s.LandingZones)
             {
-                var button = new Button { Text = zone.Name };
+                var button = new Button
+                {
+                    Text = zone.Name,
+                    StyleClasses = { "OpenBoth" },
+                };
                 button.OnPressed += _ => SendPredictedMessage(new MarineCommunicationsDesignatePrimaryLZMsg(zone.Id));
                 _window.LandingZonesContainer.AddChild(button);
             }
@@ -82,5 +87,6 @@ public sealed class MarineCommunicationsComputerBui(EntityUid owner, Enum uiKey)
         _window.EchoButton.Visible =
             EntMan.TryGetComponent<MarineCommunicationsComputerComponent>(Owner, out var computer) &&
             computer.CanCreateEcho;
+        _window.EchoSeparator.Visible = _window.EchoButton.Visible;
     }
 }

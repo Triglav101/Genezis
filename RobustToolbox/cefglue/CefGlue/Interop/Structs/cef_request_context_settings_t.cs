@@ -12,30 +12,21 @@ namespace Xilium.CefGlue.Interop
         public UIntPtr size;
         public cef_string_t cache_path;
         public int persist_session_cookies;
-        public int persist_user_preferences;
         public cef_string_t accept_language_list;
         public cef_string_t cookieable_schemes_list;
         public int cookieable_schemes_exclude_defaults;
 
         #region Alloc & Free
-        private static int _sizeof;
-
-        static cef_request_context_settings_t()
-        {
-            _sizeof = Marshal.SizeOf(typeof(cef_request_context_settings_t));
-        }
-
         public static cef_request_context_settings_t* Alloc()
         {
-            var ptr = (cef_request_context_settings_t*)Marshal.AllocHGlobal(_sizeof);
-            *ptr = new cef_request_context_settings_t();
-            ptr->size = (UIntPtr)_sizeof;
+            var ptr = (cef_request_context_settings_t*)NativeMemory.AllocZeroed((nuint)sizeof(cef_request_context_settings_t));
+            ptr->size = (nuint)sizeof(cef_request_context_settings_t);
             return ptr;
         }
 
         public static void Free(cef_request_context_settings_t* ptr)
         {
-            Marshal.FreeHGlobal((IntPtr)ptr);
+            NativeMemory.Free(ptr);
         }
         #endregion
     }

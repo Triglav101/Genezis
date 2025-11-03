@@ -122,17 +122,6 @@
   - ClothingPounchRXBZZSRFilled
 
 - type: thiefBackpackSet
-  id: MP5Set
-  name: army-duffel-category-mp5-name
-  description: army-duffel-category-mp5-description
-  sprite:
-    sprite: Backmen/Objects/Weapons/Gunsx64/SMGs/mp5/bigsuper.rsi
-    state: icon
-  content:
-  - WeaponSubMachineGunMP5Tactical
-  - ClothingPounchRXBZZPPFilled
-
-- type: thiefBackpackSet
   id: G36Set
   name: army-duffel-category-g36-name
   description: army-duffel-category-g36-description

@@ -1,0 +1,111 @@
+- type: entity
+  name: Дуалета
+  parent: [BaseWeaponPistol, BaseSyndicateContraband]
+  id: WeaponPistolDualetta
+  description: Парное оружие уже ушедшей эпохи.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Weapons/Guns/Pistols/Dualetta.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Clothing
+    sprite: _Goobstation/Objects/Weapons/Guns/Pistols/Dualetta.rsi
+  - type: Gun
+    minAngle: 1
+    maxAngle: 5
+    angleIncrease: 1
+    angleDecay: 4
+    fireRate: 8
+    availableModes:
+    - SemiAuto
+    - FullAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazinePistolHighCapacity
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - MagazinePistol
+            - MagazinePistolHighCapacity
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        startingItem: CartridgePistol
+        priority: 1
+        whitelist:
+          tags:
+            - CartridgePistol
+  - type: Tag
+    tags:
+    - WeaponPistolDualetta
+  - type: Multishot
+    spreadMultiplier: 1.25
+  - type: RequiresDualWield
+    whitelist:
+      tags:
+      - WeaponPistolDualetta
+
+- type: entity
+  id: ADTEctoplasmicPistol
+  parent: BaseWeaponPowerCell
+  name: эктоплазматический пистолет
+  description: Специально сделан для охоты на эктоплазматические формы жизни.
+  components:
+  - type: Sprite
+    sprite: ADT/Objects/Weapons/Guns/Pistols/ecto_pistol.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-3
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: true
+  - type: Item
+    sprite: ADT/Objects/Weapons/Guns/Pistols/ecto_pistol.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+  - type: AmmoCounter
+  - type: Gun
+    fireRate: 1.5
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: MagazineAmmoProvider
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: ADTPowerCellEctoplasmSmall
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags:
+            - PhantomEctoplasmPistolBattery
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: Clothing
+    sprite: ADT/Objects/Weapons/Guns/Pistols/ecto_pistol.rsi
+    quickEquip: false
+    slots:
+    - suitStorage
+    - Belt

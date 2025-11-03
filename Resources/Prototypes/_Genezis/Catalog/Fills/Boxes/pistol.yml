@@ -1,0 +1,10 @@
+- type: entity
+  name: набор дуалеты
+  parent: BoxCardboard
+  id: BoxDualettaKit
+  description: Полный ящик точно легальных вещей.
+  components:
+  - type: StorageFill
+    contents:
+      - id: WeaponPistolDualetta
+        amount: 2

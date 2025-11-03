@@ -1,6 +1,6 @@
 - type: entity
   id: SentientSlimesCore
-  parent: [BaseItem, OrganHumanBrain]
+  parent: BaseHumanOrganUnGibbable
   name: sentient slimes core
   description: "The source of incredible, unending gooeyness."
   components:

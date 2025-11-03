@@ -152,6 +152,8 @@
     tags:
     - CannotSuicide
     - DoorBumpOpener
+  - type: CombatPower
+    factor: 4 # times more dangerous than a crew-member    
   - type: NightVision #backmen: night vision
     isToggle: true
     color: "#808080"

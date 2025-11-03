@@ -8,6 +8,9 @@
     snap:
     - Disposal
   components:
+  - type: Tag
+    tags:
+    - Disposal        
   - type: Sprite
     visible: false
   - type: Appearance

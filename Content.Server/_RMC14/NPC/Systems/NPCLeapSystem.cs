@@ -1,4 +1,4 @@
-using Content.Server._RMC14.NPC.Components;
+﻿using Content.Server._RMC14.NPC.Components;
 using Content.Server.DoAfter;
 using Content.Server.Interaction;
 using Content.Shared._RMC14.Xenonids;
@@ -110,6 +110,17 @@ public sealed partial class NPCLeapSystem : EntitySystem
             }
             else
             {
+                if (!TryComp<XenoComponent>(uid, out var xeno) || !TryComp<WorldTargetActionComponent>(xeno.Actions[comp.ActionId], out var action))
+                {
+                    comp.Status = LeapStatus.Unspecified;
+                    continue;
+                }
+
+                if (!_actions.ValidAction(action))
+                {
+                    comp.Status = LeapStatus.Unspecified;
+                    continue;
+                }
 
                 var worldPos = _transform.GetMoverCoordinates(uid);
                 var targetPos = _transform.GetMoverCoordinates(comp.Target);
@@ -120,7 +131,23 @@ public sealed partial class NPCLeapSystem : EntitySystem
 
                 comp.Destination = destination;
 
+                if (action.Event != null)
+                {
+                    action.Event.Performer = uid;
+
+                    var actions = xeno.Actions;
+                    if (actions.TryGetValue(comp.ActionId, out var actionId) &&
+                        _actions.TryGetActionData(actionId, out var actionComp))
+                    {
+                        action.Event.Action = (actionId, actionComp);
+                    }
+
+                    action.Event.Target = destination;
+                }
+
                 comp.CurrentDoAfter = after.NextId;
+
+                _actions.PerformAction(uid, null, xeno.Actions[comp.ActionId], action, action.BaseEvent, _timing.CurTime);
 
                 // Means the action was cancelled for some reason
                 if (comp.CurrentDoAfter == after.NextId)

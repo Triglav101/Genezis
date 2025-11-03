@@ -18,7 +18,7 @@ public sealed partial class MeleeWeaponSystem
     /// <summary>
     /// Does all of the melee effects for a player that are predicted, i.e. character lunge and weapon animation.
     /// </summary>
-    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, bool predicted = true)
+    public override void DoLunge(EntityUid user, EntityUid weapon, Angle angle, Vector2 localPos, string? animation, Angle spriteRotation, bool predicted = true)
     {
         if (!Timing.IsFirstTimePredicted)
             return;
@@ -43,7 +43,6 @@ public sealed partial class MeleeWeaponSystem
             return;
         }
 
-        var spriteRotation = Angle.Zero;
         if (arcComponent.Animation != WeaponArcAnimation.None
             && TryComp(weapon, out MeleeWeaponComponent? meleeWeaponComponent))
         {
@@ -51,7 +50,6 @@ public sealed partial class MeleeWeaponSystem
                 && TryComp(weapon, out SpriteComponent? weaponSpriteComponent))
                 sprite.CopyFrom(weaponSpriteComponent);
 
-            spriteRotation = meleeWeaponComponent.WideAnimationRotation;
 
             if (meleeWeaponComponent.SwingLeft)
                 angle *= -1;

@@ -67,13 +67,10 @@
     eyes: ClothingEyesGlassesSecurity
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterArmorCentcom
-    suitstorage: WeaponRifleFamas
     head: ClothingHeadHatBeretHoSCentcom
     id: CCOfficerPDA
     ears: ClothingHeadsetCentComCC
     belt: ClothingBeltSecuritySuper
-    pocket1: WeaponPistolG23
-    pocket2: MagazinePistol
   storage:
     back:
     - MedkitCombatFilled

@@ -171,7 +171,7 @@ namespace Content.Client.Examine
         ///     not fill it with information. This is done when the server sends examine info/verbs,
         ///     or immediately if it's entirely clientside.
         /// </summary>
-        public void OpenTooltip(EntityUid player, EntityUid target, bool centeredOnCursor=true, bool openAtOldTooltip=true, bool knowTarget = true)
+        public void OpenTooltip(EntityUid player, EntityUid target, bool centeredOnCursor=false, bool openAtOldTooltip=true, bool knowTarget = true)
         {
             // Close any examine tooltip that might already be opened
             // Before we do that, save its position. We'll prioritize opening any new popups there if
@@ -182,7 +182,7 @@ namespace Content.Client.Examine
             // cache entity for Update function
             _examinedEntity = target;
 
-            const float minWidth = 300;
+            const float MaxWidth = 0;
 
             if (openAtOldTooltip && oldTooltipPos != null)
             {
@@ -199,11 +199,11 @@ namespace Content.Client.Examine
             }
 
             // Actually open the tooltip.
-            _examineTooltipOpen = new Popup { MaxWidth = 400 };
+            _examineTooltipOpen = new Popup { MaxWidth = 0 };
             _userInterfaceManager.ModalRoot.AddChild(_examineTooltipOpen);
             var panel = new PanelContainer() { Name = "ExaminePopupPanel" };
-            panel.AddStyleClass(StyleClassEntityTooltip);
-            panel.ModulateSelfOverride = Color.LightGray.WithAlpha(0.90f);
+            // panel.AddStyleClass(StyleClassEntityTooltip);
+            // panel.ModulateSelfOverride = Color.LightGray.WithAlpha(0.90f);
             _examineTooltipOpen.AddChild(panel);
 
             var vBox = new BoxContainer
@@ -217,40 +217,40 @@ namespace Content.Client.Examine
             var hBox = new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
-                SeparationOverride = 5,
-                Margin = new Thickness(6, 0, 6, 0)
+                SeparationOverride = 0,
+                Margin = new Thickness(0, 0, 0, 0)
             };
 
             vBox.AddChild(hBox);
 
-            if (EntityManager.HasComponent<SpriteComponent>(target))
-            {
-                var spriteView = new SpriteView
-                {
-                    OverrideDirection = Direction.South,
-                    SetSize = new Vector2(32, 32)
-                };
-                spriteView.SetEntity(target);
-                hBox.AddChild(spriteView);
-            }
+            // if (EntityManager.HasComponent<SpriteComponent>(target))
+            // {
+            //     var spriteView = new SpriteView
+            //     {
+            //         OverrideDirection = Direction.South,
+            //         SetSize = new Vector2(32, 32)
+            //     };
+            //     spriteView.SetEntity(target);
+            //     hBox.AddChild(spriteView);
+            // }
 
-            if (knowTarget)
-            {
-                var itemName = FormattedMessage.EscapeText(Identity.Name(target, EntityManager, player));
-                var labelMessage = FormattedMessage.FromMarkupPermissive($"[bold]{itemName}[/bold]");
-                var label = new RichTextLabel();
-                label.SetMessage(labelMessage);
-                hBox.AddChild(label);
-            }
-            else
-            {
-                var label = new RichTextLabel();
-                label.SetMessage(FormattedMessage.FromMarkupOrThrow("[bold]???[/bold]"));
-                hBox.AddChild(label);
-            }
+            // if (knowTarget)
+            // {
+            //     var itemName = FormattedMessage.EscapeText(Identity.Name(target, EntityManager, player));
+            //     var labelMessage = FormattedMessage.FromMarkupPermissive($"[bold]{itemName}[/bold]");
+            //     var label = new RichTextLabel();
+            //     label.SetMessage(labelMessage);
+            //     hBox.AddChild(label);
+            // }
+            // else
+            // {
+            //     var label = new RichTextLabel();
+            //     label.SetMessage(FormattedMessage.FromMarkupOrThrow("[bold]???[/bold]"));
+            //     hBox.AddChild(label);
+            // }
 
             panel.Measure(Vector2Helpers.Infinity);
-            var size = Vector2.Max(new Vector2(minWidth, 0), panel.DesiredSize);
+            var size = Vector2.Max(new Vector2(MaxWidth, 0), panel.DesiredSize);
 
             _examineTooltipOpen.Open(UIBox2.FromDimensions(_popupPos.Position, size));
         }
@@ -276,8 +276,8 @@ namespace Content.Client.Examine
                 if (string.IsNullOrWhiteSpace(text))
                     continue;
 
-                var richLabel = new RichTextLabel() { Margin = new Thickness(4, 4, 0, 4)};
-                richLabel.SetMessage(message);
+                var richLabel = new RichTextLabel() { Margin = new Thickness(0, 0, 0, 0)};
+                //richLabel.SetMessage(message);
                 vBox.AddChild(richLabel);
                 break;
             }

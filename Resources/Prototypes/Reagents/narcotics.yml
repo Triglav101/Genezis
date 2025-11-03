@@ -48,6 +48,10 @@
         key: Drowsiness
         time: 10
         type: Remove
+      - !type:DrugIntoxication
+        addictionEffect: 0.4
+        toleranceEffect: 0.07
+        drugStrenght: 3        
     Medicine:
       effects:
       - !type:ResetNarcolepsy
@@ -101,6 +105,10 @@
         messages: ["ephedrine-effect-tight-pain", "ephedrine-effect-heart-pounds"]
         type: Local
         probability: 0.05
+      - !type:DrugIntoxication
+        addictionEffect: 0.4
+        toleranceEffect: 0.07
+        drugStrenght: 3        
     Medicine:
       effects:
       - !type:ResetNarcolepsy
@@ -164,6 +172,10 @@
         key: Drowsiness
         time: 10
         type: Remove
+      - !type:DrugIntoxication
+        addictionEffect: 0.1
+        toleranceEffect: 0.05
+        drugStrenght: 2        
     Medicine:
       metabolismRate: 1.0
       effects:
@@ -204,6 +216,10 @@
         type: Add
         time: 16
         refresh: false
+      - !type:DrugIntoxication
+        addictionEffect: 0.1
+        toleranceEffect: 0.07
+        drugStrenght: 3
 
 - type: reagent
   id: Nicotine
@@ -221,6 +237,10 @@
       effects:
       - !type:ChemAddMoodlet
         moodPrototype: NicotineBenefit
+      - !type:DrugIntoxication
+        addictionEffect: 0.05
+        toleranceEffect: 0.02
+        drugStrenght: 1
 
 # TODO: Replace these nonstandardized effects with generic brain damage
 - type: reagent
@@ -251,6 +271,10 @@
         probability: 0.05
       - !type:Drunk # Headaches and slurring are major symptoms of brain damage, this is close enough
         boozePower: 5
+      - !type:DrugIntoxication
+        addictionEffect: 0.07
+        toleranceEffect: 0.02
+        drugStrenght: 3
 
 - type: reagent
   id: SpaceDrugs
@@ -275,6 +299,10 @@
         - !type:ReagentThreshold
           reagent: SpaceDrugs
           min: 6
+      - !type:DrugIntoxication
+        addictionEffect: 0.5
+        toleranceEffect: 0.01
+        drugStrenght: 3
 
 - type: reagent
   id: Bananadine
@@ -293,6 +321,10 @@
         type: Add
         time: 5
         refresh: false
+      - !type:DrugIntoxication
+        addictionEffect: 0.2
+        toleranceEffect: 0.1
+        drugStrenght: 2
 
 # Probably replace this one with sleeping chem when putting someone in a comatose state is easier
 - type: reagent
@@ -316,6 +348,10 @@
         component: ForcedSleeping
         refresh: false
         type: Add
+      - !type:DrugIntoxication
+        addictionEffect: 0.2
+        toleranceEffect: 0.01
+        drugStrenght: 1
 
 - type: reagent
   id: MuteToxin
@@ -335,6 +371,10 @@
         type: Add
         time: 10
         refresh: false
+      - !type:DrugIntoxication
+        addictionEffect: 0.04
+        toleranceEffect: 0.01
+        drugStrenght: 1
 
 - type: reagent
   id: NorepinephricAcid
@@ -379,6 +419,10 @@
         conditions:
         - !type:ReagentThreshold
           min: 20
+      - !type:DrugIntoxication
+        addictionEffect: 0.04
+        toleranceEffect: 0.01
+        drugStrenght: 2
 
 - type: reagent
   id: TearGas
@@ -419,12 +463,19 @@
       - !type:Emote
         emote: Scream
         probability: 0.08
+      - !type:Emote
+        emote: Cough
+        probability: 0.15        
       - !type:GenericStatusEffect
         key: TemporaryBlindness
         component: TemporaryBlindness
         conditions:
         - !type:ReagentThreshold
           min: 20
+      - !type:DrugIntoxication
+        addictionEffect: 0.1
+        toleranceEffect: 0.03
+        drugStrenght: 2
 
 - type: reagent
   id: Happiness
@@ -439,21 +490,18 @@
       effects:
       - !type:Emote
         emote: Laugh
-        showInChat: true
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
           max: 20
       - !type:Emote
         emote: Whistle
-        showInChat: true
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
           max: 20
       - !type:Emote
         emote: Crying
-        showInChat: true
         probability: 0.1
         conditions:
         - !type:ReagentThreshold
@@ -481,3 +529,7 @@
         - !type:ReagentThreshold
           reagent: Happiness
           min: 6
+      - !type:DrugIntoxication
+        addictionEffect: 0.08
+        toleranceEffect: 0.03
+        drugStrenght: 2

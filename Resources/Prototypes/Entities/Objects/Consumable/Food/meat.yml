@@ -187,6 +187,16 @@
     defaultTarget: bacon
 
 - type: entity
+  name: жареный кусок мяса
+  parent: FoodMeatCooked
+  id: FoodHumanMeatCooked
+  description: Плохо прожаренный кусок мяса, на вид из гуманоида.
+  components:
+   - type: Construction
+     graph: HumanSteak
+     node: human steak
+
+- type: entity
   name: raw bear meat
   parent: FoodMeatRawBase
   id: FoodMeatBear

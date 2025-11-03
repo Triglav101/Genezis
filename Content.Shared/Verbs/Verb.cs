@@ -1,3 +1,4 @@
+using Content.Shared._RMC14.Admin;
 using Content.Shared.Database;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
@@ -223,7 +224,8 @@ namespace Content.Shared.Verbs
             typeof(AlternativeVerb),
             typeof(ActivationVerb),
             typeof(ExamineVerb),
-            typeof(EquipmentVerb)
+            typeof(EquipmentVerb),
+            typeof(RMCAdminVerb)
         };
     }
 
@@ -347,6 +349,7 @@ namespace Content.Shared.Verbs
         public override bool CloseMenuDefault => false; // for examine verbs, this will close the examine tooltip.
 
         public bool ShowOnExamineTooltip = true;
+        public bool HoverVerb = false; // aligned to the left, gives text on hover
     }
 
     /// <summary>

@@ -28,6 +28,27 @@
         whitelist:
           tags:
             - SubdermalImplant
+      allowDeimplantAll: false
+      deimplantWhitelist:
+      - SadTromboneImplant
+      - LightImplant
+      - BikeHornImplant
+      - TrackingImplant
+      - StorageImplant
+      - FreedomImplant
+      - UplinkImplant
+      - EmpImplant
+      - ScramImplant
+      - DnaScramblerImplant
+      - MicroBombImplant
+      - MacroBombImplant
+      - DeathAcidifierImplant
+      - DeathRattleImplant
+      - MindShieldImplant    
+      deimplantFailureDamage:
+        types:
+          Cellular: 50
+          Heat: 10              
     - type: Sprite
       sprite: Objects/Specific/Medical/implanter.rsi
       state: implanter0
@@ -53,6 +74,10 @@
           implantOnly:
             True: {state: broken}
             False: {state: implanter0}
+    - type: UserInterface
+      interfaces:
+        enum.DeimplantUiKey.Key:
+          type: DeimplantBoundUserInterface
 
 - type: entity
   id: Implanter

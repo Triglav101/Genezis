@@ -1,4 +1,4 @@
-using Content.Client.Credits;
+﻿using Content.Client.Credits;
 using Content.Client.Lobby;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Systems.Info;
@@ -29,7 +29,7 @@ public sealed class RoadmapUIController : UIController, IOnStateEntered<LobbySta
         if (_shown || _window != null)
             return;
 
-        if (_infoUIController._rulesPopup != null)
+        if (_infoUIController.RulesPopup != null)
             return;
 
         ToggleRoadmap();

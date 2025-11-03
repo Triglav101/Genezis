@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Connection;
+﻿using Content.Shared._RMC14.Connection;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared.Atmos.Rotting;
 using Content.Shared.Damage;
@@ -29,6 +29,9 @@ public sealed class CMHealthIconsSystem : EntitySystem
     public IReadOnlyList<StatusIconData> GetIcons(Entity<DamageableComponent> damageable)
     {
         var icons = new List<StatusIconData>();
+
+        if (HasComp<XenoComponent>(damageable))
+            return icons;
 
         if (_mobState.IsAlive(damageable) ||
             _mobState.IsCritical(damageable) ||

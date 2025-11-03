@@ -90,7 +90,7 @@
 
 - type: loadout
   id: TrooperUniform
-  equipment: 
+  equipment:
     jumpsuit: ClothingUniformSecurityTrooper
 
 - type: loadout
@@ -223,11 +223,6 @@
   id: WeaponPistolACP14
   equipment:
     pocket1: WeaponPistolACP14
-
-- type: loadout
-  id: WeaponPistolG23
-  equipment:
-    pocket1: WeaponPistolG23
 
 - type: loadout
   id: WeaponPistolVP78

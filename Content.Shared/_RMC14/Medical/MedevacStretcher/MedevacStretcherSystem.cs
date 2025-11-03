@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared._RMC14.Areas;
 using Content.Shared._RMC14.Dropship.Utility.Events;
 using Content.Shared._RMC14.Dropship.Weapon;
 using Content.Shared._RMC14.Marines.Skills;
@@ -22,6 +23,7 @@ namespace Content.Shared._RMC14.Medical.MedevacStretcher;
 public sealed class MedevacStretcherSystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly AreaSystem _areas = default!;
     [Dependency] private readonly SharedDropshipWeaponSystem _dropshipWeapon = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly INetManager _net = default!;
@@ -40,6 +42,8 @@ public sealed class MedevacStretcherSystem : EntitySystem
         SubscribeLocalEvent<MedevacStretcherComponent, PrepareMedevacEvent>(PrepareMedevac);
         SubscribeLocalEvent<MedevacStretcherComponent, ExaminedEvent>(OnExamine);
         SubscribeLocalEvent<MedevacStretcherComponent, InteractHandEvent>(OnInteract);
+        SubscribeLocalEvent<MedevacStretcherComponent, StrappedEvent>(OnStrapped);
+        SubscribeLocalEvent<MedevacStretcherComponent, UnstrappedEvent>(OnStrapped);
     }
 
     public void Medevac(Entity<MedevacStretcherComponent> ent, EntityUid medevacEntity)
@@ -100,6 +104,11 @@ public sealed class MedevacStretcherSystem : EntitySystem
     {
         if (_timing.ApplyingState)
             return;
+
+        if (args.IsFolded)
+            DeactivateBeacon(ent.Owner);
+        else
+            ActivateBeacon(ent.Owner, null);
     }
 
     private void PrepareMedevac(Entity<MedevacStretcherComponent> ent, ref PrepareMedevacEvent args)
@@ -116,6 +125,9 @@ public sealed class MedevacStretcherSystem : EntitySystem
 
     private void OnInteract(Entity<MedevacStretcherComponent> ent, ref InteractHandEvent args)
     {
+        if (HasComp<XenoComponent>(args.User))
+            return;
+
         if (args.Handled)
             return;
 
@@ -129,22 +141,57 @@ public sealed class MedevacStretcherSystem : EntitySystem
         args.Handled = true;
     }
 
+    private void OnStrapped<T>(Entity<MedevacStretcherComponent> ent, ref T args)
+    {
+        if (!TryComp(ent, out DropshipTargetComponent? dropshipTarget))
+            return;
+
+        dropshipTarget.Abbreviation = GetName(ent.Owner);
+        Dirty(ent, dropshipTarget);
+        _dropshipWeapon.TargetUpdated((ent, dropshipTarget));
+    }
+
     private void ToggleBeacon(EntityUid stretcher, EntityUid user)
     {
-        ActivateBeacon(stretcher, user);
+        if (HasComp<DropshipTargetComponent>(stretcher))
+            DeactivateBeacon(stretcher);
+        else
+            ActivateBeacon(stretcher, user);
     }
 
     private void ActivateBeacon(EntityUid stretcher, EntityUid? user)
     {
+        if (HasComp<DropshipTargetComponent>(stretcher))
+            return;
 
         var stretcherCoords = stretcher.ToCoordinates();
         var snappedCoords = stretcher.ToCoordinates().SnapToGrid(EntityManager, _mapManager);
+        if (!_dropshipWeapon.CasDebug &&
+            (!_areas.TryGetArea(snappedCoords, out var stretcherArea, out _) ||
+            !stretcherArea.Value.Comp.Medevac))
+        {
+            _popup.PopupClient(Loc.GetString("rmc-medevac-area-not-cas"), stretcherCoords, user);
+            return;
+        }
 
         if (!HasComp<MedevacStretcherComponent>(stretcher))
             return;
 
         var name = GetName(stretcher);
+        _dropshipWeapon.MakeTarget(stretcher, name, false);
 
+        _appearance.SetData(stretcher, MedevacStretcherVisuals.BeaconState, BeaconVisuals.On);
+        _popup.PopupClient(Loc.GetString("rmc-medevac-activate-beacon"), stretcherCoords, user);
+    }
+
+    private void DeactivateBeacon(EntityUid stretcher)
+    {
+        if (!HasComp<DropshipTargetComponent>(stretcher))
+            return;
+
+        RemCompDeferred<DropshipTargetComponent>(stretcher);
+        _appearance.SetData(stretcher, MedevacStretcherVisuals.BeaconState, BeaconVisuals.Off);
+        _appearance.SetData(stretcher, MedevacStretcherVisuals.MedevacingState, false);
     }
 
     private string GetName(Entity<StrapComponent?> stretcher)

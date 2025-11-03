@@ -19,6 +19,12 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.IdentityManagement;
 using Robust.Shared.Timing;
+using Content.Server.Discord;
+using Content.Shared.CCVar;
+using Content.Shared.GameTicking;
+using Robust.Server;
+using Robust.Shared.Configuration;
+
 
 namespace Content.Server.MassMedia.Systems;
 
@@ -34,10 +40,25 @@ public sealed class NewsSystem : SharedNewsSystem
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly GameTicker _ticker = default!;
     [Dependency] private readonly IChatManager _chatManager = default!;
+    [Dependency] private readonly DiscordWebhook _discord = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IBaseServer _baseServer = default!;
+
+    private WebhookIdentifier? _webhookId;
+
 
     public override void Initialize()
     {
         base.Initialize();
+
+        // Discord hook
+        _cfg.OnValueChanged(CCVars.DiscordNewsWebhook,
+            value =>
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                    _discord.GetWebhook(value, data => _webhookId = data.ToIdentifier());
+            }, true);
+        SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
 
         // News writer
         SubscribeLocalEvent<NewsWriterComponent, MapInitEvent>(OnMapInit);
@@ -324,4 +345,50 @@ public sealed class NewsSystem : SharedNewsSystem
     {
         UpdateWriterUi(ent);
     }
+
+    #region Discord Hook
+
+    private void OnRoundEndTextAppend(RoundEndTextAppendEvent ev)
+    {
+        var stationUid = _station.GetStationInMap(_ticker.DefaultMap);
+
+        if (TryComp<StationNewsComponent>(stationUid, out var stationNews))
+        {
+            foreach (var article in stationNews.Articles)
+            {
+                SendDiscordWebhook(article);
+            }
+        }
+    }
+
+    private async void SendDiscordWebhook(NewsArticle article)
+    {
+        if (_webhookId is null) return;
+
+        try
+        {
+            var embed = new WebhookEmbed
+            {
+                Title = article.Title,
+                Description = article.Content,
+                Color = 0x58b9ff,
+                Footer = new WebhookEmbedFooter
+                {
+                    Text = Loc.GetString("news-discord-footer",
+                        ("author", article.Author ?? "???"),
+                        ("server", _baseServer.ServerName),
+                        ("round", _ticker.RoundId))
+                }
+            };
+            var payload = new WebhookPayload { Embeds = [embed] };
+            await _discord.CreateMessage(_webhookId.Value, payload);
+            Log.Info("Send news article to Discord webhook");
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Error while sending discord news article:\n{e}");
+        }
+    }
+
+    #endregion
 }

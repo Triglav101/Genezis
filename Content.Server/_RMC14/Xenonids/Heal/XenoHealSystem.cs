@@ -1,6 +1,7 @@
 using Content.Server._RMC14.Xenonids.Respawn;
 using Content.Server.Chat.Systems;
 using Content.Shared._RMC14.Xenonids.Heal;
+using Content.Shared.Backmen.Chat;
 using Robust.Shared.Map;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ public sealed partial class XenoHealSystem : SharedXenoHealSystem
 
     protected override void SacraficialHealShout(EntityUid xeno)
     {
-
+        _chat.TrySendInGameICMessage(xeno, Loc.GetString("rmc-xeno-for-the-hive-announce"), InGameICChatType.Speak, false);
     }
 
     protected override void SacraficialHealRespawn(EntityUid xeno, TimeSpan time, bool atCorpse = false, EntityCoordinates? corpse = null)

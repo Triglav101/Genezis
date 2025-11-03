@@ -1,6 +1,7 @@
 using Content.Server.NPC.Components;
 using Content.Shared.CombatMode;
 using Content.Shared.Interaction;
+using Content.Shared.Physics;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Map;
@@ -133,7 +134,8 @@ public sealed partial class NPCCombatSystem
             {
                 comp.LOSAccumulator += UnoccludedCooldown;
                 // For consistency with NPC steering.
-                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f);
+                var collisionGroup = comp.UseOpaqueForLOSChecks ? CollisionGroup.Opaque : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
+                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f, collisionGroup);
             }
 
             if (!comp.TargetInLOS)
@@ -202,6 +204,10 @@ public sealed partial class NPCCombatSystem
                 return;
             }
             _gun.SetTarget(gun, comp.Target); // backmen: Laying System
+            
+#pragma warning disable RA0002
+            gun.Target = comp.Target;
+#pragma warning restore RA0002
             _gun.AttemptShoot(uid, gunUid, gun, targetCordinates);
         }
     }

@@ -8,6 +8,7 @@
     damage:
       types:
         Piercing: 16
+    penetrationScore: 1
 
 - type: entity
   id: BulletPistolPractice
@@ -43,3 +44,4 @@
       types:
         Radiation: 6
         Piercing: 10
+    penetrationScore: 2

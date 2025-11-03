@@ -97,7 +97,7 @@ public sealed class XenoEnergySystem : EntitySystem
         var max = _alerts.GetMaxSeverity(xeno.Comp.Alert);
         var severity = max - ContentHelpers.RoundToLevels(level, xeno.Comp.Max, max + 1);
         string? energyResourceMessage = (int)xeno.Comp.Current + " / " + xeno.Comp.Max;
-        _alerts.ShowAlert(xeno, xeno.Comp.Alert, (short)severity);
+        _alerts.ShowAlert(xeno, xeno.Comp.Alert, (short)severity, dynamicMessage: energyResourceMessage);
     }
 
     private void OnXenoActionEnergyUseAttempt(Entity<XenoActionEnergyComponent> action, ref RMCActionUseAttemptEvent args)
@@ -205,7 +205,8 @@ public sealed class XenoEnergySystem : EntitySystem
                 continue;
 
             comp.NextGain = time + comp.GainEvery;
-            AddEnergy((uid, comp), comp.Gain, false);
+            if (comp.GenerationCap == null || comp.Current < comp.GenerationCap)
+                AddEnergy((uid, comp), comp.Gain, false);
             Dirty(uid, comp);
         }
     }

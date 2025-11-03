@@ -7,6 +7,12 @@ reagent-desc-carpotoxin = A highly toxic reagent found in space carps. Causes a 
 reagent-name-mold = mold
 reagent-desc-mold = A fungal growth, often found in dark, humid places or on expired bread. Will cause you to develop a disease if ingested.
 
+reagent-name-nanomachines = наномашины
+reagent-desc-nanomachines = Вещество, способное роботизировать живое существо.
+
+reagent-name-nanomachines-plus = наномашины плюс
+reagent-desc-nanomachines-plus = Вещество, способное практически мгновенно роботизировать практически любое существо... но какой ценой?
+
 reagent-name-polytrinic-acid = polytrinic acid
 reagent-desc-polytrinic-acid = An extremely corrosive chemical substance. Severely burns anyone who comes directly into contact with it.
 

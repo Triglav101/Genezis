@@ -8,18 +8,19 @@ namespace Content.Client.Xenonids.UI;
 
 [GenerateTypedNameReferences]
 [Virtual]
-#pragma warning disable RXN0002 // Found multiple candidate XAML files for Content.Client.Xenonids.UI.XenoChoiceControl
 public partial class XenoChoiceControl : Control
-#pragma warning restore RXN0002 // Found multiple candidate XAML files for Content.Client.Xenonids.UI.XenoChoiceControl
 {
+    public XenoChoiceControl() => RobustXamlLoader.Load(this);
 
     public void Set(string name, Texture? texture)
     {
-
+        NameLabel.SetMessage(name);
+        Texture.Texture = texture;
     }
 
     public void Set(FormattedMessage msg, Texture? texture)
     {
-
+        NameLabel.SetMessage(msg);
+        Texture.Texture = texture;
     }
 }

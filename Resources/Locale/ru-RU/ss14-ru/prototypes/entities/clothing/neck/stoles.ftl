@@ -1,2 +1,2 @@
-ent-ClothingNeckStoleChaplain = стола священника
+ent-ClothingNeckStoleChaplain = стола фанатика
     .desc = Элегантно оформленная накидка с яркими золотыми крестами на обоих концах.

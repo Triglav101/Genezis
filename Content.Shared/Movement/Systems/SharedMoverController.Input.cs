@@ -27,6 +27,7 @@ namespace Content.Shared.Movement.Systems
     /// </summary>
     public abstract partial class SharedMoverController
     {
+        [Dependency] private readonly StaminaSystem _staminaSystem = default!;
         [Dependency] private readonly StaminaSystem stamn = default!;
         [Dependency] private readonly SharedAudioSystem audio = default!;
         [Dependency] private readonly IRobustRandom _random = default!;
@@ -365,6 +366,10 @@ namespace Content.Shared.Movement.Systems
             }
 
             if (moverComp == null) return;
+
+            // ERRORGATE DRAIN STAMINA ON SPRINTING
+            if (TryComp<StaminaComponent>(uid, out var stamina))
+                _staminaSystem.ToggleStaminaDrain(uid, stamina.SprintingStaminaDrainRate, walking);
 
             SetSprinting((uid, moverComp), subTick, walking);
         }

@@ -10,7 +10,7 @@ rmc-breech-loaded-not-ready-to-shoot = Сначала нужно открыть 
 rmc-breech-loaded-closed-load-attempt = Сначала нужно открыть затвор!
 rmc-breech-loaded-closed-extract-attempt = Сначала нужно открыть затвор!
 
-mc-wield-use-delay = Вам нужно подождать {$seconds} секунд перед тем как взять в обе руки {$wieldable}!
+rmc-wield-use-delay = Вам нужно подождать {$seconds} секунд перед тем как взять в обе руки {$wieldable}!
 rmc-shoot-use-delay = Вам нужно подождать {$seconds} секунд перед тем как начать стрелять из {$wieldable}!
 
 rmc-shoot-harness-required = Требуется ремни.
@@ -27,7 +27,7 @@ rmc-id-lock-color-authorized = chartreuse
 rmc-id-lock-toggle-on = lock
 rmc-id-lock-toggle-off = unlock
 
-rmc-iff-toggle = You {$action} the IFF on the {$gun}.
+rmc-iff-toggle = Вы {$action} режим умного оружия на {$gun}.
 rmc-iff-toggle-off = выключено
 rmc-iff-toggle-on = включено
 

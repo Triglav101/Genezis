@@ -15,24 +15,8 @@
   cost: 1
   components:
     - type: MobsterAccent
-
-- type: trait
-  id: French
-  name: rmc-trait-french-accent-name
-  description: rmc-trait-french-accent-desc
-  category: SpeechTraits
-  cost: 1
-  components:
-    - type: FrenchAccent
-
-- type: trait
-  id: Spanish
-  name: rmc-trait-spanish-accent-name
-  description: rmc-trait-spanish-accent-desc
-  category: SpeechTraits
-  cost: 1
-  components:
-    - type: SpanishAccent
+      prefixChance: 0.1
+      suffixChance: 0.2
 
 - type: trait
   id: ScottishAccent

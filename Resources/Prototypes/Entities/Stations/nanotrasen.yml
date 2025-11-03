@@ -15,10 +15,10 @@
     - BaseStationCargo
     - BaseStationJobsSpawning
     - BaseStationRecords
-    # - BaseStationArrivals
+    - BaseStationArrivals
     - BaseStationGateway
-    # - BaseStationShuttles
-    # - BaseStationCentcomm
+    - BaseStationShuttles
+    - BaseStationCentcomm
     - BaseStationEvacuation
     - BaseStationAlertLevels
     - BaseStationMagnet
@@ -39,7 +39,7 @@
     - BaseStationCargo #Backmen
     - BaseStationJobsSpawning #Backmen
     - BaseStationRecords #Backmen
-    # - BaseStationShuttles #Backmen
+    - BaseStationShuttles #Backmen
     - BaseStationExpeditions #Backmen
     - BaseStationMagnet #Backmen
   categories: [ HideSpawnMenu ]

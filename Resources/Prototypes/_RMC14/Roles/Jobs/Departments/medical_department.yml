@@ -6,6 +6,10 @@
   color: "#008160"
   roles:
   - CMCMO
+  - CMIntelOfficer
   - CMDoctor
   - CMResearcher
   - CMNurse
+  - Zookeeper
+  - MedicalIntern    
+  accountNumber: 1319 #backmen: currency

@@ -295,6 +295,7 @@
     - id: ProtolatheMachineCircuitboard
     - id: ResearchComputerCircuitboard
     - id: RubberStampRd
+    - id: NanomachinesMedipen    
     - id: AntiPsychicKnife # backmen
     - id: ClothingHeadCage # backmen
     - id: PrinterDocFlatpack # Corvax-Printer
@@ -356,6 +357,7 @@
     - id: HoloprojectorSecurity
     - id: RubberStampHos
     - id: SecurityTechFabCircuitboard
+    - id: GunsmithTechFabCircuitboard #backmen
     - id: WeaponDisabler
     - id: AntiPsychicKnife # backmen
     - id: ClothingHeadCage # backmen

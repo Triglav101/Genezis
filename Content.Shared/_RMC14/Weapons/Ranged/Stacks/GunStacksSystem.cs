@@ -1,4 +1,4 @@
-using Content.Shared._RMC14.Armor;
+﻿using Content.Shared._RMC14.Armor;
 using Content.Shared._RMC14.Xenonids;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mobs.Systems;
@@ -22,11 +22,13 @@ public sealed class GunStacksSystem : EntitySystem
 
     private EntityQuery<GunStacksComponent> _gunStacksQuery;
     private EntityQuery<RMCSelectiveFireComponent> _selectiveFireQuery;
+    private EntityQuery<XenoComponent> _xenoQuery;
 
     public override void Initialize()
     {
         _gunStacksQuery = GetEntityQuery<GunStacksComponent>();
         _selectiveFireQuery = GetEntityQuery<RMCSelectiveFireComponent>();
+        _xenoQuery = GetEntityQuery<XenoComponent>();
 
         SubscribeLocalEvent<GunStacksComponent, AmmoShotEvent>(OnStacksAmmoShot);
 
@@ -88,13 +90,13 @@ public sealed class GunStacksSystem : EntitySystem
             return;
 
         if (TryComp(ent, out ProjectileComponent? projectile) &&
-            projectile.DamagedEntity)
+            projectile.ProjectileSpent)
         {
             return;
         }
 
         var target = args.Target;
-        if (!_mobState.IsDead(target))
+        if (_xenoQuery.HasComp(target) && !_mobState.IsDead(target))
         {
             if (!TryComp<GunStacksActiveComponent>(ent.Comp.Gun, out var gun))
                 gun = EnsureComp<GunStacksActiveComponent>(ent.Comp.Gun.Value);

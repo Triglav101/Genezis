@@ -18,3 +18,8 @@ cm-job-name-researcher = Ученый Триглава
 cm-job-description-researcher = Проведите исследование того, что вам прислали. Создавайте и анализируйте новые химические вещества, инструменты и предметы.
 cm-job-prefix-researcher = УТ
 CMJobResearcher = Ученый Триглава
+
+cm-job-name-intel = Полевой агент
+cm-job-description-intel = Занимайтесь обнаружением и исследованием объектов интереса за пределами военного объекта.
+cm-job-prefix-intel = ПА
+CMJobIntel = Полевой агент

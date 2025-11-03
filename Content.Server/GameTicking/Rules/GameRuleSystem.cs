@@ -89,6 +89,11 @@ public abstract partial class GameRuleSystem<T> : EntitySystem where T : ICompon
         }
     }
 
+    protected virtual void OnStartAttempt(Entity<T, GameRuleComponent> gameRule, RoundStartAttemptEvent ev)
+    {
+
+    }
+
     /// <summary>
     /// Called when the gamerule is added
     /// </summary>

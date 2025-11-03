@@ -24,6 +24,10 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Physics;
+using Robust.Shared.Physics.Components;
+using Content.Shared.Item;
+using Content.Shared.StatusEffect;
 
 namespace Content.Shared.Damage.Systems;
 
@@ -54,6 +58,7 @@ public sealed partial class StaminaSystem : EntitySystem
         SubscribeLocalEvent<StaminaComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<StaminaComponent, AfterAutoHandleStateEvent>(OnStamHandleState);
         SubscribeLocalEvent<StaminaComponent, DisarmedEvent>(OnDisarmed);
+        SubscribeLocalEvent<PhysicsComponent, ShoveEvent>(OnShoved);
         SubscribeLocalEvent<StaminaComponent, RejuvenateEvent>(OnRejuvenate);
 
         SubscribeLocalEvent<StaminaDamageOnEmbedComponent, EmbedEvent>(OnProjectileEmbed);
@@ -115,6 +120,56 @@ public sealed partial class StaminaSystem : EntitySystem
         Dirty(uid, component);
     }
 
+    private void OnShoved(EntityUid uid, PhysicsComponent physics, ShoveEvent args)
+    {
+        // Handles stamina damage and shove cost from shoving
+        // Don't forget that we can shove inanimate objects too!
+        // I didnt know what to put in the event so let it be PhysicsComponent
+
+        if (args.Handled)
+            return;
+
+        // It costs stamina to shove, except for items and static objects
+
+        if (HasComp<ItemComponent>(args.Target))
+            return;
+
+        if (physics.BodyType != BodyType.Dynamic && physics.BodyType != BodyType.KinematicController)
+            return;
+
+        TakeStaminaDamage(args.Source, args.StaminaCost);
+
+        if (!TryComp<StaminaComponent>(args.Target, out var component)) // Check if the target has stamina
+            return;
+
+        if (!TryComp<StatusEffectsComponent>(args.Target, out var status) || !status.AllowedEffects.Contains("KnockedDown"))
+            return;
+
+        if (component.Critical)
+            return;
+
+        TakeStaminaDamage(args.Target, args.StaminaDamage, component, source: args.Source);
+
+        // We need a better method of getting if the entity is going to resist stam damage, both this and the lines in the foreach at the end of OnHit() are awful
+        if (component.Critical)
+        {
+            /*ERRORGATE less popups
+            var targetEnt = Identity.Entity(args.Target, EntityManager);
+            var sourceEnt = Identity.Entity(args.Source, EntityManager);
+
+
+            _popup.PopupEntity(
+                Loc.GetString("stunned-component-disarm-success-others", ("source", sourceEnt), ("target", targetEnt)),
+                targetEnt, Filter.PvsExcept(args.Source), true, PopupType.LargeCaution);
+            _popup.PopupCursor(Loc.GetString("stunned-component-disarm-success", ("target", targetEnt)), args.Source, PopupType.Large);
+*/
+            _adminLogger.Add(LogType.DisarmedKnockdown, LogImpact.Medium,
+                $"{ToPrettyString(args.Source):user} knocked down {ToPrettyString(args.Target):target}");
+        }
+
+        args.Handled = true;
+    }
+
     private void OnDisarmed(EntityUid uid, StaminaComponent component, DisarmedEvent args)
     {
         if (args.Handled)
@@ -134,6 +189,9 @@ public sealed partial class StaminaSystem : EntitySystem
 
     private void OnMeleeHit(EntityUid uid, StaminaDamageOnHitComponent component, MeleeHitEvent args)
     {
+        if (args.Handled) // WD EDIT
+            return;
+
         if (!args.IsHit ||
             !args.HitEntities.Any() ||
             component.Damage <= 0f)
@@ -408,10 +466,18 @@ public sealed partial class StaminaSystem : EntitySystem
         {
             // Just in case we have active but not stamina we'll check and account for it.
             if (!stamQuery.TryGetComponent(uid, out var comp) ||
-                comp.StaminaDamage <= 0f && !comp.Critical)
+                comp.StaminaDamage <= 0f && !comp.Critical && comp.ActiveDrains.Count == 0)
             {
                 RemComp<ActiveStaminaComponent>(uid);
                 continue;
+            }
+
+            if (comp.ActiveDrains.Count > 0)
+            {
+                foreach (var (source, drainRate) in comp.ActiveDrains)
+                {
+                    TakeStaminaDamage(uid, drainRate * frameTime, comp, source: source, visual: false);
+                }
             }
 
             // Shouldn't need to consider paused time as we're only iterating non-paused stamina components.
@@ -428,7 +494,11 @@ public sealed partial class StaminaSystem : EntitySystem
             }
 
             comp.NextUpdate += TimeSpan.FromSeconds(1f);
-            TakeStaminaDamage(uid, -comp.Decay, comp);
+            // If there is no active drains, recover stamina.
+            if (comp.ActiveDrains.Count == 0)
+            {
+                TakeStaminaDamage(uid, -comp.Decay, comp);
+            }
             Dirty(uid, comp);
         }
     }
@@ -471,6 +541,26 @@ public sealed partial class StaminaSystem : EntitySystem
         RemComp<ActiveStaminaComponent>(uid);
         Dirty(uid, component);
         _adminLogger.Add(LogType.Stamina, LogImpact.Low, $"{ToPrettyString(uid):user} recovered from stamina crit");
+    }
+    public void ToggleStaminaDrain(EntityUid target, float drainRate, bool enabled, EntityUid? source = null)
+    {
+        if (!TryComp<StaminaComponent>(target, out var stamina))
+            return;
+
+        // If theres no source, we assume its the target that caused the drain.
+        var actualSource = source ?? target;
+
+        if (enabled)
+        {
+            stamina.ActiveDrains[actualSource] = drainRate;
+            EnsureComp<ActiveStaminaComponent>(target);
+        }
+        else
+        {
+            stamina.ActiveDrains.Remove(actualSource);
+        }
+
+        Dirty(target, stamina);
     }
 }
 
