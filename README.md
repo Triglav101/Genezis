@@ -1,8 +1,8 @@
-<p align="center"> <img alt="Space Station 14" width="880" height="300" src="https://github.com/Lordartez/Genezis/blob/master/Resources/Textures/Logo/logo.png" /></p>
+<p align="center"> <img alt="Space Station 14" width="880" height="300" src="https://github.com/Triglav101/Genezis/blob/main/Resources/%5BTRIGLAV_EMPLOYEE%5D/Arts/GITHUB-PIC.png" /></p>
 
 Space Station 14 это ремейк SS13, который работает на собственном движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox), написанном на C#.
 
-Это репозиторий для сервера "Проект Генезис", сборка сделана на основе русскоязычного сервера по Space Station 14 (Backman).
+Это репозиторий сервера "Проект Генезис", сборка сделана на основе русскоязычного сервера по Space Station 14 (Backman).
 
 ## Ссылки
 
