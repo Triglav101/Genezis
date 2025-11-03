@@ -3057,7 +3057,7 @@
       state: pda_e
     - type: Icon
       sprite: Corvax/Lore/SNK/Equipment/snk_pda.rsi
-      state: pda_e      
+      state: pda_s  
     - type: GasAnalyzer
     - type: ActivatableUI
       inHandsOnly: true

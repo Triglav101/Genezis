@@ -51,3 +51,18 @@
     Plastic: 500
     Gold: 300
     Silver: 300
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazinePacketPistol9x17
+  result: MagazinePacketPistol9x17
+  materials:
+    Steel: 500
+
+- type: latheRecipe
+  parent: BaseAmmoRecipe
+  id: MagazinePacketHeavyRifle50BMG
+  result: MagazinePacketHeavyRifle50BMG
+  materials:
+    Steel: 2500
+    Plasteel: 1000

@@ -357,6 +357,7 @@
     - id: HoloprojectorSecurity
     - id: RubberStampHos
     - id: SecurityTechFabCircuitboard
+    - id: GunsmithTechFabCircuitboard #backmen
     - id: WeaponDisabler
     - id: AntiPsychicKnife # backmen
     - id: ClothingHeadCage # backmen

@@ -280,6 +280,7 @@
   - type: Evasion
   - type: CanBeFirePatted
   - type: FirePatter
+    stacks: -10
     blacklist:
       components:
       - Xeno

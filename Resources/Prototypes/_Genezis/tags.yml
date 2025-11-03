@@ -20,6 +20,9 @@
   id: SheetPlasma
 
 - type: Tag
+  id: Bighorner
+
+- type: Tag
   id: Capacitor2
 
 - type: Tag

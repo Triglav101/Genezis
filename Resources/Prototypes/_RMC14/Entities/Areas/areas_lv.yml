@@ -27,6 +27,25 @@
     minimapColor: '#2B5B2BEE'
 
 - type: entity
+  parent: RMCAreaLv624GroundCaves
+  id: RMCAreaLv624GroundCavesNorthCentralCavesLakeHouseTower
+  name: Lake House Communications Relay
+  components:
+  - type: Sprite
+    state: yellow
+  - type: Area
+    CAS: true
+    fulton: true
+    mortarPlacement: true
+    mortarFire: true
+    lasing: true
+    medevac: true
+    paradropping: true
+    OB: true
+    supplyDrop: true
+    weatherEnabled: true
+
+- type: entity
   parent: RMCAreaLv624GroundJungle
   id: RMCAreaLv624GroundJungleSouthEastJungle
   name: Southeast Jungle

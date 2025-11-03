@@ -146054,38 +146054,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -30.5,-63.5
       parent: 1
-- proto: RMCBedAlien
-  entities:
-  - uid: 19533
-    components:
-    - type: Transform
-      pos: 81.5,13.5
-      parent: 1
-  - uid: 19534
-    components:
-    - type: Transform
-      pos: 81.5,11.5
-      parent: 1
-  - uid: 19535
-    components:
-    - type: Transform
-      pos: 80.5,11.5
-      parent: 1
-  - uid: 19536
-    components:
-    - type: Transform
-      pos: 82.5,13.5
-      parent: 1
-  - uid: 19537
-    components:
-    - type: Transform
-      pos: 80.5,13.5
-      parent: 1
-  - uid: 19538
-    components:
-    - type: Transform
-      pos: 82.5,11.5
-      parent: 1
 - proto: RMCBedAlt
   entities:
   - uid: 19539
@@ -150118,50 +150086,6 @@ entities:
     components:
     - type: Transform
       pos: 20.5,89.5
-      parent: 1
-- proto: RMCChairComfyAlien
-  entities:
-  - uid: 20114
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 70.5,10.5
-      parent: 1
-  - uid: 20115
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 73.5,11.5
-      parent: 1
-  - uid: 20116
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 73.5,12.5
-      parent: 1
-  - uid: 20117
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: 73.5,14.5
-      parent: 1
-  - uid: 20118
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 70.5,12.5
-      parent: 1
-  - uid: 20119
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: 70.5,14.5
-      parent: 1
-  - uid: 20120
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 81.5,17.5
       parent: 1
 - proto: RMCChemDispenserGround
   entities:
@@ -160510,40 +160434,6 @@ entities:
     components:
     - type: Transform
       pos: 62.5,-9.5
-      parent: 1
-- proto: RMCPlatformSandstoneStairLeft
-  entities:
-  - uid: 21877
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 57.5,-3.5
-      parent: 1
-  - uid: 21878
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 56.5,6.5
-      parent: 1
-- proto: RMCPlatformSandstoneStairRight
-  entities:
-  - uid: 21879
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 61.5,-3.5
-      parent: 1
-  - uid: 21880
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 62.5,6.5
-      parent: 1
-  - uid: 21881
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 65.5,15.5
       parent: 1
 - proto: RMCPlatformStairLeft
   entities:

@@ -118,7 +118,7 @@ public sealed partial class RoundEndTitlesWindow : BaseWindow
 
         PlayFadeIn();
 
-        DisplayAntags(players);
+        // DisplayAntags(players);
         DisplayWorkers(players);
         DisplayObservers(players);
         //DisplaySponsors(sponsors);
@@ -216,40 +216,40 @@ public sealed partial class RoundEndTitlesWindow : BaseWindow
         PlayAnimation(_style.FadeInAnimation, ANIMATION_KEY_FADE_IN);
     }
 
-    private void DisplayAntags(IReadOnlyList<PlayerInfo> players)
-    {
-        var antagsList = new List<AntagInfo>();
-        foreach (var player in players)
-        {
-            foreach (var antagPrototypeId in player.AntagPrototypes)
-            {
-                if (_prototypeManager.TryIndex<AntagPrototype>(antagPrototypeId, out var antagPrototype))
-                    antagsList.Add(new(player, antagPrototype));
-            }
-        }
-        CreateAntagsSection(antagsList);
-    }
+    // private void DisplayAntags(IReadOnlyList<PlayerInfo> players)
+    // {
+    //     var antagsList = new List<AntagInfo>();
+    //     foreach (var player in players)
+    //     {
+    //         foreach (var antagPrototypeId in player.AntagPrototypes)
+    //         {
+    //             if (_prototypeManager.TryIndex<AntagPrototype>(antagPrototypeId, out var antagPrototype))
+    //                 antagsList.Add(new(player, antagPrototype));
+    //         }
+    //     }
+    //     CreateAntagsSection(antagsList);
+    // }
 
-    private void CreateAntagsSection(IReadOnlyList<AntagInfo> antags)
-    {
-        if (antags.Count == 0)
-            return;
-        var section = new RoundEndTitlesSection(Loc.GetString("round-end-titles-antag-section"),
-            _style.GetAntagIcon());
-        DepartmentsContainer.AddChild(section);
-        var i = 0;
-        foreach (var antag in antags)
-        {
-            var role = new RoundEndTitlesRole(antag.Player.PlayerOOCName,
-                antag.Player.PlayerICName ?? "",
-                Loc.GetString(antag.Antag.Name),
-                i,
-                antag.Antag.LightAntagColor ?? antag.Antag.AntagColor,
-                antag.Player.PlayerNetEntity);
-            section.RolesContainer.AddChild(role);
-            i++;
-        }
-    }
+    // private void CreateAntagsSection(IReadOnlyList<AntagInfo> antags)
+    // {
+    //     if (antags.Count == 0)
+    //         return;
+    //     var section = new RoundEndTitlesSection(Loc.GetString("round-end-titles-antag-section"),
+    //         _style.GetAntagIcon());
+    //     DepartmentsContainer.AddChild(section);
+    //     var i = 0;
+    //     foreach (var antag in antags)
+    //     {
+    //         var role = new RoundEndTitlesRole(antag.Player.PlayerOOCName,
+    //             antag.Player.PlayerICName ?? "",
+    //             Loc.GetString(antag.Antag.Name),
+    //             i,
+    //             antag.Antag.LightAntagColor ?? antag.Antag.AntagColor,
+    //             antag.Player.PlayerNetEntity);
+    //         section.RolesContainer.AddChild(role);
+    //         i++;
+    //     }
+    // }
 
     private void DisplayWorkers(IReadOnlyList<PlayerInfo> players)
     {
