@@ -5,7 +5,6 @@ meta:
   forkId: ""
   forkVersion: ""
   time: 02/19/2025 11:09:53
-  entityCount: 336
 maps:
 - 196
 grids:
@@ -577,15 +576,6 @@ entities:
     - type: Transform
       pos: 5.5,2.5
       parent: 2
-- proto: BoxShotgunFlare
-  entities:
-  - uid: 240
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: CableApcExtension
   entities:
   - uid: 3
@@ -1046,15 +1036,6 @@ entities:
     - type: Tag
       tags:
       - SecureSafe
-- proto: Flash
-  entities:
-  - uid: 155
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: FoodCakeCheeseSlice
   entities:
   - uid: 193
@@ -1598,102 +1579,6 @@ entities:
     - type: Transform
       pos: 4.175825,10.454469
       parent: 2
-- proto: Pickaxe
-  entities:
-  - uid: 281
-    components:
-    - type: Transform
-      rot: 3.141592653589793 rad
-      pos: 3.9224584,-3.9486477
-      parent: 2
-- proto: PillAmbuzolPlus
-  entities:
-  - uid: 270
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 297
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 299
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 310
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 311
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 312
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 313
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 314
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 315
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 316
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-  - uid: 317
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: PinpointerShipwreck
-  entities:
-  - uid: 336
-    components:
-    - type: Transform
-      parent: 200
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 - proto: PortableGeneratorSuperPacman
   entities:
   - uid: 178
@@ -2117,50 +2002,6 @@ entities:
     - type: Transform
       pos: 3.5,-5.5
       parent: 2
-- proto: SuitStorageEVA
-  entities:
-  - uid: 200
-    components:
-    - type: Transform
-      pos: 4.5,-2.5
-      parent: 2
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14673
-        moles:
-        - 1.7459903
-        - 6.568249
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-    - type: ContainerContainer
-      containers:
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 336
-    - type: Tag
-      tags:
-      - Structure
-      - EngineeringAirlock
 - proto: TableCarpet
   entities:
   - uid: 146
@@ -2644,22 +2485,4 @@ entities:
       parent: 2
     - type: WarpPoint
       location: Shuttle
-- proto: WeaponDisabler
-  entities:
-  - uid: 154
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
-- proto: WeaponFlareGun
-  entities:
-  - uid: 175
-    components:
-    - type: Transform
-      parent: 153
-    - type: Physics
-      canCollide: False
-    - type: InsideEntityStorage
 ...

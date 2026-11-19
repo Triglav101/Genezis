@@ -48,12 +48,12 @@
   - type: PveExpeditionRule
     # --- Планета и данж ---
     planets:
-    - Grasslands
-    - LowDesert
-    - Snow
-    - Lava
+    # - Grasslands
+    # - LowDesert
+    # - Snow
+    # - Lava
     - Caves
-    - Shadow
+    # - Shadow
     dungeonConfigs:
     - PveDungeonLabs
     - PveDungeonBrig

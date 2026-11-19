@@ -321,7 +321,9 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
 
         if (task.IsCompletedSuccessfully)
         {
+#pragma warning disable RA0004 // Risk of deadlock from accessing Task<T>.Result
             var rooms = task.Result.SelectMany(d => d.Rooms).ToList();
+#pragma warning restore RA0004 // Risk of deadlock from accessing Task<T>.Result
             if (rooms.Count > 0)
             {
                 OnDungeonReady(comp, rooms);

@@ -17,7 +17,7 @@ public sealed partial class DungeonJob
     {
         if (!data.Colors.TryGetValue(DungeonDataKey.Decals, out var color))
         {
-            _sawmill.Error(Environment.StackTrace);
+            return;
         }
 
         var directions = new ValueList<DirectionFlag>(4);

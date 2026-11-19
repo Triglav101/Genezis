@@ -17,7 +17,7 @@ entities:
       rot: -0.6557394862102228 rad
       pos: -68.73149,-426.28143
       parent: invalid
-    - type: MapGrid
+    - type: Map
       chunks:
         -1,1:
           ind: -1,1
@@ -59,8 +59,6 @@ entities:
           decals:
             0: -1,21
             1: -5,21
-    - type: StationMember
-      station: invalid
     - type: NavMap
     - type: GridAtmosphere
       version: 2
@@ -756,79 +754,6 @@ entities:
     - type: ContainedSolution
       containerName: food
       container: 229
-- proto: AirlockExternalShuttleSyndicateLocked
-  entities:
-  - uid: 160
-    components:
-    - type: Transform
-      pos: -2.5,19.5
-      parent: 1
-    - type: DeviceLinkSource
-      linkedPorts:
-        201:
-        - DoorStatus: DoorBolt
-      lastSignals:
-        DoorStatus: False
-        DockStatus: False
-    - type: AccessReader
-      accessLog:
-      - accessor: Неизвестный
-        accessTime: 3248.5372621
-      - accessor: Неизвестный
-        accessTime: 3250.0369998
-      - accessor: Неизвестный
-        accessTime: 3250.3703318
-      - accessor: Неизвестный
-        accessTime: 3250.5369978
-      - accessor: Неизвестный
-        accessTime: 3250.6876847
-      - accessor: Неизвестный
-        accessTime: 3250.8372745
-      - accessor: Неизвестный
-        accessTime: 3251.9703254
-      - accessor: Неизвестный
-        accessTime: 3252.1369914
-      - accessor: Неизвестный
-        accessTime: 3252.2876116
-      - accessor: Неизвестный
-        accessTime: 3253.2542917
-      - accessor: Неизвестный
-        accessTime: 3253.8536512
-      - accessor: Неизвестный
-        accessTime: 3254.0536504
-      - accessor: Неизвестный
-        accessTime: 3254.2203164
-      - accessor: Неизвестный
-        accessTime: 3254.3869824
-      - accessor: Неизвестный
-        accessTime: 3256.9369722
-      - accessor: Неизвестный
-        accessTime: 3257.1036382
-      - accessor: Неизвестный
-        accessTime: 3257.2709666
-      - accessor: Неизвестный
-        accessTime: 3259.6156799
-      - accessor: Неизвестный
-        accessTime: 3259.7624263
-      - accessor: Неизвестный
-        accessTime: 3259.9369602
-    - type: ContainerContainer
-      containers:
-        board: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 161
-    - type: Airlock
-      powered: True
-    - type: DoorBolt
-      powered: True
-    - type: DeviceNetwork
-      address: 6F73-2901
-      receiveFrequency: 1280
-    - type: DeviceLinkSink
-      links:
-      - 201
 - proto: AirlockSyndicateLocked
   entities:
   - uid: 152
@@ -1515,26 +1440,6 @@ entities:
           showEnts: False
           occludes: True
           ent: null
-- proto: DoorElectronics
-  entities:
-  - uid: 166
-    components:
-    - type: Transform
-      parent: 165
-    - type: Physics
-      canCollide: False
-  - uid: 168
-    components:
-    - type: Transform
-      parent: 167
-    - type: Physics
-      canCollide: False
-  - uid: 202
-    components:
-    - type: Transform
-      parent: 201
-    - type: Physics
-      canCollide: False
 - proto: DoorElectronicsSyndicateAgent
   entities:
   - uid: 153
@@ -2261,46 +2166,6 @@ entities:
       parent: 183
     - type: Physics
       canCollide: False
-- proto: SignalButton
-  entities:
-  - uid: 197
-    components:
-    - type: Transform
-      rot: 1.5707963267948966 rad
-      pos: -3.5,23.5
-      parent: 1
-    - type: UseDelay
-      delays:
-        default:
-          endTime: 4270.6548522
-          startTime: 4270.1548522
-          length: 0.5
-    - type: DeviceNetwork
-      address: 5D1C-78E0
-    - type: DeviceLinkSource
-      linkedPorts:
-        165:
-        - Pressed: Toggle
-  - uid: 198
-    components:
-    - type: Transform
-      rot: -1.5707963267948966 rad
-      pos: -1.5,23.5
-      parent: 1
-    - type: UseDelay
-      delays:
-        default:
-          endTime: 4271.0889206
-          startTime: 4270.5889206
-          length: 0.5
-    - type: SignalSwitch
-      state: True
-    - type: DeviceNetwork
-      address: 60CC-6DB3
-    - type: DeviceLinkSource
-      linkedPorts:
-        167:
-        - Pressed: Toggle
 - proto: SubstationWallBasic
   entities:
   - uid: 68
@@ -3146,46 +3011,4 @@ entities:
       parent: 219
     - type: Physics
       canCollide: False
-- proto: WindoorSecurePlasma
-  entities:
-  - uid: 201
-    components:
-    - type: Transform
-      pos: -2.5,21.5
-      parent: 1
-    - type: DeviceNetwork
-      address: 6F96-6027
-      receiveFrequency: 1280
-    - type: DeviceLinkSink
-      links:
-      - 160
-    - type: DeviceLinkSource
-      linkedPorts:
-        160:
-        - DoorStatus: DoorBolt
-    - type: AccessReader
-      accessLog:
-      - accessor: Неизвестный
-        accessTime: 3003.3713198
-      - accessor: Неизвестный
-        accessTime: 3004.8379806
-      - accessor: Неизвестный
-        accessTime: 3006.9048278
-      - accessor: Неизвестный
-        accessTime: 3008.5383737
-      - accessor: Неизвестный
-        accessTime: 3010.0046266
-      - accessor: Неизвестный
-        accessTime: 4542.3485663
-    - type: ContainerContainer
-      containers:
-        board: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 202
-    - type: Airlock
-      powered: True
-    - type: DoorBolt
-      powered: True
 ...
