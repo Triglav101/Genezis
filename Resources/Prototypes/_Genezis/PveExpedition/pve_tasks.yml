@@ -1,0 +1,99 @@
+# Пул случайных задач режима «Экспедиция».
+# При старте раунда выбирается minTasks..maxTasks штук (с учётом weight), количество целей - между minCount и maxCount.
+# Все цели спавнятся ТОЛЬКО в комнатах данжа.
+# taskType: KillMobs | CollectItems | DestroyStructures | ReturnShuttle
+# required: false - бонусная задача (не блокирует конец экспедиции).
+
+# ---------- Убить мобов ----------
+- type: pveTask
+  id: PveTaskKillCarp
+  name: pve-task-kill-carp
+  description: pve-task-kill-carp-desc
+  taskType: KillMobs
+  target: MobCarp
+  minCount: 6
+  maxCount: 12
+  weight: 1
+
+- type: pveTask
+  id: PveTaskKillSpiders
+  name: pve-task-kill-spiders
+  description: pve-task-kill-spiders-desc
+  taskType: KillMobs
+  target: MobGiantSpiderAngry
+  minCount: 3
+  maxCount: 6
+  weight: 1
+
+- type: pveTask
+  id: PveTaskKillXenos
+  name: pve-task-kill-xenos
+  description: pve-task-kill-xenos-desc
+  taskType: KillMobs
+  target: MobXeno
+  minCount: 3
+  maxCount: 5
+  weight: 0.7
+
+- type: pveTask
+  id: PveTaskKillBears
+  name: pve-task-kill-bears
+  description: pve-task-kill-bears-desc
+  taskType: KillMobs
+  target: MobBearSpace
+  minCount: 2
+  maxCount: 4
+  weight: 0.6
+
+# ---------- Доставить предметы на шаттл ----------
+- type: pveTask
+  id: PveTaskCollectArtifacts
+  name: pve-task-collect-artifacts
+  description: pve-task-collect-artifacts-desc
+  taskType: CollectItems
+  target: SimpleXenoArtifactItem
+  minCount: 1
+  maxCount: 3
+  weight: 1
+
+- type: pveTask
+  id: PveTaskCollectGold
+  name: pve-task-collect-gold
+  description: pve-task-collect-gold-desc
+  taskType: CollectItems
+  target: GoldOre1
+  minCount: 4
+  maxCount: 8
+  weight: 1
+  required: false
+
+# ---------- Уничтожить структуры (игрокам выдаётся пинпоинтер) ----------
+- type: pveTask
+  id: PveTaskDestroyGenerators
+  name: pve-task-destroy-generators
+  description: pve-task-destroy-generators-desc
+  taskType: DestroyStructures
+  target: GeneratorBasic
+  minCount: 2
+  maxCount: 4
+  weight: 1
+
+- type: pveTask
+  id: PveTaskDestroySmes
+  name: pve-task-destroy-smes
+  description: pve-task-destroy-smes-desc
+  taskType: DestroyStructures
+  target: SMESBasic
+  minCount: 1
+  maxCount: 3
+  weight: 0.8
+
+# ---------- Вернуть шаттл (всегда добавляется последней, обязательна) ----------
+# Засчитывается, только когда все остальные обязательные задачи выполнены и шаттл
+# вернулся на карту, откуда стартовала экспедиция. До этого вылет с планеты заблокирован консолью.
+- type: pveTask
+  id: PveTaskReturnShuttle
+  name: pve-task-return-shuttle
+  description: pve-task-return-shuttle-desc
+  taskType: ReturnShuttle
+  required: true

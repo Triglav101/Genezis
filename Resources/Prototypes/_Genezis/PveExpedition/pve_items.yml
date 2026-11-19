@@ -1,0 +1,13 @@
+# Пинпоинтер, который выдаётся каждому игроку в рюкзак, если среди задач есть уничтожение структур.
+# Правило режима само наводит его на ближайшую оставшуюся цель; component: PveTaskTarget - запасной
+# вариант (поиск ближайшей помеченной структуры при ручном включении).
+- type: entity
+  parent: PinpointerBase
+  id: PinpointerPveStructures
+  name: pinpointer (expedition)
+  description: A handheld tracker locked onto the structures your expedition has to destroy. Keep it active and follow the arrow.
+  components:
+  - type: Pinpointer
+    component: PveTaskTarget
+    targetName: expedition target
+    canRetarget: false
