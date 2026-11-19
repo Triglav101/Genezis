@@ -447,8 +447,15 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
         EnsureComp<PveTaskTargetComponent>(ent);
 
         // Структура должна стоять на месте, а не лежать на полу.
+        // Большинство структур (генераторы, СМЭС) спавнятся уже закреплёнными прямо из прототипа,
+        // а повторное закрепление добавляет сущность в ячейку сетки второй раз и роняет
+        // DebugTools.Assert в MapChunk.AddToSnapGridCell. Поэтому закрепляем только незакреплённые.
+        var xform = Transform(ent);
+        if (xform.Anchored)
+            return;
+
         if (TryComp<PhysicsComponent>(ent, out var physics) && physics.BodyType == BodyType.Static)
-            _transform.AnchorEntity(ent);
+            _transform.AnchorEntity((ent, xform));
     }
 
     // ------------------------------------------------------------------
