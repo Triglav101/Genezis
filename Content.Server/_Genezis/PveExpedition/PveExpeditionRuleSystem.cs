@@ -30,8 +30,6 @@ using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -446,16 +444,9 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
         // Метка для пинпоинтеров.
         EnsureComp<PveTaskTargetComponent>(ent);
 
-        // Структура должна стоять на месте, а не лежать на полу.
-        // Большинство структур (генераторы, СМЭС) спавнятся уже закреплёнными прямо из прототипа,
-        // а повторное закрепление добавляет сущность в ячейку сетки второй раз и роняет
-        // DebugTools.Assert в MapChunk.AddToSnapGridCell. Поэтому закрепляем только незакреплённые.
-        var xform = Transform(ent);
-        if (xform.Anchored)
-            return;
-
-        if (TryComp<PhysicsComponent>(ent, out var physics) && physics.BodyType == BodyType.Static)
-            _transform.AnchorEntity((ent, xform));
+        // Закрепление здесь намеренно не делается: цели-структуры (генераторы, СМЭС) спавнятся
+        // закреплёнными прямо из прототипа (transform.anchored), а повторный AnchorEntity
+        // роняет DebugTools.Assert в MapChunk.AddToSnapGridCell.
     }
 
     // ------------------------------------------------------------------
