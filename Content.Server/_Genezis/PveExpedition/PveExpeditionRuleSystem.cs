@@ -1,8 +1,6 @@
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using Content.Server.Atmos;
-using Content.Server.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
@@ -293,15 +291,9 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
         _meta.SetEntityName(mapUid, Loc.GetString("pve-planet-name"));
 
         // Постоянные газы планеты (например, Mirage): MapAtmosphere бесконечна, как и обычный воздух планеты.
-        if (comp.PlanetGases.Count > 0 && TryComp<MapAtmosphereComponent>(mapUid, out var mapAtmos))
+        foreach (var (gas, moles) in comp.PlanetGases)
         {
-            var mixture = mapAtmos.Mixture.Clone();
-            foreach (var (gas, moles) in comp.PlanetGases)
-            {
-                mixture.AdjustMoles(gas, moles);
-            }
-
-            _atmos.SetMapGasMixture(mapUid, mixture, mapAtmos);
+            _atmos.AddMapGas(mapUid, gas, moles);
         }
 
         StartDungeon(comp);
