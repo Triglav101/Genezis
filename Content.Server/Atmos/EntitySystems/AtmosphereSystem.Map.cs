@@ -52,8 +52,13 @@ public partial class AtmosphereSystem
         if (!Resolve(uid, ref component, false))
             return;
 
-        var mixture = component.Mixture.Clone();
-        mixture.AdjustMoles(gas, moles);
+        // Clone() у неизменяемой смеси возвращает её же, а AdjustMoles на ней ничего не делает,
+        // поэтому собираем новую смесь из копии молей.
+        var oldMixture = component.Mixture;
+        var newMoles = new float[Atmospherics.AdjustedNumberOfGases];
+        oldMixture.Moles.CopyTo(newMoles, 0);
+        newMoles[(int) gas] += moles;
+        var mixture = new GasMixture(newMoles, oldMixture.Temperature) { Volume = oldMixture.Volume };
         SetMapGasMixture(uid, mixture, component);
     }
 
