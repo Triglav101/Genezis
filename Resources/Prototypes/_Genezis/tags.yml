@@ -8,6 +8,15 @@
   id: CookPot
 
 - type: Tag
+  id: DuctTape
+
+- type: Tag
+  id: WeaponParts1
+
+- type: Tag
+  id: WeaponParts2
+
+- type: Tag
   id: Stock
 
 - type: Tag

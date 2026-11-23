@@ -3,6 +3,7 @@
   id: MobTankCorpse
   name: Мерзость
   description: Груда мяса, что была оживлена и усилена силой плазмы.
+  suffix: Триглав
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -23,10 +24,10 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      500: Dead
+      700: Dead
   - type: MovementSpeedModifier
-    baseWalkSpeed: 0.4
-    baseSprintSpeed: 0.6
+    baseWalkSpeed: 0.3
+    baseSprintSpeed: 0.5
   - type: MeleeWeapon
     soundHit:
         path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
@@ -43,6 +44,7 @@
   name: спавнер мерзости
   id: SpawnerMobTankCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -52,6 +54,7 @@
   name: периодический спавнер мерзости
   id: SpawnerTimedMobTankCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

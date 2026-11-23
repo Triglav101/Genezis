@@ -2,6 +2,7 @@
   id: MobFastCorpse
   name: Сталкер
   description: Мертвец чьё тело подверглось сильному разложению, тем не менее он стал легче и быстрее.
+  suffix: Триглав
   components:
   - type: Sprite
     noRot: true
@@ -120,6 +121,7 @@
   name: спавнер сталкера
   id: SpawnerMobFastCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -129,6 +131,7 @@
   name: периодический спавнер сталкера
   id: SpawnerTimedMobFastCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

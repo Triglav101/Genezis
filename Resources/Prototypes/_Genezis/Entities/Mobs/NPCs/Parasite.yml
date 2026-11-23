@@ -3,6 +3,7 @@
   name: Трупный паразит
   description: Начальная стадия развития эмбриона трупного паразита.
   id: MobParasite
+  suffix: Триглав
   components:
     - type: FleshMob
       soundDeath: "/Audio/Animals/Flesh/flesh_worm_dead.ogg"

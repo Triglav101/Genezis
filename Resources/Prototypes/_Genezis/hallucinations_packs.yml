@@ -1,15 +1,16 @@
 - type: hallucinationsPack
   id: ZeroSane
   spawnRate: 20.0
-  minChance: 0.9
-  maxChance: 1
+  minChance: 0.3
+  maxChance: 0.5
   increasedPerSpawn: 0.05
   maxSpawns: 13
   entities:
-  - ADTHallucinationMobSpider
-  - ADTHallucinationMobSlime
-  - ADTHallucinationMobBehonker
-  - ADTHallucinationRod
+  - ADTHallucinationMobPlasmaCorpse
+  - ADTHallucinationMobFastCorpse
+  - ADTHallucinationMobMinerCorpse
+  - ADTHallucinationMobTankCorpse
+  - ADTHallucinationMobTurretCorpse
 
 - type: hallucinationsPack
   id: MindBreaker

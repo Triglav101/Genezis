@@ -2,7 +2,8 @@
   parent: BaseMobFlesh
   id: MobMinerCorpse
   name: Проклятый
-  description: Ужасный симбиот человека и паразита.
+  description: Раньше он был один из нас... паразит уже поглотил его изнутри, убейте тварь и подарите ему вечный покой.
+  suffix: Триглав
   components:
   - type: Sprite
     sprite: Genezis/Mobs/Demons/MinerCorpse.rsi
@@ -24,7 +25,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      600: Dead
+      500: Dead
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.5
     baseSprintSpeed: 0.8
@@ -36,7 +37,7 @@
     damage:
       types:
         Blunt: 35
-        Structural: 35
+        Structural: 45
 
 
 #СПАВНЕР
@@ -44,6 +45,7 @@
   name: спавнер проклятого
   id: SpawnerMobMinerCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -53,6 +55,7 @@
   name: периодический спавнер проклятого
   id: SpawnerTimedMobMinerCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

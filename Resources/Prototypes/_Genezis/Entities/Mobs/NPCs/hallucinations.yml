@@ -6,6 +6,7 @@
   description: "???"
   suffix: DO NOT MAP
   noSpawn: true
+  categories: [ HideSpawnMenu ]  
   components:
   #- type: Hallucination
   - type: Fixtures
@@ -22,7 +23,6 @@
   - type: TimedDespawn
     lifetime: 15.0
 
-      # Base
 - type: entity
   parent: BaseMob
   id: ADTBaseLingHallucination
@@ -30,6 +30,7 @@
   description: "???"
   suffix: DO NOT MAP
   noSpawn: true
+  categories: [ HideSpawnMenu ]
   components:
   #- type: LingHallucination
   - type: Fixtures
@@ -46,6 +47,170 @@
   - type: Visibility
     layer: 505
   
+
+      #TRIGLAV
+- type: entity
+  parent: ADTBaseLingHallucination
+  id: ADTHallucinationMobPlasmaCorpse
+  name: "Дикий труп"
+  description: "Он был поднят из мёртвых странной силой плазмы."
+  suffix: Триглав, галлюцинация
+  noSpawn: true
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Genezis/Mobs/Demons/PlasmaCorpse.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: abomination
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.0
+    baseSprintSpeed: 3.7
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      95: Dead
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: AmbientSound
+    volume: -2
+    range: 15
+    sound:
+      path: /Audio/ADT/ling-drug-mob.ogg
+  - type: TimedDespawn
+    lifetime: 45.0
+
+- type: entity
+  parent: ADTBaseLingHallucination
+  id: ADTHallucinationMobFastCorpse
+  name: "Сталкер"
+  description: "Мертвец чьё тело подверглось сильному разложению, тем не менее он стал легче и быстрее."
+  suffix: Триглав, галлюцинация
+  noSpawn: true
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    sprite: Genezis/Mobs/Demons/FastCorpse.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: abomination
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.0
+    baseSprintSpeed: 3.7
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      95: Dead
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: AmbientSound
+    volume: -2
+    range: 15
+    sound:
+      path: /Audio/ADT/ling-drug-mob.ogg
+  - type: TimedDespawn
+    lifetime: 45.0
+
+- type: entity
+  parent: ADTBaseLingHallucination
+  id: ADTHallucinationMobMinerCorpse
+  name: "Проклятый"
+  description: "Раньше он был один из нас... паразит уже поглотил его изнутри, убейте тварь и подарите ему вечный покой."
+  suffix: Триглав, галлюцинация
+  noSpawn: true
+  components:
+  - type: Sprite
+    sprite: Genezis/Mobs/Demons/MinerCorpse.rsi
+    layers:
+      - map: [ "enum.DamageStateVisualLayers.Base" ]
+        state: AliveMiner
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.0
+    baseSprintSpeed: 3.7
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      95: Dead
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: AmbientSound
+    volume: -2
+    range: 15
+    sound:
+      path: /Audio/ADT/ling-drug-mob.ogg
+  - type: TimedDespawn
+    lifetime: 45.0
+
+- type: entity
+  parent: ADTBaseLingHallucination
+  id: ADTHallucinationMobTankCorpse
+  name: "Мерзость"
+  description: "Груда мяса, что была оживлена и усилена силой плазмы."
+  suffix: Триглав, галлюцинация
+  noSpawn: true
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Genezis/Mobs/Demons/TankCorpse.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: abomination
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.0
+    baseSprintSpeed: 3.7
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      95: Dead
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: AmbientSound
+    volume: -2
+    range: 15
+    sound:
+      path: /Audio/ADT/ling-drug-mob.ogg
+  - type: TimedDespawn
+    lifetime: 45.0
+
+- type: entity
+  parent: ADTBaseLingHallucination
+  id: ADTHallucinationMobTurretCorpse
+  name: "Плевальщик"
+  description: "Тело этого мертвеца подверглось мутации, оно распухло и нарастило желочные мешки."
+  suffix: Триглав, галлюцинация
+  noSpawn: true
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Mobs
+    sprite: Genezis/Mobs/Demons/TurretCorpse.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: abomination
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.0
+    baseSprintSpeed: 3.7
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      95: Dead
+  - type: HTN
+    rootTask:
+      task: IdleCompound
+  - type: AmbientSound
+    volume: -2
+    range: 15
+    sound:
+      path: /Audio/ADT/ling-drug-mob.ogg
+  - type: TimedDespawn
+    lifetime: 45.0
+
+
       # Ling ents
 - type: entity
   parent: ADTBaseLingHallucination

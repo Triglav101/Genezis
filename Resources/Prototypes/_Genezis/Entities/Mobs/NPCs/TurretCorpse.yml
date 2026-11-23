@@ -3,6 +3,7 @@
   parent: MobXeno
   name: Плевальщик
   description: Тело этого мертвеца подверглось мутации, оно распухло и нарастило желочные мешки.
+  suffix: Триглав
   components:
   - type: Sprite
     noRot: true
@@ -78,6 +79,7 @@
   name: спавнер плевальщик
   id: SpawnerMobTurretCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -87,6 +89,7 @@
   name: периодический спавнер Плевальщик
   id: SpawnerTimedMobTurretCorpse
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

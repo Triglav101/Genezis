@@ -3,6 +3,7 @@
   parent: SimpleMobBase
   id: MobGluttonBaby
   description: Обжорка обыкновенная, просто ещё не выросла.
+  suffix: Триглав
   components:
   - type: Sprite
     drawdepth: SmallMobs
@@ -81,6 +82,7 @@
   name: спавнер маленькой обжорки
   id: SpawnerMobGluttonBaby
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -90,6 +92,7 @@
   name: периодический спавнер маленькой обжорки
   id: SpawnerTimedMobGluttonBaby
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:
