@@ -283,3 +283,77 @@
   color: "#525151"
   boilingPoint: -253.0
   meltingPoint: -259.2
+# Мираж: галлюцинации (ZeroSane + звуки), слабая интоксикация, смех, паника.
+# Действует только на сущностей, которыми управляет игрок. Выводится кислородом (см. Oxygen).
+- type: reagent
+  id: Mirage
+  name: reagent-name-mirage
+  desc: reagent-desc-mirage
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#dce6eb"
+  metabolisms:
+    Gas:
+      effects:
+      # Визуальные и слуховые галлюцинации.
+      - !type:HallucinationsReagentEffect
+        conditions:
+        - !type:PlayerControlled
+        proto: ZeroSane
+        time: 30
+        refresh: true
+        type: Add
+      # Лёгкое отравление токсином.
+      - !type:HealthChange
+        conditions:
+        - !type:PlayerControlled
+        scaleByQuantity: true
+        damage:
+          types:
+            Poison: 0.15
+      # Смех.
+      - !type:Emote
+        conditions:
+        - !type:PlayerControlled
+        - !type:ReagentThreshold
+          reagent: Mirage
+          min: 0.3
+        emote: Laugh
+        visibility: ChatAndPopup
+        force: true
+        probability: 0.25
+      # Паника: тряска, крики, рывки.
+      - !type:Jitter
+        conditions:
+        - !type:PlayerControlled
+        - !type:ReagentThreshold
+          reagent: Mirage
+          min: 0.6
+        amplitude: 6
+        frequency: 6
+        time: 4
+      - !type:Emote
+        conditions:
+        - !type:PlayerControlled
+        - !type:ReagentThreshold
+          reagent: Mirage
+          min: 0.6
+        emote: Scream
+        visibility: ChatAndPopup
+        force: true
+        probability: 0.08
+      - !type:MovespeedModifier
+        conditions:
+        - !type:PlayerControlled
+        - !type:ReagentThreshold
+          reagent: Mirage
+          min: 0.6
+        walkSpeedModifier: 1.2
+        sprintSpeedModifier: 1.2
+      - !type:PopupMessage
+        conditions:
+        - !type:PlayerControlled
+        type: Local
+        visualType: Medium
+        messages: [ "effect-mirage-panic-1", "effect-mirage-panic-2", "effect-mirage-panic-3" ]
+        probability: 0.15

@@ -62,3 +62,8 @@ reagent-effect-condition-guidebook-has-tag =
                 } the tag {$tag}
 
 reagent-effect-condition-guidebook-this-reagent = this reagent
+reagent-effect-condition-guidebook-player-controlled =
+    the target is { $invert ->
+        [true] not
+       *[false] {""}
+    } controlled by a player
