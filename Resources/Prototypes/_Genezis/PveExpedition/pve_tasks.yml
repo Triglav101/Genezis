@@ -6,13 +6,13 @@
 
 # ---------- Убить мобов ----------
 - type: pveTask
-  id: PveTaskKillCarp
-  name: pve-task-kill-carp
-  description: pve-task-kill-carp-desc
+  id: PveTaskKillMobPlasmaCorpse
+  name: pve-task-kill-MobPlasmaCorpse
+  description: pve-task-kill-MobPlasmaCorpse-desc
   taskType: KillMobs
-  target: MobCarp
-  minCount: 6
-  maxCount: 12
+  target: MobPlasmaCorpse
+  minCount: 46
+  maxCount: 72
   weight: 1
 
 - type: pveTask
@@ -69,23 +69,23 @@
 
 # ---------- Уничтожить структуры (игрокам выдаётся пинпоинтер) ----------
 - type: pveTask
-  id: PveTaskDestroyGenerators
+  id: PveTaskDestroyMemento
   name: pve-task-destroy-generators
   description: pve-task-destroy-generators-desc
   taskType: DestroyStructures
-  target: GeneratorBasic
+  target: Memento
   minCount: 2
   maxCount: 4
   weight: 1
 
 - type: pveTask
-  id: PveTaskDestroySmes
-  name: pve-task-destroy-smes
-  description: pve-task-destroy-smes-desc
+  id: PveTaskDestroyMeatPile
+  name: pve-task-destroy-MeatPile
+  description: pve-task-destroy-MeatPile-desc
   taskType: DestroyStructures
-  target: SMESBasic
-  minCount: 1
-  maxCount: 3
+  target: MeatPile
+  minCount: 4
+  maxCount: 12
   weight: 0.8
 
 # ---------- Вернуть шаттл (всегда добавляется последней, обязательна) ----------

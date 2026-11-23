@@ -1,5 +1,5 @@
-pve-preset-title = PvE: Экспедиция
-pve-preset-description = Вы на шаттле. Готовьтесь без ограничения по времени, затем через консоль шаттла вылетайте на планету. В данже вас ждут задачи, снаружи - враги. Выполните все задачи, верните шаттл, и смена закончится.
+pve-preset-title = Директива Триглава: экспедиция
+pve-preset-description = ПВЕ режим, выполняйте задачи на планетах.
 
 pve-announcement-sender = Экспедиционное командование
 pve-destination-name = Посадочный маяк: неизведанная планета
@@ -28,8 +28,8 @@ pve-paper-name = Задачи экспедиции
 pve-paper-header = [bold][italic]ЗАДАЧИ ЭКСПЕДИЦИИ[/italic][/bold]
 pve-paper-footer = Все цели находятся внутри комплекса на планете. Для вылета с планеты должны быть выполнены все обязательные задачи, затем шаттл нужно вернуть на место старта.
 
-pve-task-kill-carp = Уничтожить космических карпов: { $count }
-pve-task-kill-carp-desc = Стая карпов засела в комплексе.
+pve-task-kill-MobPlasmaCorpse = Уничтожить диких трупов: { $count }
+pve-task-kill-MobPlasmaCorpse-desc = Этот регион планеты просто кишит этими тварями, убейте их во имя Триглава.
 pve-task-kill-spiders = Уничтожить гигантских пауков: { $count }
 pve-task-kill-spiders-desc = Пауки заняли помещения комплекса.
 pve-task-kill-xenos = Уничтожить ксеноморфов: { $count }
@@ -40,10 +40,10 @@ pve-task-collect-artifacts = Доставить артефакты на шатт
 pve-task-collect-artifacts-desc = Найдите артефакты в комплексе и погрузите их на шаттл.
 pve-task-collect-gold = Доставить золотую руду на шаттл: { $count }
 pve-task-collect-gold-desc = Образцы руды для лаборатории.
-pve-task-destroy-generators = Уничтожить генераторы: { $count }
-pve-task-destroy-generators-desc = Обесточьте комплекс. Пинпоинтер в рюкзаке указывает на ближайший генератор.
-pve-task-destroy-smes = Уничтожить накопители (СМЭС): { $count }
-pve-task-destroy-smes-desc = Разрушьте накопители энергии. Пинпоинтер в рюкзаке указывает на ближайший.
+pve-task-destroy-Memento = Уничтожить рунный столбы: { $count }
+pve-task-destroy-Memento-desc = Разрушьте рунные столбы, что разрывают реальность и время. Пинпоинтер в рюкзаке указывает на ближайший.
+pve-task-destroy-MeatPile = Уничтожить столбы скорби: { $count }
+pve-task-destroy-MeatPile-desc = Разрушьте столбы скорби, сооружения, что стали домом для инопланетных тварей. Пинпоинтер в рюкзаке указывает на ближайший.
 pve-task-return-shuttle = Вернуть шаттл на место старта
 pve-task-return-shuttle-desc = Выполните все остальные обязательные задачи и вернитесь на шаттле в космос, откуда вылетели.
 

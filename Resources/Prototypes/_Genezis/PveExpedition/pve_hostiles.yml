@@ -5,18 +5,18 @@
 
 # ---------- Доступны сразу после посадки ----------
 - type: pveHostileGroup
-  id: PveHostileCarp
-  entity: MobCarp
-  minCount: 2
-  maxCount: 4
+  id: PveHostileMobPlasmaCorpse
+  entity: MobPlasmaCorpse
+  minCount: 17
+  maxCount: 32
   unlockAfter: 0
   weight: 3
 
 - type: pveHostileGroup
-  id: PveHostileSnakes
-  entity: MobPurpleSnake
-  minCount: 2
-  maxCount: 3
+  id: PveHostileMobParasite
+  entity: MobParasite
+  minCount: 6
+  maxCount: 14
   unlockAfter: 0
   weight: 2
 

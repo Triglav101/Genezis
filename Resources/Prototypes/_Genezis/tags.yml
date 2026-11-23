@@ -5,7 +5,16 @@
   id: Bomb
 
 - type: Tag
+  id: CookPot
+
+- type: Tag
+  id: Stock
+
+- type: Tag
   id: Hacking
+
+- type: Tag
+  id: Action
 
 - type: Tag
   id: Jetpack

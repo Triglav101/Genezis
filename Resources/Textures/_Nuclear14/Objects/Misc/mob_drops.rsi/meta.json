@@ -8,12 +8,6 @@
   },
   "states": [
     {
-      "name": "hide_brahmin_1"
-    },
-    {
-      "name": "hide_brahmin_2"
-    },
-    {
       "name": "hide_gecko"
     },
     {

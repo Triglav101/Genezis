@@ -1,6 +1,7 @@
 ﻿- type: entity
   parent: BaseMobFleshCult
-  name: Мясной паразит
+  name: Трупный паразит
+  description: Начальная стадия развития эмбриона трупного паразита.
   id: MobParasite
   components:
     - type: FleshMob

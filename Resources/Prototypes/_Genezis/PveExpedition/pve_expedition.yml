@@ -9,7 +9,7 @@
 # Замените mapPath на любой другой лётный шаттл, если нужно.
 - type: gameMap
   id: PveExpeditionShuttle
-  mapName: "PvE Экспедиция"
+  mapName: "Временная зона дислокации RAM-07"
   mapPath: /Maps/Genezis/Shipwrecked/shuttlePhoenix.yml
   minPlayers: 0
   isGrid: false
@@ -20,7 +20,7 @@
       stationProto: TriglavStation
       components:
       - type: StationNameSetup
-        mapNameTemplate: 'Экспедиционный шаттл'
+        mapNameTemplate: 'Экспедиционный шаттл RAM-07'
       - type: StationJobs
         availableJobs:
           CMCommandingOfficer: [1, 1]
@@ -48,12 +48,12 @@
   - type: PveExpeditionRule
     # --- Планета и данж ---
     planets:
-    # - Grasslands
-    # - LowDesert
-    # - Snow
-    # - Lava
+    - Grasslands
+    - LowDesert
+    - Snow
+    - Lava
     - Caves
-    # - Shadow
+    - Shadow
     dungeonConfigs:
     - PveDungeonLabs
     - PveDungeonBrig
@@ -66,27 +66,27 @@
     minTasks: 3
     maxTasks: 5
     taskPool:
-    - PveTaskKillCarp
+    - PveTaskKillMobPlasmaCorpse
     - PveTaskKillSpiders
     - PveTaskKillXenos
     - PveTaskKillBears
     - PveTaskCollectArtifacts
     - PveTaskCollectGold
-    - PveTaskDestroyGenerators
-    - PveTaskDestroySmes
+    - PveTaskDestroyMemento
+    - PveTaskDestroyMeatPile
     returnTask: PveTaskReturnShuttle
     endCountdown: 120        # секунд до конца раунда после выполнения всех задач
     landingDelay: 10
     # --- Враги ---
-    hostileStartInterval: 120   # секунд между волнами сразу после посадки
-    hostileMinInterval: 15      # секунд между волнами к концу разгона
+    hostileStartInterval: 20   # секунд между волнами сразу после посадки
+    hostileMinInterval: 10      # секунд между волнами к концу разгона
     hostileRampTime: 2400       # за сколько секунд интервал падает до минимума (40 минут)
-    maxHostiles: 70
+    maxHostiles: 560
     hostileMinDistance: 28
     hostileMaxDistance: 55
     hostileGroups:
-    - PveHostileCarp
-    - PveHostileSnakes
+    - PveHostileMobPlasmaCorpse
+    - PveHostileMobParasite
     - PveHostileBees
     - PveHostileSpiders
     - PveHostileXenos
@@ -103,8 +103,9 @@
   - expedition
   name: pve-preset-title
   description: pve-preset-description
-  showInVote: false
+  showInVote: true
   minPlayers: 1
+  maxPlayers: 6
   rules:
   - PveExpedition
   supportedMaps: PveExpeditionPool

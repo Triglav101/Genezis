@@ -1,14 +1,13 @@
 - type: gamePreset
   id: GenezisSecret
   alias:
-    - secret genezis
-    - Основа генезиса
-  name: Основа генезиса
-  description: Основной пресет, выполните приказ от совета Триглава и попытайтесь выжить.
-  showInVote: false
+    - Основной режим
+  name: Main-preset-title
+  description: Main-preset-description
+  showInVote: true
   # isMiniGame: true  
-  # minPlayers: 20
-  # maxPlayers: 80
+  minPlayers: 6
+  maxPlayers: 120
   rules:
     - WageScheduler
     - CMDistressSignal
@@ -17,28 +16,28 @@
   # supportedMaps: GenezisDefaultMapPool
   # forceMap: true
 
-- type: gamePreset
-  id: GenezisShipwrecked
-  alias:
-    - GenezisShipwrecked
-    - Падение генезис
-  name: Неудачная операция
-  description: Дополнительный пресет, ваш шаттл был подбит и теперь вы терпете крушение на поверхности планеты.
-  showInVote: false
-  # isMiniGame: true
-  minPlayers: 1
-  maxPlayers: 20
-  rules:
-    - Shipwrecked
-  supportedMaps: GenezisShipwreckedPool
-  forceMap: true 
+# - type: gamePreset
+#   id: GenezisShipwrecked
+#   alias:
+#     - GenezisShipwrecked
+#     - Падение генезис
+#   name: Неудачная операция
+#   description: Дополнительный пресет, ваш шаттл был подбит и теперь вы терпете крушение на поверхности планеты.
+#   showInVote: false
+#   # isMiniGame: true
+#   minPlayers: 1
+#   maxPlayers: 20
+#   rules:
+#     - Shipwrecked
+#   supportedMaps: GenezisShipwreckedPool
+#   forceMap: true 
 
-- type: gamePreset
-  id: GenezisWaves
-  name: Оборона генезис
-  description: Defend the vault from waves of increasingly difficult attackers.
-  showInVote: true
-  rules:
-    - Waves
-  supportedMaps: GenezisWavesPool
-  forceMap: true    
+# - type: gamePreset
+#   id: GenezisWaves
+#   name: Оборона генезис
+#   description: Defend the vault from waves of increasingly difficult attackers.
+#   showInVote: true
+#   rules:
+#     - Waves
+#   supportedMaps: GenezisWavesPool
+#   forceMap: true    

@@ -2,7 +2,7 @@
   id: MeatPile
   parent: BaseStructure
   name: Столб скорби
-  description: Нагромождение черепов различных рас, смысл этого безумия неизвестен.
+  description: Алтарь созданный из черепов различных рас, по звукам в нём чье-то гнездо.
   components:
     - type: MeleeSound
       soundGroups:
@@ -30,6 +30,19 @@
             - MachineMask
           layer:
             - MachineLayer
+    - type: Timer
+    - type: TimedSpawner
+      prototypes:
+        - MobParasite
+      chance: 0.50
+      intervalSeconds: 60
+      minimumEntitiesSpawned: 1
+      maximumEntitiesSpawned: 2
+    - type: AmbientSound
+      volume: -3
+      range: 5
+      sound:
+        path: /Audio/Genezis/AmbientSound/HiveSound.ogg            
     - type: Damageable
       damageContainer: Inorganic
       damageModifierSet: Metallic
@@ -37,7 +50,7 @@
       thresholds:
       - trigger:
           !type:DamageTrigger
-          damage: 80
+          damage: 170
         behaviors:
         - !type:DoActsBehavior
           acts: [ "Destruction" ]

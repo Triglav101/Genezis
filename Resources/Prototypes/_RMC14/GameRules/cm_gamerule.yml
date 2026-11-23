@@ -4,5 +4,5 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: GameRule
-    minPlayers: 1
+    minPlayers: 6
   - type: CMDistressSignalRule
