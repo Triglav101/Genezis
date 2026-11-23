@@ -1,6 +1,9 @@
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using Content.Server.Atmos;
+using Content.Server.Atmos.Components;
+using Content.Server.Atmos.EntitySystems;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
@@ -49,6 +52,7 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly AtmosphereSystem _atmos = default!;
     [Dependency] private readonly BiomeSystem _biome = default!;
     [Dependency] private readonly DungeonSystem _dungeon = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
@@ -287,6 +291,18 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
         var biomeId = _random.Pick(comp.Planets);
         _biome.EnsurePlanet(mapUid, _proto.Index(biomeId), _random.Next());
         _meta.SetEntityName(mapUid, Loc.GetString("pve-planet-name"));
+
+        // Постоянные газы планеты (например, Mirage): MapAtmosphere бесконечна, как и обычный воздух планеты.
+        if (comp.PlanetGases.Count > 0 && TryComp<MapAtmosphereComponent>(mapUid, out var mapAtmos))
+        {
+            var mixture = mapAtmos.Mixture.Clone();
+            foreach (var (gas, moles) in comp.PlanetGases)
+            {
+                mixture.AdjustMoles(gas, moles);
+            }
+
+            _atmos.SetMapGasMixture(mapUid, mixture, mapAtmos);
+        }
 
         StartDungeon(comp);
     }
