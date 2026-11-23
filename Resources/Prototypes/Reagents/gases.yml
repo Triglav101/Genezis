@@ -30,14 +30,6 @@
         conditions:
         - !type:OrganType
           type: Plant
-      # Genezis: кислород выводит газ Mirage из организма.
-      - !type:AdjustReagent
-        conditions:
-        - !type:ReagentThreshold
-          reagent: Oxygen
-          min: 0.01
-        reagent: Mirage
-        amount: -0.5
       # Convert Oxygen into CO2.
       - !type:ModifyLungGas
         conditions:
