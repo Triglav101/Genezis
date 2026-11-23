@@ -56,3 +56,8 @@ reagent-effect-condition-guidebook-has-tag =
        *[false] имеет
     } метку { $tag }
 reagent-effect-condition-guidebook-this-reagent = этот реагент
+reagent-effect-condition-guidebook-player-controlled =
+    цель { $invert ->
+        [true] не управляется
+       *[false] управляется
+    } игроком

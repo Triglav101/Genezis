@@ -135,3 +135,18 @@
   color: 525151
   reagent: Anti-Noblium
   pricePerMole: 20
+
+# Мираж - галлюциногенный газ (см. реагент Mirage). Белёсая дымка, похожая на туман.
+- type: gas
+  id: 20
+  name: gases-mirage
+  specificHeat: 20
+  heatCapacityRatio: 1.4
+  molarMass: 44
+  color: DCE6EB
+  gasOverlaySprite: /Textures/Effects/atmospherics.rsi
+  gasOverlayState: water_vapor
+  gasMolesVisible: 0.1
+  gasVisbilityFactor: 250
+  reagent: Mirage
+  pricePerMole: 4
