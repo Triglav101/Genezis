@@ -59,6 +59,9 @@
     - PveDungeonBrig
     - PveDungeonSnowy
     - PveDungeonMines
+    # Постоянный (бесконечный) газ в атмосфере планеты, как и обычный воздух.
+    planetGases:
+      Mirage: 2
     minDungeonDistance: 140
     maxDungeonDistance: 170
     maxDungeonAttempts: 3

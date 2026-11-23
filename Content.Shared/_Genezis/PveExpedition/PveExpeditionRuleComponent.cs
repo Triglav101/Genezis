@@ -1,5 +1,6 @@
 using System.Numerics;
 using System.Threading.Tasks;
+using Content.Shared.Atmos;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Procedural;
 using Robust.Shared.Prototypes;
@@ -53,6 +54,13 @@ public sealed partial class PveExpeditionRuleComponent : Component
     /// <summary>Пул биомов; планета выбирается случайно.</summary>
     [DataField(required: true)]
     public List<ProtoId<BiomeTemplatePrototype>> Planets = new();
+
+    /// <summary>
+    ///     Дополнительные газы в атмосфере планеты (моли). Атмосфера планеты бесконечна и постоянна
+    ///     (MapAtmosphere), поэтому газ не заканчивается и не рассеивается.
+    /// </summary>
+    [DataField]
+    public Dictionary<Gas, float> PlanetGases = new();
 
     /// <summary>Пул конфигов данжа; выбирается случайно. Должны давать МНОГО комнат.</summary>
     [DataField(required: true)]
