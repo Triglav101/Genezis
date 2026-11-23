@@ -517,6 +517,10 @@ public sealed class PveExpeditionRuleSystem : GameRuleSystem<PveExpeditionRuleCo
             var coords = ScatterAround(mapUid, grid, anchor.Value);
             var mob = Spawn(group.Entity, coords);
             comp.Hostiles.Add(mob);
+
+            // Враги волн всегда знают, где ближайший игрок, идут к нему и ломают преграды.
+            // Цели задач спавнятся в другом месте и этот компонент не получают.
+            EnsureComp<PveWaveHunterComponent>(mob);
         }
     }
 
