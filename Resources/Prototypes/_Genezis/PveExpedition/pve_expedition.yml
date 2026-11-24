@@ -1,0 +1,114 @@
+# Режим «Экспедиция» (PvE).
+# 1) Игроки появляются на шаттле без ограничения по времени.
+# 2) Пока они готовятся, в фоне генерируется планета с огромным данжем.
+# 3) Когда всё готово, планета появляется в консоли шаттла (маяк посадки).
+# 4) На планете - случайные задачи (цели только в данже), волны врагов становятся чаще со временем.
+# 5) После всех обязательных задач (включая возврат шаттла) идёт отсчёт, затем конец раунда.
+
+# Карта: шаттл "Феникс" (есть консоль, двигатели, гироскоп, питание, точка спавна).
+# Замените mapPath на любой другой лётный шаттл, если нужно.
+- type: gameMap
+  id: PveExpeditionShuttle
+  mapName: "Временная зона дислокации RAM-07"
+  mapPath: /Maps/Genezis/Shipwrecked/shuttlePhoenix.yml
+  minPlayers: 0
+  isGrid: false
+  maxRandomOffset: 0
+  randomRotation: false
+  stations:
+    ShwrPhoenix: # должно совпадать с BecomesStation.id внутри файла карты
+      stationProto: TriglavStation
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'Экспедиционный шаттл RAM-07'
+      - type: StationJobs
+        availableJobs:
+          CMCommandingOfficer: [1, 1]
+          CMSquadLeader: [2, 2]
+          CMSmartGunOperator: [2, 2]
+          CMWeaponsSpecialist: [2, 2]
+          CMCombatTech: [2, 4]
+          CMHospitalCorpsman: [2, 4]
+          CMMaintTech: [1, 2]
+          CMDoctor: [1, 2]
+          CMRifleman: [-1, -1]
+
+- type: gameMapPool
+  id: PveExpeditionPool
+  maps:
+  - PveExpeditionShuttle
+
+# Игровое правило.
+- type: entity
+  id: PveExpedition
+  parent: BaseGameRule
+  components:
+  - type: GameRule
+    minPlayers: 0
+  - type: PveExpeditionRule
+    # --- Планета и данж ---
+    planets:
+    - Grasslands
+    - LowDesert
+    - Snow
+    - Lava
+    - Caves
+    - Shadow
+    dungeonConfigs:
+    - PveDungeonLabs
+    - PveDungeonBrig
+    - PveDungeonSnowy
+    - PveDungeonMines
+    # Постоянный (бесконечный) газ в атмосфере планеты, как и обычный воздух.
+    planetGases:
+      Mirage: 2
+    minDungeonDistance: 140
+    maxDungeonDistance: 170
+    maxDungeonAttempts: 3
+    # --- Задачи ---
+    minTasks: 3
+    maxTasks: 5
+    taskPool:
+    - PveTaskKillMobPlasmaCorpse
+    - PveTaskKillSpiders
+    - PveTaskKillXenos
+    - PveTaskKillBears
+    - PveTaskCollectArtifacts
+    - PveTaskCollectGold
+    - PveTaskDestroyMemento
+    - PveTaskDestroyMeatPile
+    returnTask: PveTaskReturnShuttle
+    endCountdown: 120        # секунд до конца раунда после выполнения всех задач
+    landingDelay: 10
+    # --- Враги ---
+    hostileStartInterval: 20   # секунд между волнами сразу после посадки
+    hostileMinInterval: 10      # секунд между волнами к концу разгона
+    hostileRampTime: 2400       # за сколько секунд интервал падает до минимума (40 минут)
+    maxHostiles: 560
+    hostileMinDistance: 28
+    hostileMaxDistance: 55
+    hostileGroups:
+    - PveHostileMobPlasmaCorpse
+    - PveHostileMobParasite
+    - PveHostileBees
+    - PveHostileSpiders
+    - PveHostileXenos
+    - PveHostileSlimes
+    - PveHostileBears
+    - PveHostileXenoDrones
+    - PveHostileRavagers
+
+# Пресет.
+- type: gamePreset
+  id: PveExpedition
+  alias:
+  - pve
+  - expedition
+  name: pve-preset-title
+  description: pve-preset-description
+  showInVote: true
+  minPlayers: 1
+  maxPlayers: 6
+  rules:
+  - PveExpedition
+  supportedMaps: PveExpeditionPool

@@ -3,6 +3,7 @@
   id: MobPlasmaCorpse
   name: Дикий труп
   description: Он был поднят из мёртвых странной силой плазмы.
+  suffix: Триглав
   components:
   - type: Sprite
     drawdepth: Mobs

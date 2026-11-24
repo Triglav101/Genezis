@@ -6,7 +6,8 @@
   - MobBloodstream
   - BaseMobFlesh
   id: MobInfRockBug
-  description: Каменный жук которому не повезло стать носителем заражения.
+  description: Каменный жук которому не повезло стать носителем заражения, это печально... тварь заразила обжорку.
+  suffix: Триглав
   components:
   - type: Sprite
     drawdepth: SmallMobs
@@ -81,6 +82,7 @@
   name: спавнер зараженного каменного жука
   id: SpawnerMobInfRockBug
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -89,6 +91,7 @@
 - type: entity
   name: периодический спавнер зараженного каменного жука
   id: SpawnerTimedMobInfRockBug
+  suffix: Триглав
   parent: MarkerBase
   components:
     - type: Sprite

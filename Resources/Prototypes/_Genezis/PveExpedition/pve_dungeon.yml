@@ -1,0 +1,181 @@
+# Огромный данж для режима «Экспедиция».
+# Стандартные пресеты (Bucket/Wow/...) дают по 5 блоков комнат; здесь - сетка 5x4 = 20 блоков 17x17,
+# то есть на порядок больше комнат. Размер данжа ~98x78 тайлов (см. DungeonSize в PveExpeditionRule).
+
+- type: dungeonPreset
+  id: PveHuge
+  roomPacks:
+    # ряд 1
+    - 0,0,17,17
+    - 20,0,37,17
+    - 40,0,57,17
+    - 60,0,77,17
+    - 80,0,97,17
+    # ряд 2
+    - 0,20,17,37
+    - 20,20,37,37
+    - 40,20,57,37
+    - 60,20,77,37
+    - 80,20,97,37
+    # ряд 3
+    - 0,40,17,57
+    - 20,40,37,57
+    - 40,40,57,57
+    - 60,40,77,57
+    - 80,40,97,57
+    # ряд 4
+    - 0,60,17,77
+    - 20,60,37,77
+    - 40,60,57,77
+    - 60,60,77,77
+    - 80,60,97,77
+
+# Те же слои, что у PlanetBase, но с огромным пресетом комнат.
+- type: dungeonConfig
+  id: PveDungeonBase
+  layers:
+  - !type:PrefabDunGen
+    presets:
+    - PveHuge
+
+  - !type:CorridorDunGen
+    width: 3
+
+  - !type:DungeonEntranceDunGen
+    count: 2
+
+  - !type:RoomEntranceDunGen
+
+  - !type:EntranceFlankDunGen
+
+  - !type:ExternalWindowDunGen
+
+  - !type:WallMountDunGen
+
+  - !type:BoundaryWallDunGen
+
+  - !type:JunctionDunGen
+    width: 1
+
+  - !type:JunctionDunGen
+
+  - !type:AutoCablingDunGen
+
+  - !type:CornerClutterDunGen
+
+  - !type:CorridorDecalSkirtingDunGen
+    cardinalDecals:
+      South: BrickTileWhiteLineS
+      East: BrickTileWhiteLineE
+      North: BrickTileWhiteLineN
+      West: BrickTileWhiteLineW
+    cornerDecals:
+      SouthEast: BrickTileWhiteCornerSe
+      SouthWest: BrickTileWhiteCornerSw
+      NorthEast: BrickTileWhiteCornerNe
+      NorthWest: BrickTileWhiteCornerNw
+    pocketDecals:
+      SouthWest: BrickTileWhiteInnerSw
+      SouthEast: BrickTileWhiteInnerSe
+      NorthWest: BrickTileWhiteInnerNw
+      NorthEast: BrickTileWhiteInnerNe
+
+# Тематические варианты (данные - те же, что у стандартных Experiment / LavaBrig / SnowyLabs / Mineshaft).
+- type: dungeonConfig
+  id: PveDungeonLabs
+  data:
+    colors:
+      Decals: "#D381C996"
+    entities:
+      Cabling: CableApcExtension
+      CornerWalls: WallReinforced
+      Walls: WallSolid
+    spawnGroups:
+      CornerClutter: BaseClutter
+      Entrance: BaseAirlock
+      EntranceFlank: BaseWindow
+      Junction: BaseAirlock
+      WallMounts: ScienceLabsWalls
+      Window: BaseWindow
+    tiles:
+      FallbackTile: FloorSteel
+    whitelists:
+      Rooms:
+        tags:
+        - SalvageExperiment
+  layers:
+  - !type:PrototypeDunGen
+    proto: PveDungeonBase
+
+- type: dungeonConfig
+  id: PveDungeonBrig
+  data:
+    colors:
+      Decals: "#DE3A3A96"
+    entities:
+      Cabling: CableApcExtension
+      CornerWalls: WallReinforced
+      Walls: WallSolid
+    spawnGroups:
+      CornerClutter: BaseClutter
+      Entrance: LavaBrigEntrance
+      EntranceFlank: BaseWindow
+      Junction: BaseAirlock
+      WallMounts: ScienceLabsWalls
+      Window: BaseWindow
+    tiles:
+      FallbackTile: FloorDark
+    whitelists:
+      Rooms:
+        tags:
+        - LavaBrig
+  layers:
+  - !type:PrototypeDunGen
+    proto: PveDungeonBase
+
+- type: dungeonConfig
+  id: PveDungeonSnowy
+  data:
+    colors:
+      Decals: "#4cc7aa96"
+    entities:
+      Cabling: CableApcExtension
+      CornerWalls: WallSilver
+      Walls: WallSilver
+    spawnGroups:
+      CornerClutter: BaseClutter
+      Entrance: SnowyLabsEntrance
+      EntranceFlank: BaseWindow
+      Junction: BaseAirlock
+      WallMounts: SnowyLabsWalls
+      Window: BaseWindow
+    tiles:
+      FallbackTile: FloorSteel
+    whitelists:
+      Rooms:
+        tags:
+        - SnowyLabs
+  layers:
+  - !type:PrototypeDunGen
+    proto: PveDungeonBase
+
+- type: dungeonConfig
+  id: PveDungeonMines
+  data:
+    entities:
+      Cabling: Catwalk
+    spawnGroups:
+      CornerClutter: MineshaftClutter
+      Entrance: BaseWoodWall
+      EntranceFlank: BaseWoodWall
+      Junction: BaseWoodSupport
+      Window: BaseWoodWall
+    tiles:
+      FallbackTile: FloorCaveDrought
+    whitelists:
+      Rooms:
+        tags:
+        - Mineshaft
+  layers:
+  - !type:PrototypeDunGen
+    proto: PveDungeonBase

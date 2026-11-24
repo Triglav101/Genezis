@@ -182,9 +182,6 @@
         - id: N14ClothingUniformJumpsuitCombat
           prob: 0.4
           orGroup: Clothing
-        - id: N14ClothingUniformJumpsuitBrahminFarmer
-          prob: 0.4
-          orGroup: Clothing
         - id: N14ClothingUniformJumpsuitFollowers
           prob: 0.4
           orGroup: Clothing
@@ -758,9 +755,6 @@
         - id: N14ClothingUniformJumpsuitCombat
           prob: 0.4
           orGroup: Clothing
-        - id: N14ClothingUniformJumpsuitBrahminFarmer
-          prob: 0.2
-          orGroup: Clothing
         - id: N14ClothingUniformJumpsuitFollowers
           prob: 0.2
           orGroup: Clothing
@@ -877,8 +871,6 @@
         - id: N14JunkComponentCapacitor3
           prob: 0.08
         - id: N14JunkComponentDiode1
-          prob: 0.08
-        - id: N14JunkComponentDiode2
           prob: 0.08
         - id: N14JunkComponentDiode3
           prob: 0.08
@@ -1175,9 +1167,6 @@
         - id: N14ClothingUniformJumpsuitCombat
           prob: 0.4
           orGroup: Clothing
-        - id: N14ClothingUniformJumpsuitBrahminFarmer
-          prob: 0.4
-          orGroup: Clothing
         - id: N14ClothingUniformJumpsuitFollowers
           prob: 0.4
           orGroup: Clothing
@@ -1330,8 +1319,6 @@
         - id: N14JunkComponentCapacitor3
           prob: 0.08
         - id: N14JunkComponentDiode1
-          prob: 0.08
-        - id: N14JunkComponentDiode2
           prob: 0.08
         - id: N14JunkComponentDiode3
           prob: 0.08

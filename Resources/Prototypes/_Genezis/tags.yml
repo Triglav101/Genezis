@@ -5,7 +5,37 @@
   id: Bomb
 
 - type: Tag
+  id: CookPot
+
+- type: Tag
+  id: DuctTape
+
+- type: Tag
+  id: Receiver
+
+- type: Tag
+  id: Barrel
+
+- type: Tag
+  id: Bolt
+
+- type: Tag
+  id: RecoilComp
+
+- type: Tag
+  id: WeaponParts1
+
+- type: Tag
+  id: WeaponParts2
+
+- type: Tag
+  id: Stock
+
+- type: Tag
   id: Hacking
+
+- type: Tag
+  id: Action
 
 - type: Tag
   id: Jetpack

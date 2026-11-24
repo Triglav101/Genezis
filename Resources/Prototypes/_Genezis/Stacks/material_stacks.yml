@@ -5,14 +5,6 @@
   spawn: N14MaterialCircuitry1
   maxCount: 15
 
-- type: stack
-  id: BrahminHide
-  name: brahmin hides
-  icon: { sprite: _Nuclear14/Objects/Misc/mob_drops.rsi, state: hide_brahmin_2 }
-  spawn: N14MaterialBrahminHide1
-  maxCount: 4
-  itemSize: 1
-
 # - type: stack
   # id: Gunpowder
   # name: gunpowder

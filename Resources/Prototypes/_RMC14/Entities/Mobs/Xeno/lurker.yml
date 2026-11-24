@@ -131,8 +131,6 @@
     - ActionXenoRest
     - ActionXenoRegurgitate
     - ActionXenoWatch
-    - ActionXenoTailJab
-    - ActionXenoHeadbite
     - ActionXenoDevolve
     hidden: true
   - type: MobThresholds

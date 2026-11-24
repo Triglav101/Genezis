@@ -1,4 +1,18 @@
 - type: hallucinationsPack
+  id: ZeroSane
+  spawnRate: 20.0
+  minChance: 0.3
+  maxChance: 0.5
+  increasedPerSpawn: 0.05
+  maxSpawns: 13
+  entities:
+  - ADTHallucinationMobPlasmaCorpse
+  - ADTHallucinationMobFastCorpse
+  - ADTHallucinationMobMinerCorpse
+  - ADTHallucinationMobTankCorpse
+  - ADTHallucinationMobTurretCorpse
+
+- type: hallucinationsPack
   id: MindBreaker
   minChance: 0.4
   maxChance: 0.9
@@ -7,3 +21,30 @@
   - ADTHallucinationMobSlime
   - ADTHallucinationMobBehonker
   - ADTHallucinationRod
+
+- type: hallucinationsPack
+  id: Changeling
+  entities:
+  - ADTHallucinationMobSpider
+  - ADTHallucinationMobSlime
+  - ADTHallucinationMobBehonker
+  - ADTHallucinationRod
+
+- type: hallucinationsPack
+  id: Phantom
+  entities:
+  - ADTPhantomHallucinationPhantom
+  - ADTPhantomHallucinationMedical
+  - ADTPhantomHallucinationHellspawn
+  - ADTPhantomHallucinationPoltergeist
+
+- type: hallucinationsPack
+  id: Revenant
+  spawnRate: 20.0
+  minChance: 0.1
+  maxChance: 0.5
+  increasedPerSpawn: 0.05
+  maxSpawns: 1
+  entities:
+  - ADTPhantomHallucinationPoltergeist
+  - ADTRevHallucinationRevenant

@@ -1,0 +1,81 @@
+# Список враждебных групп, которые спавнятся по всей планете вокруг игроков.
+# unlockAfter - через сколько секунд после посадки группа становится доступной.
+# Частота волн растёт сама (интервал падает от hostileStartInterval до hostileMinInterval, см. PveExpedition).
+# Размер группы - случайно между minCount и maxCount.
+
+# ---------- Доступны сразу после посадки ----------
+- type: pveHostileGroup
+  id: PveHostileMobPlasmaCorpse
+  entity: MobPlasmaCorpse
+  minCount: 17
+  maxCount: 32
+  unlockAfter: 0
+  weight: 3
+
+- type: pveHostileGroup
+  id: PveHostileMobParasite
+  entity: MobParasite
+  minCount: 6
+  maxCount: 14
+  unlockAfter: 0
+  weight: 2
+
+# ---------- Через 5 минут ----------
+- type: pveHostileGroup
+  id: PveHostileBees
+  entity: MobAngryBee
+  minCount: 3
+  maxCount: 6
+  unlockAfter: 300
+  weight: 2
+
+- type: pveHostileGroup
+  id: PveHostileSpiders
+  entity: MobGiantSpiderAngry
+  minCount: 1
+  maxCount: 3
+  unlockAfter: 300
+  weight: 2
+
+# ---------- Через 10 минут ----------
+- type: pveHostileGroup
+  id: PveHostileXenos
+  entity: MobXeno
+  minCount: 2
+  maxCount: 4
+  unlockAfter: 600
+  weight: 2
+
+- type: pveHostileGroup
+  id: PveHostileSlimes
+  entity: MobAdultSlimesBlueAngry
+  minCount: 1
+  maxCount: 2
+  unlockAfter: 600
+  weight: 1
+
+# ---------- Через 20 минут ----------
+- type: pveHostileGroup
+  id: PveHostileBears
+  entity: MobBearSpace
+  minCount: 1
+  maxCount: 2
+  unlockAfter: 1200
+  weight: 1.5
+
+- type: pveHostileGroup
+  id: PveHostileXenoDrones
+  entity: MobXenoDrone
+  minCount: 2
+  maxCount: 4
+  unlockAfter: 1200
+  weight: 1.5
+
+# ---------- Через 30 минут ----------
+- type: pveHostileGroup
+  id: PveHostileRavagers
+  entity: MobXenoRavager
+  minCount: 1
+  maxCount: 2
+  unlockAfter: 1800
+  weight: 1

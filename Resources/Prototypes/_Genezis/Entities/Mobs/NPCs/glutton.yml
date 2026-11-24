@@ -6,6 +6,7 @@
   - MobBloodstream
   id: MobGlutton
   description: Обжорка обыкновенная, достигла своего максимального размера.
+  suffix: Триглав
   components:
   - type: Sprite
     drawdepth: SmallMobs
@@ -110,6 +111,7 @@
   name: спавнер обжорки
   id: SpawnerMobGlutton
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -119,6 +121,7 @@
   name: периодический спавнер обжорки
   id: SpawnerTimedMobGlutton
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

@@ -779,18 +779,6 @@
 
 - type: entity
   parent: N14JunkComponentElectronic
-  id: N14JunkComponentDiode2
-  name: diode
-  description: A more advanced zener diode.
-  components:
-  - type: Sprite
-    state: diode_2
-  - type: Tag
-    tags:
-    - Diode2
-
-- type: entity
-  parent: N14JunkComponentElectronic
   id: N14JunkComponentDiode3
   name: diode
   description: A standard diode.

@@ -43,6 +43,25 @@ public partial class AtmosphereSystem
         RefreshAllGridMapAtmospheres(uid);
     }
 
+    /// <summary>
+    ///     Genezis: добавляет моли газа в постоянную атмосферу карты (MapAtmosphere).
+    ///     Доступ к Mixture разрешён только AtmosphereSystem, поэтому метод здесь.
+    /// </summary>
+    public void AddMapGas(EntityUid uid, Gas gas, float moles, MapAtmosphereComponent? component = null)
+    {
+        if (!Resolve(uid, ref component, false))
+            return;
+
+        // Clone() у неизменяемой смеси возвращает её же, а AdjustMoles на ней ничего не делает,
+        // поэтому собираем новую смесь из копии молей.
+        var oldMixture = component.Mixture;
+        var newMoles = new float[Atmospherics.AdjustedNumberOfGases];
+        oldMixture.Moles.CopyTo(newMoles, 0);
+        newMoles[(int) gas] += moles;
+        var mixture = new GasMixture(newMoles, oldMixture.Temperature) { Volume = oldMixture.Volume };
+        SetMapGasMixture(uid, mixture, component);
+    }
+
     public void SetMapGasMixture(EntityUid uid, GasMixture mixture, MapAtmosphereComponent? component = null, bool updateTiles = true)
     {
         if (!Resolve(uid, ref component))

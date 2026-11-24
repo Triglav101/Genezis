@@ -5,6 +5,7 @@
   - BaseSimpleMob
   - MobCombat
   id: MobGolem
+  suffix: Триглав
   components:
   - type: RotationVisuals
     defaultRotation: 90
@@ -32,14 +33,14 @@
       - !type:SpawnEntitiesBehavior
         spawn:
           SteelOre1:
-            min: 3
-            max: 32
+            min: 24
+            max: 68
           ArtifactFragment:
             min: 2
             max: 4
           IngotGold:
-            min: 4
-            max: 18
+            min: 18
+            max: 36
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
 
@@ -116,6 +117,7 @@
   name: спавнер голема
   id: SpawnerMobGolem
   parent: MarkerBase
+  suffix: Триглав
   components:
   - type: ConditionalSpawner
     prototypes:
@@ -125,6 +127,7 @@
   name: периодический спавнер голема
   id: SpawnerTimedMobGolem
   parent: MarkerBase
+  suffix: Триглав
   components:
     - type: Sprite
       layers:

@@ -1,9 +1,9 @@
-- type: gameMapPool
-  id: GenezisShipwreckedPool
-  maps:
-    - ShwrPhoenix
+# - type: gameMapPool
+#   id: GenezisShipwreckedPool
+#   maps:
+#     - ShwrPhoenix
 
-- type: gameMapPool
-  id: GenezisWavesPool
-  maps:
-    - ShwrPhoenix
+# - type: gameMapPool
+#   id: GenezisWavesPool
+#   maps:
+#     - ShwrPhoenix

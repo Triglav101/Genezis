@@ -171,6 +171,7 @@ namespace Content.Shared.Atmos
             [Gas.Halon] = "Ha",
             [Gas.Helium] = "He",
             [Gas.AntiNoblium] = "AN",
+            [Gas.Mirage] = "Mr", // Genezis
             // WD EDIT END
         };
 
@@ -201,7 +202,7 @@ namespace Content.Shared.Atmos
         /// <summary>
         ///     Total number of gases. Increase this if you want to add more!
         /// </summary>
-        public const int TotalNumberOfGases = 20; // WD EDIT
+        public const int TotalNumberOfGases = 21; // WD EDIT, Genezis: +Mirage
 
         /// <summary>
         ///     This is the actual length of the gases arrays in mixtures.
@@ -425,6 +426,7 @@ namespace Content.Shared.Atmos
         Halon = 17,
         Helium = 18,
         AntiNoblium = 19,
+        Mirage = 20, // Genezis
         // WD EDIT END
     }
 }

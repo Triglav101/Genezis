@@ -3,6 +3,7 @@
   parent: BannerBase
   name: Знамя Триглава
   description: Знамя Триглава, своим видом показывает истоки корпорации.
+  suffix: Триглав
   components:
   - type: Sprite
     sprite: Genezis/Structures/Decoration/banner.rsi

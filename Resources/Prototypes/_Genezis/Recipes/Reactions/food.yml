@@ -1,19 +1,4 @@
 - type: reaction
-  id: N14Curdling
-  impact: Low
-  quantized: true
-  conserveEnergy: false
-  reactants:
-    N14MilkBrahmin:
-      amount: 40
-    Enzyme: #N14TODO: Replace this
-      amount: 5
-      catalyst: true
-  effects:
-    - !type:CreateEntityReactionEffect
-      entity: N14FoodCheese
-
-- type: reaction
   id: N14RazorgrainDough
   impact: Low
   quantized: true
@@ -55,21 +40,6 @@
   effects:
     - !type:CreateEntityReactionEffect
       entity: N14FoodCakeBatter
-
-- type: reaction
-  id: N14BrahminButter
-  impact: Low
-  quantized: true
-  conserveEnergy: false
-  reactants:
-    N14MilkBrahmin:
-      amount: 30
-    TableSalt:
-      amount: 5
-      catalyst: true
-  effects:
-    - !type:CreateEntityReactionEffect
-      entity: N14FoodButter
 
 - type: reaction
   id: N14PieDough
